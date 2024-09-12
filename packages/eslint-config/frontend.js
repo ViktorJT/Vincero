@@ -12,18 +12,18 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
-  extends: [
-    "@vercel/style-guide/eslint/node",
-    "@vercel/style-guide/eslint/typescript",
-    "prettier",
-  ].map(require.resolve),
+  extends: ["next/core-web-vitals", "next/typescript", "prettier"].map(
+    require.resolve,
+  ),
   parserOptions: {
     project,
   },
   plugins: ["only-warn"],
   globals: {
     React: true,
+    Typescript: true,
     JSX: true,
+    TSX: true,
   },
   settings: {
     "import/resolver": {
