@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd ../.. && pnpm install && pnpm turbo build --filter=fastigheter...",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./apps/fastigheter ./apps/invest",
+  "installCommand": "pnpm install",
+  "framework": "nextjs"
+}
