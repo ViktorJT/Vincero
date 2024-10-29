@@ -1,5 +1,8 @@
 {
-  "extends": "@vincero/typescript-config/frontend.json",
+  "extends": "@vincero/typescript-config/next.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }]
+  },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"],
 }

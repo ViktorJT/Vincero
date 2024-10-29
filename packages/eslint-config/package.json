@@ -2,25 +2,28 @@
   "name": "@vincero/eslint-config",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "clean": "rm -rf .turbo node_modules"
+  "type": "module",
+  "exports": {
+    ".": "./eslint.config.js"
   },
-  "files": [
-    "frontend.js",
-    "library.js",
-    "react.js",
-    "storybook.js"
-  ],
   "dependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-turbo": "^2.2.3",
-    "eslint-config-next": "^15.0.1",
+    "@next/eslint-plugin-next": "^15.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-mdx": "^3.1.5",
-    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-storybook": "^0.10.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "@vercel/style-guide": "^6.0.0"
+    "globals": "^15.11.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.13.0",
+    "react": ">=18.0.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "typescript-eslint": "^8.12.2"
   }
 }

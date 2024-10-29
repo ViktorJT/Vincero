@@ -19,7 +19,9 @@
       "cache": false
     },
     "lint": {
-      "outputs": []
+      "outputs": [],
+      "cache": true,
+      "inputs": ["src/**/*", ".eslintrc.*", "eslint.config.js"]
     },
     "typecheck": {
       "dependsOn": ["^build"],

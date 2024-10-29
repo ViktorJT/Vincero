@@ -7,7 +7,8 @@
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
     "clean": "rm -rf .turbo .cache node_modules storybook-static",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@vincero/ui": "workspace:*",
@@ -15,7 +16,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "22.8.2",
+    "@types/node": "22.8.4",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vincero/eslint-config": "workspace:*",

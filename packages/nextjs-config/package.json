@@ -2,6 +2,10 @@
   "name": "@vincero/nextjs-config",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint ."
+  },
   "type": "module",
   "exports": {
     ".": "./index.js"
@@ -10,6 +14,9 @@
     "index.js"
   ],
   "dependencies": {
-    "next": "^14.0.0"
+    "next": "^15.0.2"
+  },
+  "devDependencies": {
+    "@vincero/eslint-config": "workspace:*"
   }
 }

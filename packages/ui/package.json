@@ -12,13 +12,10 @@
     "./styles.css": "./dist/styles.css"
   },
   "scripts": {
-    "build": "npm-run-all build:*",
-    "build:js": "tsup",
-    "build:css": "postcss src/styles.css -o dist/styles.css",
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:js": "tsup --watch",
-    "dev:css": "postcss src/styles.css -o dist/styles.css --watch",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "build": "tsup && postcss src/styles.css -o dist/styles.css",
+    "dev": "concurrently \"tsup --watch\" \"postcss src/styles.css -o dist/styles.css --watch\"",
+    "lint": "eslint .",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -31,14 +28,11 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
-    "npm-run-all": "^4.1.5",
+    "concurrently": "^9.0.1",
     "postcss": "^8.4.47",
     "postcss-cli": "^11.0.0",
     "tailwindcss": "^3.4.14",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3"
-  },
-  "peerDependencies": {
     "react": "^18.2.0"
   }
 }

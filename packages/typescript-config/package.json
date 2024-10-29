@@ -4,7 +4,11 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf .turbo node_modules"
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@vincero/eslint-config": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

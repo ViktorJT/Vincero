@@ -1,8 +1,8 @@
 {
   "name": "invest",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
@@ -10,18 +10,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vincero/nextjs-config": "workspace:*",
     "@vincero/ui": "workspace:*",
     "next": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
+    "@types/node": "22.8.4",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
     "@vincero/eslint-config": "workspace:*",
-    "@vincero/typescript-config": "workspace:*",
-    "@types/node": "20.8.10",
-    "@types/react": "18.2.33",
-    "@types/react-dom": "18.2.14",
-    "typescript": "^5.2.2"
+    "@vincero/tailwind-config": "workspace:*",
+    "@vincero/typescript-config": "workspace:*"
   }
 }
