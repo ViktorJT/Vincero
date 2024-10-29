@@ -1,4 +1,4 @@
-import baseConfig from "@repo/tailwind-config/base";
+import baseConfig from "@vincero/tailwind-config/base";
 
 /** @type {import('tailwindcss').Config} */
 export default {
