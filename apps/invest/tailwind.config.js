@@ -1,12 +1,15 @@
 import baseConfig from "@vincero/tailwind-config/base";
 
-/** @type {import('tailwindcss').Config} */
 export default {
-  prefix: "ui-",
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "../../packages/ui/src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
+    ...baseConfig.theme,
     extend: {
       ...baseConfig.theme?.extend,
+      // App-specific theme extensions
     },
   },
   plugins: [...(baseConfig.plugins || [])],

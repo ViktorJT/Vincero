@@ -1,6 +1,11 @@
-module.exports = {
+import baseConfig from "@vincero/tailwind-config/postcss";
+import tailwindConfig from "./tailwind.config.mjs";
+
+/** @type {import('postcss').Config} */
+export default {
+  ...baseConfig,
   plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
+    ...baseConfig.plugins,
+    tailwindcss: tailwindConfig,
   },
 };

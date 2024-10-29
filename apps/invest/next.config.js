@@ -1,11 +1,14 @@
-// @ts-check
+import { createNextConfig } from "@vincero/nextjs-config";
 
-/**
- * @type {import('next').NextConfig}
- */
-const nextConfig = {
-  transpilePackages: ["ui", "eslint-config", "typescript-config"], // do I need to transpile the configs?
-  //transpilePackages: ["ui"], // This transpiles local packages (meant for monorepos)
-};
-
-export default nextConfig;
+export default createNextConfig({
+  // App-specific config
+  env: {
+    APP_SPECIFIC_VAR: process.env.APP_SPECIFIC_VAR,
+  },
+  async redirects() {
+    return [
+      // App-specific redirects
+    ];
+  },
+  // Other app-specific settings
+});
