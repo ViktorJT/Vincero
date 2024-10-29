@@ -12,12 +12,7 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
-  extends: ["next/core-web-vitals", "next/typescript", "prettier"].map(
-    require.resolve,
-  ),
-  parserOptions: {
-    project,
-  },
+  extends: ["next/core-web-vitals", "next/typescript", "prettier"],
   plugins: ["only-warn"],
   globals: {
     React: true,
@@ -32,5 +27,5 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ["node_modules/", "dist/"],
+  ignorePatterns: ["node_modules/", "dist/", ".eslintrc.js", ".eslint.cjs"],
 };

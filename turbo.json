@@ -9,16 +9,21 @@
         "!.next/cache/**",
         "dist/**",
         "storybook-static/**"
-      ],
-      "env": ["NEXT_PUBLIC_*", "HYGRAPH_*"]
+      ]
     },
-    "lint": {
-      "dependsOn": ["^build"],
-      "outputs": []
+    "clean": {
+      "cache": false
     },
     "dev": {
-      "cache": false,
-      "persistent": true
+      "persistent": true,
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
     },
     "clean": {
       "cache": false

@@ -1,46 +1,77 @@
+// apps/docs/stories/Button.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "@vincero/ui/button";
+import { Button } from "@vincero/ui";
 
-const meta: Meta<typeof Button> = {
+const meta = {
+  title: "Components/Button",
   component: Button,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
   argTypes: {
-    type: {
-      control: { type: "radio" },
-      options: ["button", "submit", "reset"],
+    variant: {
+      control: "select",
+      options: ["primary", "secondary"],
     },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+    },
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  args: {
+    variant: "primary",
+    children: "Primary Button",
+    size: "md",
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof Button>;
-
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
- * to learn how to use render functions.
- */
-export const Primary: Story = {
-  render: (props) => (
-    <Button
-      {...props}
-      onClick={(): void => {
-        // eslint-disable-next-line no-alert -- alert for demo
-        alert("Hello from Turborepo!");
-      }}
-    >
-      Hello
-    </Button>
-  ),
-  name: "Button",
+export const Secondary: Story = {
   args: {
-    children: "Hello",
-    type: "button",
-    style: {
-      color: "blue",
-      border: "1px solid gray",
-      padding: 10,
-      borderRadius: 10,
+    variant: "secondary",
+    children: "Secondary Button",
+    size: "md",
+  },
+};
+
+// Test all sizes
+export const AllSizes: Story = {
+  render: () => (
+    <div className="ui-flex ui-flex-col ui-gap-4">
+      <Button size="sm">Small Button</Button>
+      <Button size="md">Medium Button</Button>
+      <Button size="lg">Large Button</Button>
+    </div>
+  ),
+};
+
+// Test all variants
+export const AllVariants: Story = {
+  render: () => (
+    <div className="ui-flex ui-flex-col ui-gap-4">
+      <Button variant="primary">Primary Button</Button>
+      <Button variant="secondary">Secondary Button</Button>
+    </div>
+  ),
+};
+
+// Test hover states
+export const HoverStates: Story = {
+  parameters: {
+    pseudo: {
+      hover: true,
     },
   },
+  render: () => (
+    <div className="ui-flex ui-flex-col ui-gap-4">
+      <Button variant="primary">Hover Primary</Button>
+      <Button variant="secondary">Hover Secondary</Button>
+    </div>
+  ),
 };
