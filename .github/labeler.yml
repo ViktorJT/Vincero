@@ -1,12 +1,16 @@
-ui:
-  - ["packages/ui/**/*"]
-apps:
-  - ["apps/**/*"]
-config:
-  - ["packages/*config/**/*"]
-documentation:
-  - ["**/*.md"]
-  - ["apps/docs/**/*"]
-dependencies:
-  - ["**/package.json"]
-  - ["**/pnpm-lock.yaml"]
+"ui":
+  - packages/ui/**/*
+
+"apps":
+  - apps/**/*
+
+"config":
+  - packages/*config/**/*
+
+"documentation":
+  - "**/*.md"
+  - apps/docs/**/*
+
+"dependencies":
+  - "**/package.json"
+  - "**/pnpm-lock.yaml"
