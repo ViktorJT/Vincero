@@ -1,0 +1,48 @@
+# .github/workflows/pr-labels.yml
+name: PR Labels
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Label PR
+        run: |
+          # Get changed files
+          files=$(gh pr view ${{ github.event.pull_request.number }} --json files -q '.files[].path')
+          labels=()
+
+          # Check for UI changes
+          if echo "$files" | grep -q "^packages/ui/"; then
+            labels+=("ui")
+          fi
+
+          # Check for app changes
+          if echo "$files" | grep -q "^apps/invest/\|^apps/fastigheter/"; then
+            labels+=("apps")
+          fi
+
+          # Check for docs
+          if echo "$files" | grep -q "^apps/docs/\|\.md$"; then
+            labels+=("documentation")
+          fi
+
+          # Check for config changes
+          if echo "$files" | grep -q "^packages/.*config/\|\.config\."; then
+            labels+=("config")
+          fi
+
+          # Add labels if any found
+          if [ ${#labels[@]} -gt 0 ]; then
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "${labels[@]}"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
