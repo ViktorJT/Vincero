@@ -17,6 +17,7 @@
     "prepare": "node .husky/install.js"
   },
   "devDependencies": {
+    "@vincero/eslint-config": "workspace:*",
     "husky": "^9.1.6",
     "turbo": "^2.2.3",
     "eslint": "^9.13.0",

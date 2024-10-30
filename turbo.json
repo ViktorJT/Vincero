@@ -1,7 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "tasks": {
+  "envMode": "strict",
+  "pipeline": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": [
@@ -9,26 +10,37 @@
         "!.next/cache/**",
         "dist/**",
         "storybook-static/**"
-      ]
-    },
-    "clean": {
-      "cache": false
-    },
-    "dev": {
-      "persistent": true,
-      "cache": false
+      ],
+      "env": ["NEXT_PUBLIC_*", "VERCEL_*"],
+      "outputLogs": "new-only"
     },
     "lint": {
       "outputs": [],
-      "cache": true,
-      "inputs": ["src/**/*", ".eslintrc.*", "eslint.config.js"]
+      "inputs": [
+        "src/**/*",
+        ".eslintrc.*",
+        "eslint.config.js",
+        "prettier.config.*",
+        "stylelint.config.*"
+      ]
     },
     "typecheck": {
       "dependsOn": ["^build"],
-      "outputs": []
+      "outputs": [],
+      "inputs": ["src/**/*.{ts,tsx}", "*.config.{ts,js}", "tsconfig.json"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "interruptible": true
     },
     "clean": {
       "cache": false
     }
+  },
+  "remoteCache": {
+    "signature": true,
+    "preflight": false,
+    "timeout": 60
   }
 }
