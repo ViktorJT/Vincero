@@ -11,13 +11,7 @@
         "dist/**",
         "storybook-static/**"
       ],
-      "env": [
-        "NEXT_PUBLIC_*",
-        "VERCEL_*",
-        "NEXT_PUBLIC_SENTRY_DSN",
-        "SENTRY_AUTH_TOKEN",
-        "NEXT_PUBLIC_ENVIRONMENT"
-      ],
+      "env": ["NEXT_PUBLIC_*", "VERCEL_*", "NEXT_PUBLIC_ENVIRONMENT"],
       "outputLogs": "new-only"
     },
     "lint": {

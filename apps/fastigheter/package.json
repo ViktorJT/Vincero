@@ -13,9 +13,7 @@
     "./styles/theme.css": "./styles/theme.css"
   },
   "dependencies": {
-    "@sentry/nextjs": "^8.35.0",
     "@vincero/nextjs-config": "workspace:*",
-    "@vincero/sentry-config": "workspace:*",
     "@vincero/ui": "workspace:*",
     "next": "latest",
     "react": "^18.3.1",

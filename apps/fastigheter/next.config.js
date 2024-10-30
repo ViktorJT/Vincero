@@ -1,9 +1,4 @@
 import { createNextConfig } from "@vincero/nextjs-config";
-import { withSentryConfig } from "@sentry/nextjs/build/types/client";
-
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
 
 const nextConfig = createNextConfig({
   // App-specific config
@@ -18,10 +13,4 @@ const nextConfig = createNextConfig({
   // Other app-specific settings
 });
 
-const sentryConfig = withSentryConfig(
-  nextConfig,
-  { silent: true },
-  { transpileClientSDK: true },
-);
-
-export default bundleAnalyzer(sentryConfig);
+export default bundleAnalyzer(nextConfig);
