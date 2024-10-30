@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: CI
 
 on:
@@ -6,105 +5,127 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
-permissions:
-  contents: read
-  checks: write # Needed for CI status checks
+# Cancel in-progress runs on new pushes
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-  NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+  PNPM_VERSION: 9
+  NODE_VERSION: 20
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
 
 jobs:
   cache-and-install:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - uses: pnpm/action-setup@v3
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
         with:
-          version: 9
-      - name: Setup pnpm cache
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.pnpm-store
             ${{ github.workspace }}/**/node_modules
-            ${{ github.workspace }}/**/.next/cache
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+            ${{ github.workspace }}/**/.turbo
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0 # Skip Husky install in CI
 
   lint:
     needs: cache-and-install
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       - uses: pnpm/action-setup@v3
         with:
-          version: 9
-      - name: Restore cache
-        uses: actions/cache/restore@v4
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/cache/restore@v4
         with:
           path: |
             ~/.pnpm-store
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+            ${{ github.workspace }}/**/node_modules
+            ${{ github.workspace }}/**/.turbo
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Lint
         run: pnpm lint
 
   typecheck:
     needs: cache-and-install
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       - uses: pnpm/action-setup@v3
         with:
-          version: 9
-      - name: Restore cache
-        uses: actions/cache/restore@v4
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/cache/restore@v4
         with:
           path: |
             ~/.pnpm-store
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Type check
+            ${{ github.workspace }}/**/node_modules
+            ${{ github.workspace }}/**/.turbo
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Build UI Package # Only this package needs building for typechecking
+        run: pnpm turbo run build --filter=@vincero/ui...
+
+      - name: Type Check
         run: pnpm typecheck
 
+  # This job only builds packages that need building
   build:
     needs: [lint, typecheck]
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       - uses: pnpm/action-setup@v3
         with:
-          version: 9
-      - name: Restore cache
-        uses: actions/cache/restore@v4
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/cache/restore@v4
         with:
           path: |
             ~/.pnpm-store
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build
-        run: pnpm build
+            ${{ github.workspace }}/**/node_modules
+            ${{ github.workspace }}/**/.turbo
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Build UI Package
+        run: pnpm turbo run build --filter=@vincero/ui...
