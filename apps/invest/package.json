@@ -13,6 +13,7 @@
     "./styles/theme.css": "./styles/theme.css"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "15.0.2",
     "@vincero/nextjs-config": "workspace:*",
     "@vincero/ui": "workspace:*",
     "next": "latest",

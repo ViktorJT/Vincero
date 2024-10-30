@@ -1,16 +1,20 @@
 import { createNextConfig } from "@vincero/nextjs-config";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
-const nextConfig = createNextConfig({
-  // App-specific config
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const baseConfig = createNextConfig({
+  // app-specific config here
   env: {
     APP_SPECIFIC_VAR: process.env.APP_SPECIFIC_VAR,
   },
   async redirects() {
     return [
-      // App-specific redirects
+      // app-specific redirects
     ];
   },
-  // Other app-specific settings
 });
 
-export default bundleAnalyzer(nextConfig);
+export default bundleAnalyzer(baseConfig);
