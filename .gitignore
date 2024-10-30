@@ -1,18 +1,60 @@
+# Dependencies
 node_modules
-.turbo
-dist
-build
-.next
-storybook-static
+.pnp
+.pnp.js
+
+# Testing
 coverage
-.DS_Store
-*.log
-.env*
-!.env.example
-.cache
-tsconfig.tsbuildinfo
-out
+.nyc_output
+
+# Next.js
+.next/
+out/
+build
+dist
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local env files
+.env*.local
+.env
+.env.development
+.env.test
+.env.production
+
+# Vercel
 .vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
 .vscode/*
 !.vscode/extensions.json
-!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+*.pem
+
+# Turborepo
+.turbo
+
+# Storybook
+storybook-static
+
+# Sentry
+.sentryclirc
+
+# Cache
+.cache

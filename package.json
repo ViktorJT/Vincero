@@ -18,13 +18,11 @@
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
-    "@vincero/eslint-config": "workspace:*",
-    "husky": "^9.1.6",
-    "turbo": "^2.2.3",
-    "eslint": "^9.13.0",
-    "typescript": "^5.6.3",
-    "lint-staged": "^15.2.10",
     "@changesets/cli": "^2.27.9",
+    "@vincero/eslint-config": "workspace:*",
+    "eslint": "^9.13.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "prettier-plugin-css-order": "^2.1.2",
     "prettier-plugin-import-sort": "^0.0.7",
@@ -36,6 +34,8 @@
     "stylelint": "^16.10.0",
     "stylelint-config-prettier": "9.0.5",
     "stylelint-config-standard": "^36.0.0",
-    "stylelint-config-tailwindcss": "^0.0.7"
+    "stylelint-config-tailwindcss": "^0.0.7",
+    "turbo": "^2.2.3",
+    "typescript": "^5.6.3"
   }
 }

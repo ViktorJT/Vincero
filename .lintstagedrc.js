@@ -1,21 +1,12 @@
 export default {
-  "**/*.{js,jsx,ts,tsx}": (files) => {
+  "**/*.{js,jsx,ts,tsx}": async (files) => {
     const filePaths = files.join(" ");
     return [
       `prettier --write ${filePaths}`,
       `eslint --fix ${filePaths}`,
-      // Only run type check if .ts or .tsx files are changed
-      files.some((file) => /\.tsx?$/.test(file))
-        ? "tsc -p tsconfig.json --noEmit"
-        : null,
+      "pnpm typecheck", // Uses turbo under the hood via package.json script
     ].filter(Boolean);
   },
-  "**/*.css": (files) => {
-    const filePaths = files.join(" ");
-    return [`prettier --write ${filePaths}`, `stylelint --fix ${filePaths}`];
-  },
-  "**/*.{json,md,mdx,yml,yaml}": (files) => {
-    const filePaths = files.join(" ");
-    return [`prettier --write ${filePaths}`];
-  },
+  "**/*.css": ["prettier --write", "stylelint --fix"],
+  "**/*.{json,md,mdx,yml,yaml}": "prettier --write",
 };

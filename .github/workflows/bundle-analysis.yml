@@ -1,0 +1,22 @@
+name: Bundle Analysis
+on: [pull_request]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build with Bundle Analysis
+        run: ANALYZE=true pnpm build
+        env:
+          NEXT_BUNDLE_ANALYZER: true
+
+      - name: Upload Bundle Analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis
+          path: .next/analyze/
