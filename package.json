@@ -1,5 +1,8 @@
 {
+  "name": "vincero",
   "private": true,
+  "packageManager": "pnpm@9.12.3",
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -11,16 +14,15 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
-    "prepare": "husky"
+    "prepare": "node .husky/install.js"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.9",
     "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "stylelint": "^16.10.0",
     "turbo": "^2.2.3",
-    "typescript": "^5.6.3",
     "eslint": "^9.13.0",
+    "typescript": "^5.6.3",
+    "lint-staged": "^15.2.10",
+    "@changesets/cli": "^2.27.9",
     "prettier": "^3.3.3",
     "prettier-plugin-css-order": "^2.1.2",
     "prettier-plugin-import-sort": "^0.0.7",
@@ -28,8 +30,10 @@
     "prettier-plugin-multiline-arrays": "^3.0.6",
     "prettier-plugin-organize-attributes": "^1.0.0",
     "prettier-plugin-style-order": "^0.2.2",
-    "prettier-plugin-tailwindcss": "^0.6.8"
-  },
-  "packageManager": "pnpm@9.12.3",
-  "name": "vincero"
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "stylelint": "^16.10.0",
+    "stylelint-config-prettier": "9.0.5",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-tailwindcss": "^0.0.7"
+  }
 }
