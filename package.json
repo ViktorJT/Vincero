@@ -14,7 +14,8 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
-    "prepare": "node .husky/install.js"
+    "prepare": "node .husky/install.js",
+    "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@vincero/eslint-config": "workspace:*",
