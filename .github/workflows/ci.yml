@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  checks: write # Needed for CI status checks
+
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
@@ -28,7 +32,8 @@ jobs:
         with:
           path: |
             ~/.pnpm-store
-            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/**/node_modules
+            ${{ github.workspace }}/**/.next/cache
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
