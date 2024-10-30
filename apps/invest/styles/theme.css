@@ -1,0 +1,16 @@
+/* apps/invest/styles/theme.css */
+:root[data-theme="invest"] {
+  /* Modern, fintech feel */
+  --primary: #059669; /* emerald-600 */
+  --primary-dark: #047857; /* emerald-700 */
+  --primary-light: #10b981; /* emerald-500 */
+
+  --secondary: #6b7280; /* gray-500 */
+  --secondary-dark: #4b5563; /* gray-600 */
+  --secondary-light: #9ca3af; /* gray-400 */
+
+  --font-sans: "DM Sans", sans-serif;
+
+  --background: #ffffff;
+  --foreground: #111827; /* gray-900 */
+}

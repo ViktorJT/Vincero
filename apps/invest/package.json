@@ -1,5 +1,5 @@
 {
-  "name": "invest",
+  "name": "@vincero/invest",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,6 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "exports": {
+    "./styles/theme.css": "./styles/theme.css"
   },
   "dependencies": {
     "@vincero/nextjs-config": "workspace:*",

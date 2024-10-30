@@ -1,0 +1,16 @@
+:root[data-theme="fastigheter"] {
+  /* Corporate, professional feel */
+  --primary: #2563eb; /* blue-600 */
+  --primary-dark: #1d4ed8; /* blue-700 */
+  --primary-light: #3b82f6; /* blue-500 */
+
+  --secondary: #64748b; /* slate-500 */
+  --secondary-dark: #475569; /* slate-600 */
+  --secondary-light: #94a3b8; /* slate-400 */
+
+  --font-sans: "Inter", sans-serif;
+
+  /* You can add more variables as needed */
+  --background: #ffffff;
+  --foreground: #0f172a; /* slate-900 */
+}

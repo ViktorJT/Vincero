@@ -11,22 +11,23 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@storybook/addon-docs": "^8.3.6",
     "@vincero/ui": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^8.3.6",
+    "@storybook/addon-links": "^8.3.6",
+    "@storybook/blocks": "^8.3.6",
+    "@storybook/react": "^8.3.6",
+    "@storybook/react-vite": "^8.3.6",
     "@types/node": "22.8.4",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vincero/eslint-config": "workspace:*",
     "@vincero/tailwind-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
-    "@storybook/addon-essentials": "^8.3.6",
-    "@storybook/addon-links": "^8.3.6",
-    "@storybook/blocks": "^8.3.6",
-    "@storybook/react": "^8.3.6",
-    "@storybook/react-vite": "^8.3.6",
     "@vitejs/plugin-react": "^4.3.3",
     "storybook": "^8.3.6",
     "typescript": "^5.6.3",
