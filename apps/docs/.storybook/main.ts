@@ -13,10 +13,6 @@ const config: StorybookConfig = {
     options: {},
   },
 
-  docs: {
-    autodocs: true,
-  },
-
   viteFinal: async (config) => {
     return mergeConfig(config, {
       resolve: {
@@ -26,6 +22,7 @@ const config: StorybookConfig = {
             "../../../apps/fastigheter",
           ),
           "@vincero/invest": path.resolve(__dirname, "../../../apps/invest"),
+          "@vincero/ui": path.resolve(__dirname, "../../../packages/ui"),
         },
       },
       build: {

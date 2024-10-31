@@ -1,10 +1,5 @@
 import type { Preview } from "@storybook/react";
 
-// Import styles
-import "@vincero/ui/styles.css";
-import "@vincero/fastigheter/styles/theme.css";
-import "@vincero/invest/styles/theme.css";
-
 const preview: Preview = {
   parameters: {
     layout: "centered",
@@ -28,6 +23,7 @@ const preview: Preview = {
           { value: "fastigheter", title: "Fastigheter" },
           { value: "invest", title: "Invest" },
         ],
+        dynamicTitle: true,
       },
     },
   },

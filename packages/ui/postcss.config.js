@@ -7,17 +7,5 @@ export default {
   plugins: {
     ...baseConfig.plugins,
     tailwindcss: tailwindConfig,
-    ...(process.env.NODE_ENV === "production"
-      ? {
-          cssnano: {
-            preset: [
-              "default",
-              {
-                normalizeWhitespace: false,
-              },
-            ],
-          },
-        }
-      : {}),
   },
 };

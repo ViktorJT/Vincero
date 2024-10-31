@@ -15,6 +15,9 @@
     "base.js",
     "postcss.js"
   ],
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
+  },
   "devDependencies": {
     "@vincero/eslint-config": "workspace:*",
     "tailwindcss": "^3.4.14",

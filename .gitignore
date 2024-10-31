@@ -58,3 +58,4 @@ storybook-static
 
 # Cache
 .cache
+.stylelintcache

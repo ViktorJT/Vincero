@@ -1,16 +1,39 @@
-:root[data-theme="fastigheter"] {
-  /* Corporate, professional feel */
-  --primary: #2563eb; /* blue-600 */
-  --primary-dark: #1d4ed8; /* blue-700 */
-  --primary-light: #3b82f6; /* blue-500 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --secondary: #64748b; /* slate-500 */
-  --secondary-dark: #475569; /* slate-600 */
-  --secondary-light: #94a3b8; /* slate-400 */
+@layer base {
+  :root[data-theme="fastigheter"] {
+    /* Main colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-  --font-sans: "Inter", sans-serif;
+    --primary: 221.2 83.2% 53.3%; /* blue-600 */
+    --primary-foreground: 210 40% 98%;
 
-  /* You can add more variables as needed */
-  --background: #ffffff;
-  --foreground: #0f172a; /* slate-900 */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
 }

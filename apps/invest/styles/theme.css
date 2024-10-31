@@ -1,16 +1,39 @@
-/* apps/invest/styles/theme.css */
-:root[data-theme="invest"] {
-  /* Modern, fintech feel */
-  --primary: #059669; /* emerald-600 */
-  --primary-dark: #047857; /* emerald-700 */
-  --primary-light: #10b981; /* emerald-500 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --secondary: #6b7280; /* gray-500 */
-  --secondary-dark: #4b5563; /* gray-600 */
-  --secondary-light: #9ca3af; /* gray-400 */
+@layer base {
+  :root[data-theme="invest"] {
+    /* Main colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-  --font-sans: "DM Sans", sans-serif;
+    --primary: 160 84% 39%; /* emerald-600 */
+    --primary-foreground: 210 40% 98%;
 
-  --background: #ffffff;
-  --foreground: #111827; /* gray-900 */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 160 84% 39%; /* Same as primary for brand consistency */
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
 }

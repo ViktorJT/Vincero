@@ -4,6 +4,14 @@
   "extends": "./base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
+
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo",
+
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "allowArbitraryExtensions": true
   }
 }

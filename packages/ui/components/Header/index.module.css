@@ -1,0 +1,10 @@
+.line {
+  @apply ui-overflow-hidden ui-inline-block;
+}
+
+/* Optional: Add this if you want to force lines to break */
+.line::after {
+  content: "";
+
+  @apply ui-block;
+}
