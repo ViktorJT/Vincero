@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useSplitText } from "@/lib/split-text";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/shadcn/button";
+import { Button } from "@/lib/shadcn/button";
 import type { Props } from "./index.types";
 
 export const Header = ({
