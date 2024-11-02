@@ -3,15 +3,15 @@
   "display": "React App",
   "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "preserve",
-    "lib": ["ES2022", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
-
-    "noEmit": true,
+    "allowJs": true,
+    "declaration": false,
+    "declarationMap": false,
     "incremental": true,
-    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo",
-
-    "allowImportingTsExtensions": true,
-    "moduleDetection": "force",
-    "allowArbitraryExtensions": true
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "target": "es5"
   }
 }

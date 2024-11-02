@@ -1,13 +1,11 @@
 {
   "name": "@vincero/eslint-config",
   "version": "0.0.0",
-  "private": true,
   "type": "module",
   "exports": {
     ".": "./eslint.config.js"
   },
   "dependencies": {
-    "@next/eslint-plugin-next": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.12.2",
     "eslint-config-prettier": "^9.1.0",

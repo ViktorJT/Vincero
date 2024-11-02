@@ -94,27 +94,6 @@ const reactConfig = {
   },
 };
 
-// Next.js configuration with Core Web Vitals
-const createNextConfig = (rootDir) => ({
-  ...reactConfig,
-  plugins: {
-    ...reactConfig.plugins,
-    "@next/next": nextPlugin,
-  },
-  rules: {
-    ...reactConfig.rules,
-    ...nextPlugin.configs["recommended"].rules,
-    ...nextPlugin.configs["core-web-vitals"].rules,
-    "@next/next/no-html-link-for-pages": ["warn", rootDir],
-  },
-  settings: {
-    ...reactConfig.settings,
-    next: {
-      rootDir,
-    },
-  },
-});
-
 // Storybook configuration
 const storybookConfig = {
   ...reactConfig,
@@ -137,11 +116,6 @@ export function createConfig(type = "base", options = {}) {
   switch (type) {
     case "react":
       return [...configs, reactConfig];
-    case "next":
-      if (!options.rootDir) {
-        throw new Error("rootDir is required for Next.js configuration");
-      }
-      return [...configs, reactConfig, createNextConfig(options.rootDir)];
     case "storybook":
       return [...configs, reactConfig, storybookConfig];
     default:

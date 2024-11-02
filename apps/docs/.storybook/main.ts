@@ -1,52 +1,40 @@
-import type { StorybookConfig } from "@storybook/react-vite";
-import { mergeConfig } from "vite";
-import path from "path";
+import { dirname, join, resolve } from "path";
 
-const config: StorybookConfig = {
-  // Modern glob pattern for stories
-  stories: ["../stories/**/*.stories.@(ts|tsx)"],
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, "package.json")));
+}
 
-  addons: ["@storybook/addon-essentials", "@storybook/addon-docs"],
-
+const config = {
+  stories: ["../stories/*.stories.tsx", "../stories/**/*.stories.tsx"],
+  addons: [
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-essentials"),
+  ],
   framework: {
-    name: "@storybook/react-vite",
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
 
-  viteFinal: async (config) => {
-    return mergeConfig(config, {
+  core: {},
+
+  async viteFinal(config) {
+    // customize the Vite config here
+    return {
+      ...config,
+      define: { "process.env": {} },
       resolve: {
-        alias: {
-          "@vincero/fastigheter": path.resolve(
-            __dirname,
-            "../../../apps/fastigheter",
-          ),
-          "@vincero/invest": path.resolve(__dirname, "../../../apps/invest"),
-          "@vincero/ui": path.resolve(__dirname, "../../../packages/ui"),
-        },
-      },
-      build: {
-        rollupOptions: {
-          output: {
-            manualChunks: {
-              docs: ["@storybook/addon-docs"],
-              vendor: ["react", "react-dom"],
-            },
+        alias: [
+          {
+            find: "@vincero/ui",
+            replacement: resolve(__dirname, "../../../packages/ui/src"),
           },
-        },
+        ],
       },
-    });
+    };
   },
 
-  //core: {
-  //  disableTelemetry: true,
-  //  enableCrashReports: false,
-  //},
-
-  // Typescript support
-  typescript: {
-    reactDocgen: "react-docgen-typescript",
-    check: true,
+  docs: {
+    autodocs: true,
   },
 };
 

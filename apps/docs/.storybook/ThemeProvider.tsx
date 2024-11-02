@@ -3,7 +3,7 @@ import { useGlobals } from "@storybook/manager-api";
 import type { Decorator } from "@storybook/react";
 
 // Import all theme styles
-import "@vincero/ui/styles.css";
+import "@vincero/ui/theme.css";
 import "@vincero/fastigheter/styles/theme.css";
 import "@vincero/invest/styles/theme.css";
 

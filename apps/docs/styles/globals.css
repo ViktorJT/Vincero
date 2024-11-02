@@ -1,4 +1,4 @@
-@import "@vincero/ui/styles.css";
+@import url("@vincero/ui/theme.css");
 
 @tailwind base;
 @tailwind components;

@@ -1,24 +1,9 @@
 {
   "extends": "@vincero/typescript-config/react-library.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "rootDir": ".",
-    "composite": true,
-    "declarationDir": "./dist",
-    "paths": {
-      "@/*": ["./*"],
-    },
-  },
-  "include": [
-    "./components/**/*.{ts,tsx}",
-    "components/**/*",
-    "./lib/**/*.{ts,tsx}",
-    "lib/**/*",
-  ],
+  "include": ["."],
   "exclude": [
     "dist",
     "node_modules",
     ".turbo"
-  ],  
+  ]
 }

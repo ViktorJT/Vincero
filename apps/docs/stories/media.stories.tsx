@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Header } from "@vincero/ui/header";
+import { Media } from "@vincero/ui/media";
 
-const meta: Meta<typeof Header> = {
-  component: Header,
+const meta: Meta<typeof Media> = {
+  component: Media,
   argTypes: {
     type: {
       control: { type: "radio" },
-      options: ["header", "submit", "reset"],
+      options: ["submit", "reset"],
     },
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Header>;
+type Story = StoryObj<typeof Media>;
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
@@ -21,8 +21,8 @@ type Story = StoryObj<typeof Header>;
  * to learn how to use render functions.
  */
 export const Primary: Story = {
-  render: (props) => <Header {...props}>Hello</Header>,
-  name: "Header",
+  render: (props) => <Media {...props}>Hello</Media>,
+  name: "Media",
   args: {
     children: "Hello",
     style: {

@@ -15,14 +15,8 @@
       "outputLogs": "new-only"
     },
     "lint": {
-      "outputs": [],
-      "inputs": [
-        "src/**/*",
-        ".eslintrc.*",
-        "eslint.config.js",
-        "prettier.config.*",
-        "stylelint.config.*"
-      ]
+      "dependsOn": ["^lint"],
+      "inputs": ["eslint.config.*", "prettier.config.*", "stylelint.config.*"]
     },
     "typecheck": {
       "dependsOn": ["^build"],
@@ -31,10 +25,13 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "interruptible": true
+      "persistent": true
     },
     "clean": {
+      "cache": false
+    },
+    "preview-storybook": {
+      "dependsOn": ["^build"],
       "cache": false
     }
   },
