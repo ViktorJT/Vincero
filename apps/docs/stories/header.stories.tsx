@@ -3,12 +3,7 @@ import { Header } from "@vincero/ui/header";
 
 const meta: Meta<typeof Header> = {
   component: Header,
-  argTypes: {
-    type: {
-      control: { type: "radio" },
-      options: ["header", "submit", "reset"],
-    },
-  },
+  argTypes: {},
 };
 
 export default meta;
@@ -24,12 +19,30 @@ export const Primary: Story = {
   render: (props) => <Header {...props}>Hello</Header>,
   name: "Header",
   args: {
-    children: "Hello",
-    style: {
-      color: "blue",
-      border: "1px solid gray",
-      padding: 10,
-      borderRadius: 10,
+    title: "Vi förvaltar våra hyresgästers förtroende",
+    subtitle:
+      "Kommersiella fastigheter i bra kommunikationslägen i Stockholm och Uppsala.",
+    links: [
+      {
+        url: "/kontakt",
+        displayText: "Kontakt",
+        variant: "primary",
+        target: "self",
+        titleAttribute: "Gå till Kontakt",
+        ariaLabel: "Go to Contact Page",
+      },
+      {
+        url: "/#banner",
+        displayText: "Läs mer",
+        variant: "tertiary",
+        target: "self",
+        titleAttribute: "Läs mer",
+      },
+    ],
+    background: {
+      url: "/placeholder-video.webm",
+      mimeType: "video/webm",
+      altText: "Aerial view of buildings and streets",
     },
   },
 };

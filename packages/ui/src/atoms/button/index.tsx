@@ -1,5 +1,6 @@
-import { Button as ShadcnButton } from "@/lib/shadcn/button";
-import { cn } from "@/lib/utils";
+import React from "react";
+import { Button as ShadcnButton } from "../../../lib/shadcn/button";
+import { cn } from "../../../lib/utils";
 
 import type { FC } from "react";
 
@@ -16,13 +17,13 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => {
   const buttonClasses = cn(
-    "ui-transition-colors ui-duration-200",
+    "transition-colors duration-200",
     {
-      "ui-bg-white ui-text-primary hover:ui-bg-primary hover:ui-text-primary-foreground":
+      "bg-primary text-primary-foreground hover:bg-primary/90":
         variant === "primary",
-      "ui-bg-transparent ui-text-primary-foreground ui-border ui-border-primary-foreground hover:ui-bg-primary-foreground hover:ui-text-primary":
+      "bg-secondary text-secondary-foreground hover:bg-secondary/80":
         variant === "secondary",
-      "ui-bg-transparent ui-text-primary-foreground ui-border ui-border-primary-foreground hover:ui-bg-primary-foreground/10":
+      "bg-accent text-accent-foreground hover:bg-accent/90":
         variant === "tertiary",
     },
     className,

@@ -9,17 +9,5 @@
   "files": [
     "base.js",
     "postcss.js"
-  ],
-  "dependencies": {
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@vincero/eslint-config": "workspace:*",
-    "tailwindcss": "^3.4.14",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47"
-  },
-  "peerDependencies": {
-    "tailwindcss": "^3.4.0"
-  }
+  ]
 }

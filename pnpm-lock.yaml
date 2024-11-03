@@ -135,12 +135,27 @@ importers:
       "@vitejs/plugin-react":
         specifier: ^4.3.3
         version: 4.3.3(vite@5.4.10(@types/node@22.8.4))
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.47)
+      postcss:
+        specifier: ^8.4.47
+        version: 8.4.47
+      postcss-import:
+        specifier: ^16.1.0
+        version: 16.1.0(postcss@8.4.47)
       serve:
         specifier: ^14.2.1
         version: 14.2.4
       storybook:
         specifier: ^8.3.6
         version: 8.4.1(prettier@3.3.3)
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.14)
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -265,29 +280,15 @@ importers:
         specifier: ^8.12.2
         version: 8.12.2(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
 
-  packages/tailwind-config:
-    dependencies:
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.14)
-    devDependencies:
-      "@vincero/eslint-config":
-        specifier: workspace:*
-        version: link:../eslint-config
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.47)
-      postcss:
-        specifier: ^8.4.47
-        version: 8.4.47
-      tailwindcss:
-        specifier: ^3.4.14
-        version: 3.4.14
+  packages/tailwind-config: {}
 
   packages/typescript-config: {}
 
   packages/ui:
     dependencies:
+      "@gsap/react":
+        specifier: ^2.1.1
+        version: 2.1.1
       "@radix-ui/react-slot":
         specifier: 1.1.0
         version: 1.1.0(@types/react@18.3.12)(react@18.3.1)
@@ -309,6 +310,9 @@ importers:
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
+      tailwindcss:
+        specifier: ^3.4.0
+        version: 3.4.14
     devDependencies:
       "@types/node":
         specifier: 22.8.4
@@ -322,27 +326,15 @@ importers:
       "@vincero/eslint-config":
         specifier: workspace:*
         version: link:../eslint-config
-      "@vincero/tailwind-config":
-        specifier: workspace:*
-        version: link:../tailwind-config
       "@vincero/typescript-config":
         specifier: workspace:*
         version: link:../typescript-config
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
-      concurrently:
-        specifier: ^9.0.1
-        version: 9.0.1
-      postcss:
-        specifier: ^8.4.47
-        version: 8.4.47
       react:
         specifier: ^18.2.0
         version: 18.3.1
-      tailwindcss:
-        specifier: ^3.4.14
-        version: 3.4.14
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(jiti@1.21.6)(postcss@8.4.47)(typescript@5.6.3)(yaml@2.6.0)
@@ -1163,6 +1155,12 @@ packages:
         integrity: sha512-CXtq5nR4Su+2I47WPOlWud98Y5Lv8Kyxp2ukhgFx/eW6Blm18VXJO5WuQylPugRo8nbluoi6GvvxBLqHcvqUUw==,
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+
+  "@gsap/react@2.1.1":
+    resolution:
+      {
+        integrity: sha512-apGPRrmpqxvl1T6Io1KgT8tFU+IuACI6z4zmT7t8+PASserJeLVRFJdSNUFA2Xb/eVkZI1noE8LIrY/w/oJECw==,
+      }
 
   "@humanfs/core@0.19.1":
     resolution:
@@ -2764,13 +2762,6 @@ packages:
       }
     engines: { node: ^12.20.0 || ^14.13.1 || >=16.0.0 }
 
-  cliui@8.0.1:
-    resolution:
-      {
-        integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==,
-      }
-    engines: { node: ">=12" }
-
   clsx@2.0.0:
     resolution:
       {
@@ -2870,14 +2861,6 @@ packages:
       {
         integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==,
       }
-
-  concurrently@9.0.1:
-    resolution:
-      {
-        integrity: sha512-wYKvCd/f54sTXJMSfV6Ln/B8UrfLBKOYa+lzc6CHay3Qek+LorVSBdMVfyewFhRbH0Rbabsk4D+3PL/VjQ5gzg==,
-      }
-    engines: { node: ">=18" }
-    hasBin: true
 
   consola@3.2.3:
     resolution:
@@ -3751,13 +3734,6 @@ packages:
         integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==,
       }
     engines: { node: ">=6.9.0" }
-
-  get-caller-file@2.0.5:
-    resolution:
-      {
-        integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==,
-      }
-    engines: { node: 6.* || 8.* || >= 10.* }
 
   get-east-asian-width@1.3.0:
     resolution:
@@ -5473,6 +5449,15 @@ packages:
     peerDependencies:
       postcss: ^8.0.0
 
+  postcss-import@16.1.0:
+    resolution:
+      {
+        integrity: sha512-7hsAZ4xGXl4MW+OKEWCnF6T5jqBw80/EE9aXg1r2yyn1RsVEU8EtKXbijEODa+rg7iih4bKf7vlvTGYR4CnPNg==,
+      }
+    engines: { node: ">=18.0.0" }
+    peerDependencies:
+      postcss: ^8.0.0
+
   postcss-js@4.0.1:
     resolution:
       {
@@ -5909,13 +5894,6 @@ packages:
       }
     engines: { node: ">=0.10.0" }
 
-  require-directory@2.1.1:
-    resolution:
-      {
-        integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==,
-      }
-    engines: { node: ">=0.10.0" }
-
   require-from-string@2.0.2:
     resolution:
       {
@@ -6011,12 +5989,6 @@ packages:
         integrity: sha512-ccfwvjGuNU14cSSXLlmPRiqEgMfA7w3J2TViO79zMnzXGvE6FJ0dxnhIQGwe5r/vwySOJ4sqZksexo9wyAlA8g==,
       }
     deprecated: Use @augment-vir/assert instead.
-
-  rxjs@7.8.1:
-    resolution:
-      {
-        integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==,
-      }
 
   safe-array-concat@1.1.2:
     resolution:
@@ -6133,12 +6105,6 @@ packages:
         integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==,
       }
     engines: { node: ">=8" }
-
-  shell-quote@1.8.1:
-    resolution:
-      {
-        integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==,
-      }
 
   side-channel@1.0.6:
     resolution:
@@ -6503,13 +6469,6 @@ packages:
         integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==,
       }
     engines: { node: ">=8" }
-
-  supports-color@8.1.1:
-    resolution:
-      {
-        integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==,
-      }
-    engines: { node: ">=10" }
 
   supports-hyperlinks@3.1.0:
     resolution:
@@ -7129,13 +7088,6 @@ packages:
       utf-8-validate:
         optional: true
 
-  y18n@5.0.8:
-    resolution:
-      {
-        integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==,
-      }
-    engines: { node: ">=10" }
-
   yallist@2.1.2:
     resolution:
       {
@@ -7163,20 +7115,6 @@ packages:
       }
     engines: { node: ">= 14" }
     hasBin: true
-
-  yargs-parser@21.1.1:
-    resolution:
-      {
-        integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==,
-      }
-    engines: { node: ">=12" }
-
-  yargs@17.7.2:
-    resolution:
-      {
-        integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==,
-      }
-    engines: { node: ">=12" }
 
   yocto-queue@0.1.0:
     resolution:
@@ -7670,6 +7608,11 @@ snapshots:
   "@eslint/plugin-kit@0.2.2":
     dependencies:
       levn: 0.4.1
+
+  "@gsap/react@2.1.1":
+    dependencies:
+      gsap: 3.12.5
+      react: 18.3.1
 
   "@humanfs/core@0.19.1": {}
 
@@ -8648,12 +8591,6 @@ snapshots:
       execa: 5.1.1
       is-wsl: 2.2.0
 
-  cliui@8.0.1:
-    dependencies:
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      wrap-ansi: 7.0.0
-
   clsx@2.0.0: {}
 
   clsx@2.1.1: {}
@@ -8705,16 +8642,6 @@ snapshots:
       - supports-color
 
   concat-map@0.0.1: {}
-
-  concurrently@9.0.1:
-    dependencies:
-      chalk: 4.1.2
-      lodash: 4.17.21
-      rxjs: 7.8.1
-      shell-quote: 1.8.1
-      supports-color: 8.1.1
-      tree-kill: 1.2.2
-      yargs: 17.7.2
 
   consola@3.2.3: {}
 
@@ -9405,8 +9332,6 @@ snapshots:
   functions-have-names@1.2.3: {}
 
   gensync@1.0.0-beta.2: {}
-
-  get-caller-file@2.0.5: {}
 
   get-east-asian-width@1.3.0: {}
 
@@ -10364,6 +10289,13 @@ snapshots:
       read-cache: 1.0.0
       resolve: 1.22.8
 
+  postcss-import@16.1.0(postcss@8.4.47):
+    dependencies:
+      postcss: 8.4.47
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.8
+
   postcss-js@4.0.1(postcss@8.4.47):
     dependencies:
       camelcase-css: 2.0.1
@@ -10613,8 +10545,6 @@ snapshots:
     dependencies:
       rc: 1.2.8
 
-  require-directory@2.1.1: {}
-
   require-from-string@2.0.2: {}
 
   resolve-cwd@3.0.0:
@@ -10683,10 +10613,6 @@ snapshots:
       "@augment-vir/common": 29.3.0
       expect-type: 0.15.0
       type-fest: 4.26.1
-
-  rxjs@7.8.1:
-    dependencies:
-      tslib: 2.8.1
 
   safe-array-concat@1.1.2:
     dependencies:
@@ -10795,8 +10721,6 @@ snapshots:
   shebang-regex@1.0.0: {}
 
   shebang-regex@3.0.0: {}
-
-  shell-quote@1.8.1: {}
 
   side-channel@1.0.6:
     dependencies:
@@ -11068,10 +10992,6 @@ snapshots:
       ts-interface-checker: 0.1.13
 
   supports-color@7.2.0:
-    dependencies:
-      has-flag: 4.0.0
-
-  supports-color@8.1.1:
     dependencies:
       has-flag: 4.0.0
 
@@ -11479,8 +11399,6 @@ snapshots:
 
   ws@8.18.0: {}
 
-  y18n@5.0.8: {}
-
   yallist@2.1.2: {}
 
   yallist@3.1.1: {}
@@ -11488,17 +11406,5 @@ snapshots:
   yaml@2.5.1: {}
 
   yaml@2.6.0: {}
-
-  yargs-parser@21.1.1: {}
-
-  yargs@17.7.2:
-    dependencies:
-      cliui: 8.0.1
-      escalade: 3.2.0
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}

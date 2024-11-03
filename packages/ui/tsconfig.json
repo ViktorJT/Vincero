@@ -1,12 +1,5 @@
 {
   "extends": "@vincero/typescript-config/ui",
   "include": ["."],
-  "exclude": ["dist", "node_modules", ".turbo"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@lib/*": ["./lib/*"],
-      "@/*": ["./src/*"]
-    }
-  }
+  "exclude": ["dist", "node_modules", ".turbo"]
 }

@@ -1,8 +1,6 @@
 const Media = () => {
   return (
-    <div className="ui-absolute bg-primary ui-inset-0 ui-overflow-hidden">
-      Media
-    </div>
+    <div className="absolute bg-primary inset-0 overflow-hidden">Media</div>
   );
 };
 
