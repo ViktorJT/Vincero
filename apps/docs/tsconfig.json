@@ -1,5 +1,8 @@
 {
-  "extends": "@vincero/typescript-config/react-app.json",
+  "extends": "@vincero/typescript-config/storybook",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }

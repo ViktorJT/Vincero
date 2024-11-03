@@ -1,9 +1,5 @@
 {
-  "extends": "@vincero/typescript-config/react-library.json",
+  "extends": "@vincero/typescript-config/ui",
   "include": ["."],
-  "exclude": [
-    "dist",
-    "node_modules",
-    ".turbo"
-  ]
+  "exclude": ["dist", "node_modules", ".turbo"]
 }
