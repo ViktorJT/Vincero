@@ -4,7 +4,6 @@ import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
-import nextPlugin from "@next/eslint-plugin-next";
 import storybookPlugin from "eslint-plugin-storybook";
 import onlyWarnPlugin from "eslint-plugin-only-warn";
 import tseslint from "typescript-eslint";

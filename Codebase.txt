@@ -1,0 +1,2944 @@
+Project Path: vincero
+
+Source Tree:
+
+```
+vincero
+├── pnpm-lock.yaml
+├── prettierrc.js
+├── turbo.json
+├── README.md
+├── Codebase.txt
+├── package.json
+├── packages
+│   ├── ui
+│   │   ├── package.json
+│   │   ├── tsup.config.ts
+│   │   ├── lib
+│   │   │   ├── split-text.ts
+│   │   │   ├── isVideo.ts
+│   │   │   ├── shadcn
+│   │   │   │   └── button
+│   │   │   │       └── index.tsx
+│   │   │   └── utils.ts
+│   │   ├── tsconfig.json
+│   │   ├── eslint.config.js
+│   │   └── src
+│   │       ├── atoms
+│   │       │   ├── pagination
+│   │       │   │   ├── index.tsx
+│   │       │   │   └── index.types.ts
+│   │       │   ├── asset
+│   │       │   │   ├── index.tsx
+│   │       │   │   └── index.types.ts
+│   │       │   ├── button
+│   │       │   │   ├── index.tsx
+│   │       │   │   └── index.types.ts
+│   │       │   └── profile
+│   │       │       ├── index.tsx
+│   │       │       └── index.types.ts
+│   │       ├── theme.css
+│   │       ├── gallery
+│   │       │   ├── index.tsx
+│   │       │   └── index.types.ts
+│   │       ├── slider
+│   │       │   ├── index.tsx
+│   │       │   └── index.types.ts
+│   │       ├── carousel
+│   │       │   ├── index.tsx
+│   │       │   └── index.types.ts
+│   │       ├── types.ts
+│   │       ├── text
+│   │       │   ├── index.tsx
+│   │       │   └── index.types.ts
+│   │       ├── header
+│   │       │   ├── index.tsx
+│   │       │   └── index.types.ts
+│   │       └── banner
+│   │           ├── index.tsx
+│   │           └── index.types.ts
+│   ├── tailwind-config
+│   │   ├── postcss.js
+│   │   ├── package.json
+│   │   └── base.js
+│   ├── eslint-config
+│   │   ├── package.json
+│   │   └── eslint.config.js
+│   └── typescript-config
+│       ├── next.json
+│       ├── storybook.json
+│       ├── ui.json
+│       ├── package.json
+│       └── base.json
+├── eslint.config.js
+├── stylelint.config.js
+├── apps
+│   ├── fastigheter
+│   │   ├── tailwind.config.js
+│   │   ├── app
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── README.md
+│   │   ├── styles
+│   │   │   └── theme.css
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── postcss.config.js
+│   │   └── next.config.ts
+│   ├── docs
+│   │   ├── tailwind.config.js
+│   │   ├── styles
+│   │   │   ├── tailwind.css
+│   │   │   └── globals.css
+│   │   ├── stories
+│   │   │   ├── banner.stories.tsx
+│   │   │   ├── text.stories.tsx
+│   │   │   ├── header.stories.tsx
+│   │   │   ├── slider.stories.tsx
+│   │   │   └── carousel.stories.tsx
+│   │   ├── public
+│   │   │   └── placeholder-video.webm
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── eslint.config.js
+│   │   ├── vite.config.ts
+│   │   └── postcss.config.js
+│   └── invest
+│       ├── tailwind.config.js
+│       ├── app
+│       │   ├── layout.tsx
+│       │   └── page.tsx
+│       ├── README.md
+│       ├── styles
+│       │   └── theme.css
+│       ├── package.json
+│       ├── tsconfig.json
+│       ├── postcss.config.js
+│       └── next.config.ts
+└── pnpm-workspace.yaml
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/prettierrc.js`:
+
+```js
+module.exports = {
+  trailingComma: "all",
+  singleQuote: true,
+  plugins: [
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-css-order",
+    "prettier-plugin-jsdoc",
+    "prettier-plugin-multiline-arrays",
+    "prettier-plugin-import-sort",
+    "prettier-plugin-organise-attributes",
+    "prettier-plugin-style-order",
+  ],
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/turbo.json`:
+
+```json
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "envMode": "strict",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "storybook-static/**"
+      ],
+      "env": ["NEXT_PUBLIC_*", "VERCEL_*", "NEXT_PUBLIC_ENVIRONMENT"],
+      "outputLogs": "new-only"
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "inputs": ["eslint.config.*", "prettier.config.*", "stylelint.config.*"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": [],
+      "inputs": ["src/**/*.{ts,tsx}", "*.config.{ts,js}", "tsconfig.json"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "preview-storybook": {
+      "dependsOn": ["^build"],
+      "cache": false
+    }
+  },
+  "remoteCache": {
+    "signature": true,
+    "preflight": false,
+    "timeout": 60
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/package.json`:
+
+```json
+{
+  "name": "vincero",
+  "private": true,
+  "packageManager": "pnpm@9.12.3",
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:storybook": "turbo run dev --filter @vincero/docs --filter @vincero/ui",
+    "preview-storybook": "turbo preview-storybook",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "clean:cache": "turbo run clean && rm -rf node_modules .turbo pnpm-lock.yaml",
+    "fresh": "pnpm clean:cache && pnpm install",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,css,md,json}'",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=docs^... && changeset publish",
+    "prepare": "node .husky/install.js",
+    "typecheck": "turbo run typecheck",
+    "lint-staged": "lint-staged"
+  },
+  "devDependencies": {
+    "@vincero/eslint-config": "workspace:*",
+    "@changesets/cli": "^2.27.9",
+    "@types/node": "22.8.4",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "eslint": "^9.13.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-css-order": "^2.1.2",
+    "prettier-plugin-import-sort": "^0.0.7",
+    "prettier-plugin-jsdoc": "^1.3.0",
+    "prettier-plugin-multiline-arrays": "^3.0.6",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "prettier-plugin-style-order": "^0.2.2",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "stylelint": "^16.10.0",
+    "stylelint-config-clean-order": "6.1.0",
+    "stylelint-config-css-modules": "4.4.0",
+    "stylelint-config-prettier": "9.0.5",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-tailwindcss": "^0.0.7",
+    "stylelint-declaration-block-no-ignored-properties": "2.8.0",
+    "stylelint-order": "6.0.4",
+    "stylelint-use-logical-spec": "5.0.1",
+    "turbo": "^2.2.3",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/package.json`:
+
+```json
+{
+  "name": "@vincero/ui",
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./theme.css": "./src/theme.css",
+    "./header": {
+      "types": "./dist/header/index.d.ts",
+      "import": "./dist/header/index.js"
+    },
+    "./carousel": {
+      "types": "./dist/header/index.d.ts",
+      "import": "./dist/header/index.js"
+    },
+    "./banner": {
+      "types": "./dist/banner/index.d.ts",
+      "import": "./dist/banner/index.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js"
+    },
+    "./text": {
+      "types": "./dist/text/index.d.ts",
+      "import": "./dist/text/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint . --max-warnings 0",
+    "clean": "rm -rf dist .turbo .cache node_modules",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graphcms/rich-text-react-renderer": "^0.6.2",
+    "@gsap/react": "^2.1.1",
+    "@radix-ui/react-slot": "1.1.0",
+    "class-variance-authority": "0.7.0",
+    "clsx": "^2.1.1",
+    "gsap": "3.12.5",
+    "lucide-react": "0.454.0",
+    "next": "^15.0.2",
+    "tailwind-merge": "^2.5.4"
+  },
+  "devDependencies": {
+    "@graphcms/rich-text-types": "^0.5.1",
+    "@vincero/eslint-config": "workspace:*",
+    "@vincero/typescript-config": "workspace:*",
+    "react": "^18.2.0",
+    "tsup": "^8.3.5"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": false
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/tsup.config.ts`:
+
+```ts
+import { defineConfig } from "tsup";
+
+export default defineConfig((options) => ({
+  entry: {
+    "header/index": "src/header/index.tsx",
+    "carousel/index": "src/carousel/index.tsx",
+    "banner/index": "src/banner/index.tsx",
+    "slider/index": "src/slider/index.tsx",
+    "text/index": "src/text/index.tsx",
+  },
+  format: ["esm"],
+  dts: true,
+  external: ["react"],
+  ...options,
+}));
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/lib/split-text.ts`:
+
+```ts
+import { useState, useEffect } from "react";
+
+interface SplitTextOptions {
+  tag?: string;
+  linesClass?: string;
+  absolute?: boolean;
+}
+
+interface SplitResult {
+  lines: HTMLElement[];
+  revert: () => void;
+}
+
+type ElementTarget = HTMLElement | HTMLElement[] | string;
+
+const getElements = (target: ElementTarget): HTMLElement[] => {
+  if (typeof target === "string") {
+    return Array.from(document.querySelectorAll(target)) as HTMLElement[];
+  }
+  return Array.isArray(target) ? target : [target];
+};
+
+const getTextNodes = (element: HTMLElement, tag: string): HTMLElement[] => {
+  const nodes: HTMLElement[] = [];
+  const walk = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+
+  let node: Node | null;
+  while ((node = walk.nextNode())) {
+    if (node.textContent?.trim()) {
+      const wrapper = document.createElement(tag);
+      wrapper.appendChild(node.cloneNode(true));
+      nodes.push(wrapper);
+    }
+  }
+
+  return nodes;
+};
+
+const createLineElement = (
+  elements: HTMLElement[],
+  tag: string,
+  absolute: boolean,
+): HTMLElement => {
+  const line = document.createElement(tag);
+
+  if (absolute) {
+    line.style.position = "absolute";
+    line.style.display = "block";
+    line.style.width = "100%";
+  }
+
+  elements.forEach((el) => {
+    const content = el.innerHTML;
+    el.parentNode?.removeChild(el);
+    line.innerHTML += content;
+  });
+
+  return line;
+};
+
+const splitElement = (
+  element: HTMLElement,
+  options: Required<SplitTextOptions>,
+): HTMLElement[] => {
+  const lineThreshold = parseFloat(getComputedStyle(element).fontSize) * 0.2;
+  const lines: HTMLElement[] = [];
+  let nodes = getTextNodes(element, options.tag);
+  let lineOffsetY = -999;
+  let currentLine: HTMLElement[] = [];
+
+  // Create temporary elements for measuring
+  nodes.forEach((node) => {
+    const wrapper = document.createElement(options.tag);
+    wrapper.appendChild(node.cloneNode(true));
+    element.appendChild(wrapper);
+
+    const offsetY = wrapper.offsetTop;
+
+    if (Math.abs(offsetY - lineOffsetY) > lineThreshold) {
+      if (currentLine.length) {
+        lines.push(
+          createLineElement(currentLine, options.tag, options.absolute),
+        );
+      }
+      currentLine = [wrapper];
+      lineOffsetY = offsetY;
+    } else {
+      currentLine.push(wrapper);
+    }
+  });
+
+  // Handle last line
+  if (currentLine.length) {
+    lines.push(createLineElement(currentLine, options.tag, options.absolute));
+  }
+
+  // Clear original content and append lines
+  element.innerHTML = "";
+  lines.forEach((line, i) => {
+    if (options.linesClass) {
+      line.className = options.linesClass + (i + 1);
+    }
+    element.appendChild(line);
+  });
+
+  return lines;
+};
+
+export const splitText = (
+  target: ElementTarget,
+  options: SplitTextOptions = {},
+): SplitResult => {
+  const elements = getElements(target);
+  const defaultedOptions: Required<SplitTextOptions> = {
+    tag: options.tag || "div",
+    linesClass: options.linesClass || "",
+    absolute: options.absolute || false,
+  };
+
+  // Store original state for revert
+  const originals = elements.map((el) => ({
+    html: el.innerHTML,
+    style: el.getAttribute("style"),
+  }));
+
+  // Split all elements
+  const allLines = elements.flatMap((element) =>
+    splitElement(element, defaultedOptions),
+  );
+
+  // Create revert function
+  const revert = () => {
+    elements.forEach((element, i) => {
+      const original = originals[i];
+      if (original) {
+        element.innerHTML = original.html;
+        if (original.style) {
+          element.setAttribute("style", original.style);
+        } else {
+          element.removeAttribute("style");
+        }
+      }
+    });
+  };
+
+  return { lines: allLines, revert };
+};
+
+// React hook for using splitText
+export const useSplitText = (
+  ref: React.RefObject<HTMLElement>,
+  options: SplitTextOptions = {},
+) => {
+  const [lines, setLines] = useState<HTMLElement[]>([]);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const { lines, revert } = splitText(ref.current, options);
+    setLines(lines);
+
+    return revert;
+  }, [ref, options.tag, options.linesClass, options.absolute]);
+
+  return lines;
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/lib/isVideo.ts`:
+
+```ts
+export const isVideo = ({ mimeType }) => mimeType?.startsWith("video/");
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/lib/shadcn/button/index.tsx`:
+
+```tsx
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import { cn } from "../../utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        ref={ref}
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props}
+      />
+    );
+  },
+);
+Button.displayName = "Button";
+
+export { Button, buttonVariants };
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/lib/utils.ts`:
+
+```ts
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+import type { ClassValue } from "clsx";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/tsconfig.json`:
+
+```json
+{
+  "extends": "@vincero/typescript-config/ui",
+  "include": ["."],
+  "exclude": ["dist", "node_modules", ".turbo"]
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/eslint.config.js`:
+
+```js
+import { createConfig } from "@vincero/eslint-config";
+export default createConfig("react");
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/pagination/index.tsx`:
+
+```tsx
+import { Button } from "../button";
+
+import { cn } from "../../../lib/utils";
+
+import type { Props } from "./index.types";
+
+export function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+  className,
+}: Props) {
+  return (
+    <div className={cn("flex items-center justify-center gap-2", className)}>
+      {Array.from({ length: totalPages }, (_, i) => (
+        <Button
+          key={i}
+          className="w-8 h-8 p-0"
+          size="sm"
+          variant={currentPage === i ? "primary" : "secondary"}
+          onClick={() => onPageChange(i)}
+        >
+          {i + 1}
+        </Button>
+      ))}
+    </div>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/pagination/index.types.ts`:
+
+```ts
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  className?: string;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/asset/index.tsx`:
+
+```tsx
+import { forwardRef } from "react";
+import Image from "next/image";
+
+import { isVideo } from "../../../lib/isVideo";
+import { cn } from "../../../lib/utils";
+
+import type { Props } from "./index.types.ts";
+
+export const Asset = forwardRef<HTMLVideoElement, Props>(
+  ({ media, className }, ref) => {
+    const styles = {
+      wrapper: cn("relative", className),
+      asset: "absolute inset-0 w-full h-full object-cover",
+    };
+
+    return (
+      <div className={styles.wrapper}>
+        {isVideo(media) ? (
+          <video
+            ref={ref}
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+            autoPlay={false}
+            className={styles.asset}
+            src={media.url}
+          />
+        ) : (
+          <Image
+            alt={media.altText || ""}
+            className={styles.asset}
+            src={media.url}
+          />
+        )}
+      </div>
+    );
+  },
+);
+
+Asset.displayName = "Asset";
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/asset/index.types.ts`:
+
+```ts
+import type { MediaProps } from "../../types.ts";
+
+export interface Props {
+  media: MediaProps;
+  className?: string;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/button/index.tsx`:
+
+```tsx
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+
+import { Button as ShadcnButton } from "../../../lib/shadcn/button";
+import { cn } from "../../../lib/utils";
+
+import type { Props } from "./index.types.ts";
+
+// @todo add Next Link for internal pages
+//
+export function Button({
+  variant = "primary",
+  className,
+  href,
+  ...props
+}: Props) {
+  const buttonClasses = cn(
+    "transition-colors duration-200",
+    {
+      "bg-primary text-primary-foreground hover:bg-primary/90":
+        variant === "primary",
+      "bg-secondary text-secondary-foreground hover:bg-secondary/80":
+        variant === "secondary",
+    },
+    className,
+  );
+
+  if (href) {
+    return (
+      <ShadcnButton asChild className={buttonClasses} {...props}>
+        <Link href={href}>
+          {props.children}
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </ShadcnButton>
+    );
+  }
+
+  return <ShadcnButton className={buttonClasses} {...props} />;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/button/index.types.ts`:
+
+```ts
+import type { Button } from "../../../lib/shadcn/button";
+import type { ComponentPropsWithoutRef } from "react";
+import type { ButtonVariant } from "../../types";
+
+export interface Props
+  extends Omit<ComponentPropsWithoutRef<typeof Button>, "variant"> {
+  // @todo clean this up a bit
+  variant: ButtonVariant;
+  href?: string;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/profile/index.tsx`:
+
+```tsx
+import { cn } from "../../../lib/utils";
+
+import { Asset } from "../asset";
+
+import type { Props } from "./index.types";
+
+export function Profile({ name, role, image, email, className }: Props) {
+  return (
+    <div className={cn("flex flex-col w-[280px]", className)}>
+      <div className="relative aspect-[3/4] mb-4 overflow-hidden rounded-md">
+        <Asset className="object-cover w-full h-full" media={image} />
+      </div>
+      <div className="space-y-1">
+        <h3 className="font-semibold text-lg">{name}</h3>
+        {role && <p className="text-muted-foreground">{role}</p>}
+        {email && (
+          <a
+            className="text-sm text-primary hover:underline"
+            href={`mailto:${email}`}
+          >
+            {email}
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/atoms/profile/index.types.ts`:
+
+```ts
+import type { Profile } from "../../types";
+
+export interface Props extends Profile {
+  className?: string;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/theme.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  body {
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/slider/index.tsx`:
+
+```tsx
+"use client";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import gsap from "gsap";
+
+import { Button } from "../atoms/button";
+import { Asset } from "../atoms/asset";
+
+import type { Props } from "./index.types.ts";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+export function Slider({ blocks = [] }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useGSAP(() => {
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        ScrollTrigger.create({
+          trigger: video,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => video.play(),
+          onLeave: () => video.pause(),
+          onEnterBack: () => video.play(),
+          onLeaveBack: () => video.pause(),
+        });
+      }
+    });
+  }, []);
+
+  return (
+    <div ref={ref} className="relative w-full">
+      {blocks.map((block, index) => (
+        <section
+          key={block.id}
+          className="grid grid-cols-1 md:grid-cols-2 min-h-screen"
+        >
+          <div className="order-2 md:order-1 flex flex-col justify-center p-6 md:p-12 lg:p-24">
+            {block.title && (
+              <p className="text-sm uppercase tracking-wider text-muted-foreground">
+                {block.title}
+              </p>
+            )}
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
+              {block.heading}
+            </h2>
+
+            <p className="text-muted-foreground">{block.body}</p>
+
+            {block.links && (
+              <div className="flex flex-wrap gap-4 pt-4">
+                {block.links.map((link) => (
+                  <Button key={link.id} {...link}>
+                    {link.displayText}
+                  </Button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Asset
+            ref={(el) => (videoRefs.current[index] = el)}
+            className="order-1 md:order-2 relative h-[50vh] md:h-screen"
+            media={block.media}
+          />
+        </section>
+      ))}
+    </div>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/slider/index.types.ts`:
+
+```ts
+import type { LinkProps, MediaProps } from "../types.ts";
+
+interface SlideBlock {
+  id: string;
+  title?: string;
+  heading: string;
+  body: string;
+  links?: LinkProps[];
+  media: MediaProps;
+}
+
+export interface Props {
+  blocks: SlideBlock[];
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/carousel/index.tsx`:
+
+```tsx
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { Button } from "../atoms/button";
+import { Profile } from "../atoms/profile";
+import { Pagination } from "../atoms/pagination";
+
+import type { Props } from "./index.types";
+
+const ITEMS_PER_PAGE = 4;
+
+export function Carousel({
+  title,
+  subtitle,
+  profiles,
+  //variant = "team", @todos
+}: Props) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+
+  const totalSlides = Math.ceil(profiles.length / ITEMS_PER_PAGE);
+  const displayedProfiles = isExpanded
+    ? profiles
+    : profiles.slice(0, ITEMS_PER_PAGE);
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : totalSlides - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => (prev < totalSlides - 1 ? prev + 1 : 0));
+  };
+
+  return (
+    <div className="w-full py-12">
+      <div className="container mx-auto px-4">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold mb-2">{title}</h2>
+          {subtitle && (
+            <p className="text-muted-foreground text-lg">{subtitle}</p>
+          )}
+        </div>
+
+        {/* Desktop View */}
+        <div
+          className="hidden lg:block relative"
+          onMouseEnter={() => setShowControls(true)}
+          onMouseLeave={() => setShowControls(false)}
+        >
+          <div className="flex gap-6">
+            {displayedProfiles.map((profile) => (
+              <Profile key={profile.id} {...profile} />
+            ))}
+          </div>
+
+          {showControls && profiles.length > ITEMS_PER_PAGE && (
+            <>
+              <Button
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16"
+                size="icon"
+                variant="primary"
+                onClick={handlePrevSlide}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16"
+                size="icon"
+                variant="secondary"
+                onClick={handleNextSlide}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </>
+          )}
+        </div>
+
+        {/* Mobile View */}
+        <div className="lg:hidden space-y-6">
+          {displayedProfiles.map((profile) => (
+            <Profile key={profile.id} {...profile} className="mx-auto" />
+          ))}
+
+          {profiles.length > ITEMS_PER_PAGE && (
+            <Button
+              className="w-full mt-4"
+              variant="primary"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "See Less" : "See More"}
+            </Button>
+          )}
+
+          <Pagination
+            className="mt-6"
+            currentPage={currentSlide}
+            totalPages={totalSlides}
+            onPageChange={setCurrentSlide}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/carousel/index.types.ts`:
+
+```ts
+import type { Profile } from "../types";
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  profiles: Profile[];
+  variant?: "team" | "page";
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/types.ts`:
+
+```ts
+export type ButtonVariant = "primary" | "secondary" | "tertiary";
+
+export interface LinkProps {
+  id: string;
+  url: string;
+  displayText: string;
+  variant: ButtonVariant;
+  target: string; // @todo set appropriate target based on data from Hygraph OR do it dynamically using the url?
+  titleAttribute?: string;
+  ariaLabel?: string;
+}
+
+export interface MediaProps {
+  id: string;
+  altText: string | null;
+  mimeType: string;
+  url: string;
+}
+
+export interface Profile {
+  id: string;
+  name: string;
+  role: string;
+  image: MediaProps;
+  email?: string;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/text/index.tsx`:
+
+```tsx
+import { RichText } from "@graphcms/rich-text-react-renderer";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import gsap from "gsap";
+
+import type { BlockProps, TextProps } from "./index.types.ts";
+
+function Block({ content = [] }: { content: BlockProps[] }) {
+  return content.map((lockup) => (
+    <div key={lockup.id} className="contents">
+      <p className="animate-text hero-text text-muted-foreground text-right">
+        {lockup.title}
+      </p>
+      <div className="grid grid-cols-2 gap-4">
+        {lockup.paragraphs?.map((paragraph, i) => (
+          <RichText
+            key={`${lockup.id}-${i}`}
+            content={paragraph}
+            renderers={{
+              p: ({ children }) => <p className="animate-text">{children}</p>,
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  ));
+}
+
+export function Text({ metaInformation = [], heading, body }: TextProps) {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline();
+
+      tl.from("animate-text", {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.2,
+      });
+    },
+    { scope: ref },
+  );
+
+  return (
+    <section
+      ref={ref}
+      className="relative min-h-screen bg-primary text-primary-foreground flex items-center px-4 md:px-8 lg:px-16 py-12 md:py-16"
+    >
+      <div className="grid grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto">
+        <Block content={metaInformation} />
+
+        {heading && (
+          <h1 className="animate-text col-start-2 hero-text text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
+            {heading}
+          </h1>
+        )}
+
+        <Block content={body} />
+      </div>
+    </section>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/text/index.types.ts`:
+
+```ts
+import type { RichTextContent } from "@graphcms/rich-text-types";
+
+export interface BlockProps {
+  id: string;
+  title?: string;
+  paragraphs?: RichTextContent[];
+}
+
+export interface TextProps {
+  metaInformation?: BlockProps[];
+  heading?: string;
+  body: BlockProps[];
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/header/index.tsx`:
+
+```tsx
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
+import { useSplitText } from "../../lib/split-text";
+
+import { Button } from "../atoms/button";
+import { Asset } from "../atoms/asset";
+
+import type { Props } from "./index.types.ts";
+
+export function Header({ title, subtitle, links, background }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+
+  const titleLines = useSplitText(titleRef); // @todo make this work
+  const subtitleLines = useSplitText(subtitleRef); // @todo make this work
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline();
+
+      tl.fromTo(
+        ".asset",
+        { scale: 2 },
+        { scale: 1, duration: 1, ease: "power3.out" },
+      )
+        .fromTo(
+          ".header",
+          { yPercent: -100 },
+          { yPercent: 0, duration: 0.8, ease: "power3.out" },
+          0, // Start at the same time as the `.video` animation
+        )
+        .fromTo(
+          [".title", ".subtitle", ".buttons"],
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" },
+          "-=0.4",
+        );
+    },
+    { dependencies: [titleLines, subtitleLines], scope: ref },
+  );
+
+  console.log({ links });
+
+  return (
+    <section
+      ref={ref}
+      className="relative grid grid-rows-1 grid-cols-1 place-items-start w-full overflow-hidden"
+    >
+      {background && (
+        <Asset
+          className="asset col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-dvh w-full"
+          media={background}
+        />
+      )}
+      <div className="header col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-1/2 w-full bg-primary flex flex-col justify-end text-primary-foreground overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-5 justify-between w-full p-10">
+          <h1 className="title text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            {title}
+          </h1>
+          <div>
+            <p className="subtitle text-xl md:text-2xl mb-8">{subtitle}</p>
+            {links && (
+              <div className="buttons flex flex-wrap gap-4">
+                {links.map((link, index) => (
+                  <Button
+                    key={index}
+                    aria-label={link.ariaLabel}
+                    href={link.url}
+                    rel={
+                      link.target !== "self" ? "noopener noreferrer" : undefined
+                    }
+                    title={link.titleAttribute}
+                    variant={link.variant}
+                    //target={link.target === "self" ? undefined : "_blank"}
+                  >
+                    {link.displayText}
+                  </Button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/header/index.types.ts`:
+
+```ts
+import type { LinkProps, MediaProps } from "../types.ts";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  links?: LinkProps[];
+  background?: MediaProps;
+}
+
+export type { Props, LinkProps };
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/banner/index.tsx`:
+
+```tsx
+"use client";
+
+import { RichText } from "@graphcms/rich-text-react-renderer";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import gsap from "gsap";
+
+import type { Props } from "./index.types.ts";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export function Banner({ title, textBlocks = [] }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".animate-item",
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.16,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    },
+    { scope: ref },
+  );
+
+  return (
+    <section
+      ref={ref}
+      className="w-full bg-accent text-primary py-12 md:py-24 lg:min-h-[50vh] flex items-center"
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+          <h1 className="animate-item md:w-1/3 text-3xl md:text-4xl lg:text-5xl font-bold">
+            {title}
+          </h1>
+
+          {textBlocks && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:w-2/3">
+              {textBlocks.map((block, i) => (
+                <div>
+                  <RichText
+                    key={i}
+                    content={block}
+                    renderers={{
+                      h1: ({ children }) => (
+                        <p className="animate-item text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
+                          {children}
+                        </p>
+                      ),
+                      p: ({ children }) => (
+                        <p className="animate-item text-sm md:text-base lg:text-lg text-muted-foreground">
+                          {children}
+                        </p>
+                      ),
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/ui/src/banner/index.types.ts`:
+
+```ts
+import type { RichTextContent } from "@graphcms/rich-text-types";
+
+export interface Props {
+  title: string;
+  textBlocks?: RichTextContent[];
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/tailwind-config/postcss.js`:
+
+```js
+/** @type {import('postcss').Config} */
+export default {
+  plugins: {
+    "tailwindcss/nesting": {},
+    tailwindcss: {},
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/tailwind-config/package.json`:
+
+```json
+{
+  "name": "@vincero/tailwind-config",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./postcss": "./postcss.js"
+  },
+  "files": [
+    "base.js",
+    "postcss.js"
+  ]
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/tailwind-config/base.js`:
+
+```js
+import defaultTheme from "tailwindcss/defaultTheme.js";
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  theme: {
+    extend: {
+      colors: {
+        // Base semantic colors - these map to CSS variables
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+
+        // Primary colors
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+
+        // Secondary colors
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+
+        // UI component colors
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+
+        // Utility colors
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+
+        // State colors
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/eslint-config/package.json`:
+
+```json
+{
+  "name": "@vincero/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./eslint.config.js"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-storybook": "^0.10.1",
+    "globals": "^15.11.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.13.0",
+    "react": ">=18.0.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "typescript-eslint": "^8.12.2"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/eslint-config/eslint.config.js`:
+
+```js
+import js from "@eslint/js";
+import globals from "globals";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import reactPlugin from "eslint-plugin-react";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
+import storybookPlugin from "eslint-plugin-storybook";
+import onlyWarnPlugin from "eslint-plugin-only-warn";
+import tseslint from "typescript-eslint";
+import prettierConfig from "eslint-config-prettier";
+
+// Base configuration for all files
+const baseConfig = {
+  files: ["**/*.{js,jsx,ts,tsx}"],
+  ignores: [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.next/**",
+    "**/coverage/**",
+  ],
+  linterOptions: {
+    reportUnusedDisableDirectives: true,
+  },
+  plugins: {
+    "only-warn": onlyWarnPlugin,
+  },
+};
+
+// TypeScript configuration
+const typescriptConfig = {
+  ...baseConfig,
+  files: ["**/*.{ts,tsx}"],
+  plugins: {
+    ...baseConfig.plugins,
+    "@typescript-eslint": tsPlugin,
+  },
+  languageOptions: {
+    parser: tsParser,
+    parserOptions: {
+      ecmaVersion: 2024,
+      sourceType: "module",
+    },
+    globals: {
+      ...globals.browser,
+      ...globals.es2021,
+      ...globals.node,
+      React: "readonly",
+      JSX: "readonly",
+    },
+  },
+  rules: {
+    ...js.configs.recommended.rules,
+    ...tsPlugin.configs["recommended"].rules,
+    ...tseslint.configs.recommended.rules,
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      { prefer: "type-imports" },
+    ],
+    "@typescript-eslint/no-import-type-side-effects": "warn",
+  },
+};
+
+// React configuration
+const reactConfig = {
+  ...baseConfig,
+  files: ["**/*.{jsx,tsx}"],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+  plugins: {
+    ...baseConfig.plugins,
+    react: reactPlugin,
+    "react-hooks": reactHooksPlugin,
+  },
+  rules: {
+    ...reactPlugin.configs.recommended.rules,
+    ...reactHooksPlugin.configs.recommended.rules,
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        callbacksLast: true,
+        shorthandFirst: true,
+        reservedFirst: true,
+      },
+    ],
+  },
+};
+
+// Storybook configuration
+const storybookConfig = {
+  ...reactConfig,
+  files: ["**/*.stories.{js,jsx,ts,tsx}", "**/stories/**/*.{js,jsx,ts,tsx}"],
+  plugins: {
+    ...reactConfig.plugins,
+    storybook: storybookPlugin,
+  },
+  rules: {
+    ...reactConfig.rules,
+    ...storybookPlugin.configs.recommended.rules,
+  },
+};
+
+// Export configuration factory
+export function createConfig(type = "base", options = {}) {
+  // Start with TypeScript and Prettier config
+  const configs = [typescriptConfig, prettierConfig];
+
+  switch (type) {
+    case "react":
+      return [...configs, reactConfig];
+    case "storybook":
+      return [...configs, reactConfig, storybookConfig];
+    default:
+      return configs;
+  }
+}
+
+export default createConfig();
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/typescript-config/next.json`:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Next.js",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": false,
+    "declarationMap": false,
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/typescript-config/storybook.json`:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Storybook",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "declarationMap": false,
+    "incremental": true,
+    "jsx": "react-jsx",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "target": "es5",
+    "paths": {
+      "@/*": ["./*"],
+      "@vincero/ui/*": ["../../packages/ui/src/*"]
+    }
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/typescript-config/ui.json`:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "UI",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["dom", "ES2015"],
+    "module": "ESNext",
+    "target": "es6"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/typescript-config/package.json`:
+
+```json
+{
+  "name": "@vincero/typescript-config",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    "./base": "./base.json",
+    "./ui": "./ui.json",
+    "./next": "./next.json",
+    "./storybook": "./storybook.json"
+  },
+  "include": [
+    "."
+  ]
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/packages/typescript-config/base.json`:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Base",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/eslint.config.js`:
+
+```js
+import { createConfig } from "@vincero/eslint-config";
+
+/** @type {import('eslint').Linter.Config} */
+const config = createConfig();
+
+export default config;
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/stylelint.config.js`:
+
+```js
+import styleLintLogical from "stylelint-use-logical-spec";
+import styleLintOrder from "stylelint-order";
+import styleLintIgnoredProperties from "stylelint-declaration-block-no-ignored-properties";
+
+/** @type {import('stylelint').Config} */
+export default {
+  extends: [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules",
+    "stylelint-config-tailwindcss",
+    "stylelint-config-clean-order",
+  ],
+  plugins: [styleLintOrder, styleLintIgnoredProperties, styleLintLogical],
+  rules: {
+    // Modern CSS features
+    "value-no-vendor-prefix": true,
+    "property-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "at-rule-no-vendor-prefix": true,
+
+    // Allow empty files
+    "no-empty-source": null,
+
+    // Tailwind specific
+    "at-rule-no-unknown": [
+      true,
+      {
+        ignoreAtRules: [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "layer",
+        ],
+      },
+    ],
+
+    // CSS Modules
+    "selector-class-pattern": null,
+    "custom-property-empty-line-before": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        ignorePseudoClasses: ["global", "local"],
+      },
+    ],
+
+    // Modern best practices
+    "plugin/declaration-block-no-ignored-properties": true,
+    "liberty/use-logical-spec": "always",
+
+    // Performance
+    "no-descending-specificity": null,
+    "max-nesting-depth": 3,
+    "selector-max-compound-selectors": 4,
+    "selector-max-specificity": "0,4,1",
+
+    // Project conventions
+    "color-function-notation": "modern",
+    "color-named": "never",
+    "alpha-value-notation": "percentage",
+    "length-zero-no-unit": true,
+    "font-weight-notation": "numeric",
+    "font-family-name-quotes": "always-where-recommended",
+    "shorthand-property-no-redundant-values": true,
+    "declaration-no-important": true,
+  },
+  overrides: [
+    {
+      files: ["**/*.module.css"],
+      rules: {
+        "selector-class-pattern": /^[a-z][a-zA-Z0-9]+$/,
+      },
+    },
+    {
+      files: ["**/styles/*.css"],
+      rules: {
+        "max-nesting-depth": null,
+        "selector-max-compound-selectors": null,
+      },
+    },
+  ],
+  ignoreFiles: [
+    "node_modules/**/*",
+    "dist/**/*",
+    ".next/**/*",
+    "build/**/*",
+    "coverage/**/*",
+  ],
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/tailwind.config.js`:
+
+```js
+import baseConfig from "@vincero/tailwind-config/base";
+
+export default {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "@vincero/ui/src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    ...baseConfig.theme,
+    extend: {
+      ...baseConfig.theme?.extend,
+
+      // App-specific theme extensions
+      colors: {
+        primary: {
+          DEFAULT: "var(--primary)",
+          dark: "var(--primary-dark)",
+          light: "var(--primary-light)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          dark: "var(--secondary-dark)",
+          light: "var(--secondary-light)",
+        },
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+      },
+    },
+  },
+  plugins: [...(baseConfig.plugins || [])],
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/app/layout.tsx`:
+
+```tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html data-theme="fastigheter" lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/app/page.tsx`:
+
+```tsx
+export default function Page() {
+  return (
+    <div>
+      <h1>Hello, Next.js!</h1>
+      <img alt="test" src="/test.jpg" />
+    </div>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/styles/theme.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root[data-theme="fastigheter"] {
+    /* Main colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --primary: 221.2 83.2% 53.3%; /* blue-600 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/package.json`:
+
+```json
+{
+  "name": "@vincero/fastigheter",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack --port 3000",
+    "build": "next build",
+    "clean": "rm -rf .turbo .next node_modules",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "exports": {
+    "./theme.css": "./styles/theme.css"
+  },
+  "dependencies": {
+    "@vincero/ui": "workspace:*",
+    "next": "latest",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vincero/typescript-config": "workspace:*",
+    "@vincero/tailwind-config": "workspace:*",
+    "@next/bundle-analyzer": "15.0.2",
+    "eslint-config-next": "^15.0.2",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/tsconfig.json`:
+
+```json
+{
+  "extends": "@vincero/typescript-config/next",
+  "display": "Fastigheter",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/postcss.config.js`:
+
+```js
+import baseConfig from "@vincero/tailwind-config/postcss";
+import tailwindConfig from "./tailwind.config.js";
+
+/** @type {import('postcss').Config} */
+export default {
+  ...baseConfig,
+  plugins: {
+    ...baseConfig.plugins,
+    tailwindcss: tailwindConfig,
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/fastigheter/next.config.ts`:
+
+```ts
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+import type { NextConfig } from "next";
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+  openAnalyzer: false,
+});
+
+const config: NextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  transpilePackages: ["@vincero/ui"],
+  modularizeImports: {
+    "@vincero/ui": {
+      transform: "@vincero/ui/dist/components/{{member}}",
+      skipDefaultConversion: true,
+    },
+  },
+  // Turbopack configuration
+  experimental: {
+    turbo: {
+      resolveAlias: {
+        // Ensure proper module resolution
+        "@vincero/ui": "@vincero/ui/dist",
+      },
+    },
+  },
+};
+
+export default bundleAnalyzer(config);
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/tailwind.config.js`:
+
+```js
+import baseConfig from "@vincero/tailwind-config/base";
+import animate from "tailwindcss-animate";
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./stories/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "../../packages/ui/src/**/*.{js,ts,jsx,tsx}",
+  ],
+
+  theme: {
+    ...baseConfig.theme,
+    extend: {
+      ...baseConfig.theme.extend,
+    },
+  },
+
+  plugins: [animate],
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/styles/tailwind.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/styles/globals.css`:
+
+```css
+@import url('./tailwind.css');
+
+@import url("@vincero/ui/theme.css");
+/*@import url("@vincero/fastigheter/theme.css");*/
+/*@import url("@vincero/invest/theme.css");*/
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/stories/banner.stories.tsx`:
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Banner } from "@vincero/ui/banner";
+
+const meta: Meta<typeof Banner> = {
+  title: "Banner",
+  component: Banner,
+};
+
+export default meta;
+type Story = StoryObj<typeof Banner>;
+
+/*
+ *👇 Render functions are a framework-specific feature to allow you control on how the component renders.
+ * See https://storybook.js.org/docs/react/api/csf
+ * to learn how to use render functions.
+ */
+export const Primary: Story = {
+  render: (props) => <Banner {...props} />,
+  name: "Banner",
+  args: {
+    title: "Din partner för tillväxt",
+    textBlocks: [
+      {
+        children: [
+          {
+            type: "heading-one",
+            children: [{ text: "1000+" }],
+          },
+          {
+            type: "paragraph",
+            children: [{ text: "Nöjda Hyresgäster" }],
+          },
+          {
+            type: "paragraph",
+            children: [{ text: "" }],
+          },
+        ],
+      },
+      {
+        children: [
+          {
+            type: "heading-one",
+            children: [{ text: "150+" }],
+          },
+          {
+            type: "paragraph",
+            children: [{ text: "Fastigheter" }],
+          },
+        ],
+      },
+      {
+        children: [
+          {
+            type: "heading-one",
+            children: [{ text: "10+" }],
+          },
+          {
+            type: "paragraph",
+            children: [{ text: "Års Erfarenhet" }],
+          },
+        ],
+      },
+    ],
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/stories/text.stories.tsx`:
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Text } from "@vincero/ui/text";
+
+const meta: Meta<typeof Text> = {
+  title: "Text",
+  component: Text,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Text>;
+
+/*
+ *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ * See https://storybook.js.org/docs/react/api/csf
+ * to learn how to use render functions.
+ */
+export const Full: Story = {
+  render: (props) => <Text {...props} />,
+  name: "Text",
+  args: {
+    metaInformation: [
+      {
+        id: "cm31vlc1yb5e607mhf3s4oskt",
+        title: "Ort",
+        paragraphs: [
+          {
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    text: "Uppsala",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "cm31vlc1lb5e407mhe4h631b2",
+        title: "Datum",
+        paragraphs: [
+          {
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    text: "Juli, 2021",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    heading: "Senapsfabriken",
+    body: [
+      {
+        id: "a3klj3h5l23k4jh523l4kjh5",
+        title: "Om Projektet",
+        paragraphs: [
+          {
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    text: "År 2013 förvärvade Vincero Bostad och Magnolia Bostad gemensamt fastigheten för den gamla Slotts senapsfabrik på Kungsgatan i centrala Uppsala. ",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    text: "Detta markerar starten på en omfattande omvandling av stadsdelen Kungsängen från ett industriområde till ett attraktivt bostadsområde med tre kvarter och 1 800 hyres- och bostadsrätter.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "cm31vlc1yb5e60sdkf3s4oskt",
+        paragraphs: [
+          {
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    text: "Projektet, i samarbete med JM och SEB Trygg Liv, planerar inflyttningar mellan 2019 och 2020. ",
+                  },
+                ],
+              },
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    text: "Senapsfabriken erbjuder moderna och funktionella bostäder med närhet till resecentrum samt snabb tillgång till både Stockholm och Arlanda.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/stories/header.stories.tsx`:
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Header } from "@vincero/ui/header";
+
+const meta: Meta<typeof Header> = {
+  title: "Header",
+  component: Header,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Header>;
+
+/*
+ *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ * See https://storybook.js.org/docs/react/api/csf
+ * to learn how to use render functions.
+ */
+export const Primary: Story = {
+  render: (props) => <Header {...props} />,
+  name: "Header",
+  args: {
+    title: "Vi förvaltar våra hyresgästers förtroende",
+    subtitle:
+      "Kommersiella fastigheter i bra kommunikationslägen i Stockholm och Uppsala.",
+    links: [
+      {
+        id: "df9g8dfg78adfgadf8",
+        url: "/kontakt",
+        displayText: "Kontakt",
+        variant: "primary",
+        target: "self",
+        titleAttribute: "Gå till Kontakt",
+        ariaLabel: "Go to Contact Page",
+      },
+      {
+        id: "fa9sd8fasdavdp98ay",
+        url: "/#banner",
+        displayText: "Läs mer",
+        variant: "tertiary",
+        target: "self",
+        titleAttribute: "Läs mer",
+      },
+    ],
+    background: {
+      id: "df98sfph8epferoifs89",
+      url: "/placeholder-video.webm",
+      mimeType: "video/webm",
+      altText: "Aerial view of buildings and streets",
+    },
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/stories/slider.stories.tsx`:
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Slider } from "@vincero/ui/slider";
+
+const meta: Meta<typeof Slider> = {
+  title: "Slider",
+  component: Slider,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Slider>;
+
+/*
+ *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ * See https://storybook.js.org/docs/react/api/csf
+ * to learn how to use render functions.
+ */
+export const Primary: Story = {
+  render: (props) => <Slider {...props} />,
+  name: "Slider",
+  args: {
+    blocks: [
+      {
+        id: "cm31qzwo4a4jw07mj9b4d0gjt",
+        title: "Lokaler",
+        heading: "Vi skapar utrymme för att din vision ska förverkligas.",
+        body: "Med fokus på långsiktiga relationer, anpassningsförmåga och kundanpassade lösningar, strävar vi efter att vara mer än bara en hyresvärd – vi är en partner i dina framgångar.",
+        links: [
+          {
+            id: "cm31qzwo5a4jx07mj2da5jrqa",
+            url: "blabla",
+            displayText: "Våra Lokaler",
+          },
+        ],
+        media: {
+          mimeType: "video/webm",
+          url: "/placeholder-video.webm",
+        },
+      },
+      {
+        id: "cm31qzwo7a4jz07mje19mcl8u",
+        title: "Bostäder",
+        heading: "Din framtid börjar i våra hem.",
+        body: "Vi bygger bostäder med omtanke för både människor och miljö. Våra projekt präglas av smarta lösningar vilket skapar trivsamma och funktionella hem för alla livsstilar.",
+        links: [
+          {
+            id: "cm31qzwo7a4k007mj901spfil",
+            url: "blabla",
+            displayText: "Våra Lokaler",
+          },
+          {
+            id: "cm31qzwo7a4k107mjz7sy5nrg",
+            url: "blabla",
+            displayText: "Våra Lokaler",
+          },
+        ],
+        media: {
+          mimeType: "video/webm",
+          url: "/placeholder-video.webm",
+        },
+      },
+    ],
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/stories/carousel.stories.tsx`:
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Carousel } from "@vincero/ui/carousel";
+
+const meta: Meta<typeof Carousel> = {
+  title: "Carousel",
+  component: Carousel,
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const mockImage = {
+  src: "https://placehold.co/400",
+  id: "df98sfph8epferoifs89",
+  width: 400,
+  mimeType: "image",
+};
+
+const mockProfiles = [
+  {
+    id: "1",
+    name: "Robin Rutuli",
+    role: "VD/Grundare",
+    image: mockImage,
+    email: "robin@example.com",
+  },
+  {
+    id: "2",
+    name: "Andreas Rutuli",
+    role: "Ordförande/Grundare",
+    image: mockImage,
+    email: "andreas@example.com",
+  },
+  {
+    id: "3",
+    name: "Henrik Buss",
+    role: "Fastighetschef",
+    image: mockImage,
+    email: "henrik@example.com",
+  },
+  {
+    id: "4",
+    name: "Emma Larsson",
+    role: "Projektledare",
+    image: mockImage,
+    email: "emma@example.com",
+  },
+  {
+    id: "5",
+    name: "Karl Svensson",
+    role: "Arkitekt",
+    image: mockImage,
+    email: "karl@example.com",
+  },
+];
+
+export const Default: Story = {
+  args: {
+    title: "Vårt Team",
+    subtitle:
+      "Fugiat enim nisi tempor consequat eiusmod do officia exercitation ut commodo id elit.",
+    profiles: mockProfiles,
+    variant: "team",
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/package.json`:
+
+```json
+{
+  "name": "@vincero/docs",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "debug": "storybook doctor --debug && storybook info",
+    "clean": "rm -rf .turbo .cache node_modules storybook-static",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ./stories/*.stories.* --max-warnings 0"
+  },
+  "dependencies": {
+    "@vincero/ui": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.3.6",
+    "@storybook/addon-links": "^8.3.6",
+    "@storybook/addon-themes": "^8.4.1",
+    "@storybook/blocks": "^8.3.6",
+    "@storybook/react": "^8.3.6",
+    "@storybook/react-vite": "^8.3.6",
+    "@vincero/eslint-config": "workspace:*",
+    "@vincero/tailwind-config": "workspace:*",
+    "@vincero/typescript-config": "workspace:*",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "postcss-import": "^16.1.0",
+    "storybook": "^8.3.6",
+    "tailwindcss": "^3.4.14",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vite-tsconfig-paths": "5.0.1"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/tsconfig.json`:
+
+```json
+{
+  "extends": "@vincero/typescript-config/storybook",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/eslint.config.js`:
+
+```js
+import { createConfig } from "@vincero/eslint-config";
+export default createConfig("storybook");
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/vite.config.ts`:
+
+```ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    preserveSymlinks: true,
+  },
+});
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/docs/postcss.config.js`:
+
+```js
+import baseConfig from "@vincero/tailwind-config/postcss";
+import tailwindConfig from "./tailwind.config.js";
+
+/** @type {import('postcss').Config} */
+export default {
+  ...baseConfig,
+  plugins: {
+    ...baseConfig.plugins,
+    tailwindcss: tailwindConfig,
+    autoprefixer: {},
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/tailwind.config.js`:
+
+```js
+import baseConfig from "@vincero/tailwind-config/base";
+
+export default {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "@vincero/ui/src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    ...baseConfig.theme,
+    extend: {
+      ...baseConfig.theme?.extend,
+
+      // App-specific theme extensions
+      colors: {
+        primary: {
+          DEFAULT: "var(--primary)",
+          dark: "var(--primary-dark)",
+          light: "var(--primary-light)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          dark: "var(--secondary-dark)",
+          light: "var(--secondary-light)",
+        },
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+      },
+    },
+  },
+  plugins: [...(baseConfig.plugins || [])],
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/app/layout.tsx`:
+
+```tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html data-theme="invest" lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/app/page.tsx`:
+
+```tsx
+export default function Page() {
+  return <h1>Hello, Next.js!</h1>;
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/styles/theme.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root[data-theme="invest"] {
+    /* Main colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --primary: 160 84% 39%; /* emerald-600 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 160 84% 39%; /* Same as primary for brand consistency */
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/package.json`:
+
+```json
+{
+  "name": "@vincero/invest",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack --port 3001",
+    "build": "next build",
+    "clean": "rm -rf .turbo .next node_modules",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "exports": {
+    "./theme.css": "./styles/theme.css"
+  },
+  "dependencies": {
+    "@vincero/ui": "workspace:*",
+    "next": "latest",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vincero/typescript-config": "workspace:*",
+    "@vincero/tailwind-config": "workspace:*",
+    "@next/bundle-analyzer": "15.0.2",
+    "eslint-config-next": "^15.0.2",
+    "eslint": "^9",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8"
+  }
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/tsconfig.json`:
+
+```json
+{
+  "extends": "@vincero/typescript-config/next",
+  "display": "Invest",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@vincero/ui/*": ["../../packages/ui/src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/postcss.config.js`:
+
+```js
+import baseConfig from "@vincero/tailwind-config/postcss";
+import tailwindConfig from "./tailwind.config.js";
+
+/** @type {import('postcss').Config} */
+export default {
+  ...baseConfig,
+  plugins: {
+    ...baseConfig.plugins,
+    tailwindcss: tailwindConfig,
+  },
+};
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/apps/invest/next.config.ts`:
+
+```ts
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+import type { NextConfig } from "next";
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+  openAnalyzer: false,
+});
+
+const config: NextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  transpilePackages: ["@vincero/ui"],
+  modularizeImports: {
+    "@vincero/ui": {
+      transform: "@vincero/ui/dist/components/{{member}}",
+      skipDefaultConversion: true,
+    },
+  },
+  // Turbopack configuration
+  experimental: {
+    turbo: {
+      resolveAlias: {
+        // Ensure proper module resolution
+        "@vincero/ui": "@vincero/ui/dist",
+      },
+    },
+  },
+};
+
+export default bundleAnalyzer(config);
+
+```
+
+`/Users/viktor.jensen-torp/Code/Personal/vincero/pnpm-workspace.yaml`:
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+
+```

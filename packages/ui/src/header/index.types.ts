@@ -1,21 +1,10 @@
-type LinkProps = {
-  url: string;
-  displayText: string;
-  variant: "primary" | "secondary" | "tertiary";
-  target: string;
-  titleAttribute?: string;
-  ariaLabel?: string;
-};
+import type { LinkProps, MediaProps } from "../types.ts";
 
-interface HeaderProps {
+interface Props {
   title: string;
   subtitle: string;
-  links: LinkProps[];
-  background: {
-    url: string;
-    mimeType: string;
-    altText?: string;
-  };
+  links?: LinkProps[];
+  background?: MediaProps;
 }
 
-export type { HeaderProps, LinkProps };
+export type { Props, LinkProps };

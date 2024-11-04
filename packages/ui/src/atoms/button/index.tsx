@@ -1,21 +1,19 @@
-import React from "react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+
 import { Button as ShadcnButton } from "../../../lib/shadcn/button";
 import { cn } from "../../../lib/utils";
 
-import type { FC } from "react";
+import type { Props } from "./index.types.ts";
 
-interface ButtonProps
-  extends React.ComponentPropsWithoutRef<typeof ShadcnButton> {
-  variant?: "primary" | "secondary" | "tertiary";
-  href?: string;
-}
-
-const Button: FC<ButtonProps> = ({
+// @todo add Next Link for internal pages
+//
+export function Button({
   variant = "primary",
   className,
   href,
   ...props
-}) => {
+}: Props) {
   const buttonClasses = cn(
     "transition-colors duration-200",
     {
@@ -23,8 +21,6 @@ const Button: FC<ButtonProps> = ({
         variant === "primary",
       "bg-secondary text-secondary-foreground hover:bg-secondary/80":
         variant === "secondary",
-      "bg-accent text-accent-foreground hover:bg-accent/90":
-        variant === "tertiary",
     },
     className,
   );
@@ -32,12 +28,13 @@ const Button: FC<ButtonProps> = ({
   if (href) {
     return (
       <ShadcnButton asChild className={buttonClasses} {...props}>
-        <a href={href}>{props.children}</a>
+        <Link href={href}>
+          {props.children}
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
       </ShadcnButton>
     );
   }
 
   return <ShadcnButton className={buttonClasses} {...props} />;
-};
-
-export { Button };
+}

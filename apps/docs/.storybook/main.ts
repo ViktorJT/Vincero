@@ -9,6 +9,7 @@ const config = {
   addons: [
     getAbsolutePath("@storybook/addon-links"),
     getAbsolutePath("@storybook/addon-essentials"),
+    getAbsolutePath("@storybook/addon-themes"),
   ],
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
@@ -28,13 +29,13 @@ const config = {
             find: "@vincero/ui",
             replacement: resolve(__dirname, "../../../packages/ui/src"),
           },
+          //{
+          //  find: "@vincero/fastigheter",
+          //  replacement: resolve(__dirname, "../../fastigheter/"),
+          //},
         ],
       },
     };
-  },
-
-  docs: {
-    autodocs: true,
   },
 };
 

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Header } from "@vincero/ui/header";
 
 const meta: Meta<typeof Header> = {
+  title: "Header",
   component: Header,
-  argTypes: {},
 };
 
 export default meta;
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof Header>;
  * to learn how to use render functions.
  */
 export const Primary: Story = {
-  render: (props) => <Header {...props}>Hello</Header>,
+  render: (props) => <Header {...props} />,
   name: "Header",
   args: {
     title: "Vi förvaltar våra hyresgästers förtroende",
@@ -24,6 +24,7 @@ export const Primary: Story = {
       "Kommersiella fastigheter i bra kommunikationslägen i Stockholm och Uppsala.",
     links: [
       {
+        id: "df9g8dfg78adfgadf8",
         url: "/kontakt",
         displayText: "Kontakt",
         variant: "primary",
@@ -32,6 +33,7 @@ export const Primary: Story = {
         ariaLabel: "Go to Contact Page",
       },
       {
+        id: "fa9sd8fasdavdp98ay",
         url: "/#banner",
         displayText: "Läs mer",
         variant: "tertiary",
@@ -40,6 +42,7 @@ export const Primary: Story = {
       },
     ],
     background: {
+      id: "df98sfph8epferoifs89",
       url: "/placeholder-video.webm",
       mimeType: "video/webm",
       altText: "Aerial view of buildings and streets",

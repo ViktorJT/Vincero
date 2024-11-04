@@ -7,13 +7,25 @@
   ],
   "exports": {
     "./theme.css": "./src/theme.css",
-    "./media": {
-      "types": "./dist/media/index.d.ts",
-      "import": "./dist/media/index.js"
-    },
     "./header": {
       "types": "./dist/header/index.d.ts",
       "import": "./dist/header/index.js"
+    },
+    "./carousel": {
+      "types": "./dist/header/index.d.ts",
+      "import": "./dist/header/index.js"
+    },
+    "./banner": {
+      "types": "./dist/banner/index.d.ts",
+      "import": "./dist/banner/index.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js"
+    },
+    "./text": {
+      "types": "./dist/text/index.d.ts",
+      "import": "./dist/text/index.js"
     }
   },
   "scripts": {
@@ -24,21 +36,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@graphcms/rich-text-react-renderer": "^0.6.2",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "1.1.0",
+    "@studio-freight/lenis": "^1.0.42",
     "class-variance-authority": "0.7.0",
     "clsx": "^2.1.1",
     "gsap": "3.12.5",
     "lucide-react": "0.454.0",
+    "next": "^15.0.2",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
-    "@types/node": "22.8.4",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@graphcms/rich-text-types": "^0.5.1",
     "@vincero/eslint-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
-    "autoprefixer": "^10.4.20",
     "react": "^18.2.0",
     "tsup": "^8.3.5"
   },

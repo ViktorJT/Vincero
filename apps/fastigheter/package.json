@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "exports": {
-    "./styles/theme.css": "./styles/theme.css"
+    "./theme.css": "./styles/theme.css"
   },
   "dependencies": {
     "@vincero/ui": "workspace:*",

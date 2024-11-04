@@ -1,4 +1,6 @@
 import type { Preview } from "@storybook/react";
+import { withThemeByDataAttribute } from "@storybook/addon-themes";
+
 import "../styles/globals.css";
 
 const preview: Preview = {
@@ -11,6 +13,17 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    withThemeByDataAttribute({
+      themes: {
+        base: "",
+        fastigheter: "fastigheter",
+        invest: "invest",
+      },
+      defaultTheme: "base",
+      attributeName: "data-theme",
+    }),
+  ],
 };
 
 export default preview;
