@@ -1,6 +1,6 @@
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils/cn";
 
-import { Media } from "../../media";
+import { Media } from "../../molecules/media";
 
 import type { Props } from "./index.types";
 

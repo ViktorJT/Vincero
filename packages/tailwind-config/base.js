@@ -3,40 +3,97 @@ import defaultTheme from "tailwindcss/defaultTheme.js";
 /** @type {import('tailwindcss').Config} */
 export default {
   theme: {
+    fontSize: {
+      detail: [
+        "var(--font-size-detail)",
+        {
+          lineHeight: "var(--line-height-relaxed)",
+          letterSpacing: "var(--letter-spacing-none)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      display: [
+        "var(--font-size-display)",
+        {
+          lineHeight: "var(--line-height-default)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      "display-large": [
+        "var(--font-size-display-large)",
+        {
+          lineHeight: "var(--line-height-default)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      "display-huge": [
+        "var(--font-size-display-huge)",
+        {
+          lineHeight: "var(--line-height-default)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      body: [
+        "var(--font-size-body)",
+        {
+          lineHeight: "var(--line-height-relaxed)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      "body-large": [
+        "var(--font-size-body-large)",
+        {
+          lineHeight: "var(--line-height-relaxed)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      link: [
+        "var(--font-size-link)",
+        {
+          lineHeight: "var(--line-height-compact)",
+          letterSpacing: "var(--letter-spacing-none)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      "link-large": [
+        "var(--font-size-link-large)",
+        {
+          lineHeight: "var(--line-height-compact)",
+          letterSpacing: "var(--letter-spacing-none)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      heading: [
+        "var(--font-size-heading)",
+        {
+          lineHeight: "var(--line-height-default)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+      "heading-large": [
+        "var(--font-size-heading-large)",
+        {
+          lineHeight: "var(--line-height-default)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
+    },
     extend: {
       colors: {
-        // Base semantic colors - these map to CSS variables
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        white: "hsl(var(--white))",
+        light: "hsl(var(--light))",
+        muted: "hsl(var(--muted))",
+        dark: "hsl(var(--dark))",
+        black: "hsl(var(--black))",
+        accent: "hsl(var(--accent))",
 
-        // Primary colors
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-
-        // Secondary colors
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-
-        // UI component colors
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-
-        // Utility colors
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-
-        // State colors
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -51,6 +108,7 @@ export default {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
+        // TODO clean this up later, either use or remove
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },

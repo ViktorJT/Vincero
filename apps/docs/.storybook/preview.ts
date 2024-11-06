@@ -16,11 +16,10 @@ const preview: Preview = {
   decorators: [
     withThemeByDataAttribute({
       themes: {
-        base: "",
         fastigheter: "fastigheter",
         invest: "invest",
       },
-      defaultTheme: "base",
+      defaultTheme: "fastigheter",
       attributeName: "data-theme",
     }),
   ],

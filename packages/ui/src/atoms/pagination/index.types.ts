@@ -1,6 +1,8 @@
-export interface Props {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+import type { ReactNode } from "react";
+
+export interface PaginationProps<T> {
+  items: T[];
+  renderItem: (item: T) => ReactNode;
+  initialItemsToShow?: number;
   className?: string;
 }

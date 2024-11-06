@@ -1,28 +1,48 @@
 import { Button } from "../button";
 
-import { cn } from "../../../lib/utils";
+import { usePagination } from "../../lib/hooks/usePagination";
+import { cn } from "../../lib/utils/cn";
 
-import type { Props } from "./index.types";
+import type { PaginationProps } from "./index.types";
 
-export function Pagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-  className,
-}: Props) {
+export function Pagination<T>({
+  items,
+  renderItem,
+  initialItemsToShow = 4,
+  className = "",
+}: PaginationProps<T>) {
+  const { visibleItems, showMore, showLess, canShowMore, canShowLess } =
+    usePagination({
+      items,
+      initialItemsToShow,
+    });
+
   return (
-    <div className={cn("flex items-center justify-center gap-2", className)}>
-      {Array.from({ length: totalPages }, (_, i) => (
-        <Button
-          key={i}
-          className="w-8 h-8 p-0"
-          size="sm"
-          variant={currentPage === i ? "primary" : "secondary"}
-          onClick={() => onPageChange(i)}
-        >
-          {i + 1}
-        </Button>
-      ))}
+    <div className={cn("grid grid-rows-2 gap-8", className)}>
+      <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
+        {visibleItems.map(renderItem)}
+      </div>
+      <div className="border-t border-t-primary border-t-1 flex justify-center">
+        {canShowMore ? (
+          <Button
+            className="transition-all duration-300 ease-in-out mt-4"
+            variant="secondary"
+            onClick={showMore}
+          >
+            Visa mer (<span className="mx-[1px]">{items.length}</span>)
+          </Button>
+        ) : (
+          canShowLess && (
+            <Button
+              className="transition-all duration-300 ease-in-out ml-4 mt-4"
+              variant="secondary"
+              onClick={showLess}
+            >
+              Visa mindre
+            </Button>
+          )
+        )}
+      </div>
     </div>
   );
 }

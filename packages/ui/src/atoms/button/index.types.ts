@@ -1,10 +1,11 @@
-import type { Button } from "../../../lib/shadcn/button";
-import type { ComponentPropsWithoutRef } from "react";
-import type { ButtonVariant } from "../../types";
+import type { VariantProps } from "class-variance-authority";
+import type variants from "./index.styles";
 
-export interface Props
-  extends Omit<ComponentPropsWithoutRef<typeof Button>, "variant"> {
-  // @todo clean this up a bit
-  variant: ButtonVariant;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof variants> {
+  asChild?: boolean;
   href?: string;
 }
+
+export type ButtonVariants = VariantProps<typeof variants>;

@@ -1,10 +1,12 @@
-export type ButtonVariant = "primary" | "secondary" | "tertiary";
+import type { RichTextContent } from "@graphcms/rich-text-types";
+
+import type { ButtonVariants } from "./atoms/button/index.types";
 
 export interface LinkProps {
   id: string;
   url: string;
   displayText: string;
-  variant: ButtonVariant;
+  variant: ButtonVariants["variant"];
   target: string; // @todo set appropriate target based on data from Hygraph OR do it dynamically using the url?
   titleAttribute?: string;
   ariaLabel?: string;
@@ -27,4 +29,10 @@ export interface ProfileProps {
   role: string;
   image: MediaProps;
   email?: string;
+}
+
+export interface ParagraphProps {
+  id: string;
+  title?: string;
+  paragraphs?: RichTextContent[];
 }
