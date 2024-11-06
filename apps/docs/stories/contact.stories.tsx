@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Contact } from "@vincero/ui/contact";
+import { Contact } from "@vincero/ui/organisms/contact";
 
 const meta: Meta<typeof Contact> = {
   title: "Contact",

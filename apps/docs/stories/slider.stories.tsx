@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Slider } from "@vincero/ui/slider";
+import { Slider } from "@vincero/ui/organisms/slider";
 
 const meta: Meta<typeof Slider> = {
   title: "Slider",

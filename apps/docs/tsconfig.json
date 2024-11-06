@@ -1,7 +1,12 @@
 {
   "extends": "@vincero/typescript-config/storybook",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@vincero/ui/*": ["../../packages/ui/src/*"],
+      "@vincero/fastigheter/*": ["../../packages/fastigheter/src/*"],
+      "@vincero/invest/*": ["../../packages/invest/src/*"]
+    }
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
