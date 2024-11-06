@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap");
 
 @layer base {
   :root[data-theme="fastigheter"] {
@@ -17,9 +17,9 @@
     --font-size-detail: 0.75rem; /* 12px */
     --font-size-link: 0.875rem; /* 14px */
     --font-size-link-large: 0.75rem; /* 12px */
-    --font-size-heading: 1.125rem; /* 18px */
-    --font-size-body: 1.25rem; /* 20px */
+    --font-size-body: 1rem; /* 16px */
     --font-size-body-large: 1.25rem; /* 20px */
+    --font-size-heading: 1.125rem; /* 18px */
     --font-size-heading-large: 2rem; /* 32px */
     --font-size-display: 4rem; /* 64px */
     --font-size-display-large: 3.5rem; /* 56px */
@@ -35,6 +35,7 @@
     --letter-spacing-tight: -2%;
 
     /* Font weights */
+    --font-weight-light: 300;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
   }

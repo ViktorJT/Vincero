@@ -6,7 +6,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:storybook": "turbo run dev --filter @vincero/docs --filter @vincero/ui",
+    "dev:storybook": "turbo run dev --filter @vincero/docs",
     "preview-storybook": "turbo preview-storybook",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",

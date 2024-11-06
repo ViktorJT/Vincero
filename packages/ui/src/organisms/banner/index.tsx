@@ -28,7 +28,6 @@ export function Banner({ title, textBlocks = [] }: Props) {
           stagger: 0.16,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: ref.current,
             start: "top bottom-=100",
             toggleActions: "play none none reverse",
           },
@@ -41,39 +40,37 @@ export function Banner({ title, textBlocks = [] }: Props) {
   return (
     <section
       ref={ref}
-      className="w-full bg-accent text-primary py-12 md:py-24 lg:min-h-[50vh] flex items-center"
+      className="w-full bg-accent text-dark text-balance py-20 px-10 min-h-[50dvh] flex flex-col md:gap-0 gap-8 md:flex-row justify-items-center md:items-center"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
-          <h1 className="animate-item md:w-1/3 text-3xl md:text-4xl lg:text-5xl font-bold">
-            {title}
-          </h1>
-
-          {textBlocks && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:w-2/3">
-              {textBlocks.map((block, i) => (
-                <div key={i}>
-                  <RichText
-                    content={block}
-                    renderers={{
-                      h1: ({ children }) => (
-                        <p className="animate-item text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
-                          {children}
-                        </p>
-                      ),
-                      p: ({ children }) => (
-                        <p className="animate-item text-sm md:text-base lg:text-lg text-muted-foreground">
-                          {children}
-                        </p>
-                      ),
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+      <div className="md:w-1/2">
+        <h1 className="animate-item text-heading-large md:text-display-large md:pr-10">
+          {title}
+        </h1>
       </div>
+
+      {textBlocks && (
+        <div className="md:grid grid-cols-1 md:grid-cols-3 gap-8 md:w-1/2 contents">
+          {textBlocks.map((block, i) => (
+            <div key={i}>
+              <RichText
+                content={block}
+                renderers={{
+                  h1: ({ children }) => (
+                    <p className="animate-item text-heading-large md:text-display-large mb-2">
+                      {children}
+                    </p>
+                  ),
+                  p: ({ children }) => (
+                    <p className="animate-item text-detail md:text-body-large">
+                      {children}
+                    </p>
+                  ),
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

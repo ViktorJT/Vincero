@@ -41,7 +41,6 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf dist .turbo .cache node_modules",
     "typecheck": "tsc --noEmit"

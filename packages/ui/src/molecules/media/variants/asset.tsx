@@ -18,7 +18,7 @@ export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
             item.className,
           );
           return (
-            <div key={item.id} className={cn("relative", className)}>
+            <div key={item.id} className={cn("asset relative", className)}>
               {isVideo(item) ? (
                 <video
                   ref={ref}
@@ -26,14 +26,14 @@ export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
                   muted
                   playsInline
                   aria-hidden="true"
-                  autoPlay={false}
-                  className={assetStyles}
+                  autoPlay={true}
+                  className={cn("video", assetStyles)}
                   src={item.url}
                 />
               ) : (
                 <img
                   alt={item.altText || ""}
-                  className={assetStyles}
+                  className={cn("image", assetStyles)}
                   src={item.url}
                 />
               )}
