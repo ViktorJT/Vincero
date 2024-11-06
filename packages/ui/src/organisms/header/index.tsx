@@ -32,7 +32,7 @@ export function Header({ title, subtitle, links, background }: Props) {
           ".header",
           { yPercent: -100 },
           { yPercent: 0, duration: 0.8, ease: "power3.out" },
-          0, // Start at the same time as the `.video` animation
+          0,
         )
         .fromTo(
           [".title", ".subtitle", ".buttons"],

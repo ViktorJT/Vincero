@@ -40,9 +40,9 @@ export function Banner({ title, textBlocks = [] }: Props) {
   return (
     <section
       ref={ref}
-      className="w-full bg-accent text-dark text-balance py-20 px-10 min-h-[50dvh] flex flex-col md:gap-0 gap-8 md:flex-row justify-items-center md:items-center"
+      className="w-full bg-accent text-dark text-balance py-20 px-10 min-h-[50dvh] flex flex-col md:gap-0 gap-8 md:flex-row justify-items-center justify-around items-center"
     >
-      <div className="md:w-1/2">
+      <div className="w-full md:w-1/2">
         <h1 className="animate-item text-heading-large md:text-display-large md:pr-10">
           {title}
         </h1>
@@ -51,12 +51,12 @@ export function Banner({ title, textBlocks = [] }: Props) {
       {textBlocks && (
         <div className="md:grid grid-cols-1 md:grid-cols-3 gap-8 md:w-1/2 contents">
           {textBlocks.map((block, i) => (
-            <div key={i}>
+            <div key={i} className="w-full">
               <RichText
                 content={block}
                 renderers={{
                   h1: ({ children }) => (
-                    <p className="animate-item text-heading-large md:text-display-large mb-2">
+                    <p className="animate-item text-heading-large md:text-display mb-2">
                       {children}
                     </p>
                   ),

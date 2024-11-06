@@ -14,9 +14,9 @@ type Story = StoryObj<typeof Banner>;
  * See https://storybook.js.org/docs/react/api/csf
  * to learn how to use render functions.
  */
-export const Primary: Story = {
+export const Full: Story = {
   render: (props) => <Banner {...props} />,
-  name: "Banner",
+  name: "Full",
   args: {
     title: "Din partner för tillväxt",
     textBlocks: [
@@ -61,5 +61,13 @@ export const Primary: Story = {
         ],
       },
     ],
+  },
+};
+
+export const Primary: Story = {
+  render: (props) => <Banner {...props} />,
+  name: "Minimal",
+  args: {
+    title: "Din partner för tillväxt",
   },
 };

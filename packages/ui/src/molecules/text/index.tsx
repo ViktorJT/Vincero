@@ -11,11 +11,11 @@ import type {
 
 export function Paragraph({ content = [] }: { content: ParagraphProps[] }) {
   return content.map((lockup: ParagraphProps) => (
-    <div key={lockup.id} className="contents">
-      <p className="animate-text hero-text text-muted-foreground text-right">
+    <div key={lockup.id} className="flex flex-col gap-2 md:contents">
+      <p className="animate-text text-detail text-muted md:text-right md:mt-1.5">
         {lockup.title}
       </p>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-body md:text-body-large">
         {lockup.paragraphs?.map((paragraph: RichTextContent, i: number) => (
           <RichText
             key={`${lockup.id}-${i}`}
@@ -51,13 +51,13 @@ export function Text({ metaInformation = [], heading, body }: TextProps) {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen bg-primary text-primary-foreground flex items-center px-4 md:px-8 lg:px-16 py-12 md:py-16"
+      className="relative min-h-screen text-dark flex items-center px-6 md:px-10 py-10 md:py-16 md:-ml-[160px]"
     >
-      <div className="grid grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto">
         <Paragraph content={metaInformation} />
 
         {heading && (
-          <h1 className="animate-text col-start-2 hero-text text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
+          <h1 className="animate-text col-start-1 md:col-start-2 text-heading-large md:text-display-huge my-6 md:my-10">
             {heading}
           </h1>
         )}
