@@ -46,6 +46,8 @@ export const Primary: Story = {
       url: "/placeholder-video.webm",
       mimeType: "video/webm",
       altText: "Aerial view of buildings and streets",
+      width: 400,
+      height: 400,
     },
   },
 };

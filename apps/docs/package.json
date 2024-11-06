@@ -11,6 +11,7 @@
     "lint": "eslint ./stories/*.stories.* --max-warnings 0"
   },
   "dependencies": {
+    "@radix-ui/react-toast": "^1.2.2",
     "@vincero/ui": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.3.1"
