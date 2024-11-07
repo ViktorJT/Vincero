@@ -69,10 +69,3 @@ export const Gallery: Story = {
     media: mockItems,
   },
 };
-
-export const Mason: Story = {
-  args: {
-    variant: "mason",
-    media: mockItems,
-  },
-};

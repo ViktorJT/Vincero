@@ -59,7 +59,7 @@ const mockPages = [
   {
     id: "1",
     title: "Excepteur labore cillum",
-    subtitle:
+    description:
       "Aute proident irure voluptate occaecat aute dolore elit nisi quis cillum ad sint.",
     image: mockImage,
     href: "google.com",
@@ -67,14 +67,14 @@ const mockPages = [
   {
     id: "2",
     title: "Laborum ut ut",
-    subtitle: "Non anim culpa anim veniam duis.",
+    description: "Non anim culpa anim veniam duis.",
     image: mockImage,
     href: "google.com",
   },
   {
     id: "3",
     title: "Lorem deserunt in nostrud",
-    subtitle: "Laboris mollit laborum amet incididunt est elit laborum.",
+    description: "Laboris mollit laborum amet incididunt est elit laborum.",
     image: mockImage,
     href: "google.com",
   },
@@ -82,7 +82,7 @@ const mockPages = [
     id: "4",
     image: mockImage,
     title: "Labore exercitation aute",
-    subtitle:
+    description:
       "Duis amet pariatur ex veniam quis et magna incididunt cupidatat aute consectetur incididunt dolore ipsum Lorem.",
     href: "google.com",
   },
@@ -90,7 +90,7 @@ const mockPages = [
     id: "5",
     image: mockImage,
     title: "Pariatur enim ex excepteur",
-    subtitle:
+    description:
       "Duis consequat consequat aliqua excepteur enim aute consequat qui in magna enim minim Lorem occaecat.",
     href: "google.com",
   },
@@ -98,20 +98,20 @@ const mockPages = [
 
 export const Team: Story = {
   args: {
+    variant: "team",
     title: "Vårt Team",
     subtitle:
       "Fugiat enim nisi tempor consequat eiusmod do officia exercitation ut commodo id elit.",
     items: mockProfiles,
-    variant: "team",
   },
 };
 
 export const Page: Story = {
   args: {
+    variant: "page",
     title: "Våra Projekt",
     subtitle:
       "Fugiat enim nisi tempor consequat eiusmod do officia exercitation ut commodo id elit.",
     items: mockPages,
-    variant: "page",
   },
 };
