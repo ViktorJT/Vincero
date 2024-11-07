@@ -11,15 +11,10 @@ const Asset = dynamic(() =>
 const Gallery = dynamic(() =>
   import("./variants/gallery").then((mod) => mod.Gallery),
 );
-const Mason = dynamic(() =>
-  import("./variants/mason").then((mod) => mod.Mason),
-);
 
 export function Media({ variant = "default", media = [], className }: Props) {
   // Determine the component to load based on the variant
-  const Component = useRef(
-    variant === "default" ? Asset : variant === "gallery" ? Gallery : Mason,
-  ).current;
+  const Component = useRef(variant === "default" ? Asset : Gallery).current;
 
   return (
     <Component

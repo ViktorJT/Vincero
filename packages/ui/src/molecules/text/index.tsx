@@ -15,7 +15,7 @@ export function Paragraph({ content = [] }: { content: ParagraphProps[] }) {
       <p className="animate-text text-detail text-muted md:text-right md:mt-1.5">
         {lockup.title}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-body md:text-body-large">
+      <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-4 text-body md:text-body-large">
         {lockup.paragraphs?.map((paragraph: RichTextContent, i: number) => (
           <RichText
             key={`${lockup.id}-${i}`}
@@ -51,13 +51,13 @@ export function Text({ metaInformation = [], heading, body }: TextProps) {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen text-dark flex items-center px-6 md:px-10 py-10 md:py-16 md:-ml-[160px]"
+      className="dark:bg-dark bg-white relative min-h-screen flex items-center px-6 md:px-10 py-10 md:py-16 md:-ml-[160px]"
     >
       <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto">
         <Paragraph content={metaInformation} />
 
         {heading && (
-          <h1 className="animate-text col-start-1 md:col-start-2 text-heading-large md:text-display-huge my-6 md:my-10">
+          <h1 className="animate-text text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-huge my-6 md:my-10">
             {heading}
           </h1>
         )}

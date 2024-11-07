@@ -2,6 +2,8 @@ import defaultTheme from "tailwindcss/defaultTheme.js";
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ["selector", '[data-mode="dark"]'],
+
   theme: {
     fontSize: {
       detail: [
@@ -85,6 +87,7 @@ export default {
         },
       ],
     },
+
     extend: {
       colors: {
         white: "hsl(var(--white))",
@@ -99,14 +102,17 @@ export default {
           foreground: "hsl(var(--destructive-foreground))",
         },
       },
+
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
       },
+
       fontFamily: {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
       },
+
       keyframes: {
         // TODO clean this up later, either use or remove
         "accordion-down": {
@@ -118,6 +124,7 @@ export default {
           to: { height: "0" },
         },
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",

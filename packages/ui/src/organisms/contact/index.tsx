@@ -74,7 +74,7 @@ export function Contact({
   };
 
   return (
-    <div className="grid grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto w-full max-w-4xl px-4">
+    <div className="bg-white dark:bg-dark grid grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto w-full max-w-4xl px-4">
       {/* Media Section */}
       {image && (
         <div className="mb-8 h-[320px] md:col-span-full">
@@ -100,7 +100,9 @@ export function Contact({
               render={({ field: formField }) => (
                 <FormItem className="col-start-2 col-span-1">
                   <FormLabel>
-                    {field.label}
+                    <p className="inline dark:text-light text-dark">
+                      {field.label}
+                    </p>
                     {field.required && (
                       <span className="text-destructive ml-1">*</span>
                     )}
@@ -108,7 +110,7 @@ export function Contact({
                   <FormControl>
                     {field.type === "textArea" ? (
                       <textarea
-                        className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
+                        className="flex w-full rounded-md border border-muted bg-transparent px-3 py-2 text-body shadow-sm placeholder:text-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
                         placeholder={field.placeholder}
                         {...formField}
                       />
@@ -126,7 +128,12 @@ export function Contact({
             />
           ))}
 
-          <Button className="col-start-2" type="submit" variant="default">
+          <Button
+            arrow={false}
+            className="col-start-2"
+            type="submit"
+            variant="default"
+          >
             {submitButtonLabel}
           </Button>
         </form>

@@ -3,29 +3,36 @@
 import { useState, useCallback, useEffect, forwardRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import dynamic from "next/dynamic";
 
-import { cn } from "../../lib/utils/cn";
+import type { CarouselApi, CarouselProps, ContainerProps } from "./index.types";
+import type { KeyboardEvent, ComponentProps, HTMLAttributes } from "react";
 
-import { Button } from "../../atoms/button";
+import type { Props as PageCardProps } from "../../atoms/pageCard/index.types";
+import type { ProfileProps as ProfileCardProps } from "../../types";
 
 import {
   useCarousel,
   CarouselContext,
 } from "../../lib/hooks/useCarousel/useCarousel";
+import { cn } from "../../lib/utils/cn";
 
-import type { KeyboardEvent, ComponentProps, HTMLAttributes } from "react";
-import type { CarouselApi, CarouselProps } from "./index.types";
+const ProfileCard = dynamic(() =>
+  import("../../atoms/profileCard").then((mod) => mod.ProfileCard),
+);
+const PageCard = dynamic(() =>
+  import("../../atoms/pageCard").then((mod) => mod.PageCard),
+);
+import { Button } from "../../atoms/button";
 
-const Carousel = forwardRef<
+const Container = forwardRef<
   HTMLDivElement,
-  HTMLAttributes<HTMLDivElement> & CarouselProps
+  HTMLAttributes<HTMLDivElement> & ContainerProps
 >(
   (
     {
       orientation = "horizontal",
-      opts = {
-        loop: true,
-      },
+      opts,
       setApi,
       plugins,
       className,
@@ -124,31 +131,30 @@ const Carousel = forwardRef<
     );
   },
 );
-Carousel.displayName = "Carousel";
+Container.displayName = "Container";
 
-const CarouselContent = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const { carouselRef, orientation } = useCarousel();
+const Content = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    const { carouselRef, orientation } = useCarousel();
 
-  return (
-    <div ref={carouselRef} className="overflow-hidden">
-      <div
-        ref={ref}
-        className={cn(
-          "flex",
-          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className,
-        )}
-        {...props}
-      />
-    </div>
-  );
-});
-CarouselContent.displayName = "CarouselContent";
+    return (
+      <div ref={carouselRef} className="overflow-hidden">
+        <div
+          ref={ref}
+          className={cn(
+            "flex",
+            orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+            className,
+          )}
+          {...props}
+        />
+      </div>
+    );
+  },
+);
+Content.displayName = "Content";
 
-const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+const Item = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     const { orientation } = useCarousel();
 
@@ -167,71 +173,87 @@ const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     );
   },
 );
-CarouselItem.displayName = "CarouselItem";
+Item.displayName = "Item";
 
-const CarouselPrevious = forwardRef<
-  HTMLButtonElement,
-  ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+const Previous = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
+  ({ className, variant = "outline", size = "icon", ...props }, ref) => {
+    const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
+    return (
+      <Button
+        ref={ref}
+        className={cn(
+          "absolute  h-8 w-8 rounded-full",
+          orientation === "horizontal"
+            ? "-left-12 top-1/2 -translate-y-1/2"
+            : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+          className,
+        )}
+        disabled={!canScrollPrev}
+        size={size}
+        variant={variant}
+        onClick={scrollPrev}
+        {...props}
+      >
+        <ArrowLeft className="h-4 w-4" />
+        <span className="sr-only">Previous slide</span>
+      </Button>
+    );
+  },
+);
+Previous.displayName = "Previous";
+
+const Next = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
+  ({ className, variant = "outline", size = "icon", ...props }, ref) => {
+    const { orientation, scrollNext, canScrollNext } = useCarousel();
+
+    return (
+      <Button
+        ref={ref}
+        className={cn(
+          "absolute h-8 w-8 rounded-full",
+          orientation === "horizontal"
+            ? "-right-12 top-1/2 -translate-y-1/2"
+            : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+          className,
+        )}
+        disabled={!canScrollNext}
+        size={size}
+        variant={variant}
+        onClick={scrollNext}
+        {...props}
+      >
+        <ArrowRight className="h-4 w-4" />
+        <span className="sr-only">Next slide</span>
+      </Button>
+    );
+  },
+);
+Next.displayName = "Next";
+
+export function Carousel({ title, subtitle, items, variant }: CarouselProps) {
   return (
-    <Button
-      ref={ref}
-      className={cn(
-        "absolute  h-8 w-8 rounded-full",
-        orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className,
-      )}
-      disabled={!canScrollPrev}
-      size={size}
-      variant={variant}
-      onClick={scrollPrev}
-      {...props}
-    >
-      <ArrowLeft className="h-4 w-4" />
-      <span className="sr-only">Previous slide</span>
-    </Button>
+    <section className="relative bg-white dark:bg-dark text-dark dark:text-light">
+      <div className="items-center grid grid-cols-1 md:grid-cols-2 mx-auto max-w-5xl px-6 md:px-10 py-20">
+        <h2 className="text-display-large mr-10">{title}</h2>
+        {subtitle && <p className="text-lg">{subtitle}</p>}
+      </div>
+      <Container className="z-10">
+        <Content>
+          {items.map((item) => (
+            <Item key={item.id} className="basis-1/3 md:basis-96">
+              {variant === "team" ? (
+                <ProfileCard {...(item as ProfileCardProps)} />
+              ) : (
+                <PageCard {...(item as PageCardProps)} />
+              )}
+            </Item>
+          ))}
+        </Content>
+        <Previous />
+        <Next />
+      </Container>
+      <div className="absolute h-1/6 bg-dark bottom-0 left-0 right-0" />
+    </section>
   );
-});
-CarouselPrevious.displayName = "CarouselPrevious";
-
-const CarouselNext = forwardRef<
-  HTMLButtonElement,
-  ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
-
-  return (
-    <Button
-      ref={ref}
-      className={cn(
-        "absolute h-8 w-8 rounded-full",
-        orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className,
-      )}
-      disabled={!canScrollNext}
-      size={size}
-      variant={variant}
-      onClick={scrollNext}
-      {...props}
-    >
-      <ArrowRight className="h-4 w-4" />
-      <span className="sr-only">Next slide</span>
-    </Button>
-  );
-});
-CarouselNext.displayName = "CarouselNext";
-
-export {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-};
+}

@@ -6,6 +6,7 @@ export interface ButtonProps
     VariantProps<typeof variants> {
   asChild?: boolean;
   href?: string;
+  arrow?: boolean;
 }
 
 export type ButtonVariants = VariantProps<typeof variants>;

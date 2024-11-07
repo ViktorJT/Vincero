@@ -26,7 +26,7 @@ export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
                   muted
                   playsInline
                   aria-hidden="true"
-                  autoPlay={true}
+                  autoPlay={false}
                   className={cn("video", assetStyles)}
                   src={item.url}
                 />

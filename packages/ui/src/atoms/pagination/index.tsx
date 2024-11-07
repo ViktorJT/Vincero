@@ -8,7 +8,7 @@ import type { PaginationProps } from "./index.types";
 export function Pagination<T>({
   items,
   renderItem,
-  initialItemsToShow = 4,
+  initialItemsToShow = 3,
   className = "",
 }: PaginationProps<T>) {
   const { visibleItems, showMore, showLess, canShowMore, canShowLess } =
@@ -18,24 +18,26 @@ export function Pagination<T>({
     });
 
   return (
-    <div className={cn("grid grid-rows-2 gap-8", className)}>
-      <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
+    <div className={cn("grid grid-rows-[auto, auto] gap-8", className)}>
+      <div className="grid gap-6 md:grid-cols-3 xl:grid-cols-4">
         {visibleItems.map(renderItem)}
       </div>
-      <div className="border-t border-t-primary border-t-1 flex justify-center">
+      <div className="border-t dark:text-light text-dark text-detail border-t-primary border-t-1 flex justify-center">
         {canShowMore ? (
           <Button
-            className="transition-all duration-300 ease-in-out mt-4"
-            variant="secondary"
+            arrow={false}
+            className="mt-4"
+            variant="outline"
             onClick={showMore}
           >
-            Visa mer (<span className="mx-[1px]">{items.length}</span>)
+            Visa mer (<span>{items.length}</span>)
           </Button>
         ) : (
           canShowLess && (
             <Button
-              className="transition-all duration-300 ease-in-out ml-4 mt-4"
-              variant="secondary"
+              arrow={false}
+              className="mt-4"
+              variant="outline"
               onClick={showLess}
             >
               Visa mindre

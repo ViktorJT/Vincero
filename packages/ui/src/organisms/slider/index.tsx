@@ -1,75 +1,124 @@
 "use client";
 
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-import gsap from "gsap";
 
 import { Button } from "../../atoms/button";
 import { Asset } from "../../molecules//media/variants/asset";
 
-import type { Props } from "./index.types.ts";
+import { cn } from "../../lib/utils/cn";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+import type {
+  Column,
+  MediaBlockProps,
+  Props,
+  TextBlockProps,
+} from "./index.types.ts";
 
 export function Slider({ blocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  useGSAP(() => {
-    videoRefs.current.forEach((video) => {
-      if (video) {
-        ScrollTrigger.create({
-          trigger: video,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => video.play(),
-          onLeave: () => video.pause(),
-          onEnterBack: () => video.play(),
-          onLeaveBack: () => video.pause(),
-        });
+  let blocksLength = blocks.length * 2;
+
+  const columns = blocks.reduce<[Column, Column]>(
+    (acc, curr, i) => {
+      const { title, heading, body, links, media } = curr;
+
+      const text = {
+        title,
+        heading,
+        body,
+        links,
+      };
+
+      if (i % 2) {
+        acc[0].push({ media, order: -blocksLength + i });
+        acc[1].push({ ...text, order: -blocksLength + i + 1 });
+      } else {
+        acc[0].push({ ...text, order: -blocksLength + i + 1 });
+        acc[1].push({ media, order: -blocksLength + i });
       }
-    });
-  }, []);
+
+      blocksLength = blocksLength - 2;
+
+      return acc;
+    },
+    [[], []],
+  );
+
+  const isMediaBlock = (
+    item: MediaBlockProps | TextBlockProps,
+  ): item is MediaBlockProps => {
+    return "media" in item;
+  };
 
   return (
-    <div ref={ref} className="relative w-full">
-      {blocks.map((block, index) => (
-        <section
-          key={block.id}
-          className="grid grid-cols-1 md:grid-cols-2 min-h-screen"
+    <div
+      ref={ref}
+      className="flex flex-col bg-white dark:bg-dark text-dark dark:text-light md:flex-row min-h-dvh relative w-full"
+    >
+      {columns.map((block, colIndex) => (
+        <div
+          key={`slider-col-${colIndex}`}
+          className="contents md:flex flex-col grow"
         >
-          <div className="order-2 md:order-1 flex flex-col justify-center p-6 md:p-12 lg:p-24">
-            {block.title && (
-              <p className="text-sm uppercase tracking-wider text-muted-foreground">
-                {block.title}
-              </p>
-            )}
+          {block.map((item, blockIndex) => {
+            const isMedia = isMediaBlock(item);
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
-              {block.heading}
-            </h2>
+            return (
+              <div
+                key={`${colIndex}-${blockIndex}`}
+                className={cn("contents md:block", {
+                  "h-auto md:h-[200dvh]": isMedia,
+                })}
+              >
+                <div
+                  className={cn("overflow-hidden h-auto md:h-dvh w-full", {
+                    "block md:sticky top-0": isMedia,
+                    "flex items-center justify-center": !isMedia,
+                  })}
+                  style={{ order: item.order }}
+                >
+                  {isMedia ? (
+                    <Asset
+                      ref={(el: HTMLVideoElement) => videoRefs.current.push(el)}
+                      className="relative h-[50vh] md:h-screen"
+                      media={[item.media]}
+                    />
+                  ) : (
+                    <div className="flex bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col items-center gap-6 md:gap-10 text-center p-6 pb-20 max-w-[540px]">
+                      {item.title && (
+                        <p className="text-accent dark:text-muted text-detail uppercase">
+                          {item.title}
+                        </p>
+                      )}
 
-            <p className="text-muted-foreground">{block.body}</p>
+                      <p className="text-body-large sm:text-heading-large lg:text-display">
+                        {item.heading}
+                      </p>
 
-            {block.links && (
-              <div className="flex flex-wrap gap-4 pt-4">
-                {block.links.map((link) => (
-                  <Button key={link.id} {...link}>
-                    {link.displayText}
-                  </Button>
-                ))}
+                      <p className="text-body">{item.body}</p>
+
+                      {item.links && (
+                        <div className="flex gap-4 pt-4">
+                          {item.links.map((link, i) => (
+                            <Button
+                              key={link.id}
+                              {...link}
+                              variant={i === 0 ? "default" : "ghost"} // @todos from CMS
+                            >
+                              {link.displayText}
+                            </Button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-
-          <Asset
-            ref={(el: HTMLVideoElement) => (videoRefs.current[index] = el)}
-            className="order-1 md:order-2 relative h-[50vh] md:h-screen"
-            media={[block.media]}
-          />
-        </section>
+            );
+          })}
+        </div>
       ))}
     </div>
   );

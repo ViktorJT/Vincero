@@ -1,13 +1,16 @@
 import type { UseEmblaCarouselType } from "embla-carousel-react";
 import type useEmblaCarousel from "embla-carousel-react";
 
+import type { ProfileProps } from "../../types";
+import type { Props as PageCardProps } from "../../atoms/pageCard/index.types";
+
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
 
 export type CarouselApi = UseEmblaCarouselType[1];
 
-export type CarouselProps = {
+export type ContainerProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
@@ -21,4 +24,11 @@ export type CarouselContextProps = {
   scrollNext: () => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
-} & CarouselProps;
+} & ContainerProps;
+
+export type CarouselProps = {
+  title: string;
+  subtitle?: string;
+  items: ProfileProps[] | PageCardProps[];
+  variant?: "team" | "page";
+};

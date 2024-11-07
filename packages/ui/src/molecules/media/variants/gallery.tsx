@@ -116,7 +116,10 @@ export function Gallery({ media = [], className }: GalleryProps) {
   return (
     <div
       ref={gridRef}
-      className={cn("grid w-full grid-cols-1 md:grid-cols-3 my-40", className)}
+      className={cn(
+        "dark:bg-dark bg-white grid w-full grid-cols-1 md:grid-cols-3",
+        className,
+      )}
     >
       {media.map((item, index: number) => {
         const { row, column } = getGridPosition(index);
@@ -130,13 +133,16 @@ export function Gallery({ media = [], className }: GalleryProps) {
             }}
           >
             <div className="grid__item-img relative overflow-hidden aspect-[3/2]">
+              {/* @todos make aspect dynamic to the incoming image*/}
               <Asset
                 className="grid__item-img-inner w-full h-full object-cover"
                 media={[item]}
               />
             </div>
             <figcaption className="grid__item-caption absolute p-2 flex flex-wrap gap-2">
-              <h3 className="font-bold text-primary">{item.footnote}</h3>
+              <h3 className="font-bold dark:text-light text-dark">
+                {item.footnote}
+              </h3>
             </figcaption>
           </figure>
         );

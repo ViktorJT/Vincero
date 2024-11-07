@@ -1,10 +1,10 @@
 import type { MediaProps } from "../../types";
 
-export interface PageLinkProps {
+export interface Props {
   href: string;
-  id: string;
+  id?: string;
   image: MediaProps;
   title: string;
-  subtitle: string;
+  description: string;
   className?: string;
 }
