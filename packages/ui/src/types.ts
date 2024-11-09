@@ -2,14 +2,28 @@ import type { RichTextContent } from "@graphcms/rich-text-types";
 
 import type { ButtonVariants } from "./atoms/button/index.types";
 
+export interface PageProps {
+  title: string;
+  slug: string;
+  description: string;
+  keywords: [string];
+  image: MediaProps;
+}
+
 export interface LinkProps {
   id: string;
-  url: string;
   displayText: string;
+  description?: string;
   variant: ButtonVariants["variant"];
-  target: string; // @todo set appropriate target based on data from Hygraph OR do it dynamically using the url?
+  external: boolean;
+  page?: PageProps;
+  externalUrl?: string;
+  subLinks?: LinkProps[];
+  anchor?: string;
+  relAttribute?: string;
   titleAttribute?: string;
   ariaLabel?: string;
+  href?: string;
 }
 
 export interface MediaProps {

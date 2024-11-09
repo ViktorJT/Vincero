@@ -7,6 +7,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:storybook": "turbo run dev --filter @vincero/docs",
+    "dev:fastigheter": "turbo run dev --filter=@vincero/ui --filter=@vincero/fastigheter",
+    "dev:invest": "turbo run dev --filter=@vincero/invest --filter=@vincero/ui",
     "preview-storybook": "turbo preview-storybook",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",

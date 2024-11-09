@@ -16,10 +16,11 @@ const config: NextConfig = {
   transpilePackages: ["@vincero/ui"],
   modularizeImports: {
     "@vincero/ui": {
-      transform: "@vincero/ui/dist/components/{{member}}",
+      transform: "@vincero/ui/dist/{{member}}",
       skipDefaultConversion: true,
     },
   },
+
   // Turbopack configuration
   experimental: {
     workerThreads: false,

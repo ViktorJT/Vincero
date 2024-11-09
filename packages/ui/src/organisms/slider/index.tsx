@@ -14,7 +14,7 @@ import type {
   TextBlockProps,
 } from "./index.types.ts";
 
-export function Slider({ blocks = [] }: Props) {
+function Slider({ blocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -123,3 +123,5 @@ export function Slider({ blocks = [] }: Props) {
     </div>
   );
 }
+
+export { Slider, type Props as SliderProps };

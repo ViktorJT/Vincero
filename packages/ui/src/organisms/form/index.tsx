@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import {
-  Form,
+  Form as ShadCNForm,
   FormControl,
   FormField,
   FormItem,
@@ -17,25 +17,24 @@ import { Media } from "../../molecules/media";
 import { Paragraph } from "../../molecules/text";
 
 import { useToast } from "../../lib/hooks/useToast";
-import { createFormSchema } from "../../lib/utils/createFormSchema";
 
 import type { z } from "zod";
 
 import type { Props } from "./index.types";
 
-export function Contact({
+function Form({
   name,
   image,
   text,
   fields = [],
   submitButtonLabel,
   action,
+  schema,
 }: Props) {
   const { toast } = useToast();
-  const formSchema = createFormSchema(fields);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: fields.reduce(
       (acc, field) => ({
         ...acc,
@@ -45,7 +44,7 @@ export function Contact({
     ),
   });
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
       const response = await fetch(action, {
         method: "POST",
@@ -77,16 +76,16 @@ export function Contact({
     <div className="bg-white dark:bg-dark grid grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto w-full max-w-4xl px-4">
       {/* Media Section */}
       {image && (
-        <div className="mb-8 h-[320px] md:col-span-full">
+        <div className="mb-8 h-[320px] col-span-full">
           <Media className="h-full" media={image} />
         </div>
       )}
 
       {/* Text Section */}
-      {text && <Paragraph content={[text]} />}
+      {text && <Paragraph className="col-span-full" content={[text]} />}
 
       {/* Form Section */}
-      <Form {...form}>
+      <ShadCNForm {...form}>
         <form
           className="contents"
           id={name}
@@ -98,7 +97,7 @@ export function Contact({
               control={form.control}
               name={field.id}
               render={({ field: formField }) => (
-                <FormItem className="col-start-2 col-span-1">
+                <FormItem className="col-span-full md:col-start-2 md:col-span-1">
                   <FormLabel>
                     <p className="inline dark:text-light text-dark">
                       {field.label}
@@ -130,14 +129,16 @@ export function Contact({
 
           <Button
             arrow={false}
-            className="col-start-2"
+            className="col-span-full md:col-start-2"
             type="submit"
             variant="default"
           >
             {submitButtonLabel}
           </Button>
         </form>
-      </Form>
+      </ShadCNForm>
     </div>
   );
 }
+
+export { Form, type Props as FormProps };

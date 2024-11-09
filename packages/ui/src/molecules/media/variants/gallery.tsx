@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "@studio-freight/lenis";
+//import Lenis from "@studio-freight/lenis";
 import { useGSAP } from "@gsap/react";
 import React, { useRef } from "react";
 import { Asset } from "./asset";
@@ -16,28 +16,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Gallery({ media = [], className }: GalleryProps) {
   const gridRef = useRef<HTMLDivElement>(null);
-  const lenisRef = useRef<Lenis | null>(null);
-
-  useGSAP(() => {
-    // Initialize Lenis for smooth scrolling
-    lenisRef.current = new Lenis({
-      lerp: 0.15,
-      smoothWheel: true,
-    });
-
-    const scrollFn = (time: number) => {
-      lenisRef.current?.raf(time);
-      requestAnimationFrame(scrollFn);
-    };
-    requestAnimationFrame(scrollFn);
-
-    // Update ScrollTrigger on Lenis scroll
-    lenisRef.current.on("scroll", ScrollTrigger.update);
-
-    return () => {
-      lenisRef.current?.destroy();
-    };
-  }, []);
+  //const lenisRef = useRef<Lenis | null>(null);
+  //
+  //useGSAP(() => {
+  //  // Initialize Lenis for smooth scrolling
+  //  lenisRef.current = new Lenis({
+  //    lerp: 0.15,
+  //    smoothWheel: true,
+  //  });
+  //
+  //  const scrollFn = (time: number) => {
+  //    lenisRef.current?.raf(time);
+  //    requestAnimationFrame(scrollFn);
+  //  };
+  //  requestAnimationFrame(scrollFn);
+  //
+  //  // Update ScrollTrigger on Lenis scroll
+  //  lenisRef.current.on("scroll", ScrollTrigger.update);
+  //
+  //  return () => {
+  //    lenisRef.current?.destroy();
+  //  };
+  //}, []);
 
   useGSAP(
     () => {

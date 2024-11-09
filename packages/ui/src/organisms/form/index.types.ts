@@ -15,6 +15,8 @@ interface Props {
   fields?: FieldProps[];
   submitButtonLabel: string;
   action: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  schema: any;
 }
 
 export type { FieldProps, Props };

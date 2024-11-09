@@ -5,7 +5,7 @@ import { Pagination } from "../../atoms/pagination";
 import type { PageProps, Props } from "./index.types";
 import { PageCard } from "../../atoms/pageCard";
 
-export function Overview({ title, subtitle, pages = [] }: Props) {
+function Overview({ title, subtitle, pages = [] }: Props) {
   const render = (page: PageProps) => <PageCard {...page} />;
 
   return (
@@ -33,3 +33,5 @@ export function Overview({ title, subtitle, pages = [] }: Props) {
     </section>
   );
 }
+
+export { Overview, type Props as OverviewProps };

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
+    ".": "./base.js",
     "./base": "./base.js",
     "./postcss": "./postcss.js"
   },

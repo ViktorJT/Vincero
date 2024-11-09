@@ -10,7 +10,7 @@ import type { Props } from "./index.types.ts";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function Banner({ title, textBlocks = [] }: Props) {
+function Banner({ title, textBlocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -74,3 +74,5 @@ export function Banner({ title, textBlocks = [] }: Props) {
     </section>
   );
 }
+
+export { Banner, type Props as BannerProps };

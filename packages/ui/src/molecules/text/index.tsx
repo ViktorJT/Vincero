@@ -1,7 +1,11 @@
+"use client";
+
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import gsap from "gsap";
+
+import { cn } from "../../lib/utils/cn.js";
 
 import type {
   ParagraphProps,
@@ -9,9 +13,18 @@ import type {
   TextProps,
 } from "./index.types.ts";
 
-export function Paragraph({ content = [] }: { content: ParagraphProps[] }) {
+function Paragraph({
+  content = [],
+  className,
+}: {
+  className?: string;
+  content: ParagraphProps[];
+}) {
   return content.map((lockup: ParagraphProps) => (
-    <div key={lockup.id} className="flex flex-col gap-2 md:contents">
+    <div
+      key={lockup.id}
+      className={cn("flex flex-col gap-2 md:contents", className)}
+    >
       <p className="animate-text text-detail text-muted md:text-right md:mt-1.5">
         {lockup.title}
       </p>
@@ -30,7 +43,7 @@ export function Paragraph({ content = [] }: { content: ParagraphProps[] }) {
   ));
 }
 
-export function Text({ metaInformation = [], heading, body }: TextProps) {
+function Text({ metaInformation = [], heading, body }: TextProps) {
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -67,3 +80,5 @@ export function Text({ metaInformation = [], heading, body }: TextProps) {
     </section>
   );
 }
+
+export { Text, Paragraph, type TextProps };

@@ -231,7 +231,7 @@ const Next = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
 );
 Next.displayName = "Next";
 
-export function Carousel({ title, subtitle, items, variant }: CarouselProps) {
+function Carousel({ title, subtitle, items, variant }: CarouselProps) {
   return (
     <section className="relative bg-white dark:bg-dark text-dark dark:text-light">
       <div className="items-center grid grid-cols-1 md:grid-cols-2 mx-auto max-w-5xl px-6 md:px-10 py-20">
@@ -257,3 +257,5 @@ export function Carousel({ title, subtitle, items, variant }: CarouselProps) {
     </section>
   );
 }
+
+export { Carousel, type CarouselProps };

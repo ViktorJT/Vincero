@@ -12,7 +12,7 @@ const Gallery = dynamic(() =>
   import("./variants/gallery").then((mod) => mod.Gallery),
 );
 
-export function Media({ variant = "default", media = [], className }: Props) {
+function Media({ variant = "default", media = [], className }: Props) {
   // Determine the component to load based on the variant
   const Component = useRef(variant === "default" ? Asset : Gallery).current;
 
@@ -23,3 +23,5 @@ export function Media({ variant = "default", media = [], className }: Props) {
     />
   );
 }
+
+export { Media, type Props as MediaProps };

@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-import type { FieldProps } from "../../organisms/contact/index.types";
-
-export const createFormSchema = (fields: FieldProps[] = []) => {
+export const createFormSchema = (fields) => {
   const schemaFields: Record<string, z.ZodType> = {};
 
   fields?.forEach((field) => {

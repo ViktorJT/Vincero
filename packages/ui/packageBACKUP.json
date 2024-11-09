@@ -54,31 +54,32 @@
   "dependencies": {
     "@graphcms/rich-text-react-renderer": "^0.6.2",
     "@gsap/react": "^2.1.1",
+    "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
+    "@studio-freight/lenis": "^1.0.42",
     "class-variance-authority": "0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.1",
     "gsap": "3.12.5",
     "lucide-react": "0.454.0",
     "react-hook-form": "^7.53.1",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@graphcms/rich-text-types": "^0.5.1",
-    "@hookform/resolvers": "^3.9.1",
-    "@vincero/eslint-config": "workspace:^",
+    "@vincero/eslint-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
-    "tsup": "^8.3.5",
-    "zod": "^3.23.8"
+    "tsup": "^8.3.5"
   },
   "peerDependencies": {
-    "next": "^15.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.0"
+    "next": "^15.0.2",
   },
   "peerDependenciesMeta": {
     "tailwindcss": {
