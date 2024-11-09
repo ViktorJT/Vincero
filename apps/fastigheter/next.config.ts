@@ -8,6 +8,9 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const config: NextConfig = {
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
+  },
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: ["@vincero/ui"],
@@ -19,6 +22,9 @@ const config: NextConfig = {
   },
   // Turbopack configuration
   experimental: {
+    workerThreads: false,
+    cpus: 1,
+
     turbo: {
       resolveAlias: {
         // Ensure proper module resolution

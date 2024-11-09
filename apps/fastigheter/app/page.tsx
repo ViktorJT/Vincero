@@ -1,8 +1,12 @@
-export default function Page() {
+import { ComponentMapper } from "@/components/ComponentMapper";
+import { getHomepage } from "@/data/queries/pages/getHomepage";
+
+export default async function Homepage() {
+  const { page, modules } = await getHomepage();
+
   return (
-    <div>
-      <h1>Hello, Next.js!</h1>
-      <img alt="test" src="/test.jpg" />
-    </div>
+    <main>
+      <ComponentMapper modules={modules} />
+    </main>
   );
 }
