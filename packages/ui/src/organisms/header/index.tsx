@@ -62,7 +62,6 @@ function Header({ title, subtitle, links, background }: Props) {
           <h1 className="title text-heading-large md:text-display-large md:max-w-[640px] md:pr-10">
             {title}
           </h1>
-
           <div className="contents md:flex flex-col gap-4">
             <p className="subtitle text-body-base md:text-body-large md:max-w-[320px]">
               {subtitle}

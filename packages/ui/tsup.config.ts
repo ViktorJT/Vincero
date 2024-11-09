@@ -1,6 +1,13 @@
 import { defineConfig } from "tsup";
+import react18Plugin from "esbuild-plugin-react18";
+
+import type { React18PluginOptions } from "esbuild-plugin-react18";
+
+const react18PluginOptions: React18PluginOptions = {};
 
 export default defineConfig((options) => ({
+  esbuildPlugins: [react18Plugin(react18PluginOptions)],
+
   entry: {
     "banner/index": "src/organisms/banner/index.tsx",
     "carousel/index": "src/organisms/carousel/index.tsx",

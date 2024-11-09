@@ -67,11 +67,12 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
-    "@graphcms/rich-text-types": "^0.5.1",
     "@hookform/resolvers": "^3.9.1",
+    "esbuild-plugin-react18": "^0.2.5",
+    "@graphcms/rich-text-types": "^0.5.1",
     "@vincero/eslint-config": "workspace:^",
     "@vincero/typescript-config": "workspace:*",
-    "tsup": "^8.3.5",
+    "tsup": "8.3.0",
     "zod": "^3.23.8"
   },
   "peerDependencies": {
