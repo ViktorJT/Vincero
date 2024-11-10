@@ -7,6 +7,7 @@ export type Props = {
   contactPostalCode: string;
   contactCity: string;
   contactEmail: string;
+  copyrightInformation: string;
   leftColumn: LinkProps[];
   rightColumn: LinkProps[];
 };

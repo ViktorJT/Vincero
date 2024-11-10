@@ -60,3 +60,5 @@ storybook-static
 .cache
 .stylelintcache
 .eslintcache
+
+Codebase.txt

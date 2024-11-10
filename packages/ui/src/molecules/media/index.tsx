@@ -16,8 +16,6 @@ function Media({ variant = "default", media = [], className }: Props) {
   // Determine the component to load based on the variant
   const Component = useRef(variant === "default" ? Asset : Gallery).current;
 
-  if (!media) return null;
-
   return (
     <Component
       className={className}

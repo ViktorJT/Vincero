@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, forwardRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import dynamic from "next/dynamic";
+//import dynamic from "next/dynamic";
 
 import type { CarouselApi, CarouselProps, ContainerProps } from "./index.types";
 import type { KeyboardEvent, ComponentProps, HTMLAttributes } from "react";
@@ -14,12 +14,9 @@ import {
 } from "../../lib/hooks/useCarousel/useCarousel";
 import { cn } from "../../lib/utils/cn";
 
-const ProfileCard = dynamic(() =>
-  import("../../atoms/profileCard").then((mod) => mod.ProfileCard),
-);
-const PageCard = dynamic(() =>
-  import("../../atoms/pageCard").then((mod) => mod.PageCard),
-);
+import { ProfileCard } from "../../atoms/profileCard";
+import { PageCard } from "../../atoms/pageCard";
+
 import { Button } from "../../atoms/button";
 
 const Container = forwardRef<

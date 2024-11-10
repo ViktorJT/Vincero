@@ -4,7 +4,7 @@ import type { ParagraphProps } from "../../types";
 interface TextProps {
   metaInformation?: ParagraphProps[];
   heading?: string;
-  body: ParagraphProps[];
+  body: ParagraphProps;
 }
 
 export type { TextProps, RichTextContent, ParagraphProps };

@@ -1,5 +1,5 @@
 //import { Navigation } from "@vincero/ui/navigation";
-//import { Footer } from "@vincero/ui/footer";
+import { Footer } from "@vincero/ui/footer";
 import { Inter } from "next/font/google";
 
 //import type { Metadata } from "next";
@@ -14,7 +14,7 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-//import { getLayout } from "@/data/queries/getLayout";
+import { getLayout } from "@/data/queries/getLayout";
 //import { metadataQuery } from "@/data/queries/metadata";
 //
 //import { throttledFetchData } from "@/utils/fetchData";
@@ -62,14 +62,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  //const { navigation, footer } = await getLayout();
+  const { navigation, footer } = await getLayout();
 
   return (
     <html data-theme="fastigheter" lang="en" className={`${inter.variable}`}>
       <body>
         {/*<Navigation {...navigation} />*/}
         {children}
-        {/*<Footer {...footer} />*/}
+        <Footer {...footer} />
       </body>
     </html>
   );

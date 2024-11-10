@@ -2,7 +2,7 @@ import { cn } from "../../lib/utils/cn";
 
 import { Card, CardContent, CardFooter, CardHeader } from "../../atoms/card";
 
-import { Media } from "../../molecules/media";
+import { Asset } from "../../molecules/media/variants/asset";
 
 import type { Props } from "./index.types";
 
@@ -10,7 +10,7 @@ export function ProfileCard({ name, role, image, email, className }: Props) {
   return (
     <Card className={cn("text-dark bg-white h-full flex flex-col", className)}>
       <CardHeader className="p-0 relative aspect-square overflow-hidden">
-        <Media className="object-cover w-full h-full" media={image} />
+        <Asset className="object-cover w-full h-full" media={[image]} />
       </CardHeader>
       <CardContent className="pt-6 flex justify-between gap-4">
         <p>{name}</p>

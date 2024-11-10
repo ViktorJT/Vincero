@@ -4,10 +4,10 @@ import type { ComponentType } from "react";
 
 import type { BannerProps } from "@vincero/ui/banner";
 import type { CarouselProps } from "@vincero/ui/carousel";
-import type { FormProps } from "@vincero/ui/form";
+//import type { FormProps } from "@vincero/ui/form";
 import type { HeaderProps } from "@vincero/ui/header";
-import type { MediaProps } from "@vincero/ui/media";
-import type { OverviewProps } from "@vincero/ui/overview";
+//import type { MediaProps } from "@vincero/ui/media";
+//import type { OverviewProps } from "@vincero/ui/overview";
 import type { SliderProps } from "@vincero/ui/slider";
 import type { TextProps } from "@vincero/ui/text";
 
@@ -29,10 +29,10 @@ const Components = {
 type ComponentTypes = {
   Banner: ComponentType<BannerProps>;
   Carousel: ComponentType<CarouselProps>;
-  Form: ComponentType<FormProps>;
+  //Form: ComponentType<FormProps>;
   Header: ComponentType<HeaderProps>;
-  Media: ComponentType<MediaProps>;
-  Overview: ComponentType<OverviewProps>;
+  //Media: ComponentType<MediaProps>;
+  //Overview: ComponentType<OverviewProps>;
   Slider: ComponentType<SliderProps>;
   Text: ComponentType<TextProps>;
 };
@@ -61,7 +61,7 @@ export async function ComponentMapper({ modules }: ComponentMapperProps) {
           return null;
         }
 
-        console.log("in component mapper: ", __typename, props);
+        // console.log("Rendering component: ", __typename, props);
 
         return <Component key={`${id}-${i}`} id={id} {...props} />;
       })}
