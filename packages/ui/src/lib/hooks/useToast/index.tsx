@@ -11,7 +11,7 @@ let count = 0;
 
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
-  return count.toString();
+  return count?.toString();
 }
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
