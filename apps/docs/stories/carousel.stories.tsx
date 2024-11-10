@@ -102,7 +102,7 @@ export const Team: Story = {
     title: "Vårt Team",
     subtitle:
       "Fugiat enim nisi tempor consequat eiusmod do officia exercitation ut commodo id elit.",
-    items: mockProfiles,
+    profiles: mockProfiles,
   },
 };
 
@@ -112,6 +112,6 @@ export const Page: Story = {
     title: "Våra Projekt",
     subtitle:
       "Fugiat enim nisi tempor consequat eiusmod do officia exercitation ut commodo id elit.",
-    items: mockPages,
+    pages: mockPages,
   },
 };

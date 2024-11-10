@@ -89,6 +89,11 @@ export default {
     },
 
     extend: {
+      maxWidth: {
+        container: "960px",
+        "container-text-offset": "1120px",
+      },
+
       colors: {
         white: "hsl(var(--white))",
         light: "hsl(var(--light))",

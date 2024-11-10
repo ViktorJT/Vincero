@@ -10,11 +10,6 @@ export default meta;
 
 type Story = StoryObj<typeof Text>;
 
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
- * to learn how to use render functions.
- */
 export const Header: Story = {
   render: (props) => <Text {...props} />,
   name: "Header",
@@ -25,16 +20,18 @@ export const Header: Story = {
         title: "Ort",
         paragraphs: [
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Uppsala",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Uppsala",
+                    },
+                  ],
+                },
+              ],
+            },
           },
         ],
       },
@@ -43,16 +40,18 @@ export const Header: Story = {
         title: "Datum",
         paragraphs: [
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Juli, 2021",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Juli, 2021",
+                    },
+                  ],
+                },
+              ],
+            },
           },
         ],
       },
@@ -64,28 +63,32 @@ export const Header: Story = {
         title: "Om Projektet",
         paragraphs: [
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "År 2013 förvärvade Vincero Bostad och Magnolia Bostad gemensamt fastigheten för den gamla Slotts senapsfabrik på Kungsgatan i centrala Uppsala. ",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "År 2013 förvärvade Vincero Bostad och Magnolia Bostad gemensamt fastigheten för den gamla Slotts senapsfabrik på Kungsgatan i centrala Uppsala. ",
+                    },
+                  ],
+                },
+              ],
+            },
           },
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Detta markerar starten på en omfattande omvandling av stadsdelen Kungsängen från ett industriområde till ett attraktivt bostadsområde med tre kvarter och 1 800 hyres- och bostadsrätter.",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Detta markerar starten på en omfattande omvandling av stadsdelen Kungsängen från ett industriområde till ett attraktivt bostadsområde med tre kvarter och 1 800 hyres- och bostadsrätter.",
+                    },
+                  ],
+                },
+              ],
+            },
           },
         ],
       },
@@ -93,24 +96,26 @@ export const Header: Story = {
         id: "cm31vlc1yb5e60sdkf3s4oskt",
         paragraphs: [
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Projektet, i samarbete med JM och SEB Trygg Liv, planerar inflyttningar mellan 2019 och 2020. ",
-                  },
-                ],
-              },
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Senapsfabriken erbjuder moderna och funktionella bostäder med närhet till resecentrum samt snabb tillgång till både Stockholm och Arlanda.",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Projektet, i samarbete med JM och SEB Trygg Liv, planerar inflyttningar mellan 2019 och 2020. ",
+                    },
+                  ],
+                },
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Senapsfabriken erbjuder moderna och funktionella bostäder med närhet till resecentrum samt snabb tillgång till både Stockholm och Arlanda.",
+                    },
+                  ],
+                },
+              ],
+            },
           },
         ],
       },
@@ -120,7 +125,7 @@ export const Header: Story = {
 
 export const Paragraph: Story = {
   render: (props) => <Text {...props} />,
-  name: "Paragraph",
+  name: "Header",
   args: {
     body: [
       {
@@ -128,28 +133,32 @@ export const Paragraph: Story = {
         title: "Om Projektet",
         paragraphs: [
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "År 2013 förvärvade Vincero Bostad och Magnolia Bostad gemensamt fastigheten för den gamla Slotts senapsfabrik på Kungsgatan i centrala Uppsala. ",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "År 2013 förvärvade Vincero Bostad och Magnolia Bostad gemensamt fastigheten för den gamla Slotts senapsfabrik på Kungsgatan i centrala Uppsala. ",
+                    },
+                  ],
+                },
+              ],
+            },
           },
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Detta markerar starten på en omfattande omvandling av stadsdelen Kungsängen från ett industriområde till ett attraktivt bostadsområde med tre kvarter och 1 800 hyres- och bostadsrätter.",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Detta markerar starten på en omfattande omvandling av stadsdelen Kungsängen från ett industriområde till ett attraktivt bostadsområde med tre kvarter och 1 800 hyres- och bostadsrätter.",
+                    },
+                  ],
+                },
+              ],
+            },
           },
         ],
       },
@@ -157,24 +166,26 @@ export const Paragraph: Story = {
         id: "cm31vlc1yb5e60sdkf3s4oskt",
         paragraphs: [
           {
-            children: [
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Projektet, i samarbete med JM och SEB Trygg Liv, planerar inflyttningar mellan 2019 och 2020. ",
-                  },
-                ],
-              },
-              {
-                type: "paragraph",
-                children: [
-                  {
-                    text: "Senapsfabriken erbjuder moderna och funktionella bostäder med närhet till resecentrum samt snabb tillgång till både Stockholm och Arlanda.",
-                  },
-                ],
-              },
-            ],
+            raw: {
+              children: [
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Projektet, i samarbete med JM och SEB Trygg Liv, planerar inflyttningar mellan 2019 och 2020. ",
+                    },
+                  ],
+                },
+                {
+                  type: "paragraph",
+                  children: [
+                    {
+                      text: "Senapsfabriken erbjuder moderna och funktionella bostäder med närhet till resecentrum samt snabb tillgång till både Stockholm och Arlanda.",
+                    },
+                  ],
+                },
+              ],
+            },
           },
         ],
       },

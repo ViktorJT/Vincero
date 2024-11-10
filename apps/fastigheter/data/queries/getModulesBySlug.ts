@@ -44,17 +44,20 @@ export async function getModulesBySlug(slug: string) {
     variables: { slug },
   });
 
-  const promises = page.modules.map((module: BaseModule) => {
-    return throttledFetchData({
+  const promises = page.modules.map((module: BaseModule) =>
+    throttledFetchData({
       query: Queries[module.__typename],
       variables: { id: module.id },
-    });
-  });
+    }),
+  );
 
   const results = await Promise.all(promises);
 
   const unpacked = results.map(
-    (module) => Object.values(module)[0] as Record<string, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (module: Record<string, any>) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Object.values(module)[0] as Record<string, any>,
   );
 
   const modules = page.modules.map((module: BaseModule, i: number) => ({

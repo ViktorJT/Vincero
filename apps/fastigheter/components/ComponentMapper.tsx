@@ -12,18 +12,18 @@ import type { SliderProps } from "@vincero/ui/slider";
 import type { TextProps } from "@vincero/ui/text";
 
 const Components = {
-  //Banner: dynamic(() => import("@vincero/ui/banner").then((mod) => mod.Banner)),
-  //Carousel: dynamic(() =>
-  //  import("@vincero/ui/carousel").then((mod) => mod.Carousel),
-  //),
+  Banner: dynamic(() => import("@vincero/ui/banner").then((mod) => mod.Banner)),
+  Carousel: dynamic(() =>
+    import("@vincero/ui/carousel").then((mod) => mod.Carousel),
+  ),
   //Form: dynamic(() => import("@vincero/ui/form").then((mod) => mod.Form)),
   Header: dynamic(() => import("@vincero/ui/header").then((mod) => mod.Header)),
   //Media: dynamic(() => import("@vincero/ui/media").then((mod) => mod.Media)),
   //Overview: dynamic(() =>
   //  import("@vincero/ui/overview").then((mod) => mod.Overview),
   //),
-  //Slider: dynamic(() => import("@vincero/ui/slider").then((mod) => mod.Slider)),
-  //Text: dynamic(() => import("@vincero/ui/text").then((mod) => mod.Text)),
+  Slider: dynamic(() => import("@vincero/ui/slider").then((mod) => mod.Slider)),
+  Text: dynamic(() => import("@vincero/ui/text").then((mod) => mod.Text)),
 };
 
 type ComponentTypes = {
@@ -61,7 +61,7 @@ export async function ComponentMapper({ modules }: ComponentMapperProps) {
           return null;
         }
 
-        console.log(__typename, props);
+        console.log("in component mapper: ", __typename, props);
 
         return <Component key={`${id}-${i}`} id={id} {...props} />;
       })}
