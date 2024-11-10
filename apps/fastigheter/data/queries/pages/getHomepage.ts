@@ -9,7 +9,6 @@ const query = `
       title
       slug
       description
-      keywords
       image {
         id
         altText

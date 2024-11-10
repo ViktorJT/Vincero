@@ -136,7 +136,7 @@ function Column({ links }: ColumnProps) {
       {links.map((link) => {
         const parentLink = prioritiseHref(link);
 
-        return parentLink.subLinks ? (
+        return parentLink.subLinks?.length ? (
           <NavigationMenuItem key={parentLink.id}>
             <NavigationMenuTrigger>
               {parentLink.displayText}
@@ -185,7 +185,10 @@ function Column({ links }: ColumnProps) {
 
 export function Navigation({ id, leftColumn, rightColumn, className }: Props) {
   return (
-    <NavigationMenu className={cn("", className)} id={id}>
+    <NavigationMenu
+      className={cn("fixed top-0 w-full text-light", className)}
+      id={id}
+    >
       <Column links={leftColumn} />
       <p>LOGO</p>
       <Column links={rightColumn} />

@@ -17,6 +17,7 @@ export const LinkFragment = `
     page {
       id
       title
+      slug
     }
   }
 `;

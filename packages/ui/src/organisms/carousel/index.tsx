@@ -235,30 +235,36 @@ function Carousel({
   variant,
 }: CarouselProps) {
   return (
-    <section className="relative bg-white dark:bg-dark text-dark dark:text-light">
+    <section className="relative bg-white dark:bg-dark text-dark dark:text-light w-full">
       <div className="items-center grid grid-cols-1 md:grid-cols-2 gap-x-4 mx-auto max-w-container px-6 md:px-10 py-20">
         <h2 className="text-display-large mr-10">{title}</h2>
 
         {subtitle && <p className="text-lg">{subtitle}</p>}
       </div>
 
-      <Container className="z-10">
+      <Container
+        className="z-10 w-full flex flex-col"
+        opts={{ align: "center", loop: true }}
+      >
         <Content>
           {variant === "team"
             ? profiles?.map((profile) => (
-                <Item key={profile.id} className="basis-1/3 md:basis-96">
+                <Item key={profile.id} className="basis-1/3 md:basis-1/4">
                   <ProfileCard {...profile} />
                 </Item>
               ))
             : pages?.map((page) => (
-                <Item key={page.id} className="basis-1/3 md:basis-96">
+                <Item key={page.id} className="basis-1/3 md:basis-1/4">
                   <PageCard {...page} />
                 </Item>
               ))}
         </Content>
-
-        <Previous />
-        <Next />
+        {/*
+        <div>
+          <Previous />
+          <Next />
+        </div>
+        */}
       </Container>
 
       <div className="absolute h-1/6 bg-dark bottom-0 left-0 right-0" />

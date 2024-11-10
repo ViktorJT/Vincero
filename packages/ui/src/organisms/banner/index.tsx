@@ -10,6 +10,8 @@ import type { Props } from "./index.types.ts";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// @todos clamp this component to maxwidth container
+
 function Banner({ title, textBlocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 

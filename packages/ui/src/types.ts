@@ -6,7 +6,6 @@ export interface PageProps {
   title: string;
   slug: string;
   description: string;
-  keywords: [string];
   image: MediaProps;
 }
 

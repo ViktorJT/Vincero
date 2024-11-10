@@ -2,26 +2,30 @@ import dynamic from "next/dynamic";
 
 import type { ComponentType } from "react";
 
+import { Carousel } from "@vincero/ui/carousel";
+import { Media } from "@vincero/ui/media";
+
 import type { BannerProps } from "@vincero/ui/banner";
 import type { CarouselProps } from "@vincero/ui/carousel";
 //import type { FormProps } from "@vincero/ui/form";
 import type { HeaderProps } from "@vincero/ui/header";
-//import type { MediaProps } from "@vincero/ui/media";
-//import type { OverviewProps } from "@vincero/ui/overview";
+import type { MediaProps } from "@vincero/ui/media";
+import type { OverviewProps } from "@vincero/ui/overview";
 import type { SliderProps } from "@vincero/ui/slider";
 import type { TextProps } from "@vincero/ui/text";
 
 const Components = {
+  // Import:
+  Carousel,
+  Media,
+
+  // Dynamically import::
   Banner: dynamic(() => import("@vincero/ui/banner").then((mod) => mod.Banner)),
-  Carousel: dynamic(() =>
-    import("@vincero/ui/carousel").then((mod) => mod.Carousel),
-  ),
   //Form: dynamic(() => import("@vincero/ui/form").then((mod) => mod.Form)),
   Header: dynamic(() => import("@vincero/ui/header").then((mod) => mod.Header)),
-  //Media: dynamic(() => import("@vincero/ui/media").then((mod) => mod.Media)),
-  //Overview: dynamic(() =>
-  //  import("@vincero/ui/overview").then((mod) => mod.Overview),
-  //),
+  Overview: dynamic(() =>
+    import("@vincero/ui/overview").then((mod) => mod.Overview),
+  ),
   Slider: dynamic(() => import("@vincero/ui/slider").then((mod) => mod.Slider)),
   Text: dynamic(() => import("@vincero/ui/text").then((mod) => mod.Text)),
 };
@@ -31,8 +35,8 @@ type ComponentTypes = {
   Carousel: ComponentType<CarouselProps>;
   //Form: ComponentType<FormProps>;
   Header: ComponentType<HeaderProps>;
-  //Media: ComponentType<MediaProps>;
-  //Overview: ComponentType<OverviewProps>;
+  Media: ComponentType<MediaProps>;
+  Overview: ComponentType<OverviewProps>;
   Slider: ComponentType<SliderProps>;
   Text: ComponentType<TextProps>;
 };
@@ -61,7 +65,7 @@ export async function ComponentMapper({ modules }: ComponentMapperProps) {
           return null;
         }
 
-        // console.log("Rendering component: ", __typename, props);
+        console.log("Rendering component: ", __typename, props);
 
         return <Component key={`${id}-${i}`} id={id} {...props} />;
       })}

@@ -10,8 +10,8 @@ export const MediaQuery = `
 
       variant
 
-      assets(first: 10) {
-        ..Asset
+      media(first: 10) {
+        ...Asset
       }
     }
   }

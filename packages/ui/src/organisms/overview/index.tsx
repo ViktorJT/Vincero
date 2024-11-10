@@ -6,7 +6,9 @@ import type { PageProps, Props } from "./index.types";
 import { PageCard } from "../../atoms/pageCard";
 
 function Overview({ title, subtitle, pages = [] }: Props) {
-  const render = (page: PageProps) => <PageCard {...page} />;
+  const render = (page: PageProps, i: number) => (
+    <PageCard key={`${page.id}-${i}`} {...page} />
+  );
 
   return (
     <section className="dark:bg-dark bg-light w-full py-12 md:py-24">

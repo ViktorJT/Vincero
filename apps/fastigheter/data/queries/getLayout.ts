@@ -1,52 +1,25 @@
 import { throttledFetchData } from "@/utils/fetchData";
+import { LinkFragment } from "@/data/queries/fragments/Link";
 
 export const navigationQuery = `
-  {
+  ${LinkFragment}
+
+  query GetLayout{
     navigation(where: {id: "cm37kqz25jgir07mjaq641dsl"}) {
       leftColumn(first: 5) {
-        id
-        displayText
-        description
-        variant
-        external
-        page {
-          id
-          title
-          slug
+        ...Link
+
+        subLinks(first: 6) {
+          ...Link
         }
-        anchor
-        externalUrl
-        # subLinks(first: 6) {
-        #  id
-        #  __typename
-        #  stage
-        #}
-        advancedSettings
-        relAttribute
-        titleAttribute
-        ariaLabel
       }
+
       rightColumn(first: 5) {
-        id
-        displayText
-        description
-        variant
-        external
-        page {
-          id
-          title
+        ...Link
+
+        subLinks(first: 6) {
+          ...Link
         }
-        anchor
-        externalUrl
-        # subLinks(first: 6) {
-        #  id
-        #  __typename
-        #  stage
-        #}
-        advancedSettings
-        relAttribute
-        titleAttribute
-        ariaLabel
       }
     }
 

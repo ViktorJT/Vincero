@@ -15,6 +15,7 @@ export const CarouselQuery = `
       pages(first: 15) {
         id
         title
+        slug
         description
         image {
           ...Asset

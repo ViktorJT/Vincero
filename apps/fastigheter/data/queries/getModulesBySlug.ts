@@ -54,9 +54,7 @@ export async function getModulesBySlug(slug: string) {
   const results = await Promise.all(promises);
 
   const unpacked = results.map(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (module: Record<string, any>) =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       Object.values(module)[0] as Record<string, any>,
   );
 

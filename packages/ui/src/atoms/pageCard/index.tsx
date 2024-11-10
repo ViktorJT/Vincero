@@ -8,15 +8,15 @@ import { cn } from "../../lib/utils/cn";
 import type { Props } from "./index.types";
 
 export function PageCard({
-  href,
+  slug,
   image,
   title,
   description,
   className,
 }: Props) {
   return (
-    <Card className={cn("bg-white text-dark h-full", className)}>
-      <Link href={href}>
+    <Card className={cn("border-0 bg-white text-dark h-full", className)}>
+      <Link href={slug}>
         <CardHeader className="p-0 relative aspect-[4/3] overflow-hidden">
           <Media className="object-cover w-full h-full" media={image} />
         </CardHeader>
