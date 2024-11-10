@@ -36,7 +36,6 @@
     }
   },
   "remoteCache": {
-    "signature": true,
     "preflight": false,
     "timeout": 60
   }
