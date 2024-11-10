@@ -33,7 +33,12 @@ const query = `
 export async function getHomepage() {
   const slug = "homepage";
 
-  const { page } = await throttledFetchData({ query, variables: { slug } });
+  // @todos naughty any type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { page }: any = await throttledFetchData({
+    query,
+    variables: { slug },
+  });
 
   const modules = await getModulesBySlug(slug);
 

@@ -46,7 +46,9 @@ export const navigationQuery = `
 `;
 
 export async function getLayout() {
-  const { navigation, siteSettings } = await throttledFetchData({
+  // @todos types here
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { navigation, siteSettings }: any = await throttledFetchData({
     query: navigationQuery,
   });
 

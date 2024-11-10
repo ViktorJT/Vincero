@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// @todo types here
 import { notFound } from "next/navigation";
 
 import { getModulesBySlug } from "@/data/queries/getModulesBySlug";
@@ -6,14 +8,14 @@ import { getPages } from "@/data/queries/getPages";
 import { ComponentMapper } from "@/components/ComponentMapper";
 
 export async function generateStaticParams() {
-  const { pages } = await getPages();
+  const { pages }: any = await getPages();
 
-  return pages.map((page) =>
+  return pages.map((page: any) =>
     page.parentPage ? [page.parentPage.slug, page.slug] : [page.slug],
   );
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params }: any) {
   const { slug } = await params;
 
   const modules = await getModulesBySlug(slug[slug.length - 1]);

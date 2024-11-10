@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// @todos remove any types
 import { z } from "zod";
 
-export const createFormSchema = (fields) => {
+export const createFormSchema = (fields: any) => {
   const schemaFields: Record<string, z.ZodType> = {};
 
-  fields?.forEach((field) => {
+  fields?.forEach((field: any) => {
     let fieldSchema = z.string();
 
     if (field.required) {

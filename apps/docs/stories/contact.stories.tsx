@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Contact } from "@vincero/ui/organisms/contact";
+import { Form } from "@vincero/ui/organisms/form";
 
-const meta: Meta<typeof Contact> = {
-  title: "Contact",
-  component: Contact,
+const meta: Meta<typeof Form> = {
+  title: "Form",
+  component: Form,
   args: {
     name: "Kontakt",
     image: {
@@ -71,14 +71,9 @@ const meta: Meta<typeof Contact> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Contact>;
+type Story = StoryObj<typeof Form>;
 
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
- * to learn how to use render functions.
- */
 export const Primary: Story = {
-  render: (props) => <Contact {...props} />,
-  name: "Contact",
+  render: (props) => <Form {...props} />,
+  name: "Form",
 };

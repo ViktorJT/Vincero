@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BannerQuery } from "@/data/queries/components/Banner";
 import { CarouselQuery } from "@/data/queries/components/Carousel";
 import { FormQuery } from "@/data/queries/components/Form";
@@ -39,7 +40,8 @@ export async function getModulesBySlug(slug: string) {
     }
   `;
 
-  const { page } = await throttledFetchData({
+  // @todos any type below
+  const { page }: any = await throttledFetchData({
     query,
     variables: { slug },
   });
@@ -55,6 +57,7 @@ export async function getModulesBySlug(slug: string) {
 
   const results = await Promise.all(promises);
 
+  // @todos any type below
   const unpacked = results.map(
     (module: Record<string, any>) =>
       Object.values(module)[0] as Record<string, any>,

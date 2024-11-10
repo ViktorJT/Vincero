@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Navigation, MobileNavigation } from "@vincero/ui/organisms/navigation";
+import { Navigation } from "@vincero/ui/organisms/navigation";
 
 const meta: Meta<typeof Navigation> = {
   title: "Navigation",
@@ -76,9 +76,4 @@ type Story = StoryObj<typeof Navigation>;
 export const Desktop: Story = {
   render: (props) => <Navigation {...props} />,
   name: "Desktop",
-};
-
-export const Mobile: Story = {
-  render: (props) => <MobileNavigation {...props} />,
-  name: "Mobile",
 };

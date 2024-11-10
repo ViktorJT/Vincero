@@ -67,7 +67,9 @@ export async function ComponentMapper({ modules }: ComponentMapperProps) {
 
         //console.log("Rendering component: ", __typename, props);
 
-        return <Component key={`${id}-${i}`} id={id} {...props} />;
+        // @todos type here is naughty
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return <Component key={`${id}-${i}`} id={id} {...(props as any)} />;
       })}
     </>
   );

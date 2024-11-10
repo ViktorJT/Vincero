@@ -1,12 +1,8 @@
 import { defineConfig } from "tsup";
 import react18Plugin from "esbuild-plugin-react18";
 
-import type { React18PluginOptions } from "esbuild-plugin-react18";
-
-const react18PluginOptions: React18PluginOptions = {};
-
 export default defineConfig((options) => ({
-  esbuildPlugins: [react18Plugin(react18PluginOptions)],
+  esbuildPlugins: [react18Plugin()],
 
   entry: {
     "banner/index": "src/organisms/banner/index.tsx",
@@ -66,7 +62,7 @@ export default defineConfig((options) => ({
         clean: true, // Fresh output
         minify: true, // Smaller files
         dts: true, // Generate types
-        treeshake: true, // Remove dead code
+        //treeshake: true, // Remove dead code // ! BUILD CRASHES FOR SOME REASON IF TURNED ON
         sourcemap: false, // No debug files
       }),
 

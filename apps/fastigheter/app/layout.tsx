@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// @todos fix types here
 import { Navigation } from "@vincero/ui/navigation";
 import { Footer } from "@vincero/ui/footer";
 import { Inter } from "next/font/google";
@@ -22,7 +24,9 @@ import { throttledFetchData } from "@/utils/fetchData";
 import "@/styles/globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { siteSettings } = await throttledFetchData({ query: metadataQuery });
+  const { siteSettings }: any = await throttledFetchData({
+    query: metadataQuery,
+  });
 
   return {
     title: {

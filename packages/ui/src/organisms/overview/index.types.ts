@@ -4,7 +4,7 @@ export interface PageProps {
   id: string;
   title: string;
   description: string;
-  href: string;
+  slug: string;
   image: MediaProps;
 }
 
