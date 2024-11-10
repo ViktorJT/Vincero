@@ -8,9 +8,6 @@ import dynamic from "next/dynamic";
 import type { CarouselApi, CarouselProps, ContainerProps } from "./index.types";
 import type { KeyboardEvent, ComponentProps, HTMLAttributes } from "react";
 
-import type { Props as PageCardProps } from "../../atoms/pageCard/index.types";
-import type { ProfileProps as ProfileCardProps } from "../../types";
-
 import {
   useCarousel,
   CarouselContext,
@@ -196,6 +193,7 @@ const Previous = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
         {...props}
       >
         <ArrowLeft className="h-4 w-4" />
+
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -224,6 +222,7 @@ const Next = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
         {...props}
       >
         <ArrowRight className="h-4 w-4" />
+
         <span className="sr-only">Next slide</span>
       </Button>
     );
@@ -231,28 +230,40 @@ const Next = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
 );
 Next.displayName = "Next";
 
-function Carousel({ title, subtitle, items, variant }: CarouselProps) {
+function Carousel({
+  title,
+  subtitle,
+  profiles,
+  pages,
+  variant,
+}: CarouselProps) {
   return (
     <section className="relative bg-white dark:bg-dark text-dark dark:text-light">
-      <div className="items-center grid grid-cols-1 md:grid-cols-2 mx-auto max-w-5xl px-6 md:px-10 py-20">
+      <div className="items-center grid grid-cols-1 md:grid-cols-2 gap-x-4 mx-auto max-w-container px-6 md:px-10 py-20">
         <h2 className="text-display-large mr-10">{title}</h2>
+
         {subtitle && <p className="text-lg">{subtitle}</p>}
       </div>
+
       <Container className="z-10">
         <Content>
-          {items.map((item) => (
-            <Item key={item.id} className="basis-1/3 md:basis-96">
-              {variant === "team" ? (
-                <ProfileCard {...(item as ProfileCardProps)} />
-              ) : (
-                <PageCard {...(item as PageCardProps)} />
-              )}
-            </Item>
-          ))}
+          {variant === "team"
+            ? profiles?.map((profile) => (
+                <Item key={profile.id} className="basis-1/3 md:basis-96">
+                  <ProfileCard {...profile} />
+                </Item>
+              ))
+            : pages?.map((page) => (
+                <Item key={page.id} className="basis-1/3 md:basis-96">
+                  <PageCard {...page} />
+                </Item>
+              ))}
         </Content>
+
         <Previous />
         <Next />
       </Container>
+
       <div className="absolute h-1/6 bg-dark bottom-0 left-0 right-0" />
     </section>
   );

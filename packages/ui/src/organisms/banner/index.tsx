@@ -53,7 +53,7 @@ function Banner({ title, textBlocks = [] }: Props) {
           {textBlocks.map((block, i) => (
             <div key={i} className="w-full">
               <RichText
-                content={block}
+                content={block.raw}
                 renderers={{
                   h1: ({ children }) => (
                     <p className="animate-item text-heading-large md:text-display mb-2">

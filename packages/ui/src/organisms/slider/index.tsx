@@ -8,10 +8,10 @@ import { Asset } from "../../molecules//media/variants/asset";
 import { cn } from "../../lib/utils/cn";
 
 import type {
-  Column,
   MediaBlockProps,
-  Props,
   TextBlockProps,
+  Column,
+  Props,
 } from "./index.types.ts";
 
 function Slider({ blocks = [] }: Props) {

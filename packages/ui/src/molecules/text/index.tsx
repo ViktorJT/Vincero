@@ -29,15 +29,17 @@ function Paragraph({
         {lockup.title}
       </p>
       <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-4 text-body md:text-body-large">
-        {lockup.paragraphs?.map((paragraph: RichTextContent, i: number) => (
-          <RichText
-            key={`${lockup.id}-${i}`}
-            content={paragraph}
-            renderers={{
-              p: ({ children }) => <p className="animate-text">{children}</p>,
-            }}
-          />
-        ))}
+        {lockup.paragraphs?.map(
+          ({ raw }: { raw: RichTextContent }, i: number) => (
+            <RichText
+              key={`${lockup.id}-${i}`}
+              content={raw}
+              renderers={{
+                p: ({ children }) => <p className="animate-text">{children}</p>,
+              }}
+            />
+          ),
+        )}
       </div>
     </div>
   ));
@@ -66,7 +68,7 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
       ref={ref}
       className="dark:bg-dark bg-white relative min-h-screen flex items-center px-6 md:px-10 py-10 md:py-16 md:-ml-[160px]"
     >
-      <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-container-text-offset mx-auto">
         <Paragraph content={metaInformation} />
 
         {heading && (
@@ -75,7 +77,7 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
           </h1>
         )}
 
-        <Paragraph content={body} />
+        <Paragraph content={[body]} />
       </div>
     </section>
   );

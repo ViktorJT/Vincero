@@ -29,6 +29,7 @@ export type CarouselContextProps = {
 export type CarouselProps = {
   title: string;
   subtitle?: string;
-  items: ProfileProps[] | PageCardProps[];
+  profiles?: ProfileProps[];
+  pages?: PageCardProps[];
   variant?: "team" | "page";
 };

@@ -8,7 +8,7 @@ import type { Props } from "./index.types";
 
 export function ProfileCard({ name, role, image, email, className }: Props) {
   return (
-    <Card className={cn("text-dark bg-white", className)}>
+    <Card className={cn("text-dark bg-white h-full flex flex-col", className)}>
       <CardHeader className="p-0 relative aspect-square overflow-hidden">
         <Media className="object-cover w-full h-full" media={image} />
       </CardHeader>

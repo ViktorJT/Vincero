@@ -11,26 +11,13 @@ import { cn } from "../../lib/utils/cn";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    {
-      className,
-      arrow = true,
-      variant,
-      href,
-      size,
-      asChild = false,
-      children,
-      ...props
-    },
+    { className, arrow = true, variant, href, size, asChild = false, children },
     ref,
   ) => {
     const Comp = asChild ? Slot : "button";
 
     const content = (
-      <Comp
-        ref={ref}
-        className={cn(variants({ variant, size, className }))}
-        {...props}
-      >
+      <Comp ref={ref} className={cn(variants({ variant, size, className }))}>
         {children}
         {arrow && <ArrowRight className="ml-2 h-4 w-4" />}
       </Comp>

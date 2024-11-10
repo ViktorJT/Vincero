@@ -48,5 +48,7 @@ export interface ProfileProps {
 export interface ParagraphProps {
   id: string;
   title?: string;
-  paragraphs?: RichTextContent[];
+  paragraphs?: {
+    raw: RichTextContent;
+  }[];
 }
