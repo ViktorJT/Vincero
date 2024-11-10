@@ -57,7 +57,7 @@ function Header({ title, subtitle, links, background }: Props) {
         />
       )}
 
-      <div className="header col-span-full row-start-1 row-end-3 md:row-end-2 h-full w-full bg-dark text-balance flex flex-col justify-end text-light">
+      <div className="header col-span-full row-start-1 row-end-4 md:row-end-3 h-full w-full bg-dark text-balance flex flex-col justify-end text-light">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full px-6 md:px-10 py-10 items-end">
           <h1 className="title text-heading-large md:text-display-large md:max-w-[640px] md:pr-10">
             {title}

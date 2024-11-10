@@ -65,7 +65,7 @@ export async function ComponentMapper({ modules }: ComponentMapperProps) {
           return null;
         }
 
-        console.log("Rendering component: ", __typename, props);
+        //console.log("Rendering component: ", __typename, props);
 
         return <Component key={`${id}-${i}`} id={id} {...props} />;
       })}

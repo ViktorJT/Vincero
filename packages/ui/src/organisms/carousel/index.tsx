@@ -236,10 +236,10 @@ function Carousel({
 }: CarouselProps) {
   return (
     <section className="relative bg-white dark:bg-dark text-dark dark:text-light w-full">
-      <div className="items-center grid grid-cols-1 md:grid-cols-2 gap-x-4 mx-auto max-w-container px-6 md:px-10 py-20">
+      <div className="items-end text-pretty grid grid-cols-1 md:grid-cols-2 gap-x-4 px-6 md:px-10 py-20">
         <h2 className="text-display-large mr-10">{title}</h2>
 
-        {subtitle && <p className="text-lg">{subtitle}</p>}
+        {subtitle && <p className="text-body-large max-w-[75%]">{subtitle}</p>}
       </div>
 
       <Container
@@ -249,12 +249,12 @@ function Carousel({
         <Content>
           {variant === "team"
             ? profiles?.map((profile) => (
-                <Item key={profile.id} className="basis-1/3 md:basis-1/4">
+                <Item key={profile.id} className="basis-1/2 md:basis-1/4">
                   <ProfileCard {...profile} />
                 </Item>
               ))
             : pages?.map((page) => (
-                <Item key={page.id} className="basis-1/3 md:basis-1/4">
+                <Item key={page.id} className="basis-1/2 md:basis-1/4">
                   <PageCard {...page} />
                 </Item>
               ))}

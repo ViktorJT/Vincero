@@ -12,14 +12,14 @@ export function ProfileCard({ name, role, image, email, className }: Props) {
       <CardHeader className="p-0 relative aspect-square overflow-hidden">
         <Asset className="object-cover w-full h-full" media={[image]} />
       </CardHeader>
-      <CardContent className="pt-6 flex justify-between gap-4">
-        <p>{name}</p>
-        <p className="text-muted">{role}</p>
+      <CardContent className="pt-6 flex flex-wrap justify-between gap-x-4">
+        <p className="grow shrink-0">{name}</p>
+        <p className="text-muted truncate">{role}</p>
       </CardContent>
       {email && (
         <CardFooter>
           <a
-            className="text-muted hover:text-dark underline cursor-pointer hover:"
+            className="text-muted hover:text-dark underline cursor-pointer truncate"
             href={`mailto:${email}`}
           >
             {email}

@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import { getModulesBySlug } from "@/data/queries/getModulesBySlug";
 import { getPages } from "@/data/queries/getPages";
 
@@ -15,6 +17,8 @@ export default async function Page({ params }) {
   const { slug } = await params;
 
   const modules = await getModulesBySlug(slug[slug.length - 1]);
+
+  if (!modules) notFound();
 
   return (
     <main>

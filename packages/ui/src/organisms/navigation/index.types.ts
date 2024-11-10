@@ -7,6 +7,4 @@ export type Props = {
   rightColumn: LinkProps[];
 };
 
-export type ColumnProps = {
-  links: LinkProps[];
-};
+export type { LinkProps };

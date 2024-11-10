@@ -44,6 +44,8 @@ export async function getModulesBySlug(slug: string) {
     variables: { slug },
   });
 
+  if (!page) return null;
+
   const promises = page.modules.map((module: BaseModule) =>
     throttledFetchData({
       query: Queries[module.__typename],
