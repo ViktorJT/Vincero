@@ -8,9 +8,9 @@ import { getPages } from "@/data/queries/getPages";
 import { ComponentMapper } from "@/components/ComponentMapper";
 
 export async function generateStaticParams() {
-  const { pages }: any = await getPages();
+  const result: any = await getPages();
 
-  return pages.map((page: any) =>
+  return result.pages?.map((page: any) =>
     page.parentPage ? [page.parentPage.slug, page.slug] : [page.slug],
   );
 }
