@@ -18,7 +18,6 @@ type PageType = {
 
 export async function generateStaticParams() {
   try {
-    // Explicitly type the result
     const result = (await getPages()) as { pages: PageType[] };
 
     if (!result?.pages || !Array.isArray(result.pages)) {
@@ -26,7 +25,6 @@ export async function generateStaticParams() {
       return [];
     }
 
-    // Map with proper type checking and error handling
     return result.pages.map((page: PageType) => {
       if (page.parentPage?.slug) {
         return {

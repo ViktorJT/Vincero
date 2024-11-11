@@ -9,6 +9,7 @@ interface FieldProps {
 }
 
 interface Props {
+  id: string;
   name: string;
   image?: MediaProps;
   text?: ParagraphProps;

@@ -1,10 +1,5 @@
-import type { MediaProps } from "../../types";
+import type { PageProps } from "../../types";
 
-export interface Props {
-  slug: string;
-  id?: string;
-  image: MediaProps;
-  title: string;
-  description: string;
+export interface Props extends PageProps {
   className?: string;
 }

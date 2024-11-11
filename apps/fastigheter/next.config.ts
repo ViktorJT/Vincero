@@ -8,6 +8,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const config: NextConfig = {
+  //output: "export", // Statically generate site
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
   },

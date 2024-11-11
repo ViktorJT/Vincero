@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useCallback, useEffect, forwardRef } from "react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-//import dynamic from "next/dynamic";
 
 import type { CarouselApi, CarouselProps, ContainerProps } from "./index.types";
 import type { KeyboardEvent, ComponentProps, HTMLAttributes } from "react";
@@ -24,24 +24,22 @@ const Container = forwardRef<
   HTMLAttributes<HTMLDivElement> & ContainerProps
 >(
   (
-    {
-      orientation = "horizontal",
-      opts,
-      setApi,
-      plugins,
-      className,
-      children,
-      ...props
-    },
+    { orientation = "horizontal", opts, setApi, className, children, ...props },
     ref,
   ) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
-        ...opts,
+        dragFree: true,
         axis: orientation === "horizontal" ? "x" : "y",
+        ...opts,
       },
-      plugins,
+      [
+        WheelGesturesPlugin({
+          forceWheelAxis: "x",
+        }),
+      ],
     );
+
     const [canScrollPrev, setCanScrollPrev] = useState(false);
     const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -233,13 +231,19 @@ function Carousel({
   profiles,
   pages,
   variant,
+  id,
 }: CarouselProps) {
   return (
-    <section className="relative bg-white dark:bg-dark text-dark dark:text-light w-full">
-      <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 pb-10">
+    <section
+      className="relative bg-white dark:bg-dark text-dark dark:text-light w-full"
+      id={id}
+    >
+      <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 mb-10 md:mb-20">
         <h2 className="text-heading-large md:text-display mr-10">{title}</h2>
 
-        {subtitle && <p className="text-body max-w-[75%]">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-body md:text-body-large max-w-[75%]">{subtitle}</p>
+        )}
       </div>
 
       <Container

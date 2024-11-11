@@ -1,10 +1,16 @@
-import type { LinkProps } from "../../types";
+// @todos any type
 
-export const prioritiseHref = (link: LinkProps) => {
-  if (link.external) {
-    link.href = link.externalUrl;
-  } else {
-    link.href = link.page?.slug + "/" + link.anchor;
-  }
-  return link;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const prioritiseHref = (link: any) => {
+  const { external, externalUrl, page, anchor } = link;
+
+  const href =
+    external && externalUrl
+      ? externalUrl
+      : [page?.parentPage?.slug, page?.slug, anchor].filter(Boolean).join("/");
+
+  return {
+    ...link,
+    href,
+  };
 };

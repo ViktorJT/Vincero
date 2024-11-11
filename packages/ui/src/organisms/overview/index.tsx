@@ -5,14 +5,14 @@ import { Pagination } from "../../atoms/pagination";
 import type { PageProps, Props } from "./index.types";
 import { PageCard } from "../../atoms/pageCard";
 
-function Overview({ title, subtitle, pages = [] }: Props) {
-  const render = (page: PageProps, i: number) => (
-    <PageCard key={`${page.id}-${i}`} {...page} />
-  );
+function Overview({ id, title, subtitle, pages = [] }: Props) {
+  const render = (page: PageProps, i: number) => {
+    return <PageCard key={`${page.id}-${i}`} {...page} />;
+  };
 
   return (
-    <section className="dark:bg-dark bg-light w-full py-12 md:py-24">
-      <div className="container px-4 mx-auto">
+    <section className="dark:bg-dark bg-white w-full py-12 md:py-24" id={id}>
+      <div className="container px-6 md:px-10 mx-auto">
         {/* Header */}
         {(title || subtitle) && (
           <div className="dark:text-light text-dark grid gap-6 md:grid-cols-2 mb-12">

@@ -2,7 +2,7 @@ import { throttledFetchData } from "@/utils/fetchData";
 
 export const query = `
   {
-    pages {
+    pages(first: 100) {
       slug
       parentPage {
         slug

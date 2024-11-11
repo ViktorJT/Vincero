@@ -21,6 +21,12 @@ export const OverviewQuery = `
           description
           slug
 
+          parentPage {
+            ... on Page {
+              slug
+            }
+          }
+
           image {
             ...Asset
           }

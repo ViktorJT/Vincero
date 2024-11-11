@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // @todos clamp this component to maxwidth container
 
-function Banner({ title, textBlocks = [] }: Props) {
+function Banner({ id, title, textBlocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -42,9 +42,10 @@ function Banner({ title, textBlocks = [] }: Props) {
   return (
     <section
       ref={ref}
-      className="w-full bg-accent text-dark text-balance py-20 px-6 md:px-10 min-h-[50dvh]"
+      className="w-full bg-accent text-dark text-balance py-20 px-6 md:px-10 min-h-[50dvh] flex items-center justify-center"
+      id={id}
     >
-      <div className="md:max-w-none max-w-[540px] mx-auto flex flex-col md:gap-0 gap-14 md:flex-row justify-items-center justify-around md:items-center content-center">
+      <div className="w-full md:max-w-none max-w-[540px] mx-auto flex flex-col md:gap-0 gap-14 md:flex-row justify-items-center justify-around md:items-center">
         <div className="w-full w-4/5 md:w-1/2">
           <h1 className="animate-item text-heading-large md:text-display-large md:pr-10">
             {title}

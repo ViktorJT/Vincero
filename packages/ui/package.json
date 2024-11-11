@@ -61,17 +61,18 @@
     "class-variance-authority": "0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.1",
+    "embla-carousel-wheel-gestures": "^8.0.1",
     "gsap": "3.12.5",
     "lucide-react": "0.454.0",
     "react-hook-form": "^7.53.1",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
-    "@hookform/resolvers": "^3.9.1",
-    "esbuild-plugin-react18": "^0.2.5",
     "@graphcms/rich-text-types": "^0.5.1",
+    "@hookform/resolvers": "^3.9.1",
     "@vincero/eslint-config": "workspace:^",
     "@vincero/typescript-config": "workspace:*",
+    "esbuild-plugin-react18": "^0.2.5",
     "tsup": "8.3.0",
     "zod": "^3.23.8"
   },

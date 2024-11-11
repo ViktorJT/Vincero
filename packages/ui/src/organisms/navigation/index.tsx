@@ -3,7 +3,6 @@
 import {
   Root,
   List,
-  Link as RadixLink,
   Item,
   Trigger,
   Content,
@@ -22,34 +21,31 @@ import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 
 // Styles
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-link font-medium transition-colors hover:bg-accent hover:text-light focus:bg-accent focus:text-light focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-link transition-colors hover:bg-light/10 hover:text-white data-[active]:bg-light/10 data-[active]:text-white data-[state=open]:bg-light/10 data-[state=open]:text-white",
 );
 
-// Only component that needs forwardRef due to reusability and a11y
 const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
-  ({ className, title, children, ...props }, ref) => (
-    <li>
-      <RadixLink asChild>
-        <a
+  ({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <Link
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors dark:hover:bg-dark/20 hover:bg-light/20 hover:text-light dark:hover:text-dark focus:bg-accent focus:text-light dark:focus:text-dark",
+            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors dark:hover:bg-dark/20 hover:bg-light/10 hover:text-white dark:hover:text-dark focus:bg-accent focus:text-light dark:focus:text-dark",
             className,
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted">
-            {children}
-          </p>
-        </a>
-      </RadixLink>
-    </li>
-  ),
+          <div>{title}</div>
+          <p className="line-clamp-2 text-detail">{children}</p>
+        </Link>
+      </li>
+    );
+  },
 );
 ListItem.displayName = "ListItem";
 
-// Memoized navigation trigger for performance
+// NavigationMenuTrigger remains unchanged
 const NavigationMenuTrigger = memo(
   ({
     className,
@@ -102,7 +98,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
       <Link
         aria-label={ariaLabel}
         className={navigationMenuTriggerStyle()}
-        href={href || ""}
+        href={href}
         onClick={onClick}
       >
         {displayText}
@@ -110,24 +106,30 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
     );
   });
 
-  const DropdownContent = ({ parentLink }: { parentLink: LinkProps }) => (
-    <Content className="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto">
-      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-dark dark:bg-light text-light dark:text-dark">
-        <ListItem href={parentLink.href} title={parentLink.displayText}>
-          {parentLink.description}
-        </ListItem>
-        {parentLink.subLinks?.map((subLink: LinkProps) => {
-          const { id, displayText, description, href } =
-            prioritiseHref(subLink);
-          return (
-            <ListItem key={id} href={href} title={displayText}>
-              {description}
-            </ListItem>
-          );
-        })}
-      </ul>
-    </Content>
-  );
+  const DropdownContent = ({ parentLink }: { parentLink: LinkProps }) => {
+    const { href } = prioritiseHref(parentLink);
+    return (
+      <Content className="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto shadow-sm">
+        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 dark:bg-light text-light dark:text-dark">
+          <ListItem href={href} title={parentLink.displayText}>
+            {parentLink.description}
+          </ListItem>
+          {parentLink.subLinks?.map((subLink: LinkProps) => {
+            const { href } = prioritiseHref(subLink);
+            return (
+              <ListItem
+                key={subLink.id}
+                href={href}
+                title={subLink.displayText}
+              >
+                {subLink.description}
+              </ListItem>
+            );
+          })}
+        </ul>
+      </Content>
+    );
+  };
 
   return (
     <Root
@@ -139,7 +141,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
     >
       <div className="relative mx-auto">
         {/* Mobile Menu Button - Only visible on mobile */}
-        <div className="flex w-full items-center justify-between p-4 md:hidden">
+        <div className="bg-dark/20 backdrop-blur flex w-full items-center justify-between p-4 md:hidden">
           <div className="w-8" />
           <div className="text-2xl font-bold">LOGO</div>
           <button
@@ -152,7 +154,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
         </div>
 
         {/* Desktop Navigation - Hidden on mobile */}
-        <div className="relative hidden px-10 h-16 w-full items-center justify-between md:flex">
+        <div className="relative hidden px-6 h-16 w-full items-center justify-between md:flex">
           {/* Left list */}
           <List className="flex items-center space-x-6">
             {leftColumn.map((link) => (
@@ -165,9 +167,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
                     <DropdownContent parentLink={link} />
                   </>
                 ) : (
-                  <RadixLink asChild>
-                    <NavigationLink link={link} />
-                  </RadixLink>
+                  <NavigationLink link={link} />
                 )}
               </Item>
             ))}
@@ -190,9 +190,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
                     <DropdownContent parentLink={link} />
                   </>
                 ) : (
-                  <RadixLink asChild>
-                    <NavigationLink link={link} />
-                  </RadixLink>
+                  <NavigationLink link={link} />
                 )}
               </Item>
             ))}
@@ -202,7 +200,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
         {/* Mobile Menu - Only visible on mobile when open */}
         {isMobileMenuOpen && (
           <div className="absolute left-0 right-0 top-full md:hidden">
-            <nav className="flex flex-col space-y-2 p-4 bg-dark dark:bg-light shadow-lg ">
+            <nav className="flex flex-col space-y-2 p-4 bg-dark/20 backdrop-blur shadow-lg">
               {allLinks.map((link) => (
                 <NavigationLink
                   key={link.id}

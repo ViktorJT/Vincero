@@ -14,7 +14,7 @@ import type {
   Props,
 } from "./index.types.ts";
 
-function Slider({ blocks = [] }: Props) {
+function Slider({ id, blocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -56,6 +56,7 @@ function Slider({ blocks = [] }: Props) {
     <div
       ref={ref}
       className="flex flex-col bg-white dark:bg-dark text-dark dark:text-light md:flex-row min-h-dvh relative w-full"
+      id={id}
     >
       {columns.map((block, colIndex) => (
         <div
@@ -97,7 +98,9 @@ function Slider({ blocks = [] }: Props) {
                         {item.heading}
                       </p>
 
-                      <p className="text-body">{item.body}</p>
+                      <p className="text-body md:text-body-large">
+                        {item.body}
+                      </p>
 
                       {item.links && (
                         <div className="flex flex-wrap gap-4 pt-4 items-center justify-center">

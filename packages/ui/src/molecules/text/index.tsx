@@ -66,18 +66,20 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
   return (
     <section
       ref={ref}
-      className="dark:bg-dark bg-white relative max-w-[540px] mx-auto md:max-w-none md:min-h-screen flex items-center px-6 md:px-20 py-10 md:py-16 md:-ml-[160px]"
+      className="dark:bg-dark bg-white relative md:min-h-screen flex items-center px-6 md:px-20 py-10 md:py-16 md:-ml-[160px]"
     >
-      <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-container-text-offset mx-auto">
-        <Paragraph content={metaInformation} />
+      <div className="max-w-[540px] mx-auto md:max-w-none">
+        <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-container-text-offset mx-auto">
+          <Paragraph content={metaInformation} />
 
-        {heading && (
-          <h1 className="animate-text text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-huge my-6 md:my-10">
-            {heading}
-          </h1>
-        )}
+          {heading && (
+            <h1 className="animate-text text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-huge my-6 md:my-10">
+              {heading}
+            </h1>
+          )}
 
-        <Paragraph content={[body]} />
+          <Paragraph content={[body]} />
+        </div>
       </div>
     </section>
   );

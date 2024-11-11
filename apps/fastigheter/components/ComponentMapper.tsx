@@ -7,7 +7,7 @@ import { Media } from "@vincero/ui/media";
 
 import type { BannerProps } from "@vincero/ui/banner";
 import type { CarouselProps } from "@vincero/ui/carousel";
-//import type { FormProps } from "@vincero/ui/form";
+import type { FormProps } from "@vincero/ui/form";
 import type { HeaderProps } from "@vincero/ui/header";
 import type { MediaProps } from "@vincero/ui/media";
 import type { OverviewProps } from "@vincero/ui/overview";
@@ -21,7 +21,7 @@ const Components = {
 
   // Dynamically import::
   Banner: dynamic(() => import("@vincero/ui/banner").then((mod) => mod.Banner)),
-  //Form: dynamic(() => import("@vincero/ui/form").then((mod) => mod.Form)),
+  Form: dynamic(() => import("@vincero/ui/form").then((mod) => mod.Form)),
   Header: dynamic(() => import("@vincero/ui/header").then((mod) => mod.Header)),
   Overview: dynamic(() =>
     import("@vincero/ui/overview").then((mod) => mod.Overview),
@@ -33,7 +33,7 @@ const Components = {
 type ComponentTypes = {
   Banner: ComponentType<BannerProps>;
   Carousel: ComponentType<CarouselProps>;
-  //Form: ComponentType<FormProps>;
+  Form: ComponentType<FormProps>;
   Header: ComponentType<HeaderProps>;
   Media: ComponentType<MediaProps>;
   Overview: ComponentType<OverviewProps>;

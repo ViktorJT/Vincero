@@ -43,6 +43,7 @@ export default defineConfig((options) => ({
     // UI Components
     "lucide-react",
     "embla-carousel-react",
+    "embla-carousel-wheel-gestures",
   ],
 
   format: ["esm"],

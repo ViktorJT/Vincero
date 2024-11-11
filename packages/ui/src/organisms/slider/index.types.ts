@@ -20,6 +20,6 @@ interface SlideBlock extends TextBlockProps, MediaBlockProps {
 }
 
 export interface Props {
-  id?: string;
+  id: string;
   blocks: SlideBlock[];
 }

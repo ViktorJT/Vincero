@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 import gsap from "gsap";
 
 import { useSplitText } from "../../lib/utils/split-text";
+import { cn } from "../../lib/utils/cn";
 
 import { Media } from "../../molecules/media";
 
@@ -46,7 +47,13 @@ function Header({ title, subtitle, background }: Props) {
   return (
     <section
       ref={ref}
-      className="relative grid grid-rows-4 grid-cols-1 place-items-start w-full overflow-hidden"
+      className={cn(
+        "relative min-h-[50vh] grid grid-cols-1 place-items-start w-full overflow-hidden",
+        {
+          "grid-rows-4": !!background,
+          "grid-rows-1": !background,
+        },
+      )}
     >
       {background && (
         <Media
@@ -56,7 +63,15 @@ function Header({ title, subtitle, background }: Props) {
         />
       )}
 
-      <div className="header col-span-full row-start-1 row-end-4 md:row-end-3 h-full w-full bg-dark text-balance flex flex-col justify-end text-light">
+      <div
+        className={cn(
+          "header col-span-full h-full w-full bg-dark text-balance flex flex-col justify-end text-light",
+          {
+            "row-start-1 row-end-4 md:row-end-3": !!background,
+            "row-span-full": !background,
+          },
+        )}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full px-6 md:px-10 py-10 items-end">
           <h1 className="title text-heading-large md:text-display-large md:max-w-[640px] md:pr-10">
             {title}

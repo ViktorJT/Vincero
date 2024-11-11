@@ -27,6 +27,7 @@ export type CarouselContextProps = {
 } & ContainerProps;
 
 export type CarouselProps = {
+  id: string;
   title: string;
   subtitle?: string;
   profiles?: ProfileProps[];

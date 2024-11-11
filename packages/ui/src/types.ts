@@ -3,14 +3,16 @@ import type { RichTextContent } from "@graphcms/rich-text-types";
 import type { ButtonVariants } from "./atoms/button/index.types";
 
 export interface PageProps {
+  id: string;
   title: string;
   slug: string;
   description: string;
   image: MediaProps;
+  parentPage?: PageProps;
 }
 
 export interface LinkProps {
-  id: string;
+  id?: string;
   displayText: string;
   description?: string;
   variant: ButtonVariants["variant"];

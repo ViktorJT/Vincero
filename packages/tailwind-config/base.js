@@ -70,6 +70,14 @@ export default {
           fontWeight: "var(--font-weight-light)",
         },
       ],
+      "heading-small": [
+        "var(--font-size-heading-small)",
+        {
+          lineHeight: "var(--line-height-default)",
+          letterSpacing: "var(--letter-spacing-tight)",
+          fontWeight: "var(--font-weight-medium)",
+        },
+      ],
       heading: [
         "var(--font-size-heading)",
         {
