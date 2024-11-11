@@ -7,12 +7,40 @@ import { getPages } from "@/data/queries/getPages";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
-export async function generateStaticParams() {
-  const result: any = await getPages();
+export const dynamicParams = false;
 
-  return result.pages?.map((page: any) =>
-    page.parentPage ? [page.parentPage.slug, page.slug] : [page.slug],
-  );
+type PageType = {
+  slug: string;
+  parentPage?: {
+    slug: string;
+  } | null;
+};
+
+export async function generateStaticParams() {
+  try {
+    // Explicitly type the result
+    const result = (await getPages()) as { pages: PageType[] };
+
+    if (!result?.pages || !Array.isArray(result.pages)) {
+      console.error("No pages found or invalid data");
+      return [];
+    }
+
+    // Map with proper type checking and error handling
+    return result.pages.map((page: PageType) => {
+      if (page.parentPage?.slug) {
+        return {
+          slug: [page.parentPage.slug, page.slug],
+        };
+      }
+      return {
+        slug: [page.slug],
+      };
+    });
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
 }
 
 export default async function Page({ params }: any) {
