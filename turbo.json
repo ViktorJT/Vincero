@@ -11,6 +11,7 @@
         "dist/**",
         "storybook-static/**"
       ],
+      "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
       "env": ["NEXT_PUBLIC_*", "VERCEL_*", "NEXT_PUBLIC_ENVIRONMENT"],
       "outputLogs": "new-only"
     },
