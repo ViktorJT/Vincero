@@ -6,12 +6,11 @@ import gsap from "gsap";
 
 import { useSplitText } from "../../lib/utils/split-text";
 
-import { Button } from "../../atoms/button";
 import { Media } from "../../molecules/media";
 
 import type { Props } from "./index.types.ts";
 
-function Header({ title, subtitle, links, background }: Props) {
+function Header({ title, subtitle, background }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -62,30 +61,9 @@ function Header({ title, subtitle, links, background }: Props) {
           <h1 className="title text-heading-large md:text-display-large md:max-w-[640px] md:pr-10">
             {title}
           </h1>
-          <div className="contents md:flex flex-col gap-4">
-            <p className="subtitle text-body-base md:text-body-large md:max-w-[320px]">
-              {subtitle}
-            </p>
-
-            {links && (
-              <div className="buttons flex flex-wrap gap-4 mt-2">
-                {links.map((link, index) => (
-                  <Button
-                    key={index}
-                    aria-label={link.ariaLabel}
-                    href={link.externalUrl} // @todos!
-                    //rel={ // @todos fix this later
-                    //  link.target !== "self" ? "noopener noreferrer" : undefined
-                    //}
-                    title={link.titleAttribute}
-                    variant={link.variant}
-                  >
-                    {link.displayText}
-                  </Button>
-                ))}
-              </div>
-            )}
-          </div>
+          <p className="subtitle text-body-base md:text-body-large md:max-w-[400px]">
+            {subtitle}
+          </p>
         </div>
       </div>
     </section>

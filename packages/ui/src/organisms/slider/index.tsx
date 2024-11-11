@@ -73,7 +73,7 @@ function Slider({ blocks = [] }: Props) {
                 })}
               >
                 <div
-                  className={cn("overflow-hidden h-auto md:h-dvh w-full", {
+                  className={cn("md:overflow-hidden h-auto md:h-dvh w-full", {
                     "block md:sticky top-0": isMedia,
                     "flex items-center justify-center": !isMedia,
                   })}
@@ -86,21 +86,21 @@ function Slider({ blocks = [] }: Props) {
                       media={[item.media]}
                     />
                   ) : (
-                    <div className="flex bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col items-center gap-6 md:gap-10 text-center p-6 pb-20 max-w-[540px]">
+                    <div className="flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col items-center gap-6 md:gap-10 text-center p-6 pb-20 max-w-[540px]">
                       {item.title && (
                         <p className="text-accent dark:text-muted text-detail uppercase">
                           {item.title}
                         </p>
                       )}
 
-                      <p className="text-body-large sm:text-heading-large lg:text-display">
+                      <p className="text-heading sm:text-heading-large lg:text-display">
                         {item.heading}
                       </p>
 
                       <p className="text-body">{item.body}</p>
 
                       {item.links && (
-                        <div className="flex gap-4 pt-4">
+                        <div className="flex flex-wrap gap-4 pt-4 items-center justify-center">
                           {item.links.map((link, i) => (
                             <Button
                               key={link.id}

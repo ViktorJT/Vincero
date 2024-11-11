@@ -42,37 +42,39 @@ function Banner({ title, textBlocks = [] }: Props) {
   return (
     <section
       ref={ref}
-      className="w-full bg-accent text-dark text-balance py-20 px-10 min-h-[50dvh] flex flex-col md:gap-0 gap-8 md:flex-row justify-items-center justify-around items-center"
+      className="w-full bg-accent text-dark text-balance py-20 px-6 md:px-10 min-h-[50dvh]"
     >
-      <div className="w-full md:w-1/2">
-        <h1 className="animate-item text-heading-large md:text-display-large md:pr-10">
-          {title}
-        </h1>
-      </div>
-
-      {textBlocks && (
-        <div className="md:grid grid-cols-1 md:grid-cols-3 gap-8 md:w-1/2 contents">
-          {textBlocks.map((block, i) => (
-            <div key={i} className="w-full">
-              <RichText
-                content={block.raw}
-                renderers={{
-                  h1: ({ children }) => (
-                    <p className="animate-item text-heading-large md:text-display mb-2">
-                      {children}
-                    </p>
-                  ),
-                  p: ({ children }) => (
-                    <p className="animate-item text-detail md:text-body-large">
-                      {children}
-                    </p>
-                  ),
-                }}
-              />
-            </div>
-          ))}
+      <div className="md:max-w-none max-w-[540px] mx-auto flex flex-col md:gap-0 gap-14 md:flex-row justify-items-center justify-around md:items-center content-center">
+        <div className="w-full w-4/5 md:w-1/2">
+          <h1 className="animate-item text-heading-large md:text-display-large md:pr-10">
+            {title}
+          </h1>
         </div>
-      )}
+
+        {textBlocks && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:w-1/2">
+            {textBlocks.map((block, i) => (
+              <div key={i} className="w-full">
+                <RichText
+                  content={block.raw}
+                  renderers={{
+                    h1: ({ children }) => (
+                      <p className="animate-item text-heading-large md:text-display mb-2">
+                        {children}
+                      </p>
+                    ),
+                    p: ({ children }) => (
+                      <p className="animate-item text-body md:text-body-large">
+                        {children}
+                      </p>
+                    ),
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

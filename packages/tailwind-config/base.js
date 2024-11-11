@@ -43,7 +43,7 @@ export default {
         {
           lineHeight: "var(--line-height-relaxed)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-light)",
+          fontWeight: "var(--font-weight-regular)",
         },
       ],
       "body-large": [
@@ -51,7 +51,7 @@ export default {
         {
           lineHeight: "var(--line-height-relaxed)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
+          fontWeight: "var(--font-weight-regular)",
         },
       ],
       link: [
@@ -83,7 +83,7 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-regular)",
+          fontWeight: "var(--font-weight-medium)",
         },
       ],
     },

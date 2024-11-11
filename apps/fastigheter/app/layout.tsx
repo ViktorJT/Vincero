@@ -9,8 +9,8 @@ import type { ReactNode } from "react";
 
 // @todo update this to use variable for performance?
 const inter = Inter({
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
+  weight: ["200", "300", "500"],
+  style: ["normal"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",

@@ -236,10 +236,10 @@ function Carousel({
 }: CarouselProps) {
   return (
     <section className="relative bg-white dark:bg-dark text-dark dark:text-light w-full">
-      <div className="items-end text-pretty grid grid-cols-1 md:grid-cols-2 gap-x-4 px-6 md:px-10 py-20">
-        <h2 className="text-display-large mr-10">{title}</h2>
+      <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 pb-10">
+        <h2 className="text-heading-large md:text-display mr-10">{title}</h2>
 
-        {subtitle && <p className="text-body-large max-w-[75%]">{subtitle}</p>}
+        {subtitle && <p className="text-body max-w-[75%]">{subtitle}</p>}
       </div>
 
       <Container
@@ -259,12 +259,6 @@ function Carousel({
                 </Item>
               ))}
         </Content>
-        {/*
-        <div>
-          <Previous />
-          <Next />
-        </div>
-        */}
       </Container>
 
       <div className="absolute h-1/6 bg-dark bottom-0 left-0 right-0" />

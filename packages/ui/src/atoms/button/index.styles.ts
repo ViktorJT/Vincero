@@ -5,18 +5,17 @@ export default cva(
   {
     variants: {
       variant: {
-        default: "bg-light text-black hover:bg-light/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        default:
+          "bg-dark dark:bg-light text-light dark:text-dark hover:bg-light hover:text-dark hover:dark:bg-dark hover:dark:text-light ",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "border border-dark dark:border-light bg-transparent text-dark dark:text-light hover:dark:text-white hover:dark:border-white hover:text-black hover:border-black",
+        secondary: "bg-accent text-dark dark:text-light hover:bg-accent/80",
+        ghost:
+          "hover:bg-light/50 hover:dark:bg-dark/50 hover:text-dark hover:dark:text-light",
+        link: "text-dark dark:text-light underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-12 px-6 py-2",
         sm: "h-9 px-3",
         lg: "h-11 px-8",
         icon: "h-10 w-10",

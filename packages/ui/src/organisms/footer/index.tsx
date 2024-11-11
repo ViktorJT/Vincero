@@ -4,15 +4,15 @@ import type { Props } from "./index.types";
 
 export function Footer(props: Props) {
   return (
-    <footer className="flex flex-col md:flex-row px-6 gap-y-10 py-14 bg-dark text-light text-detail">
+    <footer className="flex flex-col md:flex-row px-6 gap-y-10 py-14 bg-dark text-light">
       <div className="contents md:block grow">
         <p>SMALL LOGO</p>
-        <p className="text-muted text-balance order-last">
+        <p className="text-detail text-muted text-balance order-last">
           {props.copyrightInformation}
         </p>
       </div>
 
-      <div className="grow">
+      <div>
         <p>{props.contactName}</p>
         <p>{props.contactAddress}</p>
         <p>

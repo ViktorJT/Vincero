@@ -23,12 +23,12 @@ function Paragraph({
   return content.map((lockup: ParagraphProps) => (
     <div
       key={lockup.id}
-      className={cn("flex flex-col gap-2 md:contents", className)}
+      className={cn("flex flex-col gap-8 md:contents", className)}
     >
       <p className="animate-text text-detail text-muted md:text-right md:mt-1.5">
         {lockup.title}
       </p>
-      <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-4 text-body md:text-body-large">
+      <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-8 text-body md:text-body-large">
         {lockup.paragraphs?.map(
           ({ raw }: { raw: RichTextContent }, i: number) => (
             <RichText
@@ -66,7 +66,7 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
   return (
     <section
       ref={ref}
-      className="dark:bg-dark bg-white relative min-h-screen flex items-center px-6 md:px-10 py-10 md:py-16 md:-ml-[160px]"
+      className="dark:bg-dark bg-white relative max-w-[540px] mx-auto md:max-w-none md:min-h-screen flex items-center px-6 md:px-20 py-10 md:py-16 md:-ml-[160px]"
     >
       <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-container-text-offset mx-auto">
         <Paragraph content={metaInformation} />
