@@ -1,6 +1,6 @@
 import pThrottle from "p-throttle";
 
-const HYGRAPH_ENDPOINT = process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT as string;
+const HYGRAPH_ENDPOINT = process.env.HYGRAPH_ENDPOINT as string;
 
 type GraphQLResponse<T> = {
   data?: T;
