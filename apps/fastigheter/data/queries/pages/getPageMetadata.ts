@@ -1,39 +1,21 @@
 import { throttledFetchData } from "@/utils/fetchData";
 
-import { getPageBySlug } from "@/data/queries/getPageBySlug";
-
 const query = `
-  query Page($slug: String!) {
+  query GetPageMetadata($slug: String!) {
     page(where: { slug: $slug }) {
-      id
       title
-      dark
-      slug
       description
       image {
-        id
         altText
-        mimeType
         url
         width
         height
-      }
-      parentPage {
-        id
-        title
-      }
-      modules(first: 10) {
-        ... on Entity {
-          id
-        }
       }
     }
   }
 `;
 
-export async function getHomepage() {
-  const slug = "homepage";
-
+export async function getPageMetadata(slug: string) {
   // @todos naughty any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { page }: any = await throttledFetchData({
@@ -41,10 +23,7 @@ export async function getHomepage() {
     variables: { slug },
   });
 
-  const { modules } = await getPageBySlug(slug);
-
   return {
-    ...page,
-    modules,
+    page,
   };
 }

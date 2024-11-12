@@ -105,11 +105,15 @@ export function Gallery({ media = [], className }: GalleryProps) {
             key={item.id}
             className="grid__item relative m-0"
             style={{
+              //gridColumn: `${column} / span 1`,
               gridColumn: `${column} / span 1`,
-              gridRow: row,
+              gridRow: `${row} / span 1`,
             }}
           >
-            <div className="grid__item-img relative overflow-hidden aspect-[3/2]">
+            <div
+              className="grid__item-img relative overflow-hidden"
+              style={{ aspectRatio: item.width / item.height }}
+            >
               {/* @todos make aspect dynamic to the incoming image*/}
               <Asset
                 className="grid__item-img-inner w-full h-full object-cover"

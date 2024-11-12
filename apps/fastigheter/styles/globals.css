@@ -47,4 +47,8 @@
   html {
     background-color: hsl(var(--dark));
   }
+
+  main {
+    transition: background-color 600ms ease-out;
+  }
 }

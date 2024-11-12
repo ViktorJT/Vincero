@@ -2,7 +2,7 @@ import defaultTheme from "tailwindcss/defaultTheme.js";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["selector", '[data-mode="dark"]'],
+  darkMode: "selector",
 
   theme: {
     fontSize: {

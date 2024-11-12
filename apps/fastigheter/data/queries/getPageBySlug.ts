@@ -26,10 +26,11 @@ const Queries = {
   Text: TextQuery,
 } as const;
 
-export async function getModulesBySlug(slug: string) {
+export async function getPageBySlug(slug: string) {
   const query = `
-    query GetModulesBySlug($slug: String!){
+    query GetPageBySlug($slug: String!){
       page(where: { slug: $slug }) {
+        dark
         modules {
           __typename
           ... on Entity {
@@ -57,7 +58,6 @@ export async function getModulesBySlug(slug: string) {
 
   const results = await Promise.all(promises);
 
-  // @todos any type below
   const unpacked = results.map(
     (module: Record<string, any>) =>
       Object.values(module)[0] as Record<string, any>,
@@ -68,5 +68,5 @@ export async function getModulesBySlug(slug: string) {
     ...unpacked[i],
   }));
 
-  return modules;
+  return { ...page, modules };
 }

@@ -15,12 +15,14 @@ type FetchOptions = {
 const fetchGraphQL = async <T>({
   query,
   variables = {},
+  ...props
 }: FetchOptions): Promise<T | null> => {
   try {
     const response = await fetch(HYGRAPH_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
+      ...props,
     });
 
     if (!response.ok) {

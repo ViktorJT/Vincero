@@ -2,7 +2,10 @@
 // @todo types here
 import { notFound } from "next/navigation";
 
-import { getModulesBySlug } from "@/data/queries/getModulesBySlug";
+import type { Metadata } from "next";
+
+import { getPageMetadata } from "@/data/queries/pages/getPageMetadata";
+import { getPageBySlug } from "@/data/queries/getPageBySlug";
 import { getPages } from "@/data/queries/getPages";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
@@ -15,6 +18,35 @@ type PageType = {
     slug: string;
   } | null;
 };
+
+export async function generateMetadata({ params }: any) {
+  const { slug } = await params;
+
+  const { page } = await getPageMetadata(slug[slug.length - 1]);
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      images: [
+        {
+          url: page.image.url,
+          width: page.image.width,
+          height: page.image.height,
+          alt: page.image.altText || page.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title,
+      description: page.description,
+      images: [page.image.url],
+    },
+  };
+}
 
 export async function generateStaticParams() {
   try {
@@ -44,12 +76,12 @@ export async function generateStaticParams() {
 export default async function Page({ params }: any) {
   const { slug } = await params;
 
-  const modules = await getModulesBySlug(slug[slug.length - 1]);
+  const { dark, modules } = await getPageBySlug(slug[slug.length - 1]);
 
   if (!modules) notFound();
 
   return (
-    <main>
+    <main className={dark ? "dark" : "light"}>
       <ComponentMapper modules={modules} />
     </main>
   );
