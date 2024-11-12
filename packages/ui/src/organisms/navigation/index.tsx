@@ -11,13 +11,20 @@ import {
 import { cva } from "class-variance-authority";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { forwardRef, useState, memo } from "react";
+import { forwardRef, useState, memo, useRef } from "react";
 import type { ElementRef, ComponentPropsWithoutRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import type { LinkProps, Props } from "./index.types";
 
 import { cn } from "../../lib/utils/cn";
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
+import { usePathname } from "next/navigation";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Styles
 const navigationMenuTriggerStyle = cva(
@@ -31,7 +38,7 @@ const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
         <Link
           ref={ref}
           className={cn(
-            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors dark:hover:bg-dark/20 hover:bg-light/10 hover:text-white dark:hover:text-dark focus:bg-accent focus:text-light dark:focus:text-dark",
+            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:bg-accent focus:text-light:focus:text-dark",
             className,
           )}
           {...props}
@@ -45,7 +52,6 @@ const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
 );
 ListItem.displayName = "ListItem";
 
-// NavigationMenuTrigger remains unchanged
 const NavigationMenuTrigger = memo(
   ({
     className,
@@ -65,76 +71,146 @@ const NavigationMenuTrigger = memo(
 );
 NavigationMenuTrigger.displayName = "NavigationMenuTrigger";
 
-// Main Navigation Component
-export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const allLinks = [...leftColumn, ...rightColumn];
+// Memoized DropdownContent component
+const DropdownContent = memo(({ parentLink }: { parentLink: LinkProps }) => {
+  const { href } = prioritiseHref(parentLink);
+  return (
+    <Content className="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto shadow-sm">
+      <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light">
+        <ListItem href={href} title={parentLink.displayText}>
+          {parentLink.description}
+        </ListItem>
+        {parentLink.subLinks?.map((subLink: LinkProps) => {
+          const { href } = prioritiseHref(subLink);
+          return (
+            <ListItem key={subLink.id} href={href} title={subLink.displayText}>
+              {subLink.description}
+            </ListItem>
+          );
+        })}
+      </ul>
+    </Content>
+  );
+});
+DropdownContent.displayName = "DropdownContent";
 
-  const NavigationLink = memo(function NavigationLink({
-    link,
-    onClick,
-  }: {
-    link: LinkProps;
-    onClick?: () => void;
-  }) {
-    const { href, external, displayText, ariaLabel } = prioritiseHref(link);
+// Memoized NavigationLink component
+const NavigationLink = memo(function NavigationLink({
+  link,
+  onClick,
+}: {
+  link: LinkProps;
+  onClick?: () => void;
+}) {
+  const { href, external, displayText, ariaLabel } = prioritiseHref(link);
 
-    if (external) {
-      return (
-        <a
-          aria-label={ariaLabel}
-          className={navigationMenuTriggerStyle()}
-          href={href}
-          rel={link.relAttribute || "noopener noreferrer"}
-          title={link.titleAttribute}
-          onClick={onClick}
-        >
-          {displayText}
-        </a>
-      );
-    }
-
+  if (external) {
     return (
-      <Link
+      <a
         aria-label={ariaLabel}
         className={navigationMenuTriggerStyle()}
         href={href}
+        rel={link.relAttribute || "noopener noreferrer"}
+        title={link.titleAttribute}
         onClick={onClick}
       >
         {displayText}
-      </Link>
+      </a>
     );
-  });
+  }
 
-  const DropdownContent = ({ parentLink }: { parentLink: LinkProps }) => {
-    const { href } = prioritiseHref(parentLink);
-    return (
-      <Content className="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto shadow-sm">
-        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 dark:bg-light text-light dark:text-dark">
-          <ListItem href={href} title={parentLink.displayText}>
-            {parentLink.description}
-          </ListItem>
-          {parentLink.subLinks?.map((subLink: LinkProps) => {
-            const { href } = prioritiseHref(subLink);
-            return (
-              <ListItem
-                key={subLink.id}
-                href={href}
-                title={subLink.displayText}
-              >
-                {subLink.description}
-              </ListItem>
-            );
-          })}
-        </ul>
-      </Content>
-    );
-  };
+  return (
+    <Link
+      aria-label={ariaLabel}
+      className={navigationMenuTriggerStyle()}
+      href={href}
+      onClick={onClick}
+    >
+      {displayText}
+    </Link>
+  );
+});
+
+// Main Navigation Component
+export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const navRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const allLinks = [...leftColumn, ...rightColumn];
+
+  // Initial load animation
+  useGSAP(
+    () => {
+      if (!isFirstLoad) return;
+
+      gsap.set(navRef.current, { yPercent: -100 });
+      gsap.to(navRef.current, {
+        yPercent: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        delay: 0.3,
+        onComplete: () => setIsFirstLoad(false),
+      });
+    },
+    {
+      dependencies: [isFirstLoad],
+      scope: navRef,
+    },
+  );
+
+  // Navigation and scroll animations
+  useGSAP(
+    () => {
+      if (isFirstLoad) return;
+
+      // Reset position on route change
+      gsap.to(navRef.current, {
+        yPercent: 0,
+        duration: 0.3,
+        ease: "power2.out",
+        overwrite: true,
+      });
+
+      // Set up scroll animation
+      const tl = gsap.timeline({ paused: true });
+      tl.to(navRef.current, {
+        yPercent: -100,
+        duration: 0.3,
+        ease: "power2.inOut",
+      });
+
+      const trigger = ScrollTrigger.create({
+        trigger: document.documentElement,
+        start: "100px top",
+        end: "bottom bottom",
+        onUpdate: (self) => {
+          if (self.direction === 1) {
+            tl.play();
+          } else {
+            tl.reverse();
+          }
+        },
+        toggleActions: "play none none reverse",
+        markers: false,
+      });
+
+      return () => {
+        tl.kill();
+        trigger.kill();
+      };
+    },
+    {
+      dependencies: [isFirstLoad, pathname],
+      scope: navRef,
+    },
+  );
 
   return (
     <Root
+      ref={navRef}
       className={cn(
-        "fixed z-20 top-0 w-full text-light dark:text-dark",
+        "fixed z-20 top-0 w-full text-light will-change-transform",
         className,
       )}
       id={id}
@@ -146,7 +222,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
           <div className="text-2xl font-bold">LOGO</div>
           <button
             aria-label="Toggle menu"
-            className="text-light dark:text-dark focus:outline-none"
+            className="text-light focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -154,7 +230,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
         </div>
 
         {/* Desktop Navigation - Hidden on mobile */}
-        <div className="relative hidden px-6 h-16 w-full items-center justify-between md:flex">
+        <div className="relative hidden px-6 h-16 w-full bg-dark items-center justify-between md:flex">
           {/* Left list */}
           <List className="flex items-center space-x-6">
             {leftColumn.map((link) => (
@@ -214,7 +290,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
 
         <Viewport
           className={cn(
-            "origin-top-center absolute left-0 top-full mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md bg-dark dark:bg-light text-light dark:text-dark shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
+            "origin-top-center absolute left-6 top-full h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-b-md bg-dark text-light shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
           )}
         />
       </div>

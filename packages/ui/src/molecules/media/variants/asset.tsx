@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-// import Image from "next/image"; // @todo
+import Image from "next/image"; // @todo
 
 import { isVideo } from "../../../lib/utils/isVideo";
 import { cn } from "../../../lib/utils/cn";
@@ -10,6 +10,7 @@ import type { AssetProps } from "../index.types";
 
 export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
   ({ media, className }, ref) => {
+    console.log({ media });
     return (
       <>
         {media.map((item) => {
@@ -26,15 +27,19 @@ export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
                   muted
                   playsInline
                   aria-hidden="true"
-                  autoPlay={false}
+                  autoPlay={true}
                   className={cn("video", assetStyles)}
                   src={item.url}
+                  width={item.width}
+                  height={item.height}
                 />
               ) : (
-                <img
+                <Image
                   alt={item.altText || ""}
                   className={cn("image", assetStyles)}
                   src={item.url}
+                  width={item.width}
+                  height={item.height}
                 />
               )}
             </div>

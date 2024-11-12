@@ -35,15 +35,6 @@ export default defineConfig((options) => ({
 
     // Form libraries
     "react-hook-form",
-
-    // Animation libraries
-    "gsap",
-    "@gsap/react",
-
-    // UI Components
-    "lucide-react",
-    "embla-carousel-react",
-    "embla-carousel-wheel-gestures",
   ],
 
   format: ["esm"],
