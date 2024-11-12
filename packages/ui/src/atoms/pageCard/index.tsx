@@ -17,8 +17,8 @@ export function PageCard(page: Props) {
         <CardHeader className="p-0 relative aspect-[4/3] overflow-hidden">
           <Media className="object-cover w-full h-full" media={page.image} />
         </CardHeader>
-        <CardContent className="pt-6 pb-4 flex">
-          <p className="text-heading-small">{page.title}</p>
+        <CardContent className="pt-2 pb-2 md:pt-3 md:pb-4 flex">
+          <p className="text-body md:text-heading-small">{page.title}</p>
         </CardContent>
         <CardFooter>
           <p className="text-body line-clamp-2">{page.description}</p>

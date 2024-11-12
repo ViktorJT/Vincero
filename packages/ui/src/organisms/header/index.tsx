@@ -58,7 +58,10 @@ function Header({ title, subtitle, background }: Props) {
       {background && (
         <Media
           className="media col-span-full row-span-full h-dvh w-full"
-          media={background}
+          media={{
+            ...background,
+            className: "absolute inset-0 w-full h-full object-cover",
+          }}
           variant="default"
         />
       )}

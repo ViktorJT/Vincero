@@ -26,13 +26,27 @@ import { usePathname } from "next/navigation";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
+// Logo Component
+const Logo = memo(function Logo() {
+  return (
+    <Link
+      aria-label="Till hemsida"
+      className="text-2xl font-bold whitespace-nowrap hover:text-white/90 transition-colors cursor-pointer"
+      href="/"
+    >
+      LOGO
+    </Link>
+  );
+});
+Logo.displayName = "Logo";
+
 // Styles
 const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-link transition-colors hover:bg-light/10 hover:text-white data-[active]:bg-light/10 data-[active]:text-white data-[state=open]:bg-light/10 data-[state=open]:text-white",
 );
 
 const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
-  ({ className, title, children, ...props }, ref) => {
+  ({ className, title, children, href }, ref) => {
     return (
       <li>
         <Link
@@ -41,7 +55,7 @@ const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
             "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:bg-accent focus:text-light:focus:text-dark",
             className,
           )}
-          {...props}
+          href={href as string}
         >
           <div>{title}</div>
           <p className="line-clamp-2 text-detail">{children}</p>
@@ -219,7 +233,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
         {/* Mobile Menu Button - Only visible on mobile */}
         <div className="bg-dark/20 backdrop-blur flex w-full items-center justify-between p-4 md:hidden">
           <div className="w-8" />
-          <div className="text-2xl font-bold">LOGO</div>
+          <Logo />
           <button
             aria-label="Toggle menu"
             className="text-light focus:outline-none"
@@ -250,8 +264,8 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
           </List>
 
           {/* Center logo */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold whitespace-nowrap">
-            LOGO
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Logo />
           </div>
 
           {/* Right list */}

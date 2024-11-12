@@ -2,7 +2,7 @@
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import React, { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Asset } from "./asset";
 import { gsap } from "gsap";
 
@@ -15,6 +15,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Gallery({ media = [], className }: GalleryProps) {
   const gridRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    // Initial check
+    setIsMobile(mediaQuery.matches);
+
+    // Add listener for changes
+    const handleResize = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleResize);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleResize);
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -83,6 +102,10 @@ export function Gallery({ media = [], className }: GalleryProps) {
   );
 
   const getGridPosition = (index: number) => {
+    if (isMobile) {
+      return { row: index + 1, column: 1 };
+    }
+
     const row = index + 1;
     const columnPattern = [1, 2, 3, 2, 1, 2];
     const column = columnPattern[index % columnPattern.length];
@@ -105,7 +128,6 @@ export function Gallery({ media = [], className }: GalleryProps) {
             key={item.id}
             className="grid__item relative m-0"
             style={{
-              //gridColumn: `${column} / span 1`,
               gridColumn: `${column} / span 1`,
               gridRow: `${row} / span 1`,
             }}
@@ -114,7 +136,6 @@ export function Gallery({ media = [], className }: GalleryProps) {
               className="grid__item-img relative overflow-hidden"
               style={{ aspectRatio: item.width / item.height }}
             >
-              {/* @todos make aspect dynamic to the incoming image*/}
               <Asset
                 className="grid__item-img-inner w-full h-full object-cover"
                 media={[item]}

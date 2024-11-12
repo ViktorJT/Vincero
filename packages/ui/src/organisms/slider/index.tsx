@@ -84,7 +84,13 @@ function Slider({ id, blocks = [] }: Props) {
                     <Asset
                       ref={(el: HTMLVideoElement) => videoRefs.current.push(el)}
                       className="relative h-[50vh] md:h-screen"
-                      media={[item.media]}
+                      media={[
+                        {
+                          ...item.media,
+                          className:
+                            "absolute inset-0 w-full h-full object-cover",
+                        },
+                      ]}
                     />
                   ) : (
                     <div className="flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col items-center gap-6 md:gap-10 text-center p-6 pb-20 max-w-[540px]">

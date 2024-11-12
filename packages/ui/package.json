@@ -52,6 +52,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@vincero/tailwind-config": "workspace:^",
     "@graphcms/rich-text-react-renderer": "^0.6.2",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-label": "^2.1.0",

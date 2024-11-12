@@ -10,12 +10,11 @@ import type { AssetProps } from "../index.types";
 
 export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
   ({ media, className }, ref) => {
-    console.log({ media });
     return (
       <>
         {media.map((item) => {
           const assetStyles = cn(
-            "absolute inset-0 w-full h-full object-cover",
+            "relative w-full h-auto md:max-h-screen",
             item.className,
           );
           return (
@@ -29,17 +28,17 @@ export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
                   aria-hidden="true"
                   autoPlay={true}
                   className={cn("video", assetStyles)}
+                  height={item.height}
                   src={item.url}
                   width={item.width}
-                  height={item.height}
                 />
               ) : (
                 <Image
                   alt={item.altText || ""}
                   className={cn("image", assetStyles)}
+                  height={item.height}
                   src={item.url}
                   width={item.width}
-                  height={item.height}
                 />
               )}
             </div>

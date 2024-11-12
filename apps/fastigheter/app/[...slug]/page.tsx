@@ -2,8 +2,6 @@
 // @todo types here
 import { notFound } from "next/navigation";
 
-import type { Metadata } from "next";
-
 import { getPageMetadata } from "@/data/queries/pages/getPageMetadata";
 import { getPageBySlug } from "@/data/queries/getPageBySlug";
 import { getPages } from "@/data/queries/getPages";
