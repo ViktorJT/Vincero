@@ -25,6 +25,9 @@ export interface LinkProps {
   titleAttribute?: string;
   ariaLabel?: string;
   href?: string;
+  onClick?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children?: any;
 }
 
 export interface MediaProps {

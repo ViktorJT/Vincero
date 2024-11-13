@@ -20,6 +20,7 @@ import { cn } from "../../lib/utils/cn";
 
 import type { ElementRef, ComponentPropsWithoutRef } from "react";
 import type { LinkProps, Props } from "./index.types";
+import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -93,23 +94,16 @@ const Logo = () => (
 );
 
 const NavLink = ({
-  href,
-  external,
   onClick,
   children,
   ariaLabel,
   relAttribute = "noopener noreferrer",
   titleAttribute,
-}: {
-  href: string;
-  external?: boolean;
-  onClick?: () => void;
-  children: React.ReactNode;
-  ariaLabel?: string;
-  relAttribute?: string;
-  titleAttribute?: string;
-}) => {
+  ...link
+}: LinkProps) => {
   const className = cn(baseNavStyles, activeNavStyles);
+
+  const { external, href } = prioritiseHref(link);
 
   if (external) {
     return (
@@ -139,21 +133,24 @@ const NavLink = ({
 };
 
 const DropdownItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
-  ({ className, title, children, href }, ref) => (
-    <li>
-      <Link
-        ref={ref}
-        className={cn(
-          "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:text-light",
-          className,
-        )}
-        href={href as string}
-      >
-        <div>{title}</div>
-        <p className="line-clamp-2 text-detail">{children}</p>
-      </Link>
-    </li>
-  ),
+  ({ className, title, children, ...link }, ref) => {
+    const { href } = prioritiseHref(link);
+    return (
+      <li>
+        <Link
+          ref={ref}
+          className={cn(
+            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:text-light",
+            className,
+          )}
+          href={href}
+        >
+          <div>{title}</div>
+          <p className="line-clamp-2 text-detail">{children}</p>
+        </Link>
+      </li>
+    );
+  },
 );
 DropdownItem.displayName = "DropdownItem";
 
@@ -167,31 +164,33 @@ const NavTrigger = ({ children }: { children: React.ReactNode }) => (
   </Trigger>
 );
 
-const DropdownMenu = ({ link }: { link: LinkProps }) => (
-  <Content
-    className="absolute left-0 top-0 w-full 
+const DropdownMenu = (link: LinkProps) => {
+  return (
+    <Content
+      className="absolute left-0 top-0 w-full 
       data-[motion=from-start]:animate-enterFromLeft
       data-[motion=from-end]:animate-enterFromRight
       data-[motion=to-start]:animate-exitToLeft
       data-[motion=to-end]:animate-exitToRight
       md:absolute md:w-auto shadow-sm"
-  >
-    <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
-      <DropdownItem href={link.href || ""} title={link.displayText}>
-        {link.description}
-      </DropdownItem>
-      {link.subLinks?.map((subLink) => (
-        <DropdownItem
-          key={subLink.id}
-          href={subLink.href || ""}
-          title={subLink.displayText}
-        >
-          {subLink.description}
+    >
+      <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
+        <DropdownItem title={link.displayText} {...link}>
+          {link.description}
         </DropdownItem>
-      ))}
-    </ul>
-  </Content>
-);
+        {link.subLinks?.map((subLink) => (
+          <DropdownItem
+            key={subLink.id}
+            title={subLink.displayText}
+            {...subLink}
+          >
+            {subLink.description}
+          </DropdownItem>
+        ))}
+      </ul>
+    </Content>
+  );
+};
 
 const MobileMenu = ({
   isOpen,
@@ -216,13 +215,7 @@ const MobileMenu = ({
     >
       <nav className="flex flex-col space-y-4 p-4 pb-10 bg-dark shadow-lg">
         {links.map((link) => (
-          <NavLink
-            key={link.id}
-            ariaLabel={link.ariaLabel}
-            external={link.external}
-            href={link.href || ""}
-            onClick={onClose}
-          >
+          <NavLink key={link.id} onClick={onClose} {...link}>
             {link.displayText}
           </NavLink>
         ))}
@@ -251,9 +244,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
     ScrollTrigger.create({
       trigger: document.documentElement,
       start: "100px top",
-      onUpdate: (self) => {
-        self.direction === 1 ? tl.play() : tl.reverse();
-      },
+      onUpdate: (self) => (self.direction === 1 ? tl.play() : tl.reverse()),
       toggleActions: "play none none reverse",
     });
 
@@ -291,16 +282,10 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
                 {link.subLinks?.length ? (
                   <>
                     <NavTrigger>{link.displayText}</NavTrigger>
-                    <DropdownMenu link={link} />
+                    <DropdownMenu {...link} />
                   </>
                 ) : (
-                  <NavLink
-                    ariaLabel={link.ariaLabel}
-                    external={link.external}
-                    href={link.href || ""}
-                  >
-                    {link.displayText}
-                  </NavLink>
+                  <NavLink {...link}>{link.displayText}</NavLink>
                 )}
               </Item>
             ))}
@@ -316,16 +301,10 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
                 {link.subLinks?.length ? (
                   <>
                     <NavTrigger>{link.displayText}</NavTrigger>
-                    <DropdownMenu link={link} />
+                    <DropdownMenu {...link} />
                   </>
                 ) : (
-                  <NavLink
-                    ariaLabel={link.ariaLabel}
-                    external={link.external}
-                    href={link.href || ""}
-                  >
-                    {link.displayText}
-                  </NavLink>
+                  <NavLink {...link}>{link.displayText}</NavLink>
                 )}
               </Item>
             ))}

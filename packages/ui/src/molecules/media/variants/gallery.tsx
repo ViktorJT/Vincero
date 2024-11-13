@@ -17,24 +17,28 @@ export function Gallery({ media = [], className }: GalleryProps) {
   const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Debounced resize listener for mobile detection
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
+    let resizeTimeout;
 
-    // Initial check
-    setIsMobile(mediaQuery.matches);
-
-    // Add listener for changes
     const handleResize = (event: MediaQueryListEvent) => {
-      setIsMobile(event.matches);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setIsMobile(event.matches);
+      }, 200);
     };
 
+    setIsMobile(mediaQuery.matches);
     mediaQuery.addEventListener("change", handleResize);
 
     return () => {
       mediaQuery.removeEventListener("change", handleResize);
+      clearTimeout(resizeTimeout);
     };
   }, []);
 
+  // Initialize GSAP animations with optimized settings
   useGSAP(
     () => {
       if (!gridRef.current) return;
@@ -58,6 +62,7 @@ export function Gallery({ media = [], className }: GalleryProps) {
               start: "clamp(top bottom-=25%)",
               end: "clamp(+=100%)",
               scrub: true,
+              invalidateOnRefresh: true, // Ensures recalculations on resize
             },
           })
           .fromTo(
@@ -65,10 +70,12 @@ export function Gallery({ media = [], className }: GalleryProps) {
             {
               scale: 0,
               transformOrigin: `${originX}% 0%`,
+              willChange: "transform, opacity", // Hinting browser for optimization
             },
             {
               scale: 1,
               ease: "power4",
+              autoAlpha: 1, // Uses GSAP’s `autoAlpha` for performance
             },
           )
           .fromTo(
@@ -76,10 +83,12 @@ export function Gallery({ media = [], className }: GalleryProps) {
             {
               scale: 5,
               transformOrigin: `${originX}% 0%`,
+              willChange: "transform, opacity",
             },
             {
               scale: 1,
               ease: "power4",
+              autoAlpha: 1,
             },
             0,
           )
@@ -88,11 +97,13 @@ export function Gallery({ media = [], className }: GalleryProps) {
             {
               xPercent: isLeftSide ? 20 : -20,
               opacity: 0,
+              willChange: "transform, opacity",
             },
             {
               xPercent: 0,
               opacity: 1,
               ease: "power1",
+              autoAlpha: 1,
             },
             0,
           );
@@ -101,6 +112,7 @@ export function Gallery({ media = [], className }: GalleryProps) {
     { dependencies: [media], scope: gridRef },
   );
 
+  // Determine grid position based on device type
   const getGridPosition = (index: number) => {
     if (isMobile) {
       return { row: index + 1, column: 1 };
@@ -134,7 +146,10 @@ export function Gallery({ media = [], className }: GalleryProps) {
           >
             <div
               className="grid__item-img relative overflow-hidden"
-              style={{ aspectRatio: item.width / item.height }}
+              style={{
+                aspectRatio: item.width / item.height,
+                willChange: "transform, opacity",
+              }}
             >
               <Asset
                 className="grid__item-img-inner w-full h-full object-cover"
