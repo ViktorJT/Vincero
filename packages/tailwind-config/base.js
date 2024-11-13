@@ -176,6 +176,14 @@ export default {
           from: { opacity: "1" },
           to: { opacity: "0" },
         },
+        "mobile-menu-in": {
+          "0%": { opacity: "0", transform: "translateY(-8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "mobile-menu-out": {
+          "0%": { opacity: "1", transform: "translateY(0)" },
+          "100%": { opacity: "0", transform: "translateY(-8px)" },
+        },
       },
 
       animation: {

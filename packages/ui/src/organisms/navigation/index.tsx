@@ -8,127 +8,120 @@ import {
   Content,
   Viewport,
 } from "@radix-ui/react-navigation-menu";
-import { cva } from "class-variance-authority";
 import { Menu, X, ChevronDown } from "lucide-react";
-import Link from "next/link";
-import { forwardRef, useState, memo, useRef } from "react";
-import type { ElementRef, ComponentPropsWithoutRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { forwardRef, useState, useRef, useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { createPortal } from "react-dom";
+import { useGSAP } from "@gsap/react";
+import Link from "next/link";
+import gsap from "gsap";
+import { usePathname } from "next/navigation";
+import { cn } from "../../lib/utils/cn";
 
+import type { ElementRef, ComponentPropsWithoutRef } from "react";
 import type { LinkProps, Props } from "./index.types";
 
-import { cn } from "../../lib/utils/cn";
-import { prioritiseHref } from "../../lib/utils/prioritiseHref";
-import { usePathname } from "next/navigation";
-
-// Register GSAP plugins
+// Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Logo Component
-const Logo = memo(function Logo() {
-  return (
-    <Link
-      aria-label="Till hemsida"
-      className="text-2xl font-bold whitespace-nowrap hover:text-white/90 transition-colors cursor-pointer"
-      href="/"
-    >
-      LOGO
-    </Link>
-  );
-});
-Logo.displayName = "Logo";
+// Base styles for navigation items
+const baseNavStyles =
+  "inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-link transition-colors hover:bg-light/10 hover:text-white";
+const activeNavStyles =
+  "data-[active]:bg-light/10 data-[active]:text-white data-[state=open]:bg-light/10 data-[state=open]:text-light";
 
-// Styles
-const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-link transition-colors hover:bg-light/10 hover:text-white data-[active]:bg-light/10 data-[active]:text-white data-[state=open]:bg-light/10 data-[state=open]:text-white",
-);
+// Utility hook for managing scroll lock
+const useScrollLock = (lock: boolean) => {
+  useEffect(() => {
+    if (lock) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
 
-const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
-  ({ className, title, children, href }, ref) => {
-    return (
-      <li>
-        <Link
-          ref={ref}
-          className={cn(
-            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:bg-accent focus:text-light:focus:text-dark",
-            className,
-          )}
-          href={href as string}
-        >
-          <div>{title}</div>
-          <p className="line-clamp-2 text-detail">{children}</p>
-        </Link>
-      </li>
-    );
-  },
-);
-ListItem.displayName = "ListItem";
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
+  }, [lock]);
+};
 
-const NavigationMenuTrigger = memo(
-  ({
-    className,
-    children,
-  }: {
-    className?: string;
-    children: React.ReactNode;
-  }) => (
-    <Trigger className={cn(navigationMenuTriggerStyle(), "group", className)}>
-      {children}{" "}
-      <ChevronDown
-        aria-hidden="true"
-        className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
-      />
-    </Trigger>
-  ),
-);
-NavigationMenuTrigger.displayName = "NavigationMenuTrigger";
-
-// Memoized DropdownContent component
-const DropdownContent = memo(({ parentLink }: { parentLink: LinkProps }) => {
-  const { href } = prioritiseHref(parentLink);
-  return (
-    <Content className="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto shadow-sm">
-      <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light">
-        <ListItem href={href} title={parentLink.displayText}>
-          {parentLink.description}
-        </ListItem>
-        {parentLink.subLinks?.map((subLink: LinkProps) => {
-          const { href } = prioritiseHref(subLink);
-          return (
-            <ListItem key={subLink.id} href={href} title={subLink.displayText}>
-              {subLink.description}
-            </ListItem>
-          );
-        })}
-      </ul>
-    </Content>
-  );
-});
-DropdownContent.displayName = "DropdownContent";
-
-// Memoized NavigationLink component
-const NavigationLink = memo(function NavigationLink({
-  link,
-  onClick,
+const Backdrop = ({
+  show,
+  onClose,
 }: {
-  link: LinkProps;
+  show: boolean;
+  onClose: () => void;
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  if (!isMounted) return null;
+
+  return createPortal(
+    <div
+      aria-hidden="true"
+      className={cn(
+        "fixed inset-0 bg-black/50 transition-opacity duration-200 md:hidden",
+        show ? "opacity-100" : "opacity-0 pointer-events-none",
+      )}
+      onClick={handleClick}
+    />,
+    document.body,
+  );
+};
+
+const Logo = () => (
+  <Link
+    aria-label="Till hemsida"
+    className="text-2xl font-bold whitespace-nowrap hover:text-white/90 transition-colors cursor-pointer"
+    href="/"
+  >
+    LOGO
+  </Link>
+);
+
+const NavLink = ({
+  href,
+  external,
+  onClick,
+  children,
+  ariaLabel,
+  relAttribute = "noopener noreferrer",
+  titleAttribute,
+}: {
+  href: string;
+  external?: boolean;
   onClick?: () => void;
-}) {
-  const { href, external, displayText, ariaLabel } = prioritiseHref(link);
+  children: React.ReactNode;
+  ariaLabel?: string;
+  relAttribute?: string;
+  titleAttribute?: string;
+}) => {
+  const className = cn(baseNavStyles, activeNavStyles);
 
   if (external) {
     return (
       <a
         aria-label={ariaLabel}
-        className={navigationMenuTriggerStyle()}
+        className={className}
         href={href}
-        rel={link.relAttribute || "noopener noreferrer"}
-        title={link.titleAttribute}
+        rel={relAttribute}
+        title={titleAttribute}
         onClick={onClick}
       >
-        {displayText}
+        {children}
       </a>
     );
   }
@@ -136,89 +129,136 @@ const NavigationLink = memo(function NavigationLink({
   return (
     <Link
       aria-label={ariaLabel}
-      className={navigationMenuTriggerStyle()}
+      className={className}
       href={href}
       onClick={onClick}
     >
-      {displayText}
+      {children}
     </Link>
   );
-});
+};
+
+const DropdownItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
+  ({ className, title, children, href }, ref) => (
+    <li>
+      <Link
+        ref={ref}
+        className={cn(
+          "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:text-light",
+          className,
+        )}
+        href={href as string}
+      >
+        <div>{title}</div>
+        <p className="line-clamp-2 text-detail">{children}</p>
+      </Link>
+    </li>
+  ),
+);
+DropdownItem.displayName = "DropdownItem";
+
+const NavTrigger = ({ children }: { children: React.ReactNode }) => (
+  <Trigger className={cn(baseNavStyles, activeNavStyles, "group")}>
+    {children}
+    <ChevronDown
+      aria-hidden="true"
+      className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+    />
+  </Trigger>
+);
+
+const DropdownMenu = ({ link }: { link: LinkProps }) => (
+  <Content
+    className="absolute left-0 top-0 w-full 
+      data-[motion=from-start]:animate-enterFromLeft
+      data-[motion=from-end]:animate-enterFromRight
+      data-[motion=to-start]:animate-exitToLeft
+      data-[motion=to-end]:animate-exitToRight
+      md:absolute md:w-auto shadow-sm"
+  >
+    <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
+      <DropdownItem href={link.href || ""} title={link.displayText}>
+        {link.description}
+      </DropdownItem>
+      {link.subLinks?.map((subLink) => (
+        <DropdownItem
+          key={subLink.id}
+          href={subLink.href || ""}
+          title={subLink.displayText}
+        >
+          {subLink.description}
+        </DropdownItem>
+      ))}
+    </ul>
+  </Content>
+);
+
+const MobileMenu = ({
+  isOpen,
+  links,
+  onClose,
+}: {
+  isOpen: boolean;
+  links: LinkProps[];
+  onClose: () => void;
+}) => (
+  <>
+    <Backdrop show={isOpen} onClose={onClose} />
+    <div
+      className={cn(
+        "absolute left-0 right-0 top-full md:hidden",
+        "transition-all duration-200 ease-in-out transform origin-top",
+        "z-50", // Ensure menu is above backdrop
+        isOpen
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-2 pointer-events-none",
+      )}
+    >
+      <nav className="flex flex-col space-y-4 p-4 pb-10 bg-dark shadow-lg">
+        {links.map((link) => (
+          <NavLink
+            key={link.id}
+            ariaLabel={link.ariaLabel}
+            external={link.external}
+            href={link.href || ""}
+            onClick={onClose}
+          >
+            {link.displayText}
+          </NavLink>
+        ))}
+      </nav>
+    </div>
+  </>
+);
 
 // Main Navigation Component
 export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const allLinks = [...leftColumn, ...rightColumn];
 
-  // Initial load animation
-  useGSAP(
-    () => {
-      if (!isFirstLoad) return;
+  // Apply scroll lock when mobile menu is open
+  useScrollLock(isMobileMenuOpen);
 
-      gsap.set(navRef.current, { yPercent: -100 });
-      gsap.to(navRef.current, {
-        yPercent: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        delay: 0.3,
-        onComplete: () => setIsFirstLoad(false),
-      });
-    },
-    {
-      dependencies: [isFirstLoad],
-      scope: navRef,
-    },
-  );
+  useGSAP(() => {
+    const tl = gsap.timeline({ paused: true });
+    tl.to(navRef.current, {
+      yPercent: -100,
+      duration: 0.3,
+      ease: "power2.inOut",
+    });
 
-  // Navigation and scroll animations
-  useGSAP(
-    () => {
-      if (isFirstLoad) return;
+    ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: "100px top",
+      onUpdate: (self) => {
+        self.direction === 1 ? tl.play() : tl.reverse();
+      },
+      toggleActions: "play none none reverse",
+    });
 
-      // Reset position on route change
-      gsap.to(navRef.current, {
-        yPercent: 0,
-        duration: 0.3,
-        ease: "power2.out",
-        overwrite: true,
-      });
-
-      // Set up scroll animation
-      const tl = gsap.timeline({ paused: true });
-      tl.to(navRef.current, {
-        yPercent: -100,
-        duration: 0.3,
-        ease: "power2.inOut",
-      });
-
-      const trigger = ScrollTrigger.create({
-        trigger: document.documentElement,
-        start: "100px top",
-        end: "bottom bottom",
-        onUpdate: (self) => {
-          if (self.direction === 1) {
-            tl.play();
-          } else {
-            tl.reverse();
-          }
-        },
-        toggleActions: "play none none reverse",
-        markers: false,
-      });
-
-      return () => {
-        tl.kill();
-        trigger.kill();
-      };
-    },
-    {
-      dependencies: [isFirstLoad, pathname],
-      scope: navRef,
-    },
-  );
+    return () => tl.kill();
+  }, [pathname]);
 
   return (
     <Root
@@ -230,8 +270,8 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
       id={id}
     >
       <div className="relative mx-auto">
-        {/* Mobile Menu Button - Only visible on mobile */}
-        <div className="bg-dark/20 backdrop-blur flex w-full items-center justify-between p-4 md:hidden">
+        {/* Mobile Header */}
+        <div className="bg-dark flex w-full items-center justify-between p-4 md:hidden">
           <div className="w-8" />
           <Logo />
           <button
@@ -243,68 +283,67 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
           </button>
         </div>
 
-        {/* Desktop Navigation - Hidden on mobile */}
+        {/* Desktop Navigation */}
         <div className="relative hidden px-6 h-16 w-full bg-dark items-center justify-between md:flex">
-          {/* Left list */}
           <List className="flex items-center space-x-6">
             {leftColumn.map((link) => (
               <Item key={link.id}>
                 {link.subLinks?.length ? (
                   <>
-                    <NavigationMenuTrigger>
-                      {link.displayText}
-                    </NavigationMenuTrigger>
-                    <DropdownContent parentLink={link} />
+                    <NavTrigger>{link.displayText}</NavTrigger>
+                    <DropdownMenu link={link} />
                   </>
                 ) : (
-                  <NavigationLink link={link} />
+                  <NavLink
+                    ariaLabel={link.ariaLabel}
+                    external={link.external}
+                    href={link.href || ""}
+                  >
+                    {link.displayText}
+                  </NavLink>
                 )}
               </Item>
             ))}
           </List>
 
-          {/* Center logo */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <Logo />
           </div>
 
-          {/* Right list */}
           <List className="flex items-center space-x-6">
             {rightColumn.map((link) => (
               <Item key={link.id}>
                 {link.subLinks?.length ? (
                   <>
-                    <NavigationMenuTrigger>
-                      {link.displayText}
-                    </NavigationMenuTrigger>
-                    <DropdownContent parentLink={link} />
+                    <NavTrigger>{link.displayText}</NavTrigger>
+                    <DropdownMenu link={link} />
                   </>
                 ) : (
-                  <NavigationLink link={link} />
+                  <NavLink
+                    ariaLabel={link.ariaLabel}
+                    external={link.external}
+                    href={link.href || ""}
+                  >
+                    {link.displayText}
+                  </NavLink>
                 )}
               </Item>
             ))}
           </List>
         </div>
 
-        {/* Mobile Menu - Only visible on mobile when open */}
-        {isMobileMenuOpen && (
-          <div className="absolute left-0 right-0 top-full md:hidden">
-            <nav className="flex flex-col space-y-2 p-4 bg-dark/20 backdrop-blur shadow-lg">
-              {allLinks.map((link) => (
-                <NavigationLink
-                  key={link.id}
-                  link={link}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                />
-              ))}
-            </nav>
-          </div>
-        )}
+        <MobileMenu
+          isOpen={isMobileMenuOpen}
+          links={[...leftColumn, ...rightColumn]}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
 
         <Viewport
           className={cn(
-            "origin-top-center absolute left-6 top-full h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-b-md bg-dark text-light shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
+            "origin-top-center absolute left-6 top-full h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md bg-dark text-light shadow-lg",
+            "data-[state=open]:animate-scaleIn",
+            "data-[state=closed]:animate-scaleOut",
+            "md:w-[var(--radix-navigation-menu-viewport-width)]",
           )}
         />
       </div>
