@@ -91,21 +91,6 @@ export function Gallery({ media = [], className }: GalleryProps) {
               autoAlpha: 1,
             },
             0,
-          )
-          .fromTo(
-            item.querySelector(".grid__item-caption"),
-            {
-              xPercent: isLeftSide ? 20 : -20,
-              opacity: 0,
-              willChange: "transform, opacity",
-            },
-            {
-              xPercent: 0,
-              opacity: 1,
-              ease: "power1",
-              autoAlpha: 1,
-            },
-            0,
           );
       });
     },
@@ -156,11 +141,6 @@ export function Gallery({ media = [], className }: GalleryProps) {
                 media={[item]}
               />
             </div>
-            <figcaption className="grid__item-caption absolute p-2 flex flex-wrap gap-2">
-              <h3 className="font-bold dark:text-light text-dark">
-                {item.footnote}
-              </h3>
-            </figcaption>
           </figure>
         );
       })}

@@ -16,7 +16,6 @@ import type {
 
 function Slider({ id, blocks = [] }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   let blocksLength = blocks.length * 2;
 
@@ -82,11 +81,11 @@ function Slider({ id, blocks = [] }: Props) {
                 >
                   {isMedia ? (
                     <Asset
-                      ref={(el: HTMLVideoElement) => videoRefs.current.push(el)}
                       className="relative h-[50vh] md:h-screen"
                       media={[
                         {
                           ...item.media,
+                          fluid: true,
                           className:
                             "absolute inset-0 w-full h-full object-cover",
                         },

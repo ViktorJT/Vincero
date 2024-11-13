@@ -1,6 +1,7 @@
 import type { RichTextContent } from "@graphcms/rich-text-types";
 
 import type { ButtonVariants } from "./atoms/button/index.types";
+import type { ImageProps } from "next/image";
 
 export interface PageProps {
   id: string;
@@ -30,15 +31,15 @@ export interface LinkProps {
   children?: any;
 }
 
-export interface MediaProps {
+export interface MediaProps extends ImageProps {
   id: string;
-  altText?: string | null;
   mimeType: string;
   url: string;
-  width: number;
-  height: number;
-  footnote?: string;
   className?: string;
+  metadata?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  };
 }
 
 export interface ProfileProps {

@@ -1,52 +1,49 @@
-import { forwardRef } from "react";
-import Image from "next/image"; // @todo
+"use client";
 
-import { isVideo } from "../../../lib/utils/isVideo";
+import { CldVideoPlayer, CldImage } from "next-cloudinary";
+
 import { cn } from "../../../lib/utils/cn";
 
-import type { AssetProps } from "../index.types";
-
-// @todo separate out video component so that I can colocate the intersection observer play / pause with it
-
-export const Asset = forwardRef<HTMLVideoElement, AssetProps>(
-  ({ media, className }, ref) => {
-    return (
-      <>
-        {media.map((item) => {
-          const assetStyles = cn(
-            "relative w-full h-auto md:max-h-screen",
-            item.className,
-          );
-          return (
-            <div key={item.id} className={cn("asset relative", className)}>
-              {isVideo(item) ? (
-                <video
-                  ref={ref}
-                  loop
-                  muted
-                  playsInline
-                  aria-hidden="true"
-                  autoPlay={true}
-                  className={cn("video", assetStyles)}
-                  height={item.height}
-                  src={item.url}
-                  width={item.width}
-                />
-              ) : (
-                <Image
-                  alt={item.altText || ""}
-                  className={cn("image", assetStyles)}
-                  height={item.height}
-                  src={item.url}
-                  width={item.width}
-                />
-              )}
-            </div>
-          );
-        })}
-      </>
-    );
-  },
-);
-
-Asset.displayName = "Asset";
+export function Asset({ media, className }) {
+  return (
+    <>
+      {media.map((item) => {
+        const assetStyles = cn(
+          "relative w-full h-auto md:max-h-screen",
+          item.className,
+        );
+        return (
+          <div
+            key={item.id}
+            className={cn("asset relative", { fluid: item.fluid }, className)}
+          >
+            {item.resource_type === "video" ? (
+              <CldVideoPlayer
+                allowUsageReport={false}
+                autoplay="on-scroll"
+                bigPlayButton={false}
+                className={cn("video", assetStyles)}
+                controls={false}
+                fluid={false}
+                loop={true}
+                muted={true}
+                playsInline={true}
+                seekThumbnails={false}
+                showLogo={false}
+                src={item.public_id}
+                {...item}
+              />
+            ) : (
+              <CldImage
+                {...item}
+                alt={item.metadata?.alt || ""}
+                className={cn("video", assetStyles)}
+                src={item.public_id}
+              />
+            )}
+          </div>
+        );
+      })}
+    </>
+  );
+}

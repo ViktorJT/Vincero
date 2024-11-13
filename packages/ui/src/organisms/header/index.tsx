@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { useSplitText } from "../../lib/utils/split-text";
 import { cn } from "../../lib/utils/cn";
 
-import { Media } from "../../molecules/media";
+import { Asset } from "../../molecules/media/variants/asset";
 
 import type { Props } from "./index.types.ts";
 
@@ -75,13 +75,15 @@ function Header({ title, subtitle, background }: Props) {
       )}
     >
       {background && (
-        <Media
+        <Asset
           className="media bg-black col-span-full row-span-full h-dvh w-full"
-          media={{
-            ...background,
-            className: "absolute inset-0 w-full h-full object-cover",
-          }}
-          variant="default"
+          media={[
+            {
+              ...background,
+              fluid: true,
+              className: "absolute inset-0 w-full h-full object-cover",
+            },
+          ]}
         />
       )}
 

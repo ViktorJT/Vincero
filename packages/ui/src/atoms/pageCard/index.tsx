@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { Media } from "../../molecules/media";
+import { Asset } from "../../molecules/media/variants/asset";
+
 import { Card, CardContent, CardFooter, CardHeader } from "../../atoms/card";
 
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
@@ -15,10 +16,10 @@ export function PageCard(page: Props) {
     <Card className={cn("border-0 bg-white text-dark h-full", page.className)}>
       <Link href={href}>
         <CardHeader className="p-0 relative aspect-[4/3] overflow-hidden">
-          <Media className="object-cover w-full h-full" media={page.image} />
+          <Asset className="object-cover w-full h-full" media={[page.image]} />
         </CardHeader>
         <CardContent className="pt-2 pb-2 md:pt-3 md:pb-4 flex">
-          <p className="text-body md:text-heading-small">{page.title}</p>
+          <p className="text-body font-medium">{page.title}</p>
         </CardContent>
         <CardFooter>
           <p className="text-body line-clamp-2">{page.description}</p>

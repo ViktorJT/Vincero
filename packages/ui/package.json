@@ -52,13 +52,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@vincero/tailwind-config": "workspace:^",
     "@graphcms/rich-text-react-renderer": "^0.6.2",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
+    "@vincero/tailwind-config": "workspace:^",
     "class-variance-authority": "0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.1",
@@ -82,6 +82,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.0",
+    "next-cloudinary": "^6.16.0",
     "react-hook-form": "^7.53.1"
   },
   "peerDependenciesMeta": {
