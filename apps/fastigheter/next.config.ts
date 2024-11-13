@@ -8,9 +8,15 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const config: NextConfig = {
-  //output: "export", // Statically generate site
+  output: "export",
+
+  ...(process.env.NODE_ENV === "development" && {
+    output: undefined, // Disable export in development
+  }),
+
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
+    unoptimized: true,
   },
   reactStrictMode: true,
   poweredByHeader: false,

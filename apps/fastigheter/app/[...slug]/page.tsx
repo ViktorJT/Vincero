@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// @todo types here
 import { notFound } from "next/navigation";
+
+import type { Metadata } from "next";
 
 import { getPageMetadata } from "@/data/queries/pages/getPageMetadata";
 import { getPageBySlug } from "@/data/queries/getPageBySlug";
@@ -8,7 +8,11 @@ import { getPages } from "@/data/queries/getPages";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
+// Disable dynamic paths completely for static generation
 export const dynamicParams = false;
+
+// Set revalidate to false for full static generation
+export const revalidate = false;
 
 type PageType = {
   slug: string;
@@ -17,10 +21,17 @@ type PageType = {
   } | null;
 };
 
-export async function generateMetadata({ params }: any) {
-  const { slug } = await params;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const slug = params.slug[params.slug.length - 1];
+  const { page } = await getPageMetadata(slug);
 
-  const { page } = await getPageMetadata(slug[slug.length - 1]);
+  if (!page) {
+    return {
+      title: "Not Found",
+      description: "The page you are looking for does not exist.",
+    };
+  }
 
   return {
     title: page.title,
@@ -55,32 +66,38 @@ export async function generateStaticParams() {
       return [];
     }
 
-    return result.pages.map((page: PageType) => {
-      if (page.parentPage?.slug) {
-        return {
-          slug: [page.parentPage.slug, page.slug],
-        };
-      }
-      return {
-        slug: [page.slug],
-      };
-    });
+    // Transform pages into static paths
+    return result.pages.map((page: PageType) => ({
+      slug: page.parentPage?.slug
+        ? [page.parentPage.slug, page.slug]
+        : [page.slug],
+    }));
   } catch (error) {
     console.error("Error generating static params:", error);
     return [];
   }
 }
 
-export default async function Page({ params }: any) {
-  const { slug } = await params;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function Page(props: any) {
+  try {
+    const params = await props.params;
+    const slug = params.slug[params.slug.length - 1];
+    const pageData = await getPageBySlug(slug);
 
-  const { dark, modules } = await getPageBySlug(slug[slug.length - 1]);
+    if (!pageData || !pageData.modules) {
+      notFound();
+    }
 
-  if (!modules) notFound();
+    const { dark, modules } = pageData;
 
-  return (
-    <main className={dark ? "dark" : "light"}>
-      <ComponentMapper modules={modules} />
-    </main>
-  );
+    return (
+      <main className={dark ? "dark" : "light"}>
+        <ComponentMapper modules={modules} />
+      </main>
+    );
+  } catch (error) {
+    console.error("Error rendering page:", error);
+    notFound();
+  }
 }

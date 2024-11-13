@@ -10,18 +10,25 @@ type GraphQLResponse<T> = {
 type FetchOptions = {
   query: string;
   variables?: Record<string, unknown>;
+  cache?: "force-cache" | "no-store" | "no-cache";
 };
 
 const fetchGraphQL = async <T>({
   query,
   variables = {},
+  cache = "force-cache", // Default to static fetching
   ...props
 }: FetchOptions): Promise<T | null> => {
+  if (!HYGRAPH_ENDPOINT) {
+    throw new Error("HYGRAPH_ENDPOINT is not defined");
+  }
+
   try {
     const response = await fetch(HYGRAPH_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
+      cache, // Use cache option
       ...props,
     });
 
@@ -37,21 +44,21 @@ const fetchGraphQL = async <T>({
 
     if (errors) {
       console.error("GraphQL errors:", errors);
-      return null;
+      throw new Error(errors.map((e) => e.message).join(", "));
     }
 
     return data ?? null;
   } catch (error) {
     console.error("Fetch error:", error);
-    return null;
+    throw error; // Re-throw to handle in calling function
   }
 };
 
+// Keep throttling for both development and production
 const throttle = pThrottle({
   limit: 1,
   interval: 1000,
 });
 
 export const fetchData = fetchGraphQL;
-
 export const throttledFetchData = throttle(fetchGraphQL);
