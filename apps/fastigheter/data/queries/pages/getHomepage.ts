@@ -10,14 +10,7 @@ const query = `
       dark
       slug
       description
-      image {
-        id
-        altText
-        mimeType
-        url
-        width
-        height
-      }
+      image      
       parentPage {
         id
         title

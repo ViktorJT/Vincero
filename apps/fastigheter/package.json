@@ -13,6 +13,7 @@
     "./theme.css": "./styles/theme.css"
   },
   "dependencies": {
+    "next-cloudinary": "^6.16.0",
     "@hookform/resolvers": "^3.9.1",
     "@studio-freight/lenis": "^1.0.42",
     "@vincero/ui": "workspace:*",

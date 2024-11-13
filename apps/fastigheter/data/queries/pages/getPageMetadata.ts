@@ -5,12 +5,7 @@ const query = `
     page(where: { slug: $slug }) {
       title
       description
-      image {
-        altText
-        url
-        width
-        height
-      }
+      image
     }
   }
 `;

@@ -1,8 +1,4 @@
-import { AssetFragment } from "../fragments/Asset";
-
 export const CarouselQuery = `
-  ${AssetFragment}
-
   query GetCarouselByID($id: ID!) {
     carousel(where: { id: $id }) {
       __typename
@@ -17,9 +13,7 @@ export const CarouselQuery = `
         title
         slug
         description
-        image {
-          ...Asset
-        }
+        image
       }
 
       profiles(first: 15) {
@@ -27,9 +21,7 @@ export const CarouselQuery = `
         name
         role
         email
-        image {
-          ...Asset
-        }
+        image
       }    
     }
   }

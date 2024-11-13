@@ -1,9 +1,7 @@
-import { AssetFragment } from "../fragments/Asset";
 import { RichTextFragment } from "../fragments/RichText";
 import { LockupFragment } from "../fragments/Lockup";
 
 export const FormQuery = `
-  ${AssetFragment}
   ${RichTextFragment}
   ${LockupFragment}
 
@@ -15,9 +13,7 @@ export const FormQuery = `
       submitButtonLabel
       action
 
-      image {
-        ...Asset
-      }
+      image
 
       text {
         ...Lockup

@@ -21,8 +21,10 @@ type PageType = {
   } | null;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function generateMetadata({ params }: any): Promise<Metadata> {
+ 
+export async function generateMetadata(props): Promise<Metadata> {
+  const params = await props.params;
+
   const slug = params.slug[params.slug.length - 1];
   const { page } = await getPageMetadata(slug);
 

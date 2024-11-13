@@ -1,8 +1,4 @@
-import { AssetFragment } from "@/data/queries/fragments/Asset";
-
 export const MediaQuery = `
-  ${AssetFragment}
-
   query GetMediaByID($id: ID!) {
     media(where: { id: $id }) {
       __typename
@@ -10,9 +6,7 @@ export const MediaQuery = `
 
       variant
 
-      media(first: 10) {
-        ...Asset
-      }
+      media
     }
   }
 `;

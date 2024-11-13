@@ -23,15 +23,8 @@ export const navigationQuery = `
       }
     }
 
-    siteSettings(where: {id: "cm38r06hb3o3707l01eizx6qo"}) {
-      logo {
-        id
-        altText
-        mimeType
-        url
-        width
-        height
-      }
+    siteSettings(where: {id: "cm3g6nzht0qv507mnkbhwgztj"}) {
+      logo
 
       contactPhone
       contactEmail

@@ -1,10 +1,8 @@
 import { CalloutFragment } from "@/data/queries/fragments/Callout";
-import { AssetFragment } from "@/data/queries/fragments/Asset";
 import { LinkFragment } from "@/data/queries/fragments/Link";
 
 export const OverviewQuery = `
   ${LinkFragment}
-  ${AssetFragment}
   ${CalloutFragment}
 
   query GetOverviewByID($id: ID!) {

@@ -1,31 +1,14 @@
 export const siteSettingsQuery = `
   {
-    siteSettings(where: {id: "cm38r06hb3o3707l01eizx6qo"}) {
+    siteSettings(where: {id: "cm3g6nzht0qv507mnkbhwgztj"}) {
       id
 
       siteTitle
-      siteUrl
 
       defaultMetaTitle
       defaultMetaDescription
-      defaultMetaImage {
-        id
-        altText
-        mimeType
-        url
-        width
-        height
-        __typename
-      }
-
-      logo {
-        id
-        altText
-        mimeType
-        url
-        width
-        height
-      }
+      defaultMetaImage 
+      logo
 
       favicon {
         id

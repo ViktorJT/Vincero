@@ -11,8 +11,6 @@ export const SlideBlockFragment = `
       ...Link
     }
 
-    media {
-      ...Asset
-    }
+    media  
   }
 `;
