@@ -33,7 +33,6 @@ function Banner({ id, title, textBlocks = [] }: Props) {
             trigger: ref.current,
             start: "top bottom-=25%",
             toggleActions: "play none none reverse",
-            markers: true,
           },
         },
       );

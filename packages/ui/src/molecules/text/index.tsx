@@ -66,7 +66,6 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
             trigger: ref.current,
             start: "top bottom-=25%",
             toggleActions: "play none none reverse",
-            markers: true,
           },
         },
       );
