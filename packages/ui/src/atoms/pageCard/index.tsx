@@ -19,7 +19,7 @@ export function PageCard(page: Props) {
           <Asset className="object-cover w-full h-full" media={[page.image]} />
         </CardHeader>
         <CardContent className="pt-2 pb-2 md:pt-3 md:pb-4 flex">
-          <p className="text-body font-medium">{page.title}</p>
+          <p className="text-body font-medium line-clamp-2">{page.title}</p>
         </CardContent>
         <CardFooter>
           <p className="text-body line-clamp-2">{page.description}</p>

@@ -7,7 +7,7 @@ import { cn } from "../../../lib/utils/cn";
 export function Asset({ media, className }) {
   return (
     <>
-      {media.map((item, i) => {
+      {media.map((item, i: number) => {
         const assetStyles = cn(
           "relative w-full h-auto md:max-h-screen",
           item.className,
@@ -22,7 +22,7 @@ export function Asset({ media, className }) {
                 allowUsageReport={false}
                 autoplay="on-scroll"
                 bigPlayButton={false}
-                className={cn("video", assetStyles)}
+                className={cn("video", !item.fluid && assetStyles)}
                 controls={false}
                 fluid={false}
                 loop={true}
