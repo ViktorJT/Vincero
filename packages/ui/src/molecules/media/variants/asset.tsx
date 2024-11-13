@@ -7,7 +7,7 @@ import { cn } from "../../../lib/utils/cn";
 export function Asset({ media, className }) {
   return (
     <>
-      {media.map((item) => {
+      {media.map((item, i) => {
         const assetStyles = cn(
           "relative w-full h-auto md:max-h-screen",
           item.className,
@@ -32,6 +32,7 @@ export function Asset({ media, className }) {
                 showLogo={false}
                 src={item.public_id}
                 {...item}
+                id={`${item.id}-${item.public_id}-${i}`}
               />
             ) : (
               <CldImage
