@@ -21,8 +21,14 @@ type PageType = {
   } | null;
 };
 
- 
-export async function generateMetadata(props): Promise<Metadata> {
+type MetadataProps = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata(
+  props: MetadataProps,
+): Promise<Metadata> {
   const params = await props.params;
 
   const slug = params.slug[params.slug.length - 1];
