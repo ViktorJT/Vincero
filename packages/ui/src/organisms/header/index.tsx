@@ -38,17 +38,16 @@ function Header({ title, subtitle, background }: Props) {
         scale: 1,
       });
 
+      gsap.set(".header", {
+        yPercent: -100,
+      });
+
       tl.fromTo(
         ".media .video, .media .image",
         { scale: 2 },
         { scale: 1, duration: 1, ease: "power3.out" },
       )
-        .fromTo(
-          ".header",
-          { yPercent: -100 },
-          { yPercent: 0, duration: 0.8, ease: "power3.out" },
-          0,
-        )
+        .to(".header", { yPercent: 0, duration: 0.8, ease: "power3.out" }, 0)
         .to(
           "[class*='split-line-']",
           {
@@ -77,7 +76,7 @@ function Header({ title, subtitle, background }: Props) {
     >
       {background && (
         <Media
-          className="media col-span-full row-span-full h-dvh w-full"
+          className="media bg-black col-span-full row-span-full h-dvh w-full"
           media={{
             ...background,
             className: "absolute inset-0 w-full h-full object-cover",
