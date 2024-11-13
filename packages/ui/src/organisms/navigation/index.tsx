@@ -86,7 +86,7 @@ const Backdrop = ({
 const Logo = () => (
   <Link
     aria-label="Till hemsida"
-    className="text-2xl font-bold whitespace-nowrap hover:text-white/90 transition-colors cursor-pointer"
+    className="whitespace-nowrap hover:text-white transition-colors cursor-pointer"
     href="/"
   >
     LOGO

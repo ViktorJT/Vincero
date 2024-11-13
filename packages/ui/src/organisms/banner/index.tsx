@@ -30,8 +30,10 @@ function Banner({ id, title, textBlocks = [] }: Props) {
           stagger: 0.16,
           ease: "power3.out",
           scrollTrigger: {
-            start: "top bottom-=100",
+            trigger: ref.current,
+            start: "top bottom-=25%",
             toggleActions: "play none none reverse",
+            markers: true,
           },
         },
       );

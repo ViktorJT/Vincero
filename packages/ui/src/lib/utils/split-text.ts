@@ -20,85 +20,102 @@ const getElements = (target: ElementTarget): HTMLElement[] => {
   return Array.isArray(target) ? target : [target];
 };
 
-const getTextNodes = (element: HTMLElement, tag: string): HTMLElement[] => {
-  const nodes: HTMLElement[] = [];
-  const walk = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
-
-  let node: Node | null;
-  while ((node = walk.nextNode())) {
-    if (node.textContent?.trim()) {
-      const wrapper = document.createElement(tag);
-      wrapper.appendChild(node.cloneNode(true));
-      nodes.push(wrapper);
-    }
-  }
-
-  return nodes;
-};
-
-const createLineElement = (
-  elements: HTMLElement[],
-  tag: string,
-  absolute: boolean,
-): HTMLElement => {
-  const line = document.createElement(tag);
-
-  if (absolute) {
-    line.style.position = "absolute";
-    line.style.display = "block";
-    line.style.width = "100%";
-  }
-
-  elements.forEach((el) => {
-    const content = el.innerHTML;
-    el.parentNode?.removeChild(el);
-    line.innerHTML += content;
-  });
-
-  return line;
-};
-
 const splitElement = (
   element: HTMLElement,
   options: Required<SplitTextOptions>,
 ): HTMLElement[] => {
-  const lineThreshold = parseFloat(getComputedStyle(element).fontSize) * 0.2;
+  // Store original content and styles
+  const originalContent = element.innerHTML;
+  const computedStyle = window.getComputedStyle(element);
+
+  // Create a temporary container that mimics the original element's styles
+  const tempContainer = document.createElement("div");
+  tempContainer.innerHTML = originalContent;
+  tempContainer.style.position = "absolute";
+  tempContainer.style.top = "0";
+  tempContainer.style.left = "0";
+  tempContainer.style.width = computedStyle.width;
+  tempContainer.style.fontSize = computedStyle.fontSize;
+  tempContainer.style.fontFamily = computedStyle.fontFamily;
+  tempContainer.style.fontWeight = computedStyle.fontWeight;
+  tempContainer.style.lineHeight = computedStyle.lineHeight;
+  tempContainer.style.letterSpacing = computedStyle.letterSpacing;
+  tempContainer.style.whiteSpace = "normal";
+  tempContainer.style.visibility = "hidden";
+  tempContainer.style.display = computedStyle.display;
+  tempContainer.style.maxWidth = computedStyle.maxWidth;
+  tempContainer.style.padding = computedStyle.padding;
+
+  // Add to DOM temporarily
+  element.parentNode?.insertBefore(tempContainer, element);
+
+  // Create ranges for each word
+  const ranges: Range[] = [];
+  const treeWalker = document.createTreeWalker(
+    tempContainer,
+    NodeFilter.SHOW_TEXT,
+    null,
+  );
+
+  let node: Node | null;
+  while ((node = treeWalker.nextNode())) {
+    const words = node.textContent?.split(/\s+/) || [];
+    let startPos = 0;
+
+    words.forEach((word) => {
+      if (!word) return;
+
+      const range = document.createRange();
+      range.setStart(node, startPos);
+      range.setEnd(node, startPos + word.length);
+      ranges.push(range);
+
+      startPos += word.length + 1; // +1 for the space
+    });
+  }
+
+  // Group words into lines based on their vertical position
   const lines: HTMLElement[] = [];
-  let nodes = getTextNodes(element, options.tag);
-  let lineOffsetY = -999;
-  let currentLine: HTMLElement[] = [];
+  let currentLine: Range[] = [];
+  let lastTop = -1;
 
-  // Create temporary elements for measuring
-  nodes.forEach((node) => {
-    const wrapper = document.createElement(options.tag);
-    wrapper.appendChild(node.cloneNode(true));
-    element.appendChild(wrapper);
+  ranges.forEach((range) => {
+    const rect = range.getBoundingClientRect();
 
-    const offsetY = wrapper.offsetTop;
-
-    if (Math.abs(offsetY - lineOffsetY) > lineThreshold) {
-      if (currentLine.length) {
-        lines.push(
-          createLineElement(currentLine, options.tag, options.absolute),
-        );
-      }
-      currentLine = [wrapper];
-      lineOffsetY = offsetY;
-    } else {
-      currentLine.push(wrapper);
+    if (rect.top !== lastTop && lastTop !== -1 && currentLine.length > 0) {
+      // Create new line element
+      const lineEl = document.createElement(options.tag);
+      const lineContent = currentLine.map((r) => r.toString()).join(" ");
+      lineEl.innerHTML = lineContent;
+      lines.push(lineEl);
+      currentLine = [];
     }
+
+    currentLine.push(range);
+    lastTop = rect.top;
   });
 
   // Handle last line
-  if (currentLine.length) {
-    lines.push(createLineElement(currentLine, options.tag, options.absolute));
+  if (currentLine.length > 0) {
+    const lineEl = document.createElement(options.tag);
+    const lineContent = currentLine.map((r) => r.toString()).join(" ");
+    lineEl.innerHTML = lineContent;
+    lines.push(lineEl);
   }
+
+  // Clean up
+  tempContainer.remove();
 
   // Clear original content and append lines
   element.innerHTML = "";
   lines.forEach((line, i) => {
     if (options.linesClass) {
-      line.className = options.linesClass + (i + 1);
+      line.className = `opacity-0 ${options.linesClass}${i + 1}`;
+    }
+    if (options.absolute) {
+      line.style.position = "absolute";
+      line.style.width = "100%";
+      line.style.display = "block";
     }
     element.appendChild(line);
   });
@@ -156,10 +173,22 @@ export const useSplitText = (
   useEffect(() => {
     if (!ref.current) return;
 
+    // Add resize observer to handle responsive text
+    const resizeObserver = new ResizeObserver(() => {
+      const { lines } = splitText(ref.current!, options);
+      setLines(lines);
+    });
+
+    resizeObserver.observe(ref.current);
+
+    // Initial split
     const { lines, revert } = splitText(ref.current, options);
     setLines(lines);
 
-    return revert;
+    return () => {
+      resizeObserver.disconnect();
+      revert();
+    };
   }, [ref, options.tag, options.linesClass, options.absolute]);
 
   return lines;
