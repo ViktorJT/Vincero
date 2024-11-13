@@ -25,9 +25,7 @@ export const OverviewQuery = `
             }
           }
 
-          image {
-            ...Asset
-          }
+          image        
         }
       }
 
