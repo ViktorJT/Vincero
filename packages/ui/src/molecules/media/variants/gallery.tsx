@@ -59,8 +59,8 @@ export function Gallery({ media = [], className }: GalleryProps) {
           .timeline({
             scrollTrigger: {
               trigger: item,
-              start: "clamp(top bottom-=25%)",
-              end: "clamp(+=100%)",
+              start: "top bottom-=33%",
+              end: "+=100%",
               scrub: true,
               invalidateOnRefresh: true, // Ensures recalculations on resize
             },

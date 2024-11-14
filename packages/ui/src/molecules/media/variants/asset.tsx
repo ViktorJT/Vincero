@@ -9,7 +9,7 @@ export function Asset({ media, className }) {
     <>
       {media.map((item, i: number) => {
         const assetStyles = cn(
-          "relative w-full h-auto md:max-h-screen",
+          "relative w-full h-full object-cover md:max-h-screen",
           item.className,
         );
         return (

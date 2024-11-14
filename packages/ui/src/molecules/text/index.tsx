@@ -64,7 +64,7 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ref.current,
-            start: "top bottom-=25%",
+            start: "top bottom-=33%",
             toggleActions: "play none none reverse",
           },
         },

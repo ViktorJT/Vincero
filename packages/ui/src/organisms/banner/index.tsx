@@ -21,7 +21,7 @@ function Banner({ id, title, textBlocks = [] }: Props) {
         ".animate-item",
         {
           opacity: 0,
-          y: 50,
+          y: 40,
         },
         {
           opacity: 1,
@@ -31,7 +31,7 @@ function Banner({ id, title, textBlocks = [] }: Props) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ref.current,
-            start: "top bottom-=25%",
+            start: "top bottom-=33%",
             toggleActions: "play none none reverse",
           },
         },

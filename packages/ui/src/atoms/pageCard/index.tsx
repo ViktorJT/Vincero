@@ -13,15 +13,20 @@ export function PageCard(page: Props) {
   const { href } = prioritiseHref({ page });
 
   return (
-    <Card className={cn("border-0 bg-white text-dark h-full", page.className)}>
+    <Card
+      className={cn(
+        "border-0 bg-white text-dark h-full text-pretty",
+        page.className,
+      )}
+    >
       <Link href={href}>
         <CardHeader className="p-0 relative aspect-[4/3] overflow-hidden">
           <Asset className="object-cover w-full h-full" media={[page.image]} />
         </CardHeader>
-        <CardContent className="pt-2 pb-2 md:pt-3 md:pb-4 flex">
+        <CardContent className="p-4 flex">
           <p className="text-body font-medium line-clamp-2">{page.title}</p>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="px-4">
           <p className="text-body line-clamp-2">{page.description}</p>
         </CardFooter>
       </Link>

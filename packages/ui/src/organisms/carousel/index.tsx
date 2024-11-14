@@ -195,7 +195,7 @@ function Carousel({
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
-          start: "top bottom-=25%",
+          start: "top bottom-=33%",
           toggleActions: "play none none reverse",
         },
       });
