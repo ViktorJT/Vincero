@@ -66,4 +66,8 @@
   div.asset.fluid > div:first-child > div:first-child video {
     object-fit: cover;
   }
+
+  div.asset video {
+    opacity: 0%;
+  }
 }
