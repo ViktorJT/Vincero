@@ -1,6 +1,7 @@
 "use client";
 
 import { CldVideoPlayer, CldImage } from "next-cloudinary";
+import { gsap } from "gsap";
 
 import { cn } from "../../../lib/utils/cn";
 
@@ -28,9 +29,24 @@ export function Asset({ media, className }) {
                 loop={true}
                 muted={true}
                 playsInline={true}
+                poster={{
+                  // Sets a 1x1 transparent image as a poster bc can't disable posters for some reason
+                  src: "https://res.cloudinary.com/du80x83rx/image/upload/v1731600613/nothing_qzhbfr.png",
+                  format: "default",
+                  quality: "default",
+                }}
                 seekThumbnails={false}
                 showLogo={false}
                 src={item.public_id}
+                onPlay={({ video }: { video: HTMLVideoElement }) => {
+                  if (video) {
+                    gsap.to(video, {
+                      opacity: 1,
+                      duration: 6,
+                      ease: "power3.out",
+                    });
+                  }
+                }}
                 {...item}
                 id={`${item.id}-${item.public_id}-${i}`}
               />
@@ -38,7 +54,7 @@ export function Asset({ media, className }) {
               <CldImage
                 {...item}
                 alt={item.metadata?.alt || ""}
-                className={cn("video", assetStyles)}
+                className={cn("image", assetStyles)}
                 src={item.public_id}
               />
             )}

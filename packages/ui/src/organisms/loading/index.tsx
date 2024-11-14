@@ -1,53 +1,59 @@
 "use client";
 
 import { CldImage } from "next-cloudinary";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import gsap from "gsap";
+//import { useState, useEffect, useRef } from "react";
+//import { useGSAP } from "@gsap/react";
+//import gsap from "gsap";
 
 import type { Props } from "./index.types";
 
 export function Loading({ logoId }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  // Replace with tailwind pulse class?
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ".loading-pulse",
-        {
-          opacity: 0.5,
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          repeat: -1,
-          yoyo: true,
-          ease: "power2.inOut",
-        },
-      );
-    },
-    { scope: ref },
-  );
+  //const ref = useRef<HTMLDivElement>(null);
+  //const [isReady, setIsReady] = useState(false);
+  //
+  //// Initial animation timeline
+  //useEffect(() => {
+  //  const timeline = gsap.timeline({
+  //    onComplete: () => {
+  //      setIsReady(true);
+  //    },
+  //  });
+  //
+  //  // Add other animations here if needed
+  //  return () => {
+  //    timeline.kill();
+  //  };
+  //}, []);
+  //
+  //// Fade out animation
+  //useEffect(() => {
+  //  console.log("getting ready?", isReady);
+  //  if (isReady) {
+  //    gsap.to(ref.current, {
+  //      opacity: 0,
+  //      duration: 1,
+  //      ease: "power2.inOut",
+  //      onComplete: () => {
+  //        if (ref.current) {
+  //          ref.current.style.display = "none";
+  //        }
+  //      },
+  //    });
+  //  }
+  //}, [isReady]);
 
   return (
     <div
-      ref={ref}
-      className="fixed inset-0 z-50 bg-white dark:bg-dark flex items-center justify-center"
+      //ref={ref}
+      className="fixed inset-0 bg-black flex flex-col items-center justify-center"
     >
-      <div className="loading-pulse">
-        {logoId ? (
-          <CldImage
-            alt="Loading..."
-            className="w-32 h-32 object-contain"
-            height={32}
-            src={logoId}
-            width={32}
-          />
-        ) : (
-          <div className="w-32 h-32 bg-light/10 dark:bg-dark/10 rounded-md" />
-        )}
-      </div>
+      <CldImage
+        alt="Loading..."
+        className="animate-pulse w-40 h-auto object-contain"
+        height={40}
+        src={logoId}
+        width={40}
+      />
     </div>
   );
 }

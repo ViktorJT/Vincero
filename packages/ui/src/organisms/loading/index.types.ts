@@ -1,3 +1,3 @@
 export interface Props {
-  logoId?: string;
+  logoId: string;
 }
