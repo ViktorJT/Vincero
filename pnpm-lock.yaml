@@ -3605,10 +3605,10 @@ packages:
         integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==,
       }
 
-  electron-to-chromium@1.5.57:
+  electron-to-chromium@1.5.58:
     resolution:
       {
-        integrity: sha512-xS65H/tqgOwUBa5UmOuNSLuslDo7zho0y/lgQw35pnrqiZh7UOWHCeL/Bt6noJATbA6tpQJGCifsFsIRZj1Fqg==,
+        integrity: sha512-al2l4r+24ZFL7WzyPTlyD0fC33LLzvxqLCwurtBibVPghRGO9hSTl+tis8t1kD7biPiH/en4U0I7o/nQbYeoVA==,
       }
 
   embla-carousel-react@8.3.1:
@@ -7254,17 +7254,12 @@ packages:
       }
     engines: { node: ">= 4.0.0" }
 
-  unplugin@1.15.0:
+  unplugin@1.16.0:
     resolution:
       {
-        integrity: sha512-jTPIs63W+DUEDW207ztbaoO7cQ4p5aVaB823LSlxpsFEU3Mykwxf3ZGC/wzxFJeZlASZYgVrWeo7LgOrqJZ8RA==,
+        integrity: sha512-5liCNPuJW8dqh3+DM6uNM2EI3MLLpCKp/KY+9pB5M2S2SR2qvvDHhKgBOaTWEbZTAws3CXfB0rKTIolWKL05VQ==,
       }
     engines: { node: ">=14.0.0" }
-    peerDependencies:
-      webpack-sources: ^3
-    peerDependenciesMeta:
-      webpack-sources:
-        optional: true
 
   update-browserslist-db@1.1.1:
     resolution:
@@ -8620,7 +8615,6 @@ snapshots:
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - "@types/react"
-      - webpack-sources
 
   "@storybook/addon-essentials@8.4.3(@types/react@18.3.12)(storybook@8.4.3(prettier@3.3.3))":
     dependencies:
@@ -8637,7 +8631,6 @@ snapshots:
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - "@types/react"
-      - webpack-sources
 
   "@storybook/addon-highlight@8.4.3(storybook@8.4.3(prettier@3.3.3))":
     dependencies:
@@ -8691,8 +8684,6 @@ snapshots:
       storybook: 8.4.3(prettier@3.3.3)
       ts-dedent: 2.2.0
       vite: 5.4.11(@types/node@22.8.4)
-    transitivePeerDependencies:
-      - webpack-sources
 
   "@storybook/components@8.4.3(storybook@8.4.3(prettier@3.3.3))":
     dependencies:
@@ -8721,9 +8712,7 @@ snapshots:
   "@storybook/csf-plugin@8.4.3(storybook@8.4.3(prettier@3.3.3))":
     dependencies:
       storybook: 8.4.3(prettier@3.3.3)
-      unplugin: 1.15.0
-    transitivePeerDependencies:
-      - webpack-sources
+      unplugin: 1.16.0
 
   "@storybook/csf@0.1.11":
     dependencies:
@@ -8770,7 +8759,6 @@ snapshots:
       - rollup
       - supports-color
       - typescript
-      - webpack-sources
 
   "@storybook/react@8.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.3(prettier@3.3.3))(typescript@5.6.3)":
     dependencies:
@@ -9149,7 +9137,7 @@ snapshots:
   browserslist@4.24.2:
     dependencies:
       caniuse-lite: 1.0.30001680
-      electron-to-chromium: 1.5.57
+      electron-to-chromium: 1.5.58
       node-releases: 2.0.18
       update-browserslist-db: 1.1.1(browserslist@4.24.2)
 
@@ -9396,7 +9384,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.57: {}
+  electron-to-chromium@1.5.58: {}
 
   embla-carousel-react@8.3.1(react@18.3.1):
     dependencies:
@@ -11844,7 +11832,7 @@ snapshots:
 
   universalify@0.1.2: {}
 
-  unplugin@1.15.0:
+  unplugin@1.16.0:
     dependencies:
       acorn: 8.14.0
       webpack-virtual-modules: 0.6.2

@@ -4,9 +4,10 @@ import { Navigation } from "@vincero/ui/navigation";
 import { getCldOgImageUrl } from "next-cloudinary";
 import { Footer } from "@vincero/ui/footer";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 
 // @todo update this to use variable for performance?
 const inter = Inter({
@@ -22,8 +23,9 @@ import { metadataQuery } from "@/data/queries/metadata";
 
 import { throttledFetchData } from "@/utils/fetchData";
 
-import "next-cloudinary/dist/cld-video-player.css";
+import LoadingPage from "./loading";
 
+import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -85,7 +87,7 @@ export default async function RootLayout({
     <html data-theme="fastigheter" lang="en" className={`${inter.variable}`}>
       <body>
         <Navigation {...navigation} />
-        {children}
+        <Suspense fallback={<LoadingPage />}>{children}</Suspense>
         <Footer {...footer} />
       </body>
     </html>

@@ -1,9 +1,13 @@
-import dynamic from "next/dynamic";
+import { Banner } from "@vincero/ui/banner";
+import { Carousel } from "@vincero/ui/carousel";
+import { Form } from "@vincero/ui/form";
+import { Header } from "@vincero/ui/header";
+import { Media } from "@vincero/ui/media";
+import { Overview } from "@vincero/ui/overview";
+import { Slider } from "@vincero/ui/slider";
+import { Text } from "@vincero/ui/text";
 
 import type { ComponentType } from "react";
-
-import { Carousel } from "@vincero/ui/carousel";
-import { Media } from "@vincero/ui/media";
 
 import type { BannerProps } from "@vincero/ui/banner";
 import type { CarouselProps } from "@vincero/ui/carousel";
@@ -13,22 +17,6 @@ import type { MediaProps } from "@vincero/ui/media";
 import type { OverviewProps } from "@vincero/ui/overview";
 import type { SliderProps } from "@vincero/ui/slider";
 import type { TextProps } from "@vincero/ui/text";
-
-const Components = {
-  // Import:
-  Carousel,
-  Media,
-
-  // Dynamically import::
-  Banner: dynamic(() => import("@vincero/ui/banner").then((mod) => mod.Banner)),
-  Form: dynamic(() => import("@vincero/ui/form").then((mod) => mod.Form)),
-  Header: dynamic(() => import("@vincero/ui/header").then((mod) => mod.Header)),
-  Overview: dynamic(() =>
-    import("@vincero/ui/overview").then((mod) => mod.Overview),
-  ),
-  Slider: dynamic(() => import("@vincero/ui/slider").then((mod) => mod.Slider)),
-  Text: dynamic(() => import("@vincero/ui/text").then((mod) => mod.Text)),
-};
 
 type ComponentTypes = {
   Banner: ComponentType<BannerProps>;
@@ -54,6 +42,17 @@ interface ComponentMapperProps {
   modules: ModuleProps[];
 }
 
+const Components = {
+  Banner,
+  Carousel,
+  Form,
+  Header,
+  Media,
+  Overview,
+  Slider,
+  Text,
+} as const;
+
 export async function ComponentMapper({ modules }: ComponentMapperProps) {
   return (
     <>
@@ -64,8 +63,6 @@ export async function ComponentMapper({ modules }: ComponentMapperProps) {
           console.warn(`No component found for type: ${__typename}`);
           return null;
         }
-
-        //console.log("Rendering component: ", __typename, props);
 
         // @todos type here is naughty
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

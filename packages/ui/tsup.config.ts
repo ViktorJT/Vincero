@@ -10,6 +10,7 @@ export default defineConfig((options) => ({
     "form/index": "src/organisms/form/index.tsx",
     "footer/index": "src/organisms/footer/index.tsx",
     "header/index": "src/organisms/header/index.tsx",
+    "loading/index": "src/organisms/loading/index.tsx",
     "navigation/index": "src/organisms/navigation/index.tsx",
     "overview/index": "src/organisms/overview/index.tsx",
     "slider/index": "src/organisms/slider/index.tsx",

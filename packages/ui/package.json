@@ -23,6 +23,10 @@
       "types": "./dist/header/index.d.ts",
       "import": "./dist/header/index.js"
     },
+    "./loading": {
+      "types": "./dist/loading/index.d.ts",
+      "import": "./dist/loading/index.js"
+    },
     "./navigation": {
       "types": "./dist/navigation/index.d.ts",
       "import": "./dist/navigation/index.js"
