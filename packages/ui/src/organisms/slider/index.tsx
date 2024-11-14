@@ -163,7 +163,7 @@ function Slider({ id, blocks = [] }: Props) {
                           ...item.media,
                           fluid: true,
                           className:
-                            "absolute inset-0 w-full h-full object-cover",
+                            "absolute inset-0 w-full h-full object-cover object-center",
                         },
                       ]}
                     />

@@ -23,7 +23,8 @@ export function Asset({ media, className }) {
                 allowUsageReport={false}
                 autoplay="on-scroll"
                 bigPlayButton={false}
-                className={cn("video", !item.fluid && assetStyles)}
+                //className={cn("video", !item.fluid && assetStyles)}
+                className="video"
                 controls={false}
                 fluid={false}
                 loop={true}

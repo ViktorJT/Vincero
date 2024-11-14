@@ -76,7 +76,7 @@ function Header({ title, subtitle, background }: Props) {
     >
       {background && (
         <Asset
-          className="media bg-black col-span-full row-span-full h-dvh w-full"
+          className="media place-self-end col-span-full row-span-full h-dvh w-full"
           media={[
             {
               ...background,
