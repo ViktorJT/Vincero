@@ -1,8 +1,7 @@
 import type { UseEmblaCarouselType } from "embla-carousel-react";
 import type useEmblaCarousel from "embla-carousel-react";
 
-import type { ProfileProps } from "../../types";
-import type { Props as PageCardProps } from "../../atoms/pageCard/index.types";
+import type { Props as CardProps } from "../../molecules/card/index.types";
 
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
@@ -29,8 +28,6 @@ export type CarouselContextProps = {
 export type CarouselProps = {
   id: string;
   title: string;
+  items: CardProps[];
   subtitle?: string;
-  profiles?: ProfileProps[];
-  pages?: PageCardProps[];
-  variant?: "team" | "page";
 };

@@ -1,13 +1,16 @@
-import type { LinkProps } from "../../types";
+import type { AssetProps } from "../../types";
+
+import type { NavItemProps } from "../navigation/index.types";
 
 export type Props = {
   id: string;
-  contactName: string;
-  contactAddress: string;
-  contactPostalCode: string;
-  contactCity: string;
-  contactEmail: string;
+  logo: AssetProps;
+  name: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  email: string;
   copyrightInformation: string;
-  leftColumn: LinkProps[];
-  rightColumn: LinkProps[];
+  leftColumn: NavItemProps[];
+  rightColumn: NavItemProps[];
 };

@@ -45,7 +45,7 @@ function Paragraph({
   ));
 }
 
-function Text({ metaInformation = [], heading, body }: TextProps) {
+function Text({ id, metaInformation = [], heading, body }: TextProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -74,7 +74,10 @@ function Text({ metaInformation = [], heading, body }: TextProps) {
   );
 
   return (
-    <section className="dark:bg-dark bg-white relative md:min-h-screen flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]">
+    <section
+      className="dark:bg-dark bg-white relative md:min-h-screen flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]"
+      id={id}
+    >
       <div ref={ref} className="max-w-[540px] mx-auto md:max-w-none">
         <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-container-text-offset mx-auto">
           <Paragraph className="first:mt-20" content={metaInformation} />

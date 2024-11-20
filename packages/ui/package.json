@@ -19,6 +19,10 @@
       "types": "./dist/footer/index.d.ts",
       "import": "./dist/footer/index.js"
     },
+    "./gallery": {
+      "types": "./dist/gallery/index.d.ts",
+      "import": "./dist/gallery/index.js"
+    },
     "./header": {
       "types": "./dist/header/index.d.ts",
       "import": "./dist/header/index.js"
@@ -27,13 +31,13 @@
       "types": "./dist/loading/index.d.ts",
       "import": "./dist/loading/index.js"
     },
-    "./navigation": {
-      "types": "./dist/navigation/index.d.ts",
-      "import": "./dist/navigation/index.js"
-    },
     "./media": {
       "types": "./dist/media/index.d.ts",
       "import": "./dist/media/index.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation/index.d.ts",
+      "import": "./dist/navigation/index.js"
     },
     "./overview": {
       "types": "./dist/overview/index.d.ts",

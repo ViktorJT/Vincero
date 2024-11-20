@@ -11,16 +11,26 @@ import {
 import { Menu, X, ChevronDown } from "lucide-react";
 import { forwardRef, useState, useRef, useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import gsap from "gsap";
-import { usePathname } from "next/navigation";
-import { cn } from "../../lib/utils/cn";
 
 import type { ElementRef, ComponentPropsWithoutRef } from "react";
-import type { LinkProps, Props } from "./index.types";
+
+import type {
+  AssetProps,
+  LinkProps,
+  MobileMenuProps,
+  NavItemProps,
+  Props,
+} from "./index.types";
+
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
+import { cn } from "../../lib/utils/cn";
+
+import { Media } from "../media";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -83,13 +93,13 @@ const Backdrop = ({
   );
 };
 
-const Logo = () => (
+const Logo = (asset: AssetProps) => (
   <Link
     aria-label="Till hemsida"
-    className="whitespace-nowrap hover:text-white transition-colors cursor-pointer"
+    className="block whitespace-nowrap hover:text-white transition-colors cursor-pointer"
     href="/"
   >
-    LOGO
+    <Media asset={asset} className="h-10" />
   </Link>
 );
 
@@ -164,7 +174,7 @@ const NavTrigger = ({ children }: { children: React.ReactNode }) => (
   </Trigger>
 );
 
-const DropdownMenu = (link: LinkProps) => {
+const DropdownMenu = ({ menuLink, subMenuLinks }: NavItemProps) => {
   return (
     <Content
       className="absolute left-0 top-0 w-full 
@@ -175,10 +185,10 @@ const DropdownMenu = (link: LinkProps) => {
       md:absolute md:w-auto shadow-sm"
     >
       <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
-        <DropdownItem title={link.displayText} {...link}>
-          {link.description}
+        <DropdownItem title={menuLink.displayText} {...menuLink}>
+          {menuLink.description}
         </DropdownItem>
-        {link.subLinks?.map((subLink) => (
+        {subMenuLinks?.map((subLink) => (
           <DropdownItem
             key={subLink.id}
             title={subLink.displayText}
@@ -192,15 +202,7 @@ const DropdownMenu = (link: LinkProps) => {
   );
 };
 
-const MobileMenu = ({
-  isOpen,
-  links,
-  onClose,
-}: {
-  isOpen: boolean;
-  links: LinkProps[];
-  onClose: () => void;
-}) => (
+const MobileMenu = ({ isOpen, navItems, onClose }: MobileMenuProps) => (
   <>
     <Backdrop show={isOpen} onClose={onClose} />
     <div
@@ -214,9 +216,9 @@ const MobileMenu = ({
       )}
     >
       <nav className="flex flex-col space-y-4 p-4 pb-10 bg-dark shadow-lg">
-        {links.map((link) => (
-          <NavLink key={link.id} onClick={onClose} {...link}>
-            {link.displayText}
+        {navItems.map((navItem) => (
+          <NavLink key={navItem.id} onClick={onClose} {...navItem.menuLink}>
+            {navItem.menuLink.displayText}
           </NavLink>
         ))}
       </nav>
@@ -225,7 +227,13 @@ const MobileMenu = ({
 );
 
 // Main Navigation Component
-export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
+export function Navigation({
+  className,
+  id,
+  logo,
+  leftColumn,
+  rightColumn,
+}: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -264,7 +272,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
         {/* Mobile Header */}
         <div className="bg-dark flex w-full items-center justify-between p-4 md:hidden">
           <div className="w-8" />
-          <Logo />
+          <Logo {...logo} />
           <button
             aria-label="Toggle menu"
             className="text-light focus:outline-none"
@@ -277,34 +285,38 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
         {/* Desktop Navigation */}
         <div className="relative hidden px-6 h-16 w-full bg-dark items-center justify-between md:flex">
           <List className="flex items-center space-x-6">
-            {leftColumn.map((link) => (
-              <Item key={link.id}>
-                {link.subLinks?.length ? (
+            {leftColumn.map((navItem) => (
+              <Item key={navItem.id}>
+                {navItem.subMenuLinks?.length ? (
                   <>
-                    <NavTrigger>{link.displayText}</NavTrigger>
-                    <DropdownMenu {...link} />
+                    <NavTrigger>{navItem.menuLink.displayText}</NavTrigger>
+                    <DropdownMenu {...navItem} />
                   </>
                 ) : (
-                  <NavLink {...link}>{link.displayText}</NavLink>
+                  <NavLink {...navItem.menuLink}>
+                    {navItem.menuLink.displayText}
+                  </NavLink>
                 )}
               </Item>
             ))}
           </List>
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Logo />
+            <Logo {...logo} />
           </div>
 
           <List className="flex items-center space-x-6">
-            {rightColumn.map((link) => (
-              <Item key={link.id}>
-                {link.subLinks?.length ? (
+            {rightColumn.map((navItem) => (
+              <Item key={navItem.id}>
+                {navItem.subMenuLinks?.length ? (
                   <>
-                    <NavTrigger>{link.displayText}</NavTrigger>
-                    <DropdownMenu {...link} />
+                    <NavTrigger>{navItem.menuLink.displayText}</NavTrigger>
+                    <DropdownMenu {...navItem} />
                   </>
                 ) : (
-                  <NavLink {...link}>{link.displayText}</NavLink>
+                  <NavLink {...navItem.menuLink}>
+                    {navItem.menuLink.displayText}
+                  </NavLink>
                 )}
               </Item>
             ))}
@@ -313,7 +325,7 @@ export function Navigation({ className, id, leftColumn, rightColumn }: Props) {
 
         <MobileMenu
           isOpen={isMobileMenuOpen}
-          links={[...leftColumn, ...rightColumn]}
+          navItems={[...leftColumn, ...rightColumn]}
           onClose={() => setIsMobileMenuOpen(false)}
         />
 

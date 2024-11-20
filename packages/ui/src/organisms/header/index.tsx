@@ -7,11 +7,11 @@ import gsap from "gsap";
 import { useSplitText } from "../../lib/utils/split-text";
 import { cn } from "../../lib/utils/cn";
 
-import { Asset } from "../../molecules/media/variants/asset";
+import { Media } from "../../organisms/media";
 
 import type { Props } from "./index.types.ts";
 
-function Header({ title, subtitle, background }: Props) {
+function Header({ id, title, subtitle, asset }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -69,21 +69,19 @@ function Header({ title, subtitle, background }: Props) {
       className={cn(
         "relative min-h-[50vh] grid grid-cols-1 place-items-start w-full overflow-hidden",
         {
-          "grid-rows-4": !!background,
-          "grid-rows-1": !background,
+          "grid-rows-4": !!asset,
+          "grid-rows-1": !asset,
         },
       )}
+      id={id}
     >
-      {background && (
-        <Asset
+      {asset && (
+        <Media
+          asset={{
+            ...asset,
+            className: "absolute inset-0 w-full h-full object-cover",
+          }}
           className="media place-self-end col-span-full row-span-full h-dvh w-full"
-          media={[
-            {
-              ...background,
-              fluid: true,
-              className: "absolute inset-0 w-full h-full object-cover",
-            },
-          ]}
         />
       )}
 
@@ -91,8 +89,8 @@ function Header({ title, subtitle, background }: Props) {
         className={cn(
           "header col-span-full h-full w-full bg-dark text-balance flex flex-col justify-end text-light",
           {
-            "row-start-1 row-end-4 md:row-end-3": !!background,
-            "row-span-full": !background,
+            "row-start-1 row-end-4 md:row-end-3": !!asset,
+            "row-span-full": !asset,
           },
         )}
       >

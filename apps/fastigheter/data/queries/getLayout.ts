@@ -1,55 +1,35 @@
 import { throttledFetchData } from "@/utils/fetchData";
-import { LinkFragment } from "@/data/queries/fragments/Link";
 
-export const navigationQuery = `
-  ${LinkFragment}
-
-  query GetLayout{
-    navigation(where: {id: "cm37kqz25jgir07mjaq641dsl"}) {
-      leftColumn(first: 5) {
-        ...Link
-
-        subLinks(first: 6) {
-          ...Link
-        }
-      }
-
-      rightColumn(first: 5) {
-        ...Link
-
-        subLinks(first: 6) {
-          ...Link
-        }
-      }
-    }
-
-    siteSettings(where: {id: "cm3g6nzht0qv507mnkbhwgztj"}) {
-      logo
-
-      contactPhone
-      contactEmail
-      contactName
-      contactAddress
-      contactPostalCode
-      contactCity
-
-      copyrightInformation
-    }
-  }
-`;
+import { navigationQuery } from "./meta/navigation";
+import { contactQuery } from "./meta/contact";
+import { siteQuery } from "./meta/site";
 
 export async function getLayout() {
   // @todos types here
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { navigation, siteSettings }: any = await throttledFetchData({
+  const { navigations }: any = await throttledFetchData({
     query: navigationQuery,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { contacts }: any = await throttledFetchData({
+    query: contactQuery,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { sites }: any = await throttledFetchData({
+    query: siteQuery,
+  });
+
   return {
-    navigation,
+    navigation: {
+      ...navigations[0],
+      ...sites[0],
+    },
     footer: {
-      ...navigation,
-      ...siteSettings,
+      ...navigations[0],
+      ...contacts[0],
+      ...sites[0],
     },
   };
 }

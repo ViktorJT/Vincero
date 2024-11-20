@@ -1,8 +1,11 @@
 import { throttledFetchData } from "@/utils/fetchData";
 
 export const query = `
-  {
+  query GetStaticParams {
     pages(first: 100) {
+      __typename
+      id
+
       slug
       parentPage {
         slug
@@ -11,7 +14,7 @@ export const query = `
   }
 `;
 
-export async function getPages() {
+export async function getStaticParams() {
   const data = await throttledFetchData({ query });
 
   return data;

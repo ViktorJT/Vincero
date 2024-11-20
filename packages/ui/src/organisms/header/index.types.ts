@@ -1,10 +1,11 @@
-import type { LinkProps, MediaProps } from "../../types.ts";
+import type { AssetProps, LinkProps } from "../../types.ts";
 
 interface Props {
+  id: string;
   title: string;
   subtitle: string;
   links?: LinkProps[];
-  background?: MediaProps;
+  asset?: AssetProps;
 }
 
 export type { Props };

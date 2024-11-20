@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // @todos fix types here
 import { Navigation } from "@vincero/ui/navigation";
-import { getCldOgImageUrl } from "next-cloudinary";
 import { Footer } from "@vincero/ui/footer";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
@@ -19,7 +17,7 @@ const inter = Inter({
 });
 
 import { getLayout } from "@/data/queries/getLayout";
-import { metadataQuery } from "@/data/queries/metadata";
+import { seoQuery } from "@/data/queries/meta/seo";
 
 import { throttledFetchData } from "@/utils/fetchData";
 
@@ -29,49 +27,36 @@ import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { siteSettings }: any = await throttledFetchData({
-    query: metadataQuery,
+  const result = await throttledFetchData({
+    query: seoQuery,
   });
 
-  if (!siteSettings) return {};
+  if (!result) return {};
 
-  const ogImageUrl = getCldOgImageUrl({
-    src: siteSettings.defaultMetaImage.public_id,
-    format: "jpg",
-  });
-
-  const twitterImageUrl = getCldOgImageUrl({
-    src: siteSettings.defaultMetaImage.public_id,
-    format: "webp",
-  });
+  const seo = result.seos[0];
 
   return {
     title: {
-      default: siteSettings.defaultMetaTitle,
-      template: `%s | ${siteSettings.siteTitle}`,
+      default: seo.metaTitle,
+      template: `%s | ${seo.siteTitle}`,
     },
-    description: siteSettings.defaultMetaDescription,
+    description: seo.metaDescription,
     openGraph: {
-      title: siteSettings.defaultMetaTitle,
-      description: siteSettings.defaultMetaDescription,
+      title: seo.metaTitle,
+      description: seo.metaDescription,
       images: [
         {
-          url: ogImageUrl,
-          width: 1200,
-          height: 627,
-          alt: siteSettings.defaultMetaTitle,
+          ...seo.metaImage,
+          alt: seo.metaImage ?? seo.metaTitle,
         },
       ],
-      siteName: siteSettings.siteTitle,
+      siteName: seo.siteTitle,
     },
     twitter: {
       card: "summary_large_image",
-      title: siteSettings.defaultMetaTitle,
-      description: siteSettings.defaultMetaDescription,
-      images: [twitterImageUrl],
-    },
-    icons: {
-      icon: siteSettings.favicon.url,
+      title: seo.metaTitle,
+      description: seo.metaDescription,
+      images: [seo.metaImage.url],
     },
   };
 }

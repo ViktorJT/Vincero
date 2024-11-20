@@ -2,9 +2,10 @@ import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
 
-import { getPageMetadata } from "@/data/queries/pages/getPageMetadata";
-import { getPageBySlug } from "@/data/queries/getPageBySlug";
-import { getPages } from "@/data/queries/getPages";
+import { getComponentsBySlug } from "@/data/queries/pages/getComponentsBySlug";
+import { getStaticParams } from "@/data/queries/pages/getStaticParams";
+import { getThemeBySlug } from "@/data/queries/pages/getThemeBySlug";
+import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
@@ -18,21 +19,16 @@ type PageType = {
   slug: string;
   parentPage?: {
     slug: string;
-  } | null;
-};
-
-type MetadataProps = {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  };
 };
 
 export async function generateMetadata(
-  props: MetadataProps,
+  props: Promise<{ slug: string }>,
 ): Promise<Metadata> {
   const params = await props.params;
 
   const slug = params.slug[params.slug.length - 1];
-  const { page } = await getPageMetadata(slug);
+  const { page } = await getSeoBySlug(slug);
 
   if (!page) {
     return {
@@ -47,27 +43,27 @@ export async function generateMetadata(
     openGraph: {
       title: page.title,
       description: page.description,
-      images: [
-        {
-          url: page.image.url,
-          width: page.image.width,
-          height: page.image.height,
-          alt: page.image.altText || page.title,
-        },
-      ],
+      images: page.image
+        ? [
+            {
+              ...page.image,
+              alt: page.image.altText || page.title,
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: page.title,
       description: page.description,
-      images: [page.image.url],
+      images: page.image ? [page.image.url] : undefined,
     },
   };
 }
 
 export async function generateStaticParams() {
   try {
-    const result = (await getPages()) as { pages: PageType[] };
+    const result = await getStaticParams();
 
     if (!result?.pages || !Array.isArray(result.pages)) {
       console.error("No pages found or invalid data");
@@ -91,17 +87,17 @@ export default async function Page(props: any) {
   try {
     const params = await props.params;
     const slug = params.slug[params.slug.length - 1];
-    const pageData = await getPageBySlug(slug);
 
-    if (!pageData || !pageData.modules) {
+    const components = await getComponentsBySlug(slug);
+    const theme = await getThemeBySlug(slug);
+
+    if (!components) {
       notFound();
     }
 
-    const { dark, modules } = pageData;
-
     return (
-      <main className={dark ? "dark" : "light"}>
-        <ComponentMapper modules={modules} />
+      <main className={theme.dark ? "dark" : "light"}>
+        <ComponentMapper components={components} />
       </main>
     );
   } catch (error) {

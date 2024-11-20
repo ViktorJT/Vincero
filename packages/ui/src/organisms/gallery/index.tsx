@@ -3,24 +3,25 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useState, useEffect, useRef } from "react";
-import { Asset } from "./asset";
 import { gsap } from "gsap";
 
-import { cn } from "../../../lib/utils/cn";
+import { Media } from "../../organisms/media";
 
-import type { GalleryProps } from "../index.types";
+import { cn } from "../../lib/utils/cn";
+
+import type { Props } from "./index.types";
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-export function Gallery({ media = [], className }: GalleryProps) {
+export function Gallery({ id, assets = [], className }: Props) {
   const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   // Debounced resize listener for mobile detection
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
-    let resizeTimeout;
+    let resizeTimeout: ReturnType<typeof setTimeout>;
 
     const handleResize = (event: MediaQueryListEvent) => {
       clearTimeout(resizeTimeout);
@@ -94,7 +95,7 @@ export function Gallery({ media = [], className }: GalleryProps) {
           );
       });
     },
-    { dependencies: [media], scope: gridRef },
+    { dependencies: [assets], scope: gridRef },
   );
 
   // Determine grid position based on device type
@@ -117,12 +118,13 @@ export function Gallery({ media = [], className }: GalleryProps) {
         "dark:bg-dark bg-white grid w-full grid-cols-1 md:grid-cols-3",
         className,
       )}
+      id={id}
     >
-      {media.map((item, index: number) => {
+      {assets.map((asset, index: number) => {
         const { row, column } = getGridPosition(index);
         return (
           <figure
-            key={item.id}
+            key={asset.id}
             className="grid__item relative m-0"
             style={{
               gridColumn: `${column} / span 1`,
@@ -132,13 +134,16 @@ export function Gallery({ media = [], className }: GalleryProps) {
             <div
               className="grid__item-img relative overflow-hidden"
               style={{
-                aspectRatio: item.width / item.height,
+                aspectRatio:
+                  asset.width && asset.height
+                    ? `${asset.width} / ${asset.height}`
+                    : "auto",
                 willChange: "transform, opacity",
               }}
             >
-              <Asset
+              <Media
+                asset={asset}
                 className="grid__item-img-inner w-full h-full object-cover"
-                media={[item]}
               />
             </div>
           </figure>

@@ -17,8 +17,9 @@ import {
 import { cn } from "../../lib/utils/cn";
 import { useSplitText } from "../../lib/utils/split-text";
 
-import { ProfileCard } from "../../atoms/profileCard";
-import { PageCard } from "../../atoms/pageCard";
+import { Card } from "../../molecules/card";
+
+import type { Props as CardProps } from "../../molecules/card/index.types";
 
 const Container = forwardRef<
   HTMLDivElement,
@@ -168,14 +169,7 @@ const Item = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 );
 Item.displayName = "Item";
 
-function Carousel({
-  title,
-  subtitle,
-  profiles,
-  pages,
-  variant,
-  id,
-}: CarouselProps) {
+function Carousel({ title, subtitle, items, id }: CarouselProps) {
   const ref = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -244,17 +238,11 @@ function Carousel({
         opts={{ align: "center", loop: true }}
       >
         <Content>
-          {variant === "team"
-            ? profiles?.map((profile) => (
-                <Item key={profile.id} className="basis-1/2 md:basis-1/4">
-                  <ProfileCard {...profile} />
-                </Item>
-              ))
-            : pages?.map((page) => (
-                <Item key={page.id} className="basis-1/2 md:basis-1/4">
-                  <PageCard {...page} />
-                </Item>
-              ))}
+          {items.map((item: CardProps) => (
+            <Item key={item.id} className="basis-1/2 md:basis-1/4">
+              <Card {...item} />
+            </Item>
+          ))}
         </Content>
       </Container>
 

@@ -2,19 +2,20 @@ import { forwardRef } from "react";
 
 import { cn } from "../../lib/utils/cn";
 
-const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "overflow-hidden rounded-xl border bg-card text-card-foreground shadow",
-        className,
-      )}
-      {...props}
-    />
-  ),
-);
-Card.displayName = "Card";
+const Container = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "overflow-hidden rounded-xl border bg-card text-card-foreground shadow",
+      className,
+    )}
+    {...props}
+  />
+));
+Container.displayName = "Container";
 
 const CardHeader = forwardRef<
   HTMLDivElement,
@@ -48,4 +49,4 @@ const CardFooter = forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardContent };
+export { Container, CardHeader, CardFooter, CardContent };

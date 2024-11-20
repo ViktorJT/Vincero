@@ -21,7 +21,7 @@ export function Pagination<T>({
 
   return (
     <div className={cn("grid grid-rows-[auto, auto] gap-8", className)}>
-      <div className="grid gap-6 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {visibleItems.map(renderItem)}
       </div>
       <div className="border-t dark:text-light text-dark text-detail border-t-primary border-t-1 flex justify-center">

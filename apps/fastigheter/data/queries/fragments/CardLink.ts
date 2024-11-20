@@ -1,12 +1,10 @@
-export const LinkFragment = `
-  fragment Link on Link {
+export const CardLinkFragment = `
+  fragment CardLink on CardLink {
     __typename
     id
 
     external
     externalUrl
-    displayText
-    description
 
     page {
       __typename

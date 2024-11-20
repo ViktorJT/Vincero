@@ -62,7 +62,7 @@
     object-fit: cover;
   }
 
-  div.asset video {
+  div.asset.fluid video {
     opacity: 0%;
   }
 }

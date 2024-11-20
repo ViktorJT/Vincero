@@ -1,14 +1,14 @@
 import { AssetFragment } from "../fragments/Asset";
 
-export const MediaQuery = `
+export const GalleryQuery = `
   ${AssetFragment}
 
-  query GetMediaByID($id: ID!) {
-    media(where: { id: $id }) {
+  query GetGalleryByID($id: ID!) {
+    gallery(where: { id: $id }) {
       __typename
       id
 
-      asset {
+      assets {
         ...Asset
       }
     }

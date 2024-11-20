@@ -1,14 +1,17 @@
 import { AssetFragment } from "../fragments/Asset";
 
-export const MediaQuery = `
+export const seoQuery = `
   ${AssetFragment}
 
-  query GetMediaByID($id: ID!) {
-    media(where: { id: $id }) {
+  query GetSEO {
+    seos(first: 1) {
       __typename
       id
 
-      asset {
+      siteTitle
+      metaTitle
+      metaDescription
+      metaImage {
         ...Asset
       }
     }

@@ -13,8 +13,8 @@ import {
 } from "../../molecules/form";
 import { Input } from "../../atoms/input";
 import { Button } from "../../atoms/button";
-import { Media } from "../../molecules/media";
-import { Paragraph } from "../../molecules/text";
+import { Media } from "../../organisms/media";
+import { Paragraph } from "../../organisms/text";
 
 import { useToast } from "../../lib/hooks/useToast";
 
@@ -79,7 +79,7 @@ function Form({
         {/* Media Section */}
         {image && (
           <div className="mb-8 h-[320px] col-span-full">
-            <Media className="h-full" media={image} />
+            <Media asset={image} className="h-full" />
           </div>
         )}
 

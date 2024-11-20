@@ -1,9 +1,11 @@
-import { SlideBlockFragment } from "@/data/queries/fragments/SlideBlock";
+import { BlockFragment } from "@/data/queries/fragments/Block";
+import { AssetFragment } from "@/data/queries/fragments/Asset";
 import { LinkFragment } from "@/data/queries/fragments/Link";
 
 export const SliderQuery = `
+  ${BlockFragment}
   ${LinkFragment}
-  ${SlideBlockFragment}
+  ${AssetFragment}
 
   query GetSliderByID($id: ID!) {
     slider(where: { id: $id }) {
@@ -11,7 +13,7 @@ export const SliderQuery = `
       id
 
       blocks {
-        ...SlideBlock
+        ...Block
       }
     }
   }

@@ -24,31 +24,25 @@ const mockItems = [
   {
     id: "1",
     ...mockImage,
-    footnote: "Sit eu ex",
   },
   {
     id: "2",
     ...mockImage,
-    footnote: "Pariatur reprehenderit elit deserunt",
   },
   {
     id: "3",
     ...mockImage,
-    footnote: "Aute voluptate ut",
   },
   {
     id: "4",
     ...mockImage,
-    footnote: "Ipsum ullamco ipsum voluptate",
   },
   {
     id: "5",
     ...mockImage,
-    footnote: "Incididunt ut mollit",
   },
   {
     id: "6",
-    footnote: "Excepteur mollit anim",
     ...mockImage,
   },
 ];

@@ -1,16 +1,18 @@
 import { AssetFragment } from "../fragments/Asset";
 
-export const MediaQuery = `
+export const siteQuery = `
   ${AssetFragment}
 
-  query GetMediaByID($id: ID!) {
-    media(where: { id: $id }) {
+  query GetSite {
+    sites(first: 1) {
       __typename
       id
-
-      asset {
+      
+      logo {
         ...Asset
       }
+      
+      copyrightInformation
     }
   }
 `;

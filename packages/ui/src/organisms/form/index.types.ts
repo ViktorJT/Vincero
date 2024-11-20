@@ -1,4 +1,4 @@
-import type { MediaProps, ParagraphProps } from "../../types.ts";
+import type { AssetProps, ParagraphProps } from "../../types.ts";
 
 interface FieldProps {
   id: string;
@@ -11,7 +11,7 @@ interface FieldProps {
 interface Props {
   id: string;
   name: string;
-  image?: MediaProps;
+  image?: AssetProps;
   text?: ParagraphProps;
   fields?: FieldProps[];
   submitButtonLabel: string;

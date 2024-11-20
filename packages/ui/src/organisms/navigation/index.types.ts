@@ -1,10 +1,24 @@
-import type { LinkProps } from "../../types";
+import type { AssetProps, LinkProps } from "../../types";
+
+export type { LinkProps, AssetProps };
+
+export type NavItemProps = {
+  __typename: string;
+  id: string;
+  menuLink: LinkProps;
+  subMenuLinks?: LinkProps[];
+};
 
 export type Props = {
   id?: string;
   className?: string;
-  leftColumn: LinkProps[];
-  rightColumn: LinkProps[];
+  logo: AssetProps;
+  leftColumn: NavItemProps[];
+  rightColumn: NavItemProps[];
 };
 
-export type { LinkProps };
+export type MobileMenuProps = {
+  isOpen: boolean;
+  navItems: NavItemProps[];
+  onClose: () => void;
+};

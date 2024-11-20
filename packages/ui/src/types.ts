@@ -1,14 +1,15 @@
+import type { CldVideoPlayerProps, CldImageProps } from "next-cloudinary";
 import type { RichTextContent } from "@graphcms/rich-text-types";
+import type { ImageProps } from "next/image";
 
 import type { ButtonVariants } from "./atoms/button/index.types";
-import type { ImageProps } from "next/image";
 
 export interface PageProps {
   id: string;
   title: string;
   slug: string;
   description: string;
-  image: MediaProps;
+  image: AssetProps;
   parentPage?: PageProps;
 }
 
@@ -31,25 +32,6 @@ export interface LinkProps {
   children?: any;
 }
 
-export interface MediaProps extends ImageProps {
-  id: string;
-  mimeType: string;
-  url: string;
-  className?: string;
-  metadata?: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any;
-  };
-}
-
-export interface ProfileProps {
-  id: string;
-  name: string;
-  role: string;
-  image: MediaProps;
-  email?: string;
-}
-
 export interface ParagraphProps {
   id: string;
   title?: string;
@@ -57,3 +39,30 @@ export interface ParagraphProps {
     raw: RichTextContent;
   }[];
 }
+
+export interface AssetProps extends ImageProps {
+  mimeType: string;
+  url: string;
+  optimised?: CloudinaryAssetProps;
+}
+
+interface BaseCloudinaryProps {
+  resource_type: "video" | "image";
+  public_id: string;
+  metadata?: {
+    alt?: string;
+  };
+}
+
+// Union type for all possible Cloudinary props
+type CloudinaryAssetProps = BaseCloudinaryProps &
+  (
+    | ({ resource_type: "video" } & Omit<
+        CldVideoPlayerProps,
+        keyof BaseCloudinaryProps
+      >)
+    | ({ resource_type: "image" } & Omit<
+        CldImageProps,
+        keyof BaseCloudinaryProps
+      >)
+  );

@@ -1,5 +1,5 @@
-export const SlideBlockFragment = `
-  fragment SlideBlock on SlideBlock {
+export const BlockFragment = `
+  fragment Block on Block {
     __typename
     id
     
@@ -11,6 +11,8 @@ export const SlideBlockFragment = `
       ...Link
     }
 
-    media  
+    asset {
+      ...Asset
+    }
   }
 `;

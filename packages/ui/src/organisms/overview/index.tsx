@@ -1,18 +1,20 @@
 "use client";
 
 import { Pagination } from "../../atoms/pagination";
+import { Card } from "../../molecules//card";
 
-import type { PageProps, Props } from "./index.types";
-import { PageCard } from "../../atoms/pageCard";
+import type { CardProps, Props } from "./index.types";
 
-function Overview({ id, title, subtitle, pages = [] }: Props) {
-  const render = (page: PageProps, i: number) => {
-    return <PageCard key={`${page.id}-${i}`} {...page} />;
+function Overview({ id, title, subtitle, items = [] }: Props) {
+  const render = (item: CardProps, i: number) => {
+    return (
+      <Card key={`${item.id}-${i}`} aspectRatio="aspect-[4/3]" {...item} />
+    );
   };
 
   return (
     <section className="dark:bg-dark bg-white w-full py-12 md:py-24" id={id}>
-      <div className="container px-6 md:px-10 mx-auto">
+      <div className="px-6 md:px-10 mx-auto">
         {/* Header */}
         {(title || subtitle) && (
           <div className="dark:text-light text-dark grid gap-6 md:grid-cols-2 mb-12">
@@ -28,7 +30,7 @@ function Overview({ id, title, subtitle, pages = [] }: Props) {
         <Pagination
           className="mb-6"
           initialItemsToShow={4}
-          items={pages}
+          items={items}
           renderItem={render}
         />
       </div>

@@ -2,10 +2,13 @@ export const AssetFragment = `
   fragment Asset on Asset {
     __typename
     id
-    altText
+
+    alt
     mimeType
     url
     width
     height
+
+    optimised
   }
 `;

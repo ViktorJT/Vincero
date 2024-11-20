@@ -1,9 +1,13 @@
-import { CalloutFragment } from "@/data/queries/fragments/Callout";
-import { LinkFragment } from "@/data/queries/fragments/Link";
+import { RichTextFragment } from "../fragments/RichText";
+import { CardLinkFragment } from "../fragments/CardLink";
+import { AssetFragment } from "../fragments/Asset";
+import { CardFragment } from "../fragments/Card";
 
 export const OverviewQuery = `
-  ${LinkFragment}
-  ${CalloutFragment}
+  ${RichTextFragment}
+  ${CardLinkFragment}
+  ${CardFragment}
+  ${AssetFragment}
 
   query GetOverviewByID($id: ID!) {
     overview(where: { id: $id }) {
@@ -13,24 +17,8 @@ export const OverviewQuery = `
       title
       subtitle
 
-      pages(first: 50) {
-        ... on Page {
-          title
-          description
-          slug
-
-          parentPage {
-            ... on Page {
-              slug
-            }
-          }
-
-          image        
-        }
-      }
-
-      callout {
-        ...Callout
+      items {
+        ...Card
       }
     }
   }

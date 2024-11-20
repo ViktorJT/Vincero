@@ -1,16 +1,10 @@
-import type { MediaProps } from "../../types";
+import type { Props as CardProps } from "../../molecules/card/index.types";
 
-export interface PageProps {
-  id: string;
-  title: string;
-  description: string;
-  slug: string;
-  image: MediaProps;
-}
+export type { CardProps };
 
 export interface Props {
   id: string;
   title: string;
   subtitle?: string;
-  pages: PageProps[];
+  items: CardProps[];
 }

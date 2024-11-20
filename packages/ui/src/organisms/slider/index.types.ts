@@ -1,4 +1,4 @@
-import type { LinkProps, MediaProps } from "../../types.ts";
+import type { LinkProps, AssetProps } from "../../types.ts";
 
 export interface TextBlockProps {
   title?: string;
@@ -9,7 +9,7 @@ export interface TextBlockProps {
 }
 
 export interface MediaBlockProps {
-  media: MediaProps;
+  asset: AssetProps;
   order?: number;
 }
 

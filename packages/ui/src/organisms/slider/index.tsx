@@ -5,7 +5,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 
 import { Button } from "../../atoms/button";
-import { Asset } from "../../molecules//media/variants/asset";
+import { Media } from "../media";
 
 import { useSplitText } from "../../lib/utils/split-text";
 import { cn } from "../../lib/utils/cn";
@@ -98,7 +98,7 @@ function Slider({ id, blocks = [] }: Props) {
 
   const columns = blocks.reduce<[Column, Column]>(
     (acc, curr, i) => {
-      const { title, heading, body, links, media } = curr;
+      const { title, heading, body, links, asset } = curr;
 
       const text = {
         title,
@@ -108,11 +108,11 @@ function Slider({ id, blocks = [] }: Props) {
       };
 
       if (i % 2) {
-        acc[0].push({ media, order: -blocksLength + i });
+        acc[0].push({ asset, order: -blocksLength + i });
         acc[1].push({ ...text, order: -blocksLength + i + 1 });
       } else {
         acc[0].push({ ...text, order: -blocksLength + i + 1 });
-        acc[1].push({ media, order: -blocksLength + i });
+        acc[1].push({ asset, order: -blocksLength + i });
       }
 
       blocksLength = blocksLength - 2;
@@ -125,7 +125,7 @@ function Slider({ id, blocks = [] }: Props) {
   const isMediaBlock = (
     item: MediaBlockProps | TextBlockProps,
   ): item is MediaBlockProps => {
-    return "media" in item;
+    return "asset" in item;
   };
 
   return (
@@ -156,16 +156,13 @@ function Slider({ id, blocks = [] }: Props) {
                   style={{ order: item.order }}
                 >
                   {isMedia ? (
-                    <Asset
+                    <Media
+                      asset={{
+                        ...item.asset,
+                        className:
+                          "absolute inset-0 w-full h-full object-cover object-center",
+                      }}
                       className="relative h-[50vh] md:h-screen"
-                      media={[
-                        {
-                          ...item.media,
-                          fluid: true,
-                          className:
-                            "absolute inset-0 w-full h-full object-cover object-center",
-                        },
-                      ]}
                     />
                   ) : (
                     <Block {...item} />

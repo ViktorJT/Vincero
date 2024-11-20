@@ -1,9 +1,9 @@
-import { LockupFragment } from "@/data/queries/fragments/Lockup";
 import { RichTextFragment } from "../fragments/RichText";
+import { LockupFragment } from "../fragments/Lockup";
 
 export const TextQuery = `
-  ${LockupFragment}
   ${RichTextFragment}
+  ${LockupFragment}
 
   query GetTextByID($id: ID!) {
     text(where: { id: $id }) {
