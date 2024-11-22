@@ -56,7 +56,7 @@ const fetchGraphQL = async <T>({
 
 // Keep throttling for both development and production
 const throttle = pThrottle({
-  limit: 1,
+  limit: 2,
   interval: 1000,
 });
 
