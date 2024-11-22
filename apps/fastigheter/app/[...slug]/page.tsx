@@ -22,12 +22,16 @@ type PageType = {
   };
 };
 
-export async function generateMetadata(
-  props: Promise<{ slug: string }>,
-): Promise<Metadata> {
-  const params = await props.params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: string[];
+  }>;
+}): Promise<Metadata> {
+  const result = await params;
 
-  const slug = params.slug[params.slug.length - 1];
+  const slug = result.slug[result.slug.length - 1];
   const { page } = await getSeoBySlug(slug);
 
   if (!page) {

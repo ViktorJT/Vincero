@@ -14,8 +14,17 @@ export const query = `
   }
 `;
 
-export async function getStaticParams() {
+interface StaticParams {
+  pages: Array<{
+    slug: string;
+    parentPage?: {
+      slug: string;
+    };
+  }>;
+}
+
+export async function getStaticParams(): Promise<StaticParams> {
   const data = await throttledFetchData({ query });
 
-  return data;
+  return data as StaticParams;
 }

@@ -10,7 +10,7 @@ import type { Props } from "./index.types";
 
 import { cn } from "../../lib/utils/cn";
 
-export function Media({ id, asset, className }: Props) {
+function Media({ id, asset, className }: Props) {
   if (!asset) return;
 
   const styles = cn(
@@ -91,3 +91,5 @@ export function Media({ id, asset, className }: Props) {
     </div>
   );
 }
+
+export { Media, type Props as MediaProps };

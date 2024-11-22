@@ -14,7 +14,7 @@ import type { Props } from "./index.types";
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-export function Gallery({ id, assets = [], className }: Props) {
+function Gallery({ id, assets = [], className }: Props) {
   const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -152,3 +152,5 @@ export function Gallery({ id, assets = [], className }: Props) {
     </div>
   );
 }
+
+export { Gallery, type Props as GalleryProps };

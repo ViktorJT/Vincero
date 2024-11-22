@@ -29,12 +29,24 @@ import LoadingPage from "./loading";
 import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";
 
+interface SEOData {
+  seos: Array<{
+    siteTitle: string;
+    metaTitle: string;
+    metaDescription: string;
+    metaImage: {
+      url: string;
+      alt?: string;
+    };
+  }>;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
-  const result = await throttledFetchData({
+  const result = await throttledFetchData<SEOData>({
     query: seoQuery,
   });
 
-  if (!result) return {};
+  if (!result?.seos?.length) return {};
 
   const seo = result.seos[0];
 
@@ -50,7 +62,6 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [
         {
           ...seo.metaImage,
-          alt: seo.metaImage ?? seo.metaTitle,
         },
       ],
       siteName: seo.siteTitle,
