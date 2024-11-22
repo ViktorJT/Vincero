@@ -1,19 +1,11 @@
 "use client";
 
-import { CldImage } from "next-cloudinary";
-
-import type { Props } from "./index.types";
-
-export function Loading({ logoId }: Props) {
+export function Loading() {
   return (
-    <div className="fixed h-screen w-full inset-0 bg-black flex flex-col items-center justify-center">
-      <CldImage
-        alt="Loading..."
-        className="animate-pulse w-40 h-auto object-contain"
-        height={40}
-        src={logoId}
-        width={40}
-      />
-    </div>
+    <main className="h-screen w-full bg-black flex flex-col items-center justify-center">
+      <div className="relative w-16 h-16">
+        <div className="w-16 h-16 border-t-2 border-l-2 border-muted rounded-full animate-[spin_0.6s_linear_infinite]" />
+      </div>
+    </main>
   );
 }

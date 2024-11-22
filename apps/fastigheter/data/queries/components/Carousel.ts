@@ -17,6 +17,8 @@ export const CarouselQuery = `
       title
       subtitle
 
+      mediaClass
+
       items(first: 20) {
         ...Card
       }

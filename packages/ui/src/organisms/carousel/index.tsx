@@ -169,7 +169,7 @@ const Item = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 );
 Item.displayName = "Item";
 
-function Carousel({ title, subtitle, items, id }: CarouselProps) {
+function Carousel({ title, subtitle, items, mediaClass, id }: CarouselProps) {
   const ref = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -240,7 +240,7 @@ function Carousel({ title, subtitle, items, id }: CarouselProps) {
         <Content>
           {items.map((item: CardProps) => (
             <Item key={item.id} className="basis-1/2 md:basis-1/4">
-              <Card {...item} />
+              <Card {...item} mediaClassName={mediaClass} />
             </Item>
           ))}
         </Content>

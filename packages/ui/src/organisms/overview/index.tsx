@@ -7,9 +7,7 @@ import type { CardProps, Props } from "./index.types";
 
 function Overview({ id, title, subtitle, items = [] }: Props) {
   const render = (item: CardProps, i: number) => {
-    return (
-      <Card key={`${item.id}-${i}`} aspectRatio="aspect-[4/3]" {...item} />
-    );
+    return <Card key={`${item.id}-${i}`} {...item} />;
   };
 
   return (
@@ -27,12 +25,7 @@ function Overview({ id, title, subtitle, items = [] }: Props) {
           </div>
         )}
         {/* Grid Layout */}
-        <Pagination
-          className="mb-6"
-          initialItemsToShow={4}
-          items={items}
-          renderItem={render}
-        />
+        <Pagination className="mb-6" items={items} renderItem={render} />
       </div>
     </section>
   );

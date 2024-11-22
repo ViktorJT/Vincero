@@ -6,10 +6,11 @@ import type { AssetProps } from "../../types";
 export interface Props {
   className?: string;
   id: string;
+  truncate?: boolean;
+  mediaClassName?: string;
   asset?: AssetProps;
   text: {
     raw: RichTextContent;
   };
-  aspectRatio?: string;
   link?: LinkProps;
 }

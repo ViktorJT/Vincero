@@ -24,7 +24,8 @@ export const FormQuery = `
       }
 
       fields(first: 5) {
-        ...Entity
+        __typename
+        id
 
         type
         label

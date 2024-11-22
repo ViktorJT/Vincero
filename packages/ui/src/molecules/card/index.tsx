@@ -16,7 +16,7 @@ export function Card({
   id,
   asset,
   className,
-  aspectRatio = "aspect-[1/1]",
+  mediaClassName,
   link,
   text,
 }: Props) {
@@ -33,7 +33,7 @@ export function Card({
   return (
     <Container
       className={cn(
-        "border-0 bg-white text-dark h-full text-pretty",
+        "group border-0 bg-white text-dark h-full text-pretty transition-shadow hover:shadow-lg",
         className,
       )}
       id={id}
@@ -41,13 +41,17 @@ export function Card({
       <Wrapper>
         <>
           {asset && (
-            <CardHeader
-              className={cn("p-0 relative overflow-hidden", aspectRatio)}
-            >
-              <Media asset={asset} className="object-cover w-full h-full" />
+            <CardHeader className="p-0 relative overflow-hidden">
+              <Media
+                asset={asset}
+                className={cn(
+                  "object-cover aspect-[4/3] w-full h-full group-hover:scale-105",
+                  mediaClassName,
+                )}
+              />
             </CardHeader>
           )}
-          <CardContent className="p-4 md:p-6 text-body space-y-1 break-words">
+          <CardContent className="p-4 md:p-6 text-body space-y-2 md:space-y-4 break-words">
             <RichText
               content={text.raw}
               renderers={{
@@ -55,6 +59,11 @@ export function Card({
                   <a className="underline cursor-pointer break-words">
                     {children}
                   </a>
+                ),
+                h1: ({ children }) => (
+                  <h1 className="text-heading-small md:text-heading">
+                    {children}
+                  </h1>
                 ),
               }}
             />

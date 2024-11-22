@@ -1,24 +1,36 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 import type { UsePaginationProps, UsePaginationResult } from "./index.types";
 
 export function usePagination<T>({
   items,
-  initialItemsToShow = 3,
+  itemsToShow = 3,
 }: UsePaginationProps<T>): UsePaginationResult<T> {
-  const [itemsToShow, setItemsToShow] = useState(initialItemsToShow);
+  const [visible, setVisible] = useState(itemsToShow);
 
-  const visibleItems = useMemo(
-    () => items.slice(0, itemsToShow),
-    [items, itemsToShow],
-  );
+  const visibleItems = useMemo(() => items.slice(0, visible), [items, visible]);
 
-  const showMore = () =>
-    setItemsToShow((prev) => Math.min(prev + initialItemsToShow, items.length));
-  const showLess = () => setItemsToShow(initialItemsToShow);
+  const showMore = useCallback(() => {
+    setVisible((prev) => Math.min(prev + itemsToShow, items.length));
+  }, [items.length, itemsToShow]);
 
-  const canShowMore = itemsToShow < items.length;
-  const canShowLess = itemsToShow > initialItemsToShow;
+  const showLess = useCallback(() => {
+    setVisible(itemsToShow);
+  }, [itemsToShow]);
 
-  return { visibleItems, showMore, showLess, canShowMore, canShowLess };
+  const reset = useCallback((newItemsToShow: number) => {
+    setVisible(newItemsToShow);
+  }, []);
+
+  const canShowMore = visible < items.length;
+  const canShowLess = visible > itemsToShow;
+
+  return {
+    visibleItems,
+    showMore,
+    showLess,
+    canShowMore,
+    canShowLess,
+    reset,
+  };
 }

@@ -1,6 +1,6 @@
 export interface UsePaginationProps<T> {
   items: T[];
-  initialItemsToShow?: number;
+  itemsToShow?: number;
 }
 
 export interface UsePaginationResult<T> {
@@ -9,4 +9,5 @@ export interface UsePaginationResult<T> {
   showLess: () => void;
   canShowMore: boolean;
   canShowLess: boolean;
+  reset: (newItemsToShow: number) => void;
 }

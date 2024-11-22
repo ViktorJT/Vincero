@@ -11,6 +11,9 @@ export const CardLinkFragment = `
       id
 
       slug
+      parentPage {
+        slug
+      }
     }
   }
 `;

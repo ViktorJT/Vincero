@@ -1,8 +1,11 @@
 // @todos fix types here
-import { Navigation } from "@vincero/ui/navigation";
-import { Footer } from "@vincero/ui/footer";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
+
+import { Navigation } from "@vincero/ui/navigation";
+import { Footer } from "@vincero/ui/footer";
+
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
@@ -70,6 +73,10 @@ export default async function RootLayout({
 
   return (
     <html data-theme="fastigheter" lang="en" className={`${inter.variable}`}>
+      <head>
+        <ThemeProvider />
+      </head>
+
       <body>
         <Navigation {...navigation} />
         <Suspense fallback={<LoadingPage />}>{children}</Suspense>

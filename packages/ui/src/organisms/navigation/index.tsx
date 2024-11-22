@@ -150,7 +150,7 @@ const DropdownItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
         <Link
           ref={ref}
           className={cn(
-            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-light/10 hover:text-white focus:text-light",
+            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:text-black text-white focus:text-black",
             className,
           )}
           href={href}
@@ -184,7 +184,7 @@ const DropdownMenu = ({ menuLink, subMenuLinks }: NavItemProps) => {
       data-[motion=to-end]:animate-exitToRight
       md:absolute md:w-auto shadow-sm"
     >
-      <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
+      <ul className="bg-muted grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
         <DropdownItem title={menuLink.displayText} {...menuLink}>
           {menuLink.description}
         </DropdownItem>

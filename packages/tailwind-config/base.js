@@ -111,12 +111,12 @@ export default {
       },
 
       colors: {
-        white: "hsl(var(--white))",
-        light: "hsl(var(--light))",
-        muted: "hsl(var(--muted))",
-        dark: "hsl(var(--dark))",
-        black: "hsl(var(--black))",
-        accent: "hsl(var(--accent))",
+        white: "var(--white)",
+        light: "var(--light)",
+        muted: "var(--muted)",
+        dark: "var(--dark)",
+        black: "var(--black)",
+        accent: "var(--accent)",
 
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

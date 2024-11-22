@@ -1,7 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { Button } from "../button";
 
+import { useBreakpoint } from "../../lib/hooks/useBreakpoint";
 import { usePagination } from "../../lib/hooks/usePagination";
 import { cn } from "../../lib/utils/cn";
 
@@ -10,17 +13,26 @@ import type { PaginationProps } from "./index.types";
 export function Pagination<T>({
   items,
   renderItem,
-  initialItemsToShow = 3,
   className = "",
 }: PaginationProps<T>) {
-  const { visibleItems, showMore, showLess, canShowMore, canShowLess } =
+  const [itemsToShow, setItemsToShow] = useState<number>(1);
+  const breakpoint = useBreakpoint();
+
+  const { visibleItems, showMore, showLess, canShowMore, canShowLess, reset } =
     usePagination({
       items,
-      initialItemsToShow,
+      itemsToShow,
     });
 
+  useEffect(() => {
+    const newItemsToShow =
+      breakpoint === "xl" ? 3 : breakpoint === "md" ? 2 : 1;
+    setItemsToShow(newItemsToShow);
+    reset(newItemsToShow);
+  }, [breakpoint, reset]);
+
   return (
-    <div className={cn("grid grid-rows-[auto, auto] gap-8", className)}>
+    <div className={cn("grid grid-rows-[auto,auto] gap-8", className)}>
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {visibleItems.map(renderItem)}
       </div>

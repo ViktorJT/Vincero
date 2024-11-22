@@ -14,7 +14,7 @@ export function Media({ id, asset, className }: Props) {
   if (!asset) return;
 
   const styles = cn(
-    "relative w-full h-full object-cover md:max-h-screen",
+    "transition-all relative w-full h-full object-cover md:max-h-screen",
     className,
   );
 
