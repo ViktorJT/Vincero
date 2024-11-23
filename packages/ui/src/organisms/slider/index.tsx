@@ -136,7 +136,7 @@ function Slider({ id, blocks = [] }: Props) {
       {columns.map((block, colIndex) => (
         <div
           key={`slider-col-${colIndex}`}
-          className="contents md:flex flex-col grow"
+          className="contents md:flex flex-col md:basis-1/2"
         >
           {block.map((item, blockIndex) => {
             const isMedia = isMediaBlock(item);
@@ -157,6 +157,7 @@ function Slider({ id, blocks = [] }: Props) {
                 >
                   {isMedia ? (
                     <Media
+                      fluid
                       asset={{
                         ...item.asset,
                         className:

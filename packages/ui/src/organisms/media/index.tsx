@@ -1,7 +1,5 @@
 "use client";
 
-import { gsap } from "gsap";
-
 import { CldVideoPlayer, CldImage } from "next-cloudinary";
 
 import Image from "next/image";
@@ -10,7 +8,7 @@ import type { Props } from "./index.types";
 
 import { cn } from "../../lib/utils/cn";
 
-function Media({ id, asset, className }: Props) {
+function Media({ id, fluid, asset, className }: Props) {
   if (!asset) return;
 
   const styles = cn(
@@ -57,19 +55,10 @@ function Media({ id, asset, className }: Props) {
         playsinline
         autoplay="on-scroll"
         bigPlayButton={false}
-        className="video"
+        className={cn("video", styles)}
         controls={false}
         src={asset.optimised.public_id}
         onError={handleFallback}
-        onPlay={({ video }: { video: HTMLVideoElement }) => {
-          if (video) {
-            gsap.to(video, {
-              opacity: 1,
-              duration: 6,
-              ease: "power3.out",
-            });
-          }
-        }}
       />
     );
   } else {
@@ -86,7 +75,7 @@ function Media({ id, asset, className }: Props) {
   }
 
   return (
-    <div className={cn("asset relative", className)} id={id}>
+    <div className={cn("asset relative", { fluid }, className)} id={id}>
       {Component}
     </div>
   );

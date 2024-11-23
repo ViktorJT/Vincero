@@ -115,6 +115,8 @@ const NavLink = ({
 
   const { external, href } = prioritiseHref(link);
 
+  console.log({ href });
+
   if (external) {
     return (
       <a

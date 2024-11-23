@@ -57,6 +57,11 @@
     transition: background-color 600ms ease-out;
   }
 
+  div.asset.fluid > div:first-child {
+    aspect-ratio: auto !important; /* stylelint-disable-line declaration-no-important */
+    block-size: 100%;
+  }
+
   /* stylelint-disable-next-line selector-max-specificity */
   div.asset.fluid > div:first-child > div:first-child {
     block-size: 100%;
@@ -65,9 +70,5 @@
   /* stylelint-disable-next-line selector-max-specificity */
   div.asset.fluid > div:first-child > div:first-child video {
     object-fit: cover;
-  }
-
-  div.asset.fluid video {
-    opacity: 0%;
   }
 }
