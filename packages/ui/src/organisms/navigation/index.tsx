@@ -99,7 +99,7 @@ const Logo = (asset: AssetProps) => (
     className="block whitespace-nowrap hover:text-white transition-colors cursor-pointer"
     href="/"
   >
-    <Media asset={asset} className="h-10" />
+    <Media asset={asset} className="h-10 object-contain" />
   </Link>
 );
 

@@ -1,8 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
-
-import { Media } from "../media";
 
 import type { Props } from "./index.types";
 
@@ -12,7 +11,13 @@ export function Footer(props: Props) {
   return (
     <footer className="flex flex-col md:flex-row px-6 gap-y-10 pt-20 pb-10 bg-dark text-light">
       <div className="contents md:block grow">
-        <Media asset={props.logo} className="h-8 w-auto" />
+        <Image
+          alt={props.logo.alt || ""}
+          className="h-8 w-auto"
+          height={props.logo.height}
+          src={props.logo.url}
+          width={props.logo.width}
+        />
         <p className="text-detail text-muted text-balance order-last">
           {props.copyrightInformation}
         </p>

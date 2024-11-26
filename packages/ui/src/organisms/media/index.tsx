@@ -1,15 +1,15 @@
 "use client";
 
 import { CldVideoPlayer, CldImage } from "next-cloudinary";
-
 import Image from "next/image";
-
+import { useState } from "react";
 import type { Props } from "./index.types";
-
 import { cn } from "../../lib/utils/cn";
 
-function Media({ id, fluid, asset, className }: Props) {
-  if (!asset) return;
+function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
+  const [useOptimized, setUseOptimized] = useState(true);
+
+  if (!asset) return null;
 
   const styles = cn(
     "transition-all relative w-full h-full object-cover md:max-h-screen",
@@ -18,33 +18,38 @@ function Media({ id, fluid, asset, className }: Props) {
 
   const isDev = process.env.NODE_ENV !== "production";
 
-  const handleFallback = (
-    e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement>,
-  ) => {
-    const element = e.currentTarget;
-    element.src = asset.url;
+  const FallbackVideo = () => (
+    <video
+      loop
+      muted
+      playsInline
+      autoPlay={!!autoplay}
+      className={styles}
+      src={asset.url}
+    />
+  );
+
+  const FallbackImage = () => (
+    <Image
+      alt={asset.alt || ""}
+      className={styles}
+      height={asset.height}
+      src={asset.url}
+      width={asset.width}
+    />
+  );
+
+  const handleError = () => {
+    setUseOptimized(false);
   };
 
   let Component;
 
-  if (!asset.optimised) {
+  if (!asset.optimised || !useOptimized) {
     Component = asset.mimeType?.startsWith("video") ? (
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className={styles}
-        src={asset.url}
-      />
+      <FallbackVideo />
     ) : (
-      <Image
-        alt={asset.alt || ""}
-        className={styles}
-        height={asset.height}
-        src={asset.url}
-        width={asset.width}
-      />
+      <FallbackImage />
     );
   } else if (asset.optimised.resource_type === "video") {
     Component = (
@@ -53,12 +58,12 @@ function Media({ id, fluid, asset, className }: Props) {
         loop
         muted
         playsinline
-        autoplay="on-scroll"
+        autoplay={autoplay}
         bigPlayButton={false}
         className={cn("video", styles)}
         controls={false}
         src={asset.optimised.public_id}
-        onError={handleFallback}
+        onError={handleError}
       />
     );
   } else {
@@ -69,7 +74,7 @@ function Media({ id, fluid, asset, className }: Props) {
         className={cn("image", styles)}
         src={asset.optimised.public_id}
         unoptimized={isDev}
-        onError={handleFallback}
+        onError={handleError}
       />
     );
   }

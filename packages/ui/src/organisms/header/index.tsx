@@ -77,6 +77,8 @@ function Header({ id, title, subtitle, asset }: Props) {
     >
       {asset && (
         <Media
+          autoplay
+          fluid
           asset={{
             ...asset,
             className: "absolute inset-0 w-full h-full object-cover",
