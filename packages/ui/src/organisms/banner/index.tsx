@@ -1,48 +1,12 @@
 "use client";
 
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import gsap from "gsap";
 
 import type { Props } from "./index.types.ts";
 
-gsap.registerPlugin(ScrollTrigger);
-
-// @todos clamp this component to maxwidth container
-
 function Banner({ id, title, textBlocks = [] }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ".animate-item",
-        {
-          opacity: 0,
-          y: 40,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.16,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top bottom-=33%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    },
-    { scope: ref },
-  );
-
   return (
     <section
-      ref={ref}
       className="w-full bg-accent text-dark text-balance py-20 px-6 md:px-10 min-h-[50dvh] flex items-center justify-center"
       id={id}
     >

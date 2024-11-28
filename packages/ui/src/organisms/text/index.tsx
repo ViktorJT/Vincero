@@ -1,9 +1,6 @@
 "use client";
 
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import gsap from "gsap";
 
 import { cn } from "../../lib/utils/cn.js";
 
@@ -46,39 +43,12 @@ function Paragraph({
 }
 
 function Text({ id, metaInformation = [], heading, body }: TextProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ".animate-text",
-        {
-          opacity: 0,
-          y: 40,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top bottom-=33%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    },
-    { scope: ref },
-  );
-
   return (
     <section
       className="dark:bg-dark bg-white relative md:min-h-screen flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]"
       id={id}
     >
-      <div ref={ref} className="max-w-[540px] mx-auto md:max-w-none">
+      <div className="max-w-[540px] mx-auto md:max-w-none">
         <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 max-w-container-text-offset mx-auto">
           <Paragraph className="first:mt-20" content={metaInformation} />
 

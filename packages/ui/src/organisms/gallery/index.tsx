@@ -1,9 +1,6 @@
 "use client";
 
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { useState, useEffect } from "react";
 
 import { Media } from "../../organisms/media";
 
@@ -11,11 +8,7 @@ import { cn } from "../../lib/utils/cn";
 
 import type { Props } from "./index.types";
 
-// Register the ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
-
 function Gallery({ id, assets = [], className }: Props) {
-  const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   // Debounced resize listener for mobile detection
@@ -39,65 +32,6 @@ function Gallery({ id, assets = [], className }: Props) {
     };
   }, []);
 
-  // Initialize GSAP animations with optimized settings
-  useGSAP(
-    () => {
-      if (!gridRef.current) return;
-
-      const gridItems = gridRef.current.querySelectorAll(".grid__item");
-
-      gridItems.forEach((item) => {
-        const previousElementSibling =
-          item.previousElementSibling as HTMLElement;
-        const isLeftSide =
-          previousElementSibling &&
-          item.getBoundingClientRect().left +
-            item.getBoundingClientRect().width <=
-            previousElementSibling.getBoundingClientRect().left + 1;
-        const originX = isLeftSide ? 100 : 0;
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: item,
-              start: "top bottom-=33%",
-              end: "+=100%",
-              scrub: true,
-              invalidateOnRefresh: true, // Ensures recalculations on resize
-            },
-          })
-          .fromTo(
-            item.querySelector(".grid__item-img"),
-            {
-              scale: 0,
-              transformOrigin: `${originX}% 0%`,
-              willChange: "transform, opacity", // Hinting browser for optimization
-            },
-            {
-              scale: 1,
-              ease: "power4",
-              autoAlpha: 1, // Uses GSAP’s `autoAlpha` for performance
-            },
-          )
-          .fromTo(
-            item.querySelector(".grid__item-img-inner"),
-            {
-              scale: 5,
-              transformOrigin: `${originX}% 0%`,
-              willChange: "transform, opacity",
-            },
-            {
-              scale: 1,
-              ease: "power4",
-              autoAlpha: 1,
-            },
-            0,
-          );
-      });
-    },
-    { dependencies: [assets], scope: gridRef },
-  );
-
   // Determine grid position based on device type
   const getGridPosition = (index: number) => {
     if (isMobile) {
@@ -113,7 +47,6 @@ function Gallery({ id, assets = [], className }: Props) {
 
   return (
     <div
-      ref={gridRef}
       className={cn(
         "dark:bg-dark bg-white grid w-full grid-cols-1 md:grid-cols-3",
         className,

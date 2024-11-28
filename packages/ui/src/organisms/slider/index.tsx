@@ -1,13 +1,8 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import gsap from "gsap";
-
 import { Button } from "../../atoms/button";
 import { Media } from "../media";
 
-import { useSplitText } from "../../lib/utils/split-text";
 import { cn } from "../../lib/utils/cn";
 
 import type {
@@ -18,66 +13,22 @@ import type {
 } from "./index.types.ts";
 
 function Block({ title, heading, body, links }: TextBlockProps) {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const bodyRef = useRef<HTMLParagraphElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const headingLines = useSplitText(headingRef, {
-    tag: "div",
-    linesClass: "split-line-",
-  });
-
-  const bodyLines = useSplitText(bodyRef, {
-    tag: "div",
-    linesClass: "split-line-",
-  });
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ".animate-item, [class*='split-line-']",
-        { y: 40, opacity: 0 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top bottom-=33%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    },
-    { dependencies: [headingLines, bodyLines], scope: ref },
-  );
-
   return (
-    <div
-      ref={ref}
-      className="textBlock flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col items-center gap-6 md:gap-10 text-center p-6 pb-20 max-w-[540px]"
-    >
+    <div className="textBlock flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col gap-6 md:gap-10 p-6 pb-20 max-w-[540px]">
       {title && (
         <p className="animate-item text-accent dark:text-muted text-detail uppercase">
           {title}
         </p>
       )}
 
-      <p
-        ref={headingRef}
-        className="text-heading sm:text-heading-large lg:text-display"
-      >
+      <p className="text-heading sm:text-heading-large lg:text-display">
         {heading}
       </p>
 
-      <p ref={bodyRef} className="text-body md:text-body-large">
-        {body}
-      </p>
+      <p className="text-body md:text-body-large">{body}</p>
 
       {links && (
-        <div className="animate-item flex flex-wrap gap-4 pt-4 items-center justify-center">
+        <div className="animate-item flex flex-wrap gap-4 pt-4">
           {links.map((link, i: number) => (
             <Button
               key={link.id}

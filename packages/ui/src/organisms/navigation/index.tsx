@@ -9,13 +9,9 @@ import {
   Viewport,
 } from "@radix-ui/react-navigation-menu";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { forwardRef, useState, useRef, useEffect } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { usePathname } from "next/navigation";
+import { forwardRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useGSAP } from "@gsap/react";
 import Link from "next/link";
-import gsap from "gsap";
 
 import type { ElementRef, ComponentPropsWithoutRef } from "react";
 
@@ -31,9 +27,6 @@ import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 import { cn } from "../../lib/utils/cn";
 
 import { Media } from "../media";
-
-// Register GSAP plugin
-gsap.registerPlugin(ScrollTrigger);
 
 // Base styles for navigation items
 const baseNavStyles =
@@ -235,33 +228,12 @@ export function Navigation({
   rightColumn,
 }: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
 
   // Apply scroll lock when mobile menu is open
   useScrollLock(isMobileMenuOpen);
 
-  useGSAP(() => {
-    const tl = gsap.timeline({ paused: true });
-    tl.to(navRef.current, {
-      yPercent: -100,
-      duration: 0.3,
-      ease: "power2.inOut",
-    });
-
-    ScrollTrigger.create({
-      trigger: document.documentElement,
-      start: "100px top",
-      onUpdate: (self) => (self.direction === 1 ? tl.play() : tl.reverse()),
-      toggleActions: "play none none reverse",
-    });
-
-    return () => tl.kill();
-  }, [pathname]);
-
   return (
     <Root
-      ref={navRef}
       className={cn(
         "fixed z-20 top-0 w-full text-light will-change-transform",
         className,

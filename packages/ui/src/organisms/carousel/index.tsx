@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect, forwardRef, useRef } from "react";
+import { useState, useCallback, useEffect, forwardRef } from "react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import useEmblaCarousel from "embla-carousel-react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 import type { CarouselApi, CarouselProps, ContainerProps } from "./index.types";
 import type { KeyboardEvent, HTMLAttributes } from "react";
@@ -15,7 +13,6 @@ import {
 } from "../../lib/hooks/useCarousel/useCarousel";
 
 import { cn } from "../../lib/utils/cn";
-import { useSplitText } from "../../lib/utils/split-text";
 
 import { Card } from "../../molecules/card";
 
@@ -170,66 +167,16 @@ const Item = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 Item.displayName = "Item";
 
 function Carousel({ title, subtitle, items, mediaClass, id }: CarouselProps) {
-  const ref = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-
-  const titleLines = useSplitText(titleRef, {
-    tag: "div",
-    linesClass: "split-line-",
-  });
-
-  const subtitleLines = useSplitText(subtitleRef, {
-    tag: "div",
-    linesClass: "split-line-",
-  });
-
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top bottom-=33%",
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      // Hide all elements initially
-      gsap.set(["[class*='split-line-']"], {
-        opacity: 0,
-        y: 40,
-      });
-
-      // Animate split text lines
-      tl.to("[class*='split-line-']", {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power3.out",
-      });
-    },
-    { dependencies: [titleLines, subtitleLines], scope: ref },
-  );
-
   return (
     <section
-      ref={ref}
       className="relative bg-white dark:bg-dark text-dark dark:text-light w-full"
       id={id}
     >
       <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 mb-10 md:mb-20">
-        <h2 ref={titleRef} className="text-heading-large md:text-display mr-10">
-          {title}
-        </h2>
+        <h2 className="text-heading-large md:text-display mr-10">{title}</h2>
 
         {subtitle && (
-          <p
-            ref={subtitleRef}
-            className="text-body md:text-body-large max-w-[75%]"
-          >
-            {subtitle}
-          </p>
+          <p className="text-body md:text-body-large max-w-[75%]">{subtitle}</p>
         )}
       </div>
 
