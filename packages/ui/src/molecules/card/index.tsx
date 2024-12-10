@@ -57,8 +57,14 @@ export function Card({
             <RichText
               content={text.raw}
               renderers={{
-                a: ({ children }) => (
-                  <a className="underline cursor-pointer break-words">
+                a: ({ children, className, href }) => (
+                  <a
+                    className={cn(
+                      "underline cursor-pointer break-words",
+                      className,
+                    )}
+                    href={href}
+                  >
                     {children}
                   </a>
                 ),
