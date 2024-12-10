@@ -15,7 +15,7 @@ export function Pagination<T>({
   renderItem,
   className = "",
 }: PaginationProps<T>) {
-  const [itemsToShow, setItemsToShow] = useState<number>(1);
+  const [itemsToShow, setItemsToShow] = useState<number>(2);
   const breakpoint = useBreakpoint();
 
   const { visibleItems, showMore, showLess, canShowMore, canShowLess, reset } =
@@ -25,8 +25,7 @@ export function Pagination<T>({
     });
 
   useEffect(() => {
-    const newItemsToShow =
-      breakpoint === "xl" ? 3 : breakpoint === "md" ? 2 : 1;
+    const newItemsToShow = breakpoint === "xl" ? 3 : 2;
     setItemsToShow(newItemsToShow);
     reset(newItemsToShow);
   }, [breakpoint, reset]);

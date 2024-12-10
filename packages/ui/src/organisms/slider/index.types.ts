@@ -8,7 +8,7 @@ export interface TextBlockProps {
   order?: number;
 }
 
-export interface MediaBlockProps {
+interface MediaBlockProps {
   asset: AssetProps;
   order?: number;
 }

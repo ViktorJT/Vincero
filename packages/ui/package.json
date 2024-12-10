@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@graphcms/rich-text-react-renderer": "^0.6.2",
+    "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-slot": "1.1.0",
@@ -85,11 +86,11 @@
   },
   "peerDependencies": {
     "next": "^15.0.2",
+    "next-cloudinary": "^6.16.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwindcss": "^3.4.0",
-    "next-cloudinary": "^6.16.0",
-    "react-hook-form": "^7.53.1"
+    "react-hook-form": "^7.53.1",
+    "tailwindcss": "^3.4.0"
   },
   "peerDependenciesMeta": {
     "tailwindcss": {

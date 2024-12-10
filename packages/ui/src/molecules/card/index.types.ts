@@ -6,6 +6,7 @@ import type { AssetProps } from "../../types";
 export interface Props {
   className?: string;
   id: string;
+  fill?: true;
   truncate?: boolean;
   mediaClassName?: string;
   asset?: AssetProps;

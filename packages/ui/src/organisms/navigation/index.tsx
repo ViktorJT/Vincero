@@ -1,75 +1,38 @@
 "use client";
 
-import {
-  Root,
-  List,
-  Item,
-  Trigger,
-  Content,
-  Viewport,
-} from "@radix-ui/react-navigation-menu";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { forwardRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
-import type { ElementRef, ComponentPropsWithoutRef } from "react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "../../atoms/accordion";
 
 import type {
-  AssetProps,
+  ToggleProps,
   LinkProps,
-  MobileMenuProps,
-  NavItemProps,
   Props,
+  BackdropProps,
+  SlideMenuProps,
 } from "./index.types";
+
+import { useScrollLock } from "../../lib/hooks/useScrollLock";
 
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 import { cn } from "../../lib/utils/cn";
 
 import { Media } from "../media";
 
-// Base styles for navigation items
-const baseNavStyles =
-  "inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-link transition-colors hover:bg-light/10 hover:text-white";
-const activeNavStyles =
-  "data-[active]:bg-light/10 data-[active]:text-white data-[state=open]:bg-light/10 data-[state=open]:text-light";
-
-// Utility hook for managing scroll lock
-const useScrollLock = (lock: boolean) => {
-  useEffect(() => {
-    if (lock) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    };
-  }, [lock]);
-};
-
-const Backdrop = ({
-  show,
-  onClose,
-}: {
-  show: boolean;
-  onClose: () => void;
-}) => {
+const Backdrop = ({ show, onClose }: BackdropProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   if (!isMounted) return null;
 
@@ -77,23 +40,39 @@ const Backdrop = ({
     <div
       aria-hidden="true"
       className={cn(
-        "fixed inset-0 bg-black/50 transition-opacity duration-200 md:hidden",
-        show ? "opacity-100" : "opacity-0 pointer-events-none",
+        "fixed z-20 inset-0 bg-dark transition-opacity duration-200",
+        show ? "opacity-30" : "opacity-0 pointer-events-none",
       )}
-      onClick={handleClick}
+      onClick={onClose}
     />,
     document.body,
   );
 };
 
-const Logo = (asset: AssetProps) => (
-  <Link
-    aria-label="Till hemsida"
-    className="block whitespace-nowrap hover:text-white transition-colors cursor-pointer"
-    href="/"
+const ToggleButton = ({ isOpen, onClick }: ToggleProps) => (
+  <button
+    aria-label="Toggle menu"
+    className={cn(
+      isOpen ? "text-dark" : "text-light",
+      "focus:outline-none z-20 w-6 h-6 relative",
+    )}
+    onClick={onClick}
   >
-    <Media asset={asset} className="h-10 object-contain" />
-  </Link>
+    <Menu
+      className={cn(
+        "transition-all duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+        isOpen ? "opacity-0 scale-75" : "opacity-100 scale-100",
+      )}
+      size={24}
+    />
+    <X
+      className={cn(
+        "transition-all duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+        isOpen ? "opacity-100 scale-100" : "opacity-0 scale-75",
+      )}
+      size={24}
+    />
+  </button>
 );
 
 const NavLink = ({
@@ -102,17 +81,18 @@ const NavLink = ({
   ariaLabel,
   relAttribute = "noopener noreferrer",
   titleAttribute,
-  ...link
-}: LinkProps) => {
-  const className = cn(baseNavStyles, activeNavStyles);
-
-  const { external, href } = prioritiseHref(link);
+  className,
+  ...props
+}: LinkProps & { className?: string }) => {
+  const { external, href } = prioritiseHref(props);
+  const baseClassName =
+    "text-heading-large w-full text-dark hover:text-black transition-colors";
 
   if (external) {
     return (
       <a
         aria-label={ariaLabel}
-        className={className}
+        className={cn(baseClassName, className)}
         href={href}
         rel={relAttribute}
         title={titleAttribute}
@@ -126,7 +106,7 @@ const NavLink = ({
   return (
     <Link
       aria-label={ariaLabel}
-      className={className}
+      className={cn(baseClassName, className)}
       href={href}
       onClick={onClick}
     >
@@ -135,91 +115,74 @@ const NavLink = ({
   );
 };
 
-const DropdownItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
-  ({ className, title, children, ...link }, ref) => {
-    const { href } = prioritiseHref(link);
-    return (
-      <li>
-        <Link
-          ref={ref}
-          className={cn(
-            "block cursor-pointer select-none space-y-2 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:text-black text-white focus:text-black",
-            className,
-          )}
-          href={href}
-        >
-          <div>{title}</div>
-          <p className="line-clamp-2 text-detail">{children}</p>
-        </Link>
-      </li>
-    );
-  },
-);
-DropdownItem.displayName = "DropdownItem";
+const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
+  const topLinkStyles = "py-3 text-heading md:text-heading-large";
 
-const NavTrigger = ({ children }: { children: React.ReactNode }) => (
-  <Trigger className={cn(baseNavStyles, activeNavStyles, "group")}>
-    {children}
-    <ChevronDown
-      aria-hidden="true"
-      className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
-    />
-  </Trigger>
-);
-
-const DropdownMenu = ({ menuLink, subMenuLinks }: NavItemProps) => {
   return (
-    <Content
-      className="absolute left-0 top-0 w-full 
-      data-[motion=from-start]:animate-enterFromLeft
-      data-[motion=from-end]:animate-enterFromRight
-      data-[motion=to-start]:animate-exitToLeft
-      data-[motion=to-end]:animate-exitToRight
-      md:absolute md:w-auto shadow-sm"
+    <div
+      className={cn(
+        "fixed top-0 right-0 h-screen min-w-80 max-w-[800px] w-5/6 bg-accent text-dark",
+        "transform transition-transform duration-200 ease-in-out",
+        isOpen ? "translate-x-0" : "translate-x-full",
+      )}
     >
-      <ul className="bg-muted grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-light/10 text-light animate-scaleIn">
-        <DropdownItem title={menuLink.displayText} {...menuLink}>
-          {menuLink.description}
-        </DropdownItem>
-        {subMenuLinks?.map((subLink) => (
-          <DropdownItem
-            key={subLink.id}
-            title={subLink.displayText}
-            {...subLink}
-          >
-            {subLink.description}
-          </DropdownItem>
-        ))}
-      </ul>
-    </Content>
+      <div className="h-full flex items-center px-6 md:px-10">
+        <nav className="w-full">
+          {navItems.map((navItem) => {
+            if (navItem.subMenuLinks?.length) {
+              return (
+                <Accordion key={navItem.id} collapsible type="single">
+                  <AccordionItem className="border-b-0" value={navItem.id}>
+                    <AccordionTrigger
+                      className={cn(topLinkStyles, "hover:no-underline")}
+                    >
+                      {navItem.menuLink.displayText}
+                    </AccordionTrigger>
+                    <AccordionContent className="pl-4 py-4 flex flex-col space-y-4">
+                      <>
+                        <NavLink
+                          key={navItem.id}
+                          className="text-body-large py-2"
+                          onClick={onClose}
+                          {...navItem.menuLink}
+                        >
+                          {navItem.menuLink.displayText}
+                        </NavLink>
+
+                        {navItem.subMenuLinks.map((subLink) => (
+                          <NavLink
+                            key={subLink.id}
+                            onClick={onClose}
+                            {...subLink}
+                            className="text-body-large py-2"
+                          >
+                            {subLink.displayText}
+                          </NavLink>
+                        ))}
+                      </>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              );
+            }
+
+            return (
+              <NavLink
+                key={navItem.id}
+                className={cn(topLinkStyles, "block")}
+                onClick={onClose}
+                {...navItem.menuLink}
+              >
+                {navItem.menuLink.displayText}
+              </NavLink>
+            );
+          })}
+        </nav>
+      </div>
+    </div>
   );
 };
 
-const MobileMenu = ({ isOpen, navItems, onClose }: MobileMenuProps) => (
-  <>
-    <Backdrop show={isOpen} onClose={onClose} />
-    <div
-      className={cn(
-        "absolute left-0 right-0 top-full md:hidden",
-        "transition-all duration-200 ease-in-out transform origin-top",
-        "z-50", // Ensure menu is above backdrop
-        isOpen
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 -translate-y-2 pointer-events-none",
-      )}
-    >
-      <nav className="flex flex-col space-y-4 p-4 pb-10 bg-dark shadow-lg">
-        {navItems.map((navItem) => (
-          <NavLink key={navItem.id} onClick={onClose} {...navItem.menuLink}>
-            {navItem.menuLink.displayText}
-          </NavLink>
-        ))}
-      </nav>
-    </div>
-  </>
-);
-
-// Main Navigation Component
 export function Navigation({
   className,
   id,
@@ -227,89 +190,63 @@ export function Navigation({
   leftColumn,
   rightColumn,
 }: Props) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const allNavItems = [...leftColumn, ...rightColumn];
 
-  // Apply scroll lock when mobile menu is open
-  useScrollLock(isMobileMenuOpen);
+  useScrollLock(isMenuOpen);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 0);
+    };
+
+    // Initial check
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <Root
-      className={cn(
-        "fixed z-20 top-0 w-full text-light will-change-transform",
-        className,
-      )}
+    <header
+      className={cn("fixed z-50 top-0 w-full text-light", className)}
       id={id}
     >
-      <div className="relative mx-auto">
-        {/* Mobile Header */}
-        <div className="bg-dark flex w-full items-center justify-between p-4 md:hidden">
-          <div className="w-8" />
-          <Logo {...logo} />
-          <button
-            aria-label="Toggle menu"
-            className="text-light focus:outline-none"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="relative hidden px-6 h-16 w-full bg-dark items-center justify-between md:flex">
-          <List className="flex items-center space-x-6">
-            {leftColumn.map((navItem) => (
-              <Item key={navItem.id}>
-                {navItem.subMenuLinks?.length ? (
-                  <>
-                    <NavTrigger>{navItem.menuLink.displayText}</NavTrigger>
-                    <DropdownMenu {...navItem} />
-                  </>
-                ) : (
-                  <NavLink {...navItem.menuLink}>
-                    {navItem.menuLink.displayText}
-                  </NavLink>
-                )}
-              </Item>
-            ))}
-          </List>
-
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Logo {...logo} />
+      <div
+        className={cn(
+          "h-24 flex items-center px-6 md:px-10 relative transition-colors duration-200",
+          hasScrolled ? "bg-dark" : "bg-transparent",
+        )}
+      >
+        <div className="flex-1 basis-24">
+          <div className="invisible">
+            <ToggleButton isOpen={isMenuOpen} onClick={() => {}} />
           </div>
-
-          <List className="flex items-center space-x-6">
-            {rightColumn.map((navItem) => (
-              <Item key={navItem.id}>
-                {navItem.subMenuLinks?.length ? (
-                  <>
-                    <NavTrigger>{navItem.menuLink.displayText}</NavTrigger>
-                    <DropdownMenu {...navItem} />
-                  </>
-                ) : (
-                  <NavLink {...navItem.menuLink}>
-                    {navItem.menuLink.displayText}
-                  </NavLink>
-                )}
-              </Item>
-            ))}
-          </List>
         </div>
-
-        <MobileMenu
-          isOpen={isMobileMenuOpen}
-          navItems={[...leftColumn, ...rightColumn]}
-          onClose={() => setIsMobileMenuOpen(false)}
-        />
-
-        <Viewport
-          className={cn(
-            "origin-top-center absolute left-6 top-full h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md bg-dark text-light shadow-lg",
-            "data-[state=open]:animate-scaleIn",
-            "data-[state=closed]:animate-scaleOut",
-            "md:w-[var(--radix-navigation-menu-viewport-width)]",
-          )}
-        />
+        <div className="flex-1 basis-full flex justify-center">
+          <Link
+            aria-label="Till hemsida"
+            className="block hover:text-white transition-colors"
+            href="/"
+          >
+            <Media asset={logo} className="h-[68px] object-contain" />
+          </Link>
+        </div>
+        <div className="flex-1 basis-24 flex justify-end">
+          <ToggleButton
+            isOpen={isMenuOpen}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          />
+        </div>
       </div>
-    </Root>
+
+      <Backdrop show={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <SlideMenu
+        isOpen={isMenuOpen}
+        navItems={allNavItems}
+        onClose={() => setIsMenuOpen(false)}
+      />
+    </header>
   );
 }

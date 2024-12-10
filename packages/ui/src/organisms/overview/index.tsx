@@ -15,13 +15,17 @@ function Overview({ id, title, subtitle, items = [] }: Props) {
       <div className="px-6 md:px-10 mx-auto">
         {/* Header */}
         {(title || subtitle) && (
-          <div className="dark:text-light text-dark grid gap-6 md:grid-cols-2 mb-12">
+          <div className="max-w-[540px] mx-auto md:max-w-none text-dark dark:text-light text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 pt-20 mb-10 md:mb-20">
             {title && (
-              <p className="text-heading-large grow font-bold tracking-tight mb-2 md:text-4xl">
+              <h2 className="text-heading-large md:text-display mr-10">
                 {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className="text-body md:text-body-large max-w-[75%]">
+                {subtitle}
               </p>
             )}
-            {subtitle && <p className="grow max-w-80 text-lg">{subtitle}</p>}
           </div>
         )}
         {/* Grid Layout */}

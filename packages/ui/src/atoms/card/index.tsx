@@ -9,7 +9,7 @@ const Container = forwardRef<
   <div
     ref={ref}
     className={cn(
-      "overflow-hidden rounded-xl border bg-card text-card-foreground shadow",
+      "overflow-hidden border bg-card text-card-foreground shadow",
       className,
     )}
     {...props}

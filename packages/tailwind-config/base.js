@@ -1,5 +1,3 @@
-import defaultTheme from "tailwindcss/defaultTheme.js";
-
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "selector",
@@ -131,7 +129,7 @@ export default {
       },
 
       fontFamily: {
-        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        sans: ["var(--font-sans)"],
       },
 
       keyframes: {

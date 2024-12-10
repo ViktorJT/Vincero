@@ -3,6 +3,8 @@ export const CardFragment = `
     __typename
     id
 
+    fill
+
     asset {
       ...Asset
     }

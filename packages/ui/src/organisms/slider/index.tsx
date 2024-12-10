@@ -2,19 +2,12 @@
 
 import { Button } from "../../atoms/button";
 import { Media } from "../media";
-
 import { cn } from "../../lib/utils/cn";
-
-import type {
-  MediaBlockProps,
-  TextBlockProps,
-  Column,
-  Props,
-} from "./index.types.ts";
+import type { Props, TextBlockProps } from "./index.types.ts";
 
 function Block({ title, heading, body, links }: TextBlockProps) {
   return (
-    <div className="textBlock flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 z-0 flex-col gap-6 md:gap-10 p-6 pb-20 max-w-[540px]">
+    <div className="textBlock flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 flex-col gap-6 md:gap-10 p-6 pb-20">
       {title && (
         <p className="animate-item text-accent dark:text-muted text-detail uppercase">
           {title}
@@ -33,7 +26,7 @@ function Block({ title, heading, body, links }: TextBlockProps) {
             <Button
               key={link.id}
               {...link}
-              variant={i === 0 ? "default" : "ghost"} // @todos from CMS
+              variant={i === 0 ? "default" : "ghost"}
             >
               {link.displayText}
             </Button>
@@ -45,84 +38,50 @@ function Block({ title, heading, body, links }: TextBlockProps) {
 }
 
 function Slider({ id, blocks = [] }: Props) {
-  let blocksLength = blocks.length * 2;
-
-  const columns = blocks.reduce<[Column, Column]>(
-    (acc, curr, i) => {
-      const { title, heading, body, links, asset } = curr;
-
-      const text = {
-        title,
-        heading,
-        body,
-        links,
-      };
-
-      if (i % 2) {
-        acc[0].push({ asset, order: -blocksLength + i });
-        acc[1].push({ ...text, order: -blocksLength + i + 1 });
-      } else {
-        acc[0].push({ ...text, order: -blocksLength + i + 1 });
-        acc[1].push({ asset, order: -blocksLength + i });
-      }
-
-      blocksLength = blocksLength - 2;
-
-      return acc;
-    },
-    [[], []],
-  );
-
-  const isMediaBlock = (
-    item: MediaBlockProps | TextBlockProps,
-  ): item is MediaBlockProps => {
-    return "asset" in item;
-  };
-
   return (
     <div
-      className="flex flex-col bg-white dark:bg-dark text-dark dark:text-light md:flex-row min-h-dvh relative w-full"
+      className="flex flex-col bg-white dark:bg-dark text-dark dark:text-light w-full"
       id={id}
     >
-      {columns.map((block, colIndex) => (
+      {blocks.map((block, index) => (
         <div
-          key={`slider-col-${colIndex}`}
-          className="contents md:flex flex-col md:basis-1/2"
+          key={`row-${index}`}
+          className="contents md:flex md:flex-row min-h-[100vh]"
         >
-          {block.map((item, blockIndex) => {
-            const isMedia = isMediaBlock(item);
+          {/* Media Block */}
+          <div
+            className={cn(
+              "contents md:block md:w-1/2",
+              "order-1", // Always first on mobile
+              index % 2 === 0 ? "md:order-2" : "md:order-1", // Alternating on desktop
+            )}
+          >
+            <Media
+              fluid
+              asset={{
+                ...block.asset,
+                className:
+                  "absolute inset-0 w-full h-full object-cover object-center",
+              }}
+              className="relative h-[50vh] md:h-full"
+            />
+          </div>
 
-            return (
-              <div
-                key={`${colIndex}-${blockIndex}`}
-                className={cn("contents md:block", {
-                  "h-auto md:h-[200dvh]": isMedia,
-                })}
-              >
-                <div
-                  className={cn("md:overflow-hidden h-auto md:h-dvh w-full", {
-                    "block md:sticky top-0": isMedia,
-                    "flex items-center justify-center": !isMedia,
-                  })}
-                  style={{ order: item.order }}
-                >
-                  {isMedia ? (
-                    <Media
-                      fluid
-                      asset={{
-                        ...item.asset,
-                        className:
-                          "absolute inset-0 w-full h-full object-cover object-center",
-                      }}
-                      className="relative h-[50vh] md:h-screen"
-                    />
-                  ) : (
-                    <Block {...item} />
-                  )}
-                </div>
-              </div>
-            );
-          })}
+          {/* Text Block */}
+          <div
+            className={cn(
+              "contents md:flex md:items-center md:justify-center md:w-1/2",
+              "order-2", // Always second on mobile
+              index % 2 === 0 ? "md:order-1" : "md:order-2", // Alternating on desktop
+            )}
+          >
+            <Block
+              body={block.body}
+              heading={block.heading}
+              links={block.links}
+              title={block.title}
+            />
+          </div>
         </div>
       ))}
     </div>

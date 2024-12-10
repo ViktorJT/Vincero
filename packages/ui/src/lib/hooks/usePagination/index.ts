@@ -11,7 +11,7 @@ export function usePagination<T>({
   const visibleItems = useMemo(() => items.slice(0, visible), [items, visible]);
 
   const showMore = useCallback(() => {
-    setVisible((prev) => Math.min(prev + itemsToShow, items.length));
+    setVisible(items.length);
   }, [items.length, itemsToShow]);
 
   const showLess = useCallback(() => {

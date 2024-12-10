@@ -18,6 +18,7 @@ export function Card({
   className,
   mediaClassName,
   link,
+  fill = true,
   text,
 }: Props) {
   const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
@@ -45,7 +46,8 @@ export function Card({
               <Media
                 asset={asset}
                 className={cn(
-                  "object-cover aspect-[4/3] w-full h-full group-hover:scale-105",
+                  fill ? "object-cover" : "object-contain",
+                  "aspect-[4/3] w-full h-full group-hover:scale-105",
                   mediaClassName,
                 )}
               />
