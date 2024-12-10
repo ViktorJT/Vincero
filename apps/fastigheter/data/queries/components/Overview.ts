@@ -17,7 +17,7 @@ export const OverviewQuery = `
       title
       subtitle
 
-      items {
+      items(first: 100) {
         ...Card
       }
     }
