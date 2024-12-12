@@ -27,26 +27,28 @@ function Header({ id, title, subtitle, asset }: Props) {
 
       <div
         className={cn(
-          "absolute inset-0 flex flex-col p-6 md:p-10 text-light",
-          subtitle ? "justify-end" : "justify-center items-center",
+          "absolute inset-0 flex flex-col p-6 md:p-10 text-white",
+          subtitle
+            ? "md-14 md:mb-[7rem] justify-end"
+            : "justify-center items-center",
         )}
       >
         <div
           className={cn(
-            "max-w-[640px]",
+            "drop-shadow-xl max-w-[720px]",
             !subtitle && "max-w-[800px] text-center",
           )}
         >
           <h1
             className={cn(
-              "text-heading-large md:text-display-large",
-              subtitle && "mb-6",
+              "text-heading-large",
+              subtitle ? "mb-6 md:text-display-large" : "md:text-display-huge",
             )}
           >
             {title}
           </h1>
           {subtitle && (
-            <p className="text-body md:text-body-large text-light max-w-[500px]">
+            <p className="text-body md:text-body-large text-white max-w-[500px]">
               {subtitle}
             </p>
           )}

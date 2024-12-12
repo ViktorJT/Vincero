@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Media } from "@vincero/ui/molecules/media";
+import { Media } from "@vincero/ui/organisms/media";
 
 const meta: Meta<typeof Media> = {
   title: "Media",
@@ -49,17 +49,9 @@ const mockItems = [
 
 export const Default: Story = {
   args: {
-    variant: "default",
     media: {
       ...mockItems[0],
       className: "h-10",
     },
-  },
-};
-
-export const Gallery: Story = {
-  args: {
-    variant: "gallery",
-    media: mockItems,
   },
 };

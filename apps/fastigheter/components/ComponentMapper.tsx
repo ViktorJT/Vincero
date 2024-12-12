@@ -3,7 +3,6 @@ import { Carousel } from "@vincero/ui/carousel";
 import { Form } from "@vincero/ui/form";
 import { Header } from "@vincero/ui/header";
 import { Media } from "@vincero/ui/media";
-import { Gallery } from "@vincero/ui/gallery";
 import { Overview } from "@vincero/ui/overview";
 import { Slider } from "@vincero/ui/slider";
 import { Text } from "@vincero/ui/text";
@@ -15,7 +14,6 @@ import type { CarouselProps } from "@vincero/ui/carousel";
 import type { FormProps } from "@vincero/ui/form";
 import type { HeaderProps } from "@vincero/ui/header";
 import type { MediaProps } from "@vincero/ui/media";
-import type { GalleryProps } from "@vincero/ui/gallery";
 import type { OverviewProps } from "@vincero/ui/overview";
 import type { SliderProps } from "@vincero/ui/slider";
 import type { TextProps } from "@vincero/ui/text";
@@ -24,7 +22,6 @@ type ComponentTypes = {
   Banner: ComponentType<BannerProps>;
   Carousel: ComponentType<CarouselProps>;
   Form: ComponentType<FormProps>;
-  Gallery: ComponentType<GalleryProps>;
   Header: ComponentType<HeaderProps>;
   Media: ComponentType<MediaProps>;
   Overview: ComponentType<OverviewProps>;
@@ -49,7 +46,6 @@ const Components = {
   Banner,
   Carousel,
   Form,
-  Gallery,
   Header,
   Media,
   Overview,

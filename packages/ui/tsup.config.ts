@@ -14,7 +14,6 @@ export default defineConfig((options) => ({
     "navigation/index": "src/organisms/navigation/index.tsx",
     "overview/index": "src/organisms/overview/index.tsx",
     "slider/index": "src/organisms/slider/index.tsx",
-    "gallery/index": "src/organisms/gallery/index.tsx",
     "media/index": "src/organisms/media/index.tsx",
     "text/index": "src/organisms/text/index.tsx",
   },

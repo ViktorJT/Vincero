@@ -45,7 +45,7 @@ function Paragraph({
 function Text({ id, metaInformation = [], heading, body }: TextProps) {
   return (
     <section
-      className="dark:bg-dark bg-white relative md:min-h-screen flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]"
+      className="dark:bg-dark bg-white relative md:min-h-[80dvh] flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]"
       id={id}
     >
       <div className="max-w-[540px] mx-auto md:max-w-none">
@@ -53,7 +53,7 @@ function Text({ id, metaInformation = [], heading, body }: TextProps) {
           <Paragraph className="first:mt-20" content={metaInformation} />
 
           {heading && (
-            <h1 className="animate-text text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-huge my-6 md:my-10">
+            <h1 className="animate-text text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-large mb-6 md:mb-10">
               {heading}
             </h1>
           )}

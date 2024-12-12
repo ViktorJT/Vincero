@@ -4,7 +4,6 @@ export const SubLinkFragment = `
     id
 
     displayText
-    description
     anchor
   }
 `;

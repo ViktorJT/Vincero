@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Text } from "@vincero/ui/molecules/text";
+import { Text } from "@vincero/ui/organisms/text";
 
 const meta: Meta<typeof Text> = {
   title: "Text",

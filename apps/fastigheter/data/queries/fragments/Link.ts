@@ -6,7 +6,6 @@ export const LinkFragment = `
     external
     externalUrl
     displayText
-    description
 
     page {
       __typename

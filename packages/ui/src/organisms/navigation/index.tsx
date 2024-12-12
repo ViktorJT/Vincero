@@ -53,8 +53,8 @@ const ToggleButton = ({ isOpen, onClick }: ToggleProps) => (
   <button
     aria-label="Toggle menu"
     className={cn(
-      isOpen ? "text-dark" : "text-light",
-      "focus:outline-none z-20 w-6 h-6 relative",
+      isOpen ? "text-dark" : "text-white",
+      "focus:outline-none z-20 w-8 h-8 relative",
     )}
     onClick={onClick}
   >
@@ -63,14 +63,14 @@ const ToggleButton = ({ isOpen, onClick }: ToggleProps) => (
         "transition-all duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
         isOpen ? "opacity-0 scale-75" : "opacity-100 scale-100",
       )}
-      size={24}
+      size={32}
     />
     <X
       className={cn(
         "transition-all duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
         isOpen ? "opacity-100 scale-100" : "opacity-0 scale-75",
       )}
-      size={24}
+      size={32}
     />
   </button>
 );
@@ -116,17 +116,17 @@ const NavLink = ({
 };
 
 const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
-  const topLinkStyles = "py-3 text-heading md:text-heading-large";
+  const topLinkStyles = "py-3 text-heading";
 
   return (
     <div
       className={cn(
-        "fixed top-0 right-0 h-screen min-w-80 max-w-[800px] w-5/6 bg-accent text-dark",
+        "fixed top-0 right-0 h-screen max-w-[800px] w-5/6 md:w-1/3 bg-accent text-dark",
         "transform transition-transform duration-200 ease-in-out",
         isOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
-      <div className="h-full flex items-center px-6 md:px-10">
+      <div className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10">
         <nav className="w-full">
           {navItems.map((navItem) => {
             if (navItem.subMenuLinks?.length) {
@@ -138,11 +138,11 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
                     >
                       {navItem.menuLink.displayText}
                     </AccordionTrigger>
-                    <AccordionContent className="pl-4 py-4 flex flex-col space-y-4">
+                    <AccordionContent className="pl-4 py-1 flex flex-col">
                       <>
                         <NavLink
                           key={navItem.id}
-                          className="text-body-large py-2"
+                          className="text-body py-2"
                           onClick={onClose}
                           {...navItem.menuLink}
                         >
@@ -154,7 +154,7 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
                             key={subLink.id}
                             onClick={onClose}
                             {...subLink}
-                            className="text-body-large py-2"
+                            className="text-body py-2"
                           >
                             {subLink.displayText}
                           </NavLink>
@@ -215,29 +215,31 @@ export function Navigation({
     >
       <div
         className={cn(
-          "h-24 flex items-center px-6 md:px-10 relative transition-colors duration-200",
+          "h-[5.5rem] flex items-center px-6 md:px-20 relative transition-colors duration-200",
           hasScrolled ? "bg-dark" : "bg-transparent",
         )}
       >
-        <div className="flex-1 basis-24">
-          <div className="invisible">
-            <ToggleButton isOpen={isMenuOpen} onClick={() => {}} />
+        <div className="mx-auto flex-1 flex items-center">
+          <div className="flex-1 basis-24">
+            <div className="invisible">
+              <ToggleButton isOpen={isMenuOpen} onClick={() => {}} />
+            </div>
           </div>
-        </div>
-        <div className="flex-1 basis-full flex justify-center">
-          <Link
-            aria-label="Till hemsida"
-            className="block hover:text-white transition-colors"
-            href="/"
-          >
-            <Media asset={logo} className="h-[68px] object-contain" />
-          </Link>
-        </div>
-        <div className="flex-1 basis-24 flex justify-end">
-          <ToggleButton
-            isOpen={isMenuOpen}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          />
+          <div className="flex-1 basis-full flex justify-center">
+            <Link
+              aria-label="Till hemsida"
+              className="block hover:text-white transition-colors"
+              href="/"
+            >
+              <Media asset={logo} className="h-[80px] object-contain" />
+            </Link>
+          </div>
+          <div className="flex-1 basis-24 flex justify-end">
+            <ToggleButton
+              isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </div>
         </div>
       </div>
 

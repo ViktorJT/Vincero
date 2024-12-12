@@ -1,13 +1,13 @@
 import { RichTextFragment } from "../fragments/RichText";
-import { CardLinkFragment } from "../fragments/CardLink";
 import { AssetFragment } from "../fragments/Asset";
+import { LinkFragment } from "../fragments/Link";
 import { CardFragment } from "../fragments/Card";
 
 export const OverviewQuery = `
   ${RichTextFragment}
-  ${CardLinkFragment}
-  ${CardFragment}
   ${AssetFragment}
+  ${CardFragment}
+  ${LinkFragment}
 
   query GetOverviewByID($id: ID!) {
     overview(where: { id: $id }) {

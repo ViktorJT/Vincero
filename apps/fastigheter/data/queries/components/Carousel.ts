@@ -1,13 +1,13 @@
 import { RichTextFragment } from "../fragments/RichText";
-import { CardLinkFragment } from "../fragments/CardLink";
 import { AssetFragment } from "../fragments/Asset";
 import { CardFragment } from "../fragments/Card";
+import { LinkFragment } from "../fragments/Link";
 
 export const CarouselQuery = `
-  ${CardLinkFragment}  
   ${RichTextFragment}  
   ${AssetFragment}  
   ${CardFragment}  
+  ${LinkFragment}  
 
   query GetCarouselByID($id: ID!) {
     carousel(where: { id: $id }) {
