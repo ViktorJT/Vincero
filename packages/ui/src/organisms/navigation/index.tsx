@@ -153,6 +153,7 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
                           <NavLink
                             key={subLink.id}
                             onClick={onClose}
+                            {...navItem.menuLink}
                             {...subLink}
                             className="text-body py-2"
                           >

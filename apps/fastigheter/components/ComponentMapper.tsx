@@ -56,7 +56,7 @@ const Components = {
 export async function ComponentMapper(data: ComponentMapperProps) {
   return (
     <>
-      {data.components.map(({ __typename, id, ...props }, i: number) => {
+      {data.components.map(({ __typename, ...props }, i: number) => {
         const Component = Components[__typename];
 
         if (!Component) {
@@ -66,7 +66,7 @@ export async function ComponentMapper(data: ComponentMapperProps) {
 
         // @todos type here is naughty
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return <Component key={`${id}-${i}`} {...(props as any)} />;
+        return <Component key={`${props.id}-${i}`} {...(props as any)} />;
       })}
     </>
   );
