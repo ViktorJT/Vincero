@@ -1,7 +1,6 @@
 import type { RichTextContent } from "@graphcms/rich-text-types";
-import type { LinkProps } from "next/link";
 
-import type { AssetProps } from "../../types";
+import type { LinkProps, AssetProps } from "../../types";
 
 export interface Props {
   className?: string;

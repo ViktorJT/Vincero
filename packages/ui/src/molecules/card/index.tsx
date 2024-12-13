@@ -60,6 +60,7 @@ export function Card({
                 {children}
               </a>
             ),
+            p: ({ children }) => <p className="leading-loose">{children}</p>,
             h1: ({ children }) => (
               <h1 className="text-heading-small md:text-heading">{children}</h1>
             ),
