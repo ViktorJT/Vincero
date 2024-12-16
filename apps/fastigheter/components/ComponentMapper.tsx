@@ -64,7 +64,7 @@ export async function ComponentMapper(data: ComponentMapperProps) {
           return null;
         }
 
-        // @todos type here isnt good
+        // @todos type here isn't good
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return <Component key={`${props.id}-${i}`} {...(props as any)} />;
       })}
