@@ -7,6 +7,10 @@
       "types": "./dist/banner/index.d.ts",
       "import": "./dist/banner/index.js"
     },
+    "./list": {
+      "types": "./dist/list/index.d.ts",
+      "import": "./dist/list/index.js"
+    },
     "./carousel": {
       "types": "./dist/carousel/index.d.ts",
       "import": "./dist/carousel/index.js"

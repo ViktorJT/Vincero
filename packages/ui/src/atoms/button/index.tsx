@@ -32,7 +32,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={onClick}
       >
         {children}
-        {arrow && <ArrowRight className="ml-2 h-4 w-4" />}
+        {arrow && <ArrowRight className="h-4 w-4" />}
       </Comp>
     );
 

@@ -176,7 +176,7 @@ function Carousel({ title, subtitle, items, mediaClass, id }: CarouselProps) {
         <h2 className="text-heading-large md:text-display mr-10">{title}</h2>
 
         {subtitle && (
-          <p className="text-body md:text-body-large max-w-[75%]">{subtitle}</p>
+          <p className="text-body lg:text-body-large max-w-[75%]">{subtitle}</p>
         )}
       </div>
 

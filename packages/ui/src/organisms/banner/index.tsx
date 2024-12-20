@@ -30,7 +30,7 @@ function Banner({ id, title, textBlocks = [] }: Props) {
                       </p>
                     ),
                     p: ({ children }) => (
-                      <p className="animate-item text-body md:text-body-large">
+                      <p className="animate-item text-body lg:text-body-large">
                         {children}
                       </p>
                     ),

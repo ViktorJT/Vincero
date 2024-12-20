@@ -25,7 +25,7 @@ function Paragraph({
       <p className="animate-text text-detail text-muted md:text-right md:mt-1.5">
         {lockup.title}
       </p>
-      <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-8 text-body md:text-body-large">
+      <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-8 text-body lg:text-body-large">
         {lockup.paragraphs?.map(
           ({ raw }: { raw: RichTextContent }, i: number) => (
             <RichText
@@ -45,7 +45,7 @@ function Paragraph({
 function Text({ id, metaInformation = [], heading, body }: TextProps) {
   return (
     <section
-      className="dark:bg-dark bg-white relative md:min-h-[80dvh] flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]"
+      className="dark:bg-dark bg-white relative md:min-h-[72dvh] flex items-center px-6 md:px-20 pt-10 pb-20 md:py-16 md:-ml-[160px]"
       id={id}
     >
       <div className="max-w-[540px] mx-auto md:max-w-none">

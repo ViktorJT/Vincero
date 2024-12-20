@@ -9,7 +9,7 @@ function Block({ title, heading, body, links }: TextBlockProps) {
   return (
     <div className="textBlock flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 flex-col gap-6 md:gap-10 p-6 pb-20">
       {title && (
-        <p className="animate-item text-accent dark:text-muted text-detail uppercase">
+        <p className="text-accent dark:text-muted text-detail uppercase">
           {title}
         </p>
       )}
@@ -18,15 +18,15 @@ function Block({ title, heading, body, links }: TextBlockProps) {
         {heading}
       </p>
 
-      <p className="text-body md:text-body-large">{body}</p>
+      <p className="text-body lg:text-body-large">{body}</p>
 
       {links && (
-        <div className="animate-item flex flex-wrap gap-4 pt-4">
+        <div className=" flex flex-wrap gap-4 pt-4">
           {links.map((link, i: number) => (
             <Button
               key={link.id}
               {...link}
-              variant={i === 0 ? "default" : "ghost"}
+              variant={i === 0 ? "outline" : "ghost"}
             >
               {link.displayText}
             </Button>

@@ -17,7 +17,7 @@ function Overview({ id, title, subtitle, items = [] }: Props) {
               </h2>
             )}
             {subtitle && (
-              <p className="text-body md:text-body-large max-w-[75%]">
+              <p className="text-body lg:text-body-large max-w-[75%]">
                 {subtitle}
               </p>
             )}

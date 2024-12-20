@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { BannerQuery } from "@/data/queries/components/Banner";
+import { ListQuery } from "@/data/queries/components/List";
 import { CarouselQuery } from "@/data/queries/components/Carousel";
 import { FormQuery } from "@/data/queries/components/Form";
 import { HeaderQuery } from "@/data/queries/components/Header";
@@ -19,6 +20,7 @@ interface EntityType {
 
 const Queries = {
   Banner: BannerQuery,
+  List: ListQuery,
   Carousel: CarouselQuery,
   Form: FormQuery,
   Header: HeaderQuery,

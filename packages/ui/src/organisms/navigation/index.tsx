@@ -40,8 +40,8 @@ const Backdrop = ({ show, onClose }: BackdropProps) => {
     <div
       aria-hidden="true"
       className={cn(
-        "fixed z-20 inset-0 bg-dark transition-opacity duration-200",
-        show ? "opacity-30" : "opacity-0 pointer-events-none",
+        "fixed z-20 inset-0 transition-opacity duration-200",
+        show ? " " : "pointer-events-none",
       )}
       onClick={onClose}
     />,
@@ -126,13 +126,20 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
         isOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
-      <div className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10">
+      <div
+        key={isOpen ? "open" : "closed"}
+        className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10"
+      >
         <nav className="w-full">
-          {navItems.map((navItem) => {
-            if (navItem.subMenuLinks?.length) {
-              return (
-                <Accordion key={navItem.id} collapsible type="single">
-                  <AccordionItem className="border-b-0" value={navItem.id}>
+          <Accordion collapsible type="single">
+            {navItems.map((navItem) => {
+              if (navItem.subMenuLinks?.length) {
+                return (
+                  <AccordionItem
+                    key={navItem.id}
+                    className="border-b-0"
+                    value={navItem.id}
+                  >
                     <AccordionTrigger
                       className={cn(topLinkStyles, "hover:no-underline")}
                     >
@@ -163,21 +170,21 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
                       </>
                     </AccordionContent>
                   </AccordionItem>
-                </Accordion>
-              );
-            }
+                );
+              }
 
-            return (
-              <NavLink
-                key={navItem.id}
-                className={cn(topLinkStyles, "block")}
-                onClick={onClose}
-                {...navItem.menuLink}
-              >
-                {navItem.menuLink.displayText}
-              </NavLink>
-            );
-          })}
+              return (
+                <NavLink
+                  key={navItem.id}
+                  className={cn(topLinkStyles, "block")}
+                  onClick={onClose}
+                  {...navItem.menuLink}
+                >
+                  {navItem.menuLink.displayText}
+                </NavLink>
+              );
+            })}
+          </Accordion>
         </nav>
       </div>
     </div>

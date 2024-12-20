@@ -29,7 +29,7 @@ function Header({ id, title, subtitle, asset }: Props) {
         className={cn(
           "absolute inset-0 flex flex-col p-6 md:p-10 text-white",
           subtitle
-            ? "md-14 md:mb-[7rem] justify-end"
+            ? "mb-14 md:mb-[6rem] justify-end"
             : "justify-center items-center",
         )}
       >
@@ -48,7 +48,7 @@ function Header({ id, title, subtitle, asset }: Props) {
             {title}
           </h1>
           {subtitle && (
-            <p className="text-body md:text-body-large text-white max-w-[500px]">
+            <p className="text-body lg:text-body-large text-white max-w-[500px]">
               {subtitle}
             </p>
           )}
