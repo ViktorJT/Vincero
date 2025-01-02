@@ -7,8 +7,8 @@ export const SliderQuery = `
   ${LinkFragment}
   ${AssetFragment}
 
-  query GetSliderByID($id: ID!) {
-    slider(where: { id: $id }) {
+  query GetSliderByID($id: ID!, $locale: Locale!) {
+    slider(where: { id: $id }, locales: [$locale, en]) {
       __typename
       id
 

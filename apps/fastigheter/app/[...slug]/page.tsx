@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
 
+import type { Locale } from "@/configs/locales";
+
+import { defaultLocale } from "@/configs/locales";
+
 import { getComponentsBySlug } from "@/data/queries/pages/getComponentsBySlug";
 import { getStaticParams } from "@/data/queries/pages/getStaticParams";
 import { getThemeBySlug } from "@/data/queries/pages/getThemeBySlug";
@@ -14,6 +18,22 @@ export const dynamicParams = false;
 
 // Set revalidate to false for full static generation
 export const revalidate = false;
+
+function parseSlug(slug: string[]): { locale: Locale; cleanSlug: string[] } {
+  // Check if first segment is 'en'
+  if (slug[0] === "en") {
+    return {
+      locale: "en",
+      cleanSlug: slug.slice(1), // Remove 'en' from slug array
+    };
+  }
+
+  // Default to Swedish
+  return {
+    locale: defaultLocale,
+    cleanSlug: slug,
+  };
+}
 
 type PageType = {
   slug: string;
@@ -68,18 +88,25 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   try {
     const result = await getStaticParams();
-
     if (!result?.pages || !Array.isArray(result.pages)) {
       console.error("No pages found or invalid data");
       return [];
     }
 
-    // Transform pages into static paths
-    return result.pages.map((page: PageType) => ({
-      slug: page.parentPage?.slug
+    // Generate both Swedish and English paths for each page
+    const paths = result.pages.flatMap((page) => {
+      const slugs = page.parentPage?.slug
         ? [page.parentPage.slug, page.slug]
-        : [page.slug],
-    }));
+        : [page.slug];
+
+      // Return both Swedish (default) and English locales
+      return [
+        { slug: slugs }, // Swedish: /parent/page
+        { slug: ["en", ...slugs] }, // English: /en/parent/page
+      ];
+    });
+
+    return paths;
   } catch (error) {
     console.error("Error generating static params:", error);
     return [];
@@ -89,11 +116,13 @@ export async function generateStaticParams() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function Page(props: any) {
   try {
-    const params = await props.params;
-    const slug = params.slug[params.slug.length - 1];
+    const { locale, cleanSlug } = parseSlug(props.params.slug);
+    const slug = cleanSlug[cleanSlug.length - 1];
 
-    const components = await getComponentsBySlug(slug);
-    const theme = await getThemeBySlug(slug);
+    const [components, theme] = await Promise.all([
+      getComponentsBySlug(slug, locale),
+      getThemeBySlug(slug),
+    ]);
 
     if (!components) {
       notFound();

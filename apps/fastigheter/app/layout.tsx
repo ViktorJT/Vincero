@@ -80,6 +80,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const pathname = headers().get("x-pathname") || "";
   const { navigation, footer } = await getLayout();
 
   return (

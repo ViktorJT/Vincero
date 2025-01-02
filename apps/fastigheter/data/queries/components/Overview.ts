@@ -9,8 +9,8 @@ export const OverviewQuery = `
   ${CardFragment}
   ${LinkFragment}
 
-  query GetOverviewByID($id: ID!) {
-    overview(where: { id: $id }) {
+  query GetOverviewByID($id: ID!, $locale: Locale!) {
+    overview(where: { id: $id }, locales: [$locale, en]) {
       __typename
       id
 

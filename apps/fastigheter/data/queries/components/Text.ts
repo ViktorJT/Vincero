@@ -5,8 +5,8 @@ export const TextQuery = `
   ${RichTextFragment}
   ${LockupFragment}
 
-  query GetTextByID($id: ID!) {
-    text(where: { id: $id }) {
+  query GetTextByID($id: ID!, $locale: Locale!) {
+    text(where: { id: $id }, locales: [$locale, en]) {
       __typename
       id
 

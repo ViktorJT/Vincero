@@ -7,8 +7,8 @@ export const FormQuery = `
   ${LockupFragment}
   ${AssetFragment}
 
-  query GetFormByID($id: ID!) {
-    form(where: { id: $id }) {
+  query GetFormByID($id: ID!, $locale: Locale!) {
+    form(where: { id: $id }, locales: [$locale, en]) {
       __typename
       id
 

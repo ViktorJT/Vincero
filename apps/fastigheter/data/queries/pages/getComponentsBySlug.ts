@@ -6,7 +6,6 @@ import { CarouselQuery } from "@/data/queries/components/Carousel";
 import { FormQuery } from "@/data/queries/components/Form";
 import { HeaderQuery } from "@/data/queries/components/Header";
 import { MediaQuery } from "@/data/queries/components/Media";
-import { GalleryQuery } from "@/data/queries/components/Gallery";
 import { OverviewQuery } from "@/data/queries/components/Overview";
 import { SliderQuery } from "@/data/queries/components/Slider";
 import { TextQuery } from "@/data/queries/components/Text";
@@ -25,13 +24,12 @@ const Queries = {
   Form: FormQuery,
   Header: HeaderQuery,
   Media: MediaQuery,
-  Gallery: GalleryQuery,
   Overview: OverviewQuery,
   Slider: SliderQuery,
   Text: TextQuery,
 } as const;
 
-export async function getComponentsBySlug(slug: string) {
+export async function getComponentsBySlug(slug: string, locale: string) {
   const query = `
     query getComponentsBySlug($slug: String!){
       page(where: { slug: $slug }) {
@@ -55,7 +53,7 @@ export async function getComponentsBySlug(slug: string) {
   const promises = page.components.map((component: EntityType) =>
     throttledFetchData({
       query: Queries[component.__typename],
-      variables: { id: component.id },
+      variables: { id: component.id, locale },
     }),
   );
 

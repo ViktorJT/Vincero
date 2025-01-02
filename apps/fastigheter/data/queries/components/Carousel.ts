@@ -9,8 +9,8 @@ export const CarouselQuery = `
   ${CardFragment}  
   ${LinkFragment}  
 
-  query GetCarouselByID($id: ID!) {
-    carousel(where: { id: $id }) {
+  query GetCarouselByID($id: ID!, $locale: Locale!) {
+    carousel(where: { id: $id }, locales: [$locale, en]) {
       __typename
       id
 
