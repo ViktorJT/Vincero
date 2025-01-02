@@ -4,11 +4,14 @@ import { navigationQuery } from "./meta/navigation";
 import { contactQuery } from "./meta/contact";
 import { siteQuery } from "./meta/site";
 
-export async function getLayout() {
+import type { Locale } from "@/configs/locales";
+
+export async function getLayout(locale: Locale) {
   // @todos types here
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { navigations }: any = await throttledFetchData({
     query: navigationQuery,
+    variables: { locale },
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

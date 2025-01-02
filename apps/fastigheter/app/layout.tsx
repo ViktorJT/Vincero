@@ -1,9 +1,5 @@
 // @todos fix types here
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
-
-import { Navigation } from "@vincero/ui/navigation";
-import { Footer } from "@vincero/ui/footer";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -19,12 +15,9 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-import { getLayout } from "@/data/queries/getLayout";
 import { seoQuery } from "@/data/queries/meta/seo";
 
 import { throttledFetchData } from "@/utils/fetchData";
-
-import LoadingPage from "./loading";
 
 import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";
@@ -80,20 +73,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const pathname = headers().get("x-pathname") || "";
-  const { navigation, footer } = await getLayout();
-
   return (
-    <html data-theme="fastigheter" lang="en" className={`${inter.variable}`}>
+    <html data-theme="fastigheter" className={`${inter.variable}`}>
       <head>
         <ThemeProvider />
       </head>
 
-      <body>
-        <Navigation {...navigation} />
-        <Suspense fallback={<LoadingPage />}>{children}</Suspense>
-        <Footer {...footer} />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
