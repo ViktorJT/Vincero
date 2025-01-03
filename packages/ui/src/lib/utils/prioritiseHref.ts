@@ -1,12 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const prioritiseHref = (link: any) => {
+import { defaultLocale } from "@vincero/languages-config";
+
+import type { Locale } from "@vincero/languages-config";
+import type { LinkProps } from "../../types";
+
+export const prioritiseHref = (link: LinkProps, locale?: Locale) => {
   if (!link) {
     throw new Error("Invalid link passed to prioritiseHref");
   }
 
   const { external, externalUrl, page, anchor } = link;
 
-  // Handle external URLs as before
+  // Handle external URLs
   if (external && externalUrl) {
     return {
       ...link,
@@ -19,8 +23,12 @@ export const prioritiseHref = (link: any) => {
     Boolean,
   );
 
-  // Always prefix with / for absolute path
-  const href = pathParts.length > 0 ? `/${pathParts.join("/")}` : "/";
+  // Create base path
+  const basePath = pathParts.length > 0 ? `/${pathParts.join("/")}` : "/";
+
+  // Add locale prefix if it's not the default locale
+  const href =
+    locale && locale !== defaultLocale ? `/${locale}${basePath}` : basePath;
 
   return {
     ...link,

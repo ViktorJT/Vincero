@@ -1,11 +1,12 @@
-import type { Locale } from "@/configs/locales";
+import type { Locale } from "@vincero/languages-config";
 
 import Home from "../page";
 
-export default function LocalizedHome({
-  params: { locale },
+export default async function LocalizedHome({
+  params,
 }: {
   params: { locale: Locale };
 }) {
+  const { locale } = await params;
   return <Home params={{ locale }} />;
 }

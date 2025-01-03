@@ -1,0 +1,9 @@
+{
+  "extends": "@vincero/typescript-config/base",
+  "include": ["index.ts"],
+  "exclude": ["dist", "node_modules", ".turbo"],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist"
+  }
+}

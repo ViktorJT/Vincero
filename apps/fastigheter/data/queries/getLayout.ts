@@ -4,7 +4,7 @@ import { navigationQuery } from "./meta/navigation";
 import { contactQuery } from "./meta/contact";
 import { siteQuery } from "./meta/site";
 
-import type { Locale } from "@/configs/locales";
+import type { Locale } from "@vincero/languages-config";
 
 export async function getLayout(locale: Locale) {
   // @todos types here

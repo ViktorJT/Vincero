@@ -1,11 +1,11 @@
 import { ComponentMapper } from "@/components/ComponentMapper";
-import { locales, defaultLocale } from "@/configs/locales";
+import { locales, defaultLocale } from "@vincero/languages-config";
 
 import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
 import { getHomepage } from "@/data/queries/pages/getHomepage";
 
 import type { Metadata } from "next";
-import type { Locale } from "@/configs/locales";
+import type { Locale } from "@vincero/languages-config";
 
 export const revalidate = false;
 

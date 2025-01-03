@@ -1,9 +1,14 @@
 "use client";
 
+import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+
+import { defaultLocale } from "@vincero/languages-config";
+
+import type { Locale } from "@vincero/languages-config";
 
 import {
   Accordion,
@@ -11,6 +16,9 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "../../atoms/accordion";
+
+import { Media } from "../media";
+import { Button } from "../../atoms/button";
 
 import type {
   ToggleProps,
@@ -24,8 +32,6 @@ import { useScrollLock } from "../../lib/hooks/useScrollLock";
 
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 import { cn } from "../../lib/utils/cn";
-
-import { Media } from "../media";
 
 const Backdrop = ({ show, onClose }: BackdropProps) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -49,12 +55,13 @@ const Backdrop = ({ show, onClose }: BackdropProps) => {
   );
 };
 
-const ToggleButton = ({ isOpen, onClick }: ToggleProps) => (
+const ToggleButton = ({ isOpen, onClick, className }: ToggleProps) => (
   <button
     aria-label="Toggle menu"
     className={cn(
       isOpen ? "text-dark" : "text-white",
       "focus:outline-none z-20 w-8 h-8 relative",
+      className,
     )}
     onClick={onClick}
   >
@@ -191,6 +198,60 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
   );
 };
 
+function LanguageToggle({ className }: { className: string }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const currentLocale = (pathname.split("/")[1] as Locale) || defaultLocale;
+
+  const switchLanguage = (newLocale: Locale) => {
+    // Remove current locale from path if it exists
+    let newPath = pathname.replace(/^\/[a-z]{2}/, "");
+
+    // If path is empty after removing locale, make it '/'
+    if (!newPath) newPath = "/";
+
+    // Add new locale to path unless it's the default locale
+    const finalPath =
+      newLocale === defaultLocale ? newPath : `/${newLocale}${newPath}`;
+
+    // Set cookie for middleware
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
+
+    // Navigate to new path
+    router.push(finalPath);
+  };
+
+  return (
+    <Button
+      arrow={false}
+      className={cn(
+        "border-white text-white hover:bg-white hover:text-dark",
+        className,
+      )}
+      size="sm"
+      variant="outline"
+      onClick={() => switchLanguage(currentLocale === "sv" ? "en" : "sv")}
+    >
+      <span
+        className={cn(
+          currentLocale === "sv" ? "opacity-100" : "hidden md:block opacity-50",
+        )}
+      >
+        sv
+      </span>
+      <span className="hidden md:block">/</span>
+      <span
+        className={cn(
+          currentLocale === "en" ? "opacity-100" : "hidden md:block opacity-50",
+        )}
+      >
+        en
+      </span>
+    </Button>
+  );
+}
+
 export function Navigation({
   className,
   id,
@@ -229,8 +290,13 @@ export function Navigation({
       >
         <div className="mx-auto flex-1 flex items-center">
           <div className="flex-1 basis-24">
-            <div className="invisible">
-              <ToggleButton isOpen={isMenuOpen} onClick={() => {}} />
+            <div className="gap-4 flex">
+              <LanguageToggle className="visible md:invisible" />
+              <ToggleButton
+                className="invisible pointer-events-none"
+                isOpen={isMenuOpen}
+                onClick={() => {}}
+              />
             </div>
           </div>
           <div className="flex-1 basis-full flex justify-center">
@@ -242,7 +308,8 @@ export function Navigation({
               <Media asset={logo} className="h-[80px] object-contain" />
             </Link>
           </div>
-          <div className="flex-1 basis-24 flex justify-end">
+          <div className="flex-1 items-center gap-4 basis-24 flex justify-end">
+            <LanguageToggle className="hidden md:flex" />
             <ToggleButton
               isOpen={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}

@@ -1,7 +1,7 @@
 import { getComponentsBySlug } from "./getComponentsBySlug";
 import { getThemeBySlug } from "./getThemeBySlug";
 
-import type { Locale } from "@/configs/locales";
+import type { Locale } from "@vincero/languages-config";
 
 export async function getHomepage(locale: Locale) {
   const slug = "homepage";

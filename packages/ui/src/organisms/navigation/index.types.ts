@@ -15,6 +15,7 @@ export type BackdropProps = {
 };
 
 export type ToggleProps = {
+  className?: string;
   isOpen: boolean;
   onClick: () => void;
 };

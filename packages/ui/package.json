@@ -73,12 +73,13 @@
     "embla-carousel-wheel-gestures": "^8.0.1",
     "lucide-react": "0.454.0",
     "react-hook-form": "^7.53.1",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "@vincero/languages-config": "workspace:*"
   },
   "devDependencies": {
     "@graphcms/rich-text-types": "^0.5.1",
     "@hookform/resolvers": "^3.9.1",
-    "@vincero/eslint-config": "workspace:^",
+    "@vincero/eslint-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
     "esbuild-plugin-react18": "^0.2.5",
     "tsup": "8.3.0",

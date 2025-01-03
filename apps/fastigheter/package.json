@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^3.9.1",
     "@studio-freight/lenis": "^1.0.42",
     "@vincero/ui": "workspace:*",
+    "@vincero/languages-config": "workspace:*",
     "next": "latest",
     "p-throttle": "^6.2.0",
     "react": "^18.3.1",

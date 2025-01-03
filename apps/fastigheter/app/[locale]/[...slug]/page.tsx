@@ -1,10 +1,9 @@
+import { defaultLocale } from "@vincero/languages-config";
+
 import { notFound } from "next/navigation";
 
+import type { Locale } from "@vincero/languages-config";
 import type { Metadata } from "next";
-
-import type { Locale } from "@/configs/locales";
-
-import { defaultLocale } from "@/configs/locales";
 
 import { getComponentsBySlug } from "@/data/queries/pages/getComponentsBySlug";
 import { getStaticParams } from "@/data/queries/pages/getStaticParams";
@@ -34,13 +33,6 @@ function parseSlug(slug: string[]): { locale: Locale; cleanSlug: string[] } {
     cleanSlug: slug,
   };
 }
-
-type PageType = {
-  slug: string;
-  parentPage?: {
-    slug: string;
-  };
-};
 
 export async function generateMetadata({
   params,
@@ -116,7 +108,8 @@ export async function generateStaticParams() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function Page(props: any) {
   try {
-    const { locale, cleanSlug } = parseSlug(props.params.slug);
+    const params = await props.params;
+    const { locale, cleanSlug } = parseSlug(params.slug);
     const slug = cleanSlug[cleanSlug.length - 1];
 
     const [components, theme] = await Promise.all([
