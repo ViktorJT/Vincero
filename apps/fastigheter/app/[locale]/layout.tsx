@@ -5,8 +5,6 @@ import { Footer } from "@vincero/ui/footer";
 
 import { defaultLocale } from "@vincero/languages-config";
 
-import type { Locale } from "@vincero/languages-config";
-
 import type { ReactNode } from "react";
 
 import { getLayout } from "@/data/queries/getLayout";
@@ -17,7 +15,8 @@ export default async function LocaleLayout({
   params,
   children,
 }: {
-  params: { locale: Locale };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: any;
   children: ReactNode;
 }) {
   const { locale } = await params;

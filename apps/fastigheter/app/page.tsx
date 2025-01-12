@@ -5,17 +5,10 @@ import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
 import { getHomepage } from "@/data/queries/pages/getHomepage";
 
 import type { Metadata } from "next";
-import type { Locale } from "@vincero/languages-config";
 
 export const revalidate = false;
 
-type HomePageParams = {
-  params: {
-    locale?: Locale;
-  };
-};
-
-export async function generateHomeMetadata(): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getSeoBySlug("homepage");
 
   if (!page) {
@@ -43,11 +36,12 @@ export async function generateHomeMetadata(): Promise<Metadata> {
   };
 }
 
-export async function getStaticParams() {
+export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function HomePage({ params }: HomePageParams) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function HomePage({ params }: any) {
   const { locale } = await params;
   const { theme, components } = await getHomepage(locale ?? defaultLocale);
 
