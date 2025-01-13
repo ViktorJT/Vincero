@@ -109,6 +109,9 @@ export async function generateStaticParams() {
 export default async function Page(props: any) {
   try {
     const params = await props.params;
+
+    console.warn("LOOK HERE: ", params);
+
     const { locale, cleanSlug } = parseSlug(params.slug);
     const slug = cleanSlug[cleanSlug.length - 1];
 
