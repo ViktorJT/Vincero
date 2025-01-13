@@ -1,9 +1,6 @@
-import { defaultLocale } from "@vincero/languages-config";
-
-import type { Locale } from "@vincero/languages-config";
 import type { LinkProps } from "../../types";
 
-export const prioritiseHref = (link: LinkProps, locale?: Locale) => {
+export const prioritiseHref = (link: LinkProps) => {
   if (!link) {
     throw new Error("Invalid link passed to prioritiseHref");
   }
@@ -23,12 +20,7 @@ export const prioritiseHref = (link: LinkProps, locale?: Locale) => {
     Boolean,
   );
 
-  // Create base path
-  const basePath = pathParts.length > 0 ? `/${pathParts.join("/")}` : "/";
-
-  // Add locale prefix if it's not the default locale
-  const href =
-    locale && locale !== defaultLocale ? `/${locale}${basePath}` : basePath;
+  const href = pathParts.length > 0 ? `/${pathParts.join("/")}` : "/";
 
   return {
     ...link,

@@ -36,6 +36,13 @@ export function middleware(request: NextRequest) {
           request.url,
         ),
       );
+    } else {
+      return NextResponse.redirect(
+        new URL(
+          `/${defaultLocale}${pathname === "/" ? "" : pathname}`,
+          request.url,
+        ),
+      );
     }
   }
 
