@@ -8,19 +8,14 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const config: NextConfig = {
-  output: "export",
-  trailingSlash: true,
-
-  ...(process.env.NODE_ENV === "development" && {
-    output: undefined, // Disable export in development
-  }),
-
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
     unoptimized: true,
   },
+
   reactStrictMode: true,
   poweredByHeader: false,
+
   transpilePackages: ["@vincero/ui"],
   modularizeImports: {
     "@vincero/ui": {
