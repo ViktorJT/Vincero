@@ -1,5 +1,3 @@
-"use client";
-
 import { RichText } from "@graphcms/rich-text-react-renderer";
 
 import { cn } from "../../lib/utils/cn.js";

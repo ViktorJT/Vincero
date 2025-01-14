@@ -1,5 +1,3 @@
-"use client";
-
 export function Loading() {
   return (
     <main className="h-screen w-full bg-black flex flex-col items-center justify-center">

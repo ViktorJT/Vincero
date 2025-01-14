@@ -57,10 +57,10 @@ const Components = {
   Text,
 } as const;
 
-export async function ComponentMapper(data: ComponentMapperProps) {
+export async function ComponentMapper({ components }: ComponentMapperProps) {
   return (
     <>
-      {data.components.map(({ __typename, ...props }, i: number) => {
+      {components.map(({ __typename, ...props }, i: number) => {
         const Component = Components[__typename];
 
         if (!Component) {

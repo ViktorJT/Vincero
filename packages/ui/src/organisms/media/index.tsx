@@ -2,13 +2,10 @@
 
 import { CldVideoPlayer, CldImage } from "next-cloudinary";
 import Image from "next/image";
-import { useState } from "react";
 import type { Props } from "./index.types";
 import { cn } from "../../lib/utils/cn";
 
 function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
-  const [useOptimized, setUseOptimized] = useState(true);
-
   if (!asset) return null;
 
   const styles = cn(
@@ -39,13 +36,9 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
     />
   );
 
-  const handleError = () => {
-    setUseOptimized(false);
-  };
-
   let Component;
 
-  if (!asset.optimised || !useOptimized) {
+  if (!asset.optimised) {
     Component = asset.mimeType?.startsWith("video") ? (
       <FallbackVideo />
     ) : (
@@ -63,7 +56,6 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
         className={cn("video", styles)}
         controls={false}
         src={asset.optimised.public_id}
-        onError={handleError}
       />
     );
   } else {
@@ -74,7 +66,6 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
         className={cn("image", styles)}
         src={asset.optimised.public_id}
         unoptimized={isDev}
-        onError={handleError}
       />
     );
   }
