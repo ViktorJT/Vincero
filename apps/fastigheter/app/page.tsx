@@ -1,12 +1,15 @@
-import { ComponentMapper } from "@/components/ComponentMapper";
-import { locales, defaultLocale } from "@vincero/languages-config";
+import { defaultLocale } from "@vincero/languages-config";
 
+import { Navigation } from "@vincero/ui/navigation";
+import { Footer } from "@vincero/ui/footer";
+
+import { ComponentMapper } from "@/components/ComponentMapper";
+
+import { getPage } from "@/data/queries/pages/getPage";
 import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
-import { getHomepage } from "@/data/queries/pages/getHomepage";
+import { getLayout } from "@/data/queries/getLayout";
 
 import type { Metadata } from "next";
-
-export const revalidate = false;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getSeoBySlug("homepage");
@@ -36,18 +39,18 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+export default async function HomePage() {
+  const { theme, components } = await getPage("homepage", defaultLocale);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function HomePage({ params }: any) {
-  const { locale } = await params;
-  const { theme, components } = await getHomepage(locale ?? defaultLocale);
+  const { navigation, footer } = await getLayout(defaultLocale);
 
   return (
-    <main className={theme.dark ? "dark" : "light"}>
-      <ComponentMapper components={components} />
-    </main>
+    <>
+      <Navigation {...navigation} />
+      <main className={theme.dark ? "dark" : "light"}>
+        <ComponentMapper components={components} />
+      </main>
+      <Footer {...footer} />
+    </>
   );
 }

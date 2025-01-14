@@ -1,4 +1,3 @@
-// @todos fix types here
 import { Inter } from "next/font/google";
 
 import { ThemeProvider } from "@/components/ThemeProvider";

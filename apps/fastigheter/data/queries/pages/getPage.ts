@@ -3,9 +3,7 @@ import { getThemeBySlug } from "./getThemeBySlug";
 
 import type { Locale } from "@vincero/languages-config";
 
-export async function getHomepage(locale: Locale) {
-  const slug = "homepage";
-
+export async function getPage(slug: string, locale: Locale) {
   const components = await getComponentsBySlug(slug, locale);
   const theme = await getThemeBySlug(slug);
 

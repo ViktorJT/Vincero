@@ -3,25 +3,19 @@ import { Suspense } from "react";
 import { Navigation } from "@vincero/ui/navigation";
 import { Footer } from "@vincero/ui/footer";
 
-import { defaultLocale } from "@vincero/languages-config";
-
-import type { ReactNode } from "react";
+import { getLocaleAndSlugFromPath } from "@/utils/getLocaleAndSlugFromPath";
 
 import { getLayout } from "@/data/queries/getLayout";
 
+import type { LayoutProps } from "@/data/types";
+
 import LoadingPage from "./loading";
 
-export default async function LocaleLayout({
-  params,
-  children,
-}: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params: any;
-  children: ReactNode;
-}) {
-  const { locale } = await params;
+export default async function LocaleLayout({ params, children }: LayoutProps) {
+  const { path } = await params;
+  const { locale } = getLocaleAndSlugFromPath(path);
 
-  const { navigation, footer } = await getLayout(locale ?? defaultLocale);
+  const { navigation, footer } = await getLayout(locale);
 
   return (
     <>
