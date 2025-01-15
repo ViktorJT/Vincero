@@ -55,7 +55,7 @@ export async function generateMetadata({
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const paths = getPaths();
+  const paths = await getPaths();
 
   if (!paths || !Array.isArray(paths)) {
     return [];
@@ -68,8 +68,6 @@ export default async function Page({ params }: PageProps) {
   const { path } = await params;
 
   const { locale, slug } = getLocaleAndSlugFromPath(path);
-
-  console.log("\n\nHEREEEE\n\n", slug);
 
   if (!slug) {
     notFound();
