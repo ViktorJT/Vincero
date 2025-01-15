@@ -198,28 +198,31 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
   );
 };
 
-function LanguageToggle({ className }: { className: string }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function LanguageToggle({ className }: any) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentLocale = (pathname.split("/")[1] as Locale) || defaultLocale;
+  // Determine current locale from pathname
+  const currentLocale: Locale = pathname.startsWith("/en") ? "en" : "sv";
 
-  const switchLanguage = (newLocale: Locale) => {
-    // Remove current locale from path if it exists
-    let newPath = pathname.replace(/^\/[a-z]{2}/, "");
+  const handleLanguageChange = () => {
+    const targetLocale: Locale = currentLocale === "en" ? "sv" : "en";
 
-    // If path is empty after removing locale, make it '/'
-    if (!newPath) newPath = "/";
+    // Get the path without the locale prefix
+    const pathWithoutLocale = pathname.replace(/^\/en\/?/, "/");
 
-    // Add new locale to path unless it's the default locale
-    const finalPath =
-      newLocale === defaultLocale ? newPath : `/${newLocale}${newPath}`;
+    // Construct the new path based on target locale
+    const newPath =
+      targetLocale === defaultLocale
+        ? pathWithoutLocale
+        : `/${targetLocale}${pathWithoutLocale}`;
 
-    // Set cookie for middleware
-    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
+    // Update cookie via the API before navigation
+    document.cookie = `NEXT_LOCALE=${targetLocale}; path=/`;
 
     // Navigate to new path
-    router.push(finalPath);
+    router.push(newPath);
   };
 
   return (
@@ -231,10 +234,11 @@ function LanguageToggle({ className }: { className: string }) {
       )}
       size="sm"
       variant="outline"
-      onClick={() => switchLanguage(currentLocale === "sv" ? "en" : "sv")}
+      onClick={handleLanguageChange}
     >
       <span
         className={cn(
+          "transition-opacity duration-200",
           currentLocale === "sv" ? "opacity-100" : "hidden md:block opacity-50",
         )}
       >
@@ -243,6 +247,7 @@ function LanguageToggle({ className }: { className: string }) {
       <span className="hidden md:block">/</span>
       <span
         className={cn(
+          "transition-opacity duration-200",
           currentLocale === "en" ? "opacity-100" : "hidden md:block opacity-50",
         )}
       >

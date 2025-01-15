@@ -58,6 +58,7 @@ export async function generateStaticParams() {
   const paths = await getPaths();
 
   if (!paths || !Array.isArray(paths)) {
+    console.warn("No paths found or invalid paths format");
     return [];
   }
 
