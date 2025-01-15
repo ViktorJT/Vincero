@@ -12,6 +12,13 @@ export const LinkFragment = `
       id
 
       slug
+
+      parentPage {
+        __typename
+        id
+        
+        slug
+      }
     }
   }
 `;

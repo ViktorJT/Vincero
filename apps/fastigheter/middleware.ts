@@ -22,16 +22,14 @@ export function middleware(request: NextRequest) {
       ? cookieLocale
       : defaultLocale;
 
-  console.log(preferredLocale, pathname);
-
-  // if (preferredLocale !== defaultLocale) {
-  //   return NextResponse.redirect(
-  //     new URL(
-  //       `/${preferredLocale}${pathname === "/" ? "" : pathname}`,
-  //       request.url,
-  //     ),
-  //   );
-  // }
+  if (!pathname.startsWith(`/${preferredLocale}`)) {
+    return NextResponse.redirect(
+      new URL(
+        `/${preferredLocale}${pathname === "/" ? "" : pathname}`,
+        request.url,
+      ),
+    );
+  }
 
   return NextResponse.next();
 }

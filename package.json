@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "build:fastigheter": "turbo run build --filter @vincero/fastigheter",
+    "build:invest": "turbo run build --filter @vincero/invest",
     "dev": "turbo run dev",
     "dev:storybook": "turbo run dev --filter @vincero/docs",
     "dev:fastigheter": "turbo run dev --filter=@vincero/ui --filter=@vincero/languages-config --filter=@vincero/fastigheter",
