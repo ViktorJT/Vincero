@@ -69,6 +69,8 @@ export default async function Page({ params }: PageProps) {
 
   const { locale, slug } = getLocaleAndSlugFromPath(path);
 
+  console.log("\n\nHEREEEE\n\n", slug);
+
   if (!slug) {
     notFound();
   }
