@@ -18,7 +18,6 @@ import {
 } from "../../atoms/accordion";
 
 import { Media } from "../media";
-import { Button } from "../../atoms/button";
 
 import type {
   ToggleProps,
@@ -191,6 +190,7 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
                 </NavLink>
               );
             })}
+            <LanguageToggle />
           </Accordion>
         </nav>
       </div>
@@ -198,8 +198,7 @@ const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function LanguageToggle({ className }: any) {
+function LanguageToggle() {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -226,34 +225,28 @@ function LanguageToggle({ className }: any) {
   };
 
   return (
-    <Button
-      arrow={false}
-      className={cn(
-        "border-white text-white hover:bg-white hover:text-dark",
-        className,
-      )}
-      size="sm"
-      variant="outline"
+    <button
+      className="mt-10 md:mt-20 text-heading-small flex gap-2"
       onClick={handleLanguageChange}
     >
       <span
         className={cn(
           "transition-opacity duration-200",
-          currentLocale === "sv" ? "opacity-100" : "hidden md:block opacity-50",
+          currentLocale === "sv" ? "opacity-100" : "opacity-50",
         )}
       >
-        sv
+        SV
       </span>
-      <span className="hidden md:block">/</span>
+      /
       <span
         className={cn(
           "transition-opacity duration-200",
-          currentLocale === "en" ? "opacity-100" : "hidden md:block opacity-50",
+          currentLocale === "en" ? "opacity-100" : "opacity-50",
         )}
       >
-        en
+        EN
       </span>
-    </Button>
+    </button>
   );
 }
 
@@ -296,7 +289,6 @@ export function Navigation({
         <div className="mx-auto flex-1 flex items-center">
           <div className="flex-1 basis-24">
             <div className="gap-4 flex">
-              <LanguageToggle className="visible md:invisible" />
               <ToggleButton
                 className="invisible pointer-events-none"
                 isOpen={isMenuOpen}
@@ -314,7 +306,6 @@ export function Navigation({
             </Link>
           </div>
           <div className="flex-1 items-center gap-4 basis-24 flex justify-end">
-            <LanguageToggle className="hidden md:flex" />
             <ToggleButton
               isOpen={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
