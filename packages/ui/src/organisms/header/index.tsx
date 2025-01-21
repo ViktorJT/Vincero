@@ -27,7 +27,7 @@ function Header({ id, title, subtitle, asset }: Props) {
 
       <div
         className={cn(
-          "absolute inset-0 flex flex-col p-6 md:p-10 text-white",
+          "absolute max-h-[100dvh] inset-0 flex flex-col p-6 md:p-10 text-white",
           subtitle
             ? "mb-14 md:mb-[6rem] justify-end"
             : "justify-center items-center",
