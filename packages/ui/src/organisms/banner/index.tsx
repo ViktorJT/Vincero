@@ -7,7 +7,7 @@ import type { Props } from "./index.types.ts";
 function Banner({ id, title, textBlocks = [] }: Props) {
   return (
     <section
-      className="w-full bg-accent text-dark text-balance py-20 px-6 md:px-10 min-h-[50dvh] flex items-center justify-center"
+      className="w-full bg-accent text-dark text-balance py-20 px-6 md:px-10 min-h-[50vh] flex items-center justify-center"
       id={id}
     >
       <div className="w-full md:max-w-none max-w-[540px] mx-auto flex flex-col md:gap-0 gap-14 md:flex-row justify-items-center justify-around md:items-center">

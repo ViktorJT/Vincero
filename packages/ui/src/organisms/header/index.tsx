@@ -9,7 +9,7 @@ function Header({ id, title, subtitle, asset }: Props) {
     <section
       className={cn(
         "relative w-full overflow-hidden",
-        asset ? "h-[100dvh]" : "min-h-[64dvh]",
+        asset ? "h-[100vh]" : "min-h-[64vh]",
       )}
       id={id}
     >
