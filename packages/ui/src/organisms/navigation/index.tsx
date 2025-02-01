@@ -276,8 +276,11 @@ export function Navigation({
   }, []);
 
   return (
-    <header
-      className={cn("fixed z-50 top-0 w-full text-light", className)}
+    <nav
+      className={cn(
+        "overflow-hidden fixed z-50 top-0 w-full text-light",
+        className,
+      )}
       id={id}
     >
       <div
@@ -320,6 +323,6 @@ export function Navigation({
         navItems={allNavItems}
         onClose={() => setIsMenuOpen(false)}
       />
-    </header>
+    </nav>
   );
 }
