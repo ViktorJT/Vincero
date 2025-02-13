@@ -11,6 +11,8 @@ import { getLayout } from "@/data/queries/getLayout";
 
 import type { Metadata } from "next";
 
+export const revalidate = 60; // Revalidates the homepage every 60 seconds
+
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getSeoBySlug("homepage");
 

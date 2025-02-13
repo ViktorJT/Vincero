@@ -11,6 +11,8 @@ import { getLocaleAndSlugFromPath } from "@/utils/getLocaleAndSlugFromPath";
 import type { PageProps } from "@/data/types";
 import type { Metadata } from "next";
 
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
