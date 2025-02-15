@@ -1,32 +1,11 @@
 import baseConfig from "@vincero/tailwind-config/base";
 
 export default {
+  ...baseConfig,
+
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
-    "@vincero/ui/src/**/*.{js,ts,jsx,tsx}",
+    "../../packages/ui/src/**/*.{js,jsx,ts,tsx}",
+    "../../packages/ui/dist/**/*.{js,jsx,ts,tsx}",
   ],
-  theme: {
-    ...baseConfig.theme,
-    extend: {
-      ...baseConfig.theme?.extend,
-
-      // App-specific theme extensions
-      colors: {
-        primary: {
-          DEFAULT: "var(--primary)",
-          dark: "var(--primary-dark)",
-          light: "var(--primary-light)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          dark: "var(--secondary-dark)",
-          light: "var(--secondary-light)",
-        },
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)"],
-      },
-    },
-  },
-  plugins: [...(baseConfig.plugins || [])],
 };

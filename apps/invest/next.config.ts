@@ -8,17 +8,27 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const config: NextConfig = {
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
+    unoptimized: true,
+  },
+
   reactStrictMode: true,
   poweredByHeader: false,
+
   transpilePackages: ["@vincero/ui"],
   modularizeImports: {
     "@vincero/ui": {
-      transform: "@vincero/ui/dist/components/{{member}}",
+      transform: "@vincero/ui/dist/{{member}}",
       skipDefaultConversion: true,
     },
   },
+
   // Turbopack configuration
   experimental: {
+    workerThreads: false,
+    cpus: 1,
+
     turbo: {
       resolveAlias: {
         // Ensure proper module resolution

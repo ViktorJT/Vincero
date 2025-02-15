@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Theme Variables */
+@layer base {
+  :root[data-theme="invest"] {
+    --font-sans: var(--font-roboto-slab), serif;
+
+    --radius: 0.5rem;
+
+    /* Font sizes */
+    --font-size-detail: 0.75rem; /* 12px */
+    --font-size-link: 0.875rem; /* 14px */
+    --font-size-link-large: 1.125rem; /* 18px */
+    --font-size-body: 1rem; /* 16px */
+    --font-size-body-large: 1.25rem; /* 20px */
+    --font-size-heading-small: 1.25rem; /* 18px */
+    --font-size-heading: 1.5rem; /* 18px */
+    --font-size-heading-large: 2.125rem; /* 32px */
+    --font-size-display: 3rem; /* 48px */
+    --font-size-display-large: 3.5rem; /* 56px */
+    --font-size-display-huge: 5rem; /* 80px */
+
+    /* Line heights */
+    --line-height-compact: 100%;
+    --line-height-default: 120%;
+    --line-height-relaxed: 150%;
+
+    /* Letter spacing */
+    --letter-spacing-none: 0;
+    --letter-spacing-tight: -2%;
+
+    /* Font weights */
+    --font-weight-light: 200;
+    --font-weight-regular: 300;
+    --font-weight-medium: 500;
+  }
+
+  html {
+    background-color: var(--dark);
+  }
+
+  main {
+    transition: background-color 600ms ease-out;
+  }
+
+  div.asset.fluid > div:first-child {
+    aspect-ratio: auto !important; /* stylelint-disable-line declaration-no-important */
+    block-size: 100%;
+  }
+
+  /* stylelint-disable-next-line selector-max-specificity */
+  div.asset.fluid > div:first-child > div.cld-video-player {
+    block-size: 100%;
+    padding-block-start: 0 !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  /* stylelint-disable-next-line selector-max-specificity */
+  div.asset.fluid > div:first-child > div:first-child video {
+    object-fit: cover;
+  }
+}

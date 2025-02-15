@@ -6,6 +6,6 @@ export default {
   ...baseConfig,
   plugins: {
     ...baseConfig.plugins,
-    tailwindcss: tailwindConfig,
+    tailwindcss: {},
   },
 };
