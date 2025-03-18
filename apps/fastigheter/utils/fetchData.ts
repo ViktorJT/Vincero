@@ -16,7 +16,7 @@ type FetchOptions = {
 const fetchGraphQL = async <T>({
   query,
   variables = {},
-  cache = "force-cache", // Default to static fetching
+  cache = "no-cache", // Default to static fetching
   ...props
 }: FetchOptions): Promise<T | null> => {
   if (!HYGRAPH_ENDPOINT) {
