@@ -44,6 +44,7 @@ export interface AssetProps extends ImageProps {
   mimeType: string;
   url: string;
   optimised?: CloudinaryAssetProps;
+  updatedAt: string;
 }
 
 interface BaseCloudinaryProps {

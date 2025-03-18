@@ -31,7 +31,7 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
       alt={asset.alt || ""}
       className={styles}
       height={asset.height}
-      src={asset.url}
+      src={`${asset.url}?=v${asset.updatedAt}`}
       width={asset.width}
     />
   );

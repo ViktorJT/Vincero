@@ -10,5 +10,7 @@ export const AssetFragment = `
     height
 
     optimised
+
+    updatedAt
   }
 `;
