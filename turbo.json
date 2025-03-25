@@ -5,12 +5,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**",
-        "storybook-static/**"
-      ],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
       "env": ["HYGRAPH_ENDPOINT"],
       "outputLogs": "new-only"
@@ -31,10 +26,6 @@
       "env": ["HYGRAPH_ENDPOINT"]
     },
     "clean": {
-      "cache": false
-    },
-    "preview-storybook": {
-      "dependsOn": ["^build"],
       "cache": false
     }
   },

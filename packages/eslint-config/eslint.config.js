@@ -4,7 +4,6 @@ import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
-import storybookPlugin from "eslint-plugin-storybook";
 import onlyWarnPlugin from "eslint-plugin-only-warn";
 import tseslint from "typescript-eslint";
 import prettierConfig from "eslint-config-prettier";
@@ -93,20 +92,6 @@ const reactConfig = {
   },
 };
 
-// Storybook configuration
-const storybookConfig = {
-  ...reactConfig,
-  files: ["**/*.stories.{js,jsx,ts,tsx}", "**/stories/**/*.{js,jsx,ts,tsx}"],
-  plugins: {
-    ...reactConfig.plugins,
-    storybook: storybookPlugin,
-  },
-  rules: {
-    ...reactConfig.rules,
-    ...storybookPlugin.configs.recommended.rules,
-  },
-};
-
 // Export configuration factory
 export function createConfig(type = "base", options = {}) {
   // Start with TypeScript and Prettier config
@@ -115,8 +100,6 @@ export function createConfig(type = "base", options = {}) {
   switch (type) {
     case "react":
       return [...configs, reactConfig];
-    case "storybook":
-      return [...configs, reactConfig, storybookConfig];
     default:
       return configs;
   }

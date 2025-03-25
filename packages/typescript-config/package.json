@@ -6,8 +6,7 @@
   "exports": {
     "./base": "./base.json",
     "./ui": "./ui.json",
-    "./next": "./next.json",
-    "./storybook": "./storybook.json"
+    "./next": "./next.json"
   },
   "include": [
     "."
