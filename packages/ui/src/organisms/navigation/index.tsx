@@ -121,14 +121,14 @@ const NavLink = ({
   );
 };
 
-const SlideMenu = ({ isOpen, navItems, onClose }: SlideMenuProps) => {
+const SlideMenu = ({ isOpen = false, navItems, onClose }: SlideMenuProps) => {
   const topLinkStyles = "py-3 text-heading";
 
   return (
     <div
       className={cn(
         "fixed top-0 right-0 h-screen max-w-[800px] w-5/6 md:w-1/3 bg-accent text-dark",
-        "transform transition-transform duration-200 ease-in-out",
+        "transform transition-transform duration-200 ease-in-out translate-x-full",
         isOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
@@ -300,13 +300,13 @@ export function Navigation({
             </div>
           </div>
           <div className="flex-1 basis-full flex justify-center">
-            <Link
+            <a
               aria-label="Till hemsida"
-              className="block hover:text-white transition-colors"
+              className="hover:text-white transition-colors"
               href="/"
             >
               <Media asset={logo} className="h-[80px] object-contain" />
-            </Link>
+            </a>
           </div>
           <div className="flex-1 items-center gap-4 basis-24 flex justify-end">
             <ToggleButton
