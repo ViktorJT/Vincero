@@ -257,11 +257,14 @@ export function Navigation({
   leftColumn,
   rightColumn,
 }: Props) {
+  const [isMounted, setIsMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const allNavItems = [...leftColumn, ...rightColumn];
 
   useScrollLock(isMenuOpen);
+
+  useEffect(() => setIsMounted(true), []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -318,11 +321,13 @@ export function Navigation({
       </div>
 
       <Backdrop show={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      <SlideMenu
-        isOpen={isMenuOpen}
-        navItems={allNavItems}
-        onClose={() => setIsMenuOpen(false)}
-      />
+      {isMounted && (
+        <SlideMenu
+          isOpen={isMenuOpen}
+          navItems={allNavItems}
+          onClose={() => setIsMenuOpen(false)}
+        />
+      )}
     </nav>
   );
 }
