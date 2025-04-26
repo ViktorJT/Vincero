@@ -27,8 +27,6 @@ const fetchGraphQL = async <T>({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
-      // next: { revalidate: 60 },
-      cache: "force-cache",
       ...props,
     });
 
