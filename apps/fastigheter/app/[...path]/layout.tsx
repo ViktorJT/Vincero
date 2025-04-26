@@ -11,6 +11,8 @@ import type { LayoutProps } from "@/data/types";
 
 import LoadingPage from "./loading";
 
+export const dynamic = "force-static";
+
 export default async function LocaleLayout({ params, children }: LayoutProps) {
   const { path } = await params;
   const { locale } = getLocaleAndSlugFromPath(path);
