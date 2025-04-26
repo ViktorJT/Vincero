@@ -16,7 +16,6 @@ type FetchOptions = {
 const fetchGraphQL = async <T>({
   query,
   variables = {},
-  cache = "no-cache", // Default to static fetching
   ...props
 }: FetchOptions): Promise<T | null> => {
   if (!HYGRAPH_ENDPOINT) {
@@ -28,7 +27,7 @@ const fetchGraphQL = async <T>({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
-      cache, // Use cache option
+      next: { revalidate: 60 },
       ...props,
     });
 
