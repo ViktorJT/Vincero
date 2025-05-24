@@ -33,7 +33,7 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
+          fontWeight: "var(--font-weight-bold)",
         },
       ],
       "display-huge": [
@@ -41,7 +41,7 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
+          fontWeight: "var(--font-weight-bold)",
         },
       ],
       body: [

@@ -12,7 +12,7 @@ function Banner({ id, title, textBlocks = [] }: Props) {
     >
       <div className="w-full md:max-w-none max-w-[540px] mx-auto flex flex-col md:gap-0 gap-14 md:flex-row justify-items-center justify-around md:items-center">
         <div className="w-full w-4/5 md:w-1/2">
-          <h1 className="animate-item text-heading-large md:text-display-large md:pr-10">
+          <h1 className="text-heading-large md:text-display-large md:pr-10">
             {title}
           </h1>
         </div>
@@ -25,14 +25,12 @@ function Banner({ id, title, textBlocks = [] }: Props) {
                   content={block.raw}
                   renderers={{
                     h1: ({ children }) => (
-                      <p className="animate-item text-heading-large md:text-display mb-2">
+                      <p className="text-heading-large md:text-display mb-2">
                         {children}
                       </p>
                     ),
                     p: ({ children }) => (
-                      <p className="animate-item text-body lg:text-body-large">
-                        {children}
-                      </p>
+                      <p className="text-body lg:text-body-large">{children}</p>
                     ),
                   }}
                 />

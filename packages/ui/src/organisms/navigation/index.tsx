@@ -134,7 +134,7 @@ const SlideMenu = ({ isOpen = false, navItems, onClose }: SlideMenuProps) => {
     >
       <div
         key={isOpen ? "open" : "closed"}
-        className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10"
+        className="h-full flex mt-[5.5rem] px-6 md:pr-10 md:pl-10"
       >
         <nav className="w-full">
           <Accordion collapsible type="single">
@@ -288,7 +288,7 @@ export function Navigation({
     >
       <div
         className={cn(
-          "h-[5.5rem] flex items-center px-6 md:px-20 relative transition-colors duration-200",
+          "h-[5.5rem] flex items-center px-6 md:px-10 relative transition-colors duration-200",
           hasScrolled ? "bg-dark" : "bg-transparent",
         )}
       >

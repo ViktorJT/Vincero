@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import {
@@ -18,8 +17,6 @@ import { Paragraph } from "../../organisms/text";
 
 import { useToast } from "../../lib/hooks/useToast";
 
-import type { z } from "zod";
-
 import type { Props } from "./index.types";
 
 function Form({
@@ -29,13 +26,12 @@ function Form({
   text,
   fields = [],
   submitButtonLabel,
-  action,
-  schema,
+  action = "/api/contact",
 }: Props) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+  const form = useForm({
+    // resolver: zodResolver(),
     defaultValues: fields.reduce(
       (acc, field) => ({
         ...acc,
@@ -45,14 +41,21 @@ function Form({
     ),
   });
 
-  const onSubmit = async (data: z.infer<typeof schema>) => {
+  const onSubmit = async (data) => {
     try {
+      const formattedMessage = fields
+        .map((field) => `${field.label}: ${data[field.id]}`)
+        .join("\n");
+
       const response = await fetch(action, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          message: formattedMessage,
+        }),
       });
 
       if (!response.ok) throw new Error("Submission failed");

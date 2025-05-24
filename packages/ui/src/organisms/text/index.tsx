@@ -20,7 +20,7 @@ function Paragraph({
       key={lockup.id}
       className={cn("flex flex-col gap-4 md:contents", className)}
     >
-      <p className="animate-text text-detail text-muted md:text-right md:mt-1.5">
+      <p className="text-detail text-muted md:text-right md:mt-1.5">
         {lockup.title}
       </p>
       <div className="dark:text-light text-dark grid grid-cols-1 md:grid-cols-2 gap-8 text-body lg:text-body-large">
@@ -30,7 +30,7 @@ function Paragraph({
               key={`${lockup.id}-${i}`}
               content={raw}
               renderers={{
-                p: ({ children }) => <p className="animate-text">{children}</p>,
+                p: ({ children }) => <p>{children}</p>,
               }}
             />
           ),
@@ -51,7 +51,7 @@ function Text({ id, metaInformation = [], heading, body }: TextProps) {
           <Paragraph className="first:mt-20" content={metaInformation} />
 
           {heading && (
-            <h1 className="animate-text text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-large mb-6 md:mb-10">
+            <h1 className="text-dark dark:text-light col-start-1 md:col-start-2 text-heading-large md:text-display-large mb-6 md:mb-10">
               {heading}
             </h1>
           )}
