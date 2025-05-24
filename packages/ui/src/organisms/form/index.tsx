@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 import {
   Form as ShadCNForm,
@@ -15,8 +16,6 @@ import { Button } from "../../atoms/button";
 import { Media } from "../../organisms/media";
 import { Paragraph } from "../../organisms/text";
 
-import { useToast } from "../../lib/hooks/useToast";
-
 import type { Props } from "./index.types";
 
 function Form({
@@ -28,7 +27,8 @@ function Form({
   submitButtonLabel,
   action = "/api/contact",
 }: Props) {
-  const { toast } = useToast();
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const form = useForm({
     // resolver: zodResolver(),
@@ -41,8 +41,11 @@ function Form({
     ),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: Record<string, string>) => {
     try {
+      setSuccessMessage("");
+      setErrorMessage("");
+
       const formattedMessage = fields
         .map((field) => `${field.label}: ${data[field.id]}`)
         .join("\n");
@@ -60,19 +63,11 @@ function Form({
 
       if (!response.ok) throw new Error("Submission failed");
 
-      toast({
-        title: "Success",
-        description: "Form submitted successfully",
-      });
-
+      setSuccessMessage("Form submitted successfully.");
       form.reset();
     } catch (error) {
       console.error(error);
-      toast({
-        title: "Error",
-        description: "Failed to submit form",
-        variant: "destructive",
-      });
+      setErrorMessage("Failed to submit form. Please try again.");
     }
   };
 
@@ -140,6 +135,18 @@ function Form({
             >
               {submitButtonLabel}
             </Button>
+
+            {(successMessage || errorMessage) && (
+              <p
+                className={`col-span-full md:col-start-2 mt-4 text-sm ${
+                  successMessage
+                    ? "text-green-600"
+                    : "text-destructive dark:text-red-400"
+                }`}
+              >
+                {successMessage || errorMessage}
+              </p>
+            )}
           </form>
         </ShadCNForm>
       </div>

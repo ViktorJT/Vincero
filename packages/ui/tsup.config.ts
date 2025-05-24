@@ -17,6 +17,7 @@ export default defineConfig((options) => ({
     "slider/index": "src/organisms/slider/index.tsx",
     "media/index": "src/organisms/media/index.tsx",
     "text/index": "src/organisms/text/index.tsx",
+    "toaster/index": "src/molecules/toaster/index.tsx",
   },
 
   external: [

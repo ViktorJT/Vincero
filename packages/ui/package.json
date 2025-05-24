@@ -50,6 +50,10 @@
     "./text": {
       "types": "./dist/text/index.d.ts",
       "import": "./dist/text/index.js"
+    },
+    "./toaster": {
+      "types": "./dist/toaster/index.d.ts",
+      "import": "./dist/toaster/index.js"
     }
   },
   "scripts": {
