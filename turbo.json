@@ -7,7 +7,7 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
-      "env": ["HYGRAPH_ENDPOINT"],
+      "env": ["HYGRAPH_ENDPOINT", "RESEND_API_KEY"],
       "outputLogs": "new-only"
     },
     "lint": {
@@ -23,7 +23,7 @@
       "cache": false,
       "persistent": true,
       "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
-      "env": ["HYGRAPH_ENDPOINT"]
+      "env": ["HYGRAPH_ENDPOINT", "RESEND_API_KEY"]
     },
     "clean": {
       "cache": false
