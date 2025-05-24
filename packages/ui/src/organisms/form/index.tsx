@@ -37,7 +37,7 @@ function Form({
         ...acc,
         [field.id]: "",
       }),
-      {},
+      {} as Record<string, string>,
     ),
   });
 
