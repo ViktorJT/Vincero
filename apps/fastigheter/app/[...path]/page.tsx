@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
-import { getSeoBySlug } from "@/data/queries/pages/etSeoBySlug";
+import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
 import { getPaths } from "@/data/queries/pages/getPaths";
 import { getPage } from "@/data/queries/pages/getPage";
 
