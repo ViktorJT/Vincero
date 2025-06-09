@@ -2,7 +2,6 @@ import { defaultLocale } from "@vincero/languages-config";
 
 import { Navigation } from "@vincero/ui/navigation";
 import { Footer } from "@vincero/ui/footer";
-import { Toaster } from "@vincero/ui/toaster";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
@@ -54,7 +53,6 @@ export default async function HomePage() {
         <ComponentMapper components={components} />
       </div>
       <Footer {...footer} />
-      <Toaster />
     </main>
   );
 }

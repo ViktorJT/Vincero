@@ -11,7 +11,7 @@ import { getLayout } from "@/data/queries/getLayout";
 
 import type { Metadata } from "next";
 
-export const revalidate = 60; // Revalidates the homepage every 60 seconds
+export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getSeoBySlug("homepage");
@@ -47,12 +47,12 @@ export default async function HomePage() {
   const { navigation, footer } = await getLayout(defaultLocale);
 
   return (
-    <>
+    <main className={theme.dark ? "dark" : "light"}>
       <Navigation {...navigation} />
-      <main className={theme.dark ? "dark" : "light"}>
+      <div>
         <ComponentMapper components={components} />
-      </main>
+      </div>
       <Footer {...footer} />
-    </>
+    </main>
   );
 }

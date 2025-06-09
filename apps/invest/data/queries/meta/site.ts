@@ -8,7 +8,11 @@ export const siteQuery = `
       __typename
       id
       
-      logo {
+      logoLight {
+        ...Asset
+      }
+
+      logoDark {
         ...Asset
       }
       
