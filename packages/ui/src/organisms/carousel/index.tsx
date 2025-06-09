@@ -193,7 +193,7 @@ function Carousel({ title, subtitle, items, mediaClass, id }: CarouselProps) {
         </Content>
       </Container>
 
-      <div className="absolute h-1/6 bg-dark bottom-0 left-0 right-0" />
+      <div className="absolute h-1/6 dark:bg-dark bottom-0 left-0 right-0" />
     </section>
   );
 }

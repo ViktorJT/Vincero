@@ -15,6 +15,10 @@
       "types": "./dist/carousel/index.d.ts",
       "import": "./dist/carousel/index.js"
     },
+    "./imageCarousel": {
+      "types": "./dist/imageCarousel/index.d.ts",
+      "import": "./dist/imageCarousel/index.js"
+    },
     "./form": {
       "types": "./dist/form/index.d.ts",
       "import": "./dist/form/index.js"

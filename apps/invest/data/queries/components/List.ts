@@ -8,10 +8,14 @@ export const ListQuery = `
       __typename
       id
 
-      items(first: 50) {
+      moreLabel
+      lessLabel
+
+      items(first: 100) {
         id
 
         title
+        date
         body
 
         link {

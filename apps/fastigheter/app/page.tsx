@@ -48,13 +48,13 @@ export default async function HomePage() {
   const { navigation, footer } = await getLayout(defaultLocale);
 
   return (
-    <>
+    <main className={theme.dark ? "dark" : "light"}>
       <Navigation {...navigation} />
-      <main className={theme.dark ? "dark" : "light"}>
+      <div>
         <ComponentMapper components={components} />
-      </main>
+      </div>
       <Footer {...footer} />
       <Toaster />
-    </>
+    </main>
   );
 }

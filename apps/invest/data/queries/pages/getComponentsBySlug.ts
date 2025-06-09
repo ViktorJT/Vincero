@@ -3,6 +3,7 @@
 import { BannerQuery } from "@/data/queries/components/Banner";
 import { ListQuery } from "@/data/queries/components/List";
 import { CarouselQuery } from "@/data/queries/components/Carousel";
+import { ImageCarouselQuery } from "@/data/queries/components/ImageCarousel";
 import { FormQuery } from "@/data/queries/components/Form";
 import { HeaderQuery } from "@/data/queries/components/Header";
 import { MediaQuery } from "@/data/queries/components/Media";
@@ -21,6 +22,7 @@ const Queries = {
   Banner: BannerQuery,
   List: ListQuery,
   Carousel: CarouselQuery,
+  ImageCarousel: ImageCarouselQuery,
   Form: FormQuery,
   Header: HeaderQuery,
   Media: MediaQuery,

@@ -1,6 +1,7 @@
 import { Banner } from "@vincero/ui/banner";
 import { List } from "@vincero/ui/list";
 import { Carousel } from "@vincero/ui/carousel";
+import { ImageCarousel } from "@vincero/ui/imageCarousel";
 import { Form } from "@vincero/ui/form";
 import { Header } from "@vincero/ui/header";
 import { Media } from "@vincero/ui/media";
@@ -13,6 +14,7 @@ import type { ComponentType } from "react";
 import type { BannerProps } from "@vincero/ui/banner";
 import type { ListProps } from "@vincero/ui/list";
 import type { CarouselProps } from "@vincero/ui/carousel";
+import type { ImageCarouselProps } from "@vincero/ui/imageCarousel";
 import type { FormProps } from "@vincero/ui/form";
 import type { HeaderProps } from "@vincero/ui/header";
 import type { MediaProps } from "@vincero/ui/media";
@@ -24,6 +26,7 @@ type ComponentTypes = {
   Banner: ComponentType<BannerProps>;
   List: ComponentType<ListProps>;
   Carousel: ComponentType<CarouselProps>;
+  ImageCarousel: ComponentType<ImageCarouselProps>;
   Form: ComponentType<FormProps>;
   Header: ComponentType<HeaderProps>;
   Media: ComponentType<MediaProps>;
@@ -49,6 +52,7 @@ const Components = {
   Banner,
   List,
   Carousel,
+  ImageCarousel,
   Form,
   Header,
   Media,
@@ -59,7 +63,7 @@ const Components = {
 
 export async function ComponentMapper({ components }: ComponentMapperProps) {
   return (
-    <>
+    <div className={components[0].__typename !== "Header" ? "pt-20" : ""}>
       {components.map(({ __typename, ...props }, i: number) => {
         const Component = Components[__typename];
 
@@ -72,6 +76,6 @@ export async function ComponentMapper({ components }: ComponentMapperProps) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return <Component key={`${props.id}-${i}`} {...(props as any)} />;
       })}
-    </>
+    </div>
   );
 }

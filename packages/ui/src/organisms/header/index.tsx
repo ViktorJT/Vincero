@@ -47,7 +47,7 @@ function Header({ id, title, subtitle, asset }: Props) {
           >
             {title}
           </h1>
-          {subtitle && (
+          {subtitle !== " " && (
             <p className="text-body lg:text-body-large text-white max-w-[500px]">
               {subtitle}
             </p>

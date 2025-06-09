@@ -10,6 +10,8 @@ export const TextQuery = `
       __typename
       id
 
+      accentBackground
+
       metaInformation {
         ...Lockup
       }

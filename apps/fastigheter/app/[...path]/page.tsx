@@ -76,11 +76,11 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  const { theme, components } = await getPage(slug!, locale);
+  const { components } = await getPage(slug!, locale);
 
   return (
-    <main className={theme?.dark ? "dark" : "light"}>
+    <>
       <ComponentMapper components={components} />
-    </main>
+    </>
   );
 }

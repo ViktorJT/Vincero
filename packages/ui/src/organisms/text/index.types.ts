@@ -4,6 +4,7 @@ import type { ParagraphProps } from "../../types";
 interface TextProps {
   id: string;
   metaInformation?: ParagraphProps[];
+  accentBackground?: boolean;
   heading?: string;
   body: ParagraphProps;
 }

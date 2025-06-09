@@ -3,11 +3,12 @@
 import { Button } from "../../atoms/button";
 import { Media } from "../media";
 import { cn } from "../../lib/utils/cn";
+
 import type { Props, TextBlockProps } from "./index.types.ts";
 
 function Block({ title, heading, body, links }: TextBlockProps) {
   return (
-    <div className="textBlock flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 z-10 flex-col gap-6 md:gap-10 p-6 pb-20">
+    <div className="textBlock h-full justify-center flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 md:mx-0 z-10 flex-col gap-6 md:gap-10 p-8 md:p-20">
       {title && (
         <p className="text-accent dark:text-muted text-detail uppercase">
           {title}
@@ -21,7 +22,7 @@ function Block({ title, heading, body, links }: TextBlockProps) {
       <p className="text-body lg:text-body-large">{body}</p>
 
       {links && (
-        <div className=" flex flex-wrap gap-4 pt-4">
+        <div className="flex flex-wrap gap-4 md:pt-4">
           {links.map((link, i: number) => (
             <Button
               key={link.id}
@@ -46,7 +47,7 @@ function Slider({ id, blocks = [] }: Props) {
       {blocks.map((block, index) => (
         <div
           key={`row-${index}`}
-          className="contents md:flex md:flex-row min-h-[100vh]"
+          className="contents md:flex md:flex-row min-h-[60vh]"
         >
           {/* Media Block */}
           <div
@@ -63,7 +64,7 @@ function Slider({ id, blocks = [] }: Props) {
                 className:
                   "absolute inset-0 w-full h-full object-cover object-center",
               }}
-              className="relative h-[50vh] md:h-full"
+              className="relative min-h-[30vh] md:h-full"
             />
           </div>
 
@@ -75,12 +76,7 @@ function Slider({ id, blocks = [] }: Props) {
               index % 2 === 0 ? "md:order-1" : "md:order-2", // Alternating on desktop
             )}
           >
-            <Block
-              body={block.body}
-              heading={block.heading}
-              links={block.links}
-              title={block.title}
-            />
+            <Block {...block} />
           </div>
         </div>
       ))}

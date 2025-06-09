@@ -54,11 +54,16 @@ const Backdrop = ({ show, onClose }: BackdropProps) => {
   );
 };
 
-const ToggleButton = ({ isOpen, onClick, className }: ToggleProps) => (
+const ToggleButton = ({
+  hasScrolled,
+  isOpen,
+  onClick,
+  className,
+}: ToggleProps) => (
   <button
     aria-label="Toggle menu"
     className={cn(
-      isOpen ? "text-dark" : "text-white",
+      isOpen ? "text-dark" : hasScrolled ? "text-white" : "text-black",
       "focus:outline-none z-20 w-8 h-8 relative",
       className,
     )}
@@ -127,14 +132,14 @@ const SlideMenu = ({ isOpen = false, navItems, onClose }: SlideMenuProps) => {
   return (
     <div
       className={cn(
-        "fixed top-0 right-0 h-screen max-w-[800px] w-5/6 md:w-1/3 bg-accent text-dark",
+        "fixed top-0 right-0 h-screen max-w-[800px] w-5/6 md:w-1/3 md:min-w-[400px] bg-accent text-dark",
         "transform transition-transform duration-200 ease-in-out translate-x-full",
         isOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
       <div
         key={isOpen ? "open" : "closed"}
-        className="h-full flex mt-[5.5rem] px-6 md:pr-10 md:pl-10"
+        className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10"
       >
         <nav className="w-full">
           <Accordion collapsible type="single">
@@ -253,7 +258,8 @@ function LanguageToggle() {
 export function Navigation({
   className,
   id,
-  logo,
+  logoLight,
+  logoDark,
   leftColumn,
   rightColumn,
 }: Props) {
@@ -288,7 +294,7 @@ export function Navigation({
     >
       <div
         className={cn(
-          "h-[5.5rem] flex items-center px-6 md:px-10 relative transition-colors duration-200",
+          "flex items-center px-6 md:px-20 relative transition-colors duration-200",
           hasScrolled ? "bg-dark" : "bg-transparent",
         )}
       >
@@ -297,6 +303,7 @@ export function Navigation({
             <div className="gap-4 flex">
               <ToggleButton
                 className="invisible pointer-events-none"
+                hasScrolled={hasScrolled}
                 isOpen={isMenuOpen}
                 onClick={() => {}}
               />
@@ -305,14 +312,26 @@ export function Navigation({
           <div className="flex-1 basis-full flex justify-center">
             <a
               aria-label="Till hemsida"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors relative h-[72px] w-[240px] md:max-h-[80px]"
               href="/"
             >
-              <Media asset={logo} className="h-[80px] object-contain" />
+              <Media
+                asset={logoDark}
+                className="absolute inset-0 h-full w-full object-contain"
+              />
+
+              <Media
+                asset={logoLight}
+                className={cn(
+                  "absolute opacity-0 inset-0 h-full w-full object-contain",
+                  hasScrolled && "opacity-100",
+                )}
+              />
             </a>
           </div>
           <div className="flex-1 items-center gap-4 basis-24 flex justify-end">
             <ToggleButton
+              hasScrolled={hasScrolled}
               isOpen={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             />
