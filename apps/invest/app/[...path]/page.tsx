@@ -11,7 +11,8 @@ import { getLocaleAndSlugFromPath } from "@/utils/getLocaleAndSlugFromPath";
 import type { PageProps } from "@/data/types";
 import type { Metadata } from "next";
 
-export const dynamic = "force-static";
+export const revalidate = 300;
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -53,8 +54,6 @@ export async function generateMetadata({
     },
   };
 }
-
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const paths = await getPaths();

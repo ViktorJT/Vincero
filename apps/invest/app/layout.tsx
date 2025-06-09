@@ -5,7 +5,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
-export const dynamic = "force-static";
+export const dynamic = "auto";
+export const revalidate = 3600;
 
 // @todo update this to use variable for performance?
 const font = Roboto_Slab({
