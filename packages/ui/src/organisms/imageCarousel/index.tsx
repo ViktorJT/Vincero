@@ -7,7 +7,7 @@ import { Button } from "../../atoms/button";
 import { Media } from "../media";
 import type { AssetProps } from "../../types";
 
-type ImageCarouselProps = {
+export type ImageCarouselProps = {
   title?: string;
   subtitle?: string;
   id?: string;
