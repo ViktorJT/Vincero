@@ -6,7 +6,7 @@ import { useState, type FC } from "react";
 import type { ListItem, ListProps } from "./index.types";
 import { Button } from "../../atoms/button";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 6;
 
 const ListItemCard: FC<ListItem> = ({ title, date, body, link }) => {
   const { href } = prioritiseHref(link);
@@ -51,7 +51,7 @@ const List: FC<ListProps> = ({ items, moreLabel, lessLabel }) => {
           {moreLabel}
         </Button>
       )}
-      {visibleCount >= items.length && (
+      {items.length > ITEMS_PER_PAGE && visibleCount > items.length && (
         <Button
           arrow={false}
           variant="outline"
