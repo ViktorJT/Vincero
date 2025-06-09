@@ -13,7 +13,7 @@ export const dynamic = "force-static";
 export default async function LocaleLayout({ params, children }: LayoutProps) {
   const { path } = await params;
   const { locale, slug } = getLocaleAndSlugFromPath(path);
-  const theme = await getThemeBySlug(slug);
+  const theme = await getThemeBySlug(slug!);
   const { navigation, footer } = await getLayout(locale);
 
   return (
