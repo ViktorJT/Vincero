@@ -11,7 +11,7 @@ import { getLayout } from "@/data/queries/getLayout";
 
 import type { Metadata } from "next";
 
-export const dynamic = "force-static";
+export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getSeoBySlug("homepage");
