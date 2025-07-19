@@ -18,7 +18,6 @@ export default defineConfig((options) => ({
     "slider/index": "src/organisms/slider/index.tsx",
     "media/index": "src/organisms/media/index.tsx",
     "text/index": "src/organisms/text/index.tsx",
-    "toaster/index": "src/molecules/toaster/index.tsx",
   },
 
   external: [
@@ -32,7 +31,6 @@ export default defineConfig((options) => ({
     "@radix-ui/react-label",
     "@radix-ui/react-navigation-menu",
     "@radix-ui/react-slot",
-    "@radix-ui/react-toast",
     "@radix-ui/react-*", // Catch any other Radix components
 
     // Form libraries

@@ -18,10 +18,10 @@ const ListItemCard: FC<ListItem> = ({ title, date, body, link }) => {
   }).format(new Date(date));
 
   return (
-    <div className="flex flex-col gap-3 text-dark dark:text-light">
-      <h2 className="text-heading-small line-clamp-1">{title}</h2>
-      {date && <h3 className="text-detail line-clamp-1">{formattedDate}</h3>}
-      <p className="text-body line-clamp-3">{body}</p>
+    <div className="text-body flex flex-col gap-3 text-dark">
+      <h2 className="text-heading-small md:text-heading">{title}</h2>
+      {date && <h3 className="text-light line-clamp-1">{formattedDate}</h3>}
+      <p className="line-clamp-3">{body}</p>
       <Button href={href} size="sm" variant="outline">
         {link.displayText}
       </Button>
@@ -40,7 +40,7 @@ const List: FC<ListProps> = ({ items, moreLabel, lessLabel }) => {
   const hasMore = visibleCount < items.length;
 
   return (
-    <div className="flex flex-col gap-20 items-center px-6 md:px-20 py-14 bg-white dark:bg-dark">
+    <div className="flex flex-col gap-20 items-center px-6 md:px-20 py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16">
         {visibleItems.map(
           (item) => item && <ListItemCard key={item.id} {...item} />,

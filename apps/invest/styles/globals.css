@@ -42,14 +42,6 @@
     scroll-margin-top: 120px;
   }
 
-  html {
-    background-color: var(--dark);
-  }
-
-  main {
-    transition: background-color 600ms ease-out;
-  }
-
   div.asset.fluid > div:first-child {
     aspect-ratio: auto !important; /* stylelint-disable-line declaration-no-important */
     block-size: 100%;

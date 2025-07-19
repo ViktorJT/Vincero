@@ -1,7 +1,7 @@
-import { getTheme } from "@/data/queries/getTheme";
+import { fetchTheme } from "@/data/fetchTheme";
 
 export async function ThemeProvider() {
-  const theme = await getTheme();
+  const theme = await fetchTheme();
 
   const cssVars = `
     :root[data-theme="fastigheter"] {
@@ -10,7 +10,6 @@ export async function ThemeProvider() {
       --muted: ${theme.muted.css};
       --dark: ${theme.dark.css};
       --black: ${theme.black.css};
-      --accent: ${theme.accent.css};
     }
   `;
 

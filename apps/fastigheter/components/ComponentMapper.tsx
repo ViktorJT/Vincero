@@ -40,8 +40,7 @@ interface ModuleProps {
   id: string;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // For additional props passed from CMS
-  // @todos replace all of this with graphql-codegen later?
+  [key: string]: any;
 }
 
 interface ComponentMapperProps {
@@ -72,7 +71,6 @@ export async function ComponentMapper({ components }: ComponentMapperProps) {
           return null;
         }
 
-        // @todos type here isn't good
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return <Component key={`${props.id}-${i}`} {...(props as any)} />;
       })}

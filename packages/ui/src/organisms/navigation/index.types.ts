@@ -15,7 +15,6 @@ export type BackdropProps = {
 };
 
 export type ToggleProps = {
-  hasScrolled: boolean;
   className?: string;
   isOpen: boolean;
   onClick: () => void;
@@ -24,10 +23,8 @@ export type ToggleProps = {
 export type Props = {
   id?: string;
   className?: string;
-  logoLight: AssetProps;
-  logoDark: AssetProps;
-  leftColumn: NavItemProps[];
-  rightColumn: NavItemProps[];
+  logo: AssetProps;
+  links: NavItemProps[];
 };
 
 export type SlideMenuProps = {

@@ -10,7 +10,6 @@ export async function ThemeProvider() {
       --muted: ${theme.muted.css};
       --dark: ${theme.dark.css};
       --black: ${theme.black.css};
-      --accent: ${theme.accent.css};
     }
   `;
 

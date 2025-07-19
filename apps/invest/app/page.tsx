@@ -5,7 +5,7 @@ import { Footer } from "@vincero/ui/footer";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
-import { getPage } from "@/data/queries/pages/getPage";
+import { getComponentsBySlug } from "@/data/queries/pages/getComponentsBySlug";
 import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
 import { getLayout } from "@/data/queries/getLayout";
 
@@ -42,12 +42,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const { theme, components } = await getPage("homepage", defaultLocale);
-
+  const components = await getComponentsBySlug("homepage", defaultLocale);
   const { navigation, footer } = await getLayout(defaultLocale);
 
   return (
-    <main className={theme.dark ? "dark" : "light"}>
+    <main>
       <Navigation {...navigation} />
       <div>
         <ComponentMapper components={components} />

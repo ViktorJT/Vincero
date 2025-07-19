@@ -1,4 +1,5 @@
-import type { AssetProps, ParagraphProps } from "../../types.ts";
+import type { AssetProps } from "../../types.ts";
+import type { TextProps } from "../text/index.types.js";
 
 interface FieldProps {
   id: string;
@@ -12,12 +13,13 @@ interface Props {
   id: string;
   name: string;
   image?: AssetProps;
-  text?: ParagraphProps;
+  text?: TextProps;
   fields?: FieldProps[];
   submitButtonLabel: string;
   action: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   schema: any;
+  contact: Record<string, Record<string, string>>;
 }
 
 export type { FieldProps, Props };

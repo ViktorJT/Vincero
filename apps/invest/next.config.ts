@@ -10,7 +10,6 @@ const bundleAnalyzer = withBundleAnalyzer({
 const config: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
-    unoptimized: true,
   },
 
   reactStrictMode: true,

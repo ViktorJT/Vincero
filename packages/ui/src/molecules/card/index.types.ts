@@ -1,16 +1,35 @@
-import type { RichTextContent } from "@graphcms/rich-text-types";
+import type { LinkProps, AssetProps, RichTextType } from "../../types";
 
-import type { LinkProps, AssetProps } from "../../types";
-
-export interface Props {
+type BaseProps = {
+  asset?: AssetProps;
   className?: string;
   id: string;
-  fill?: true;
-  truncate?: boolean;
-  mediaClassName?: string;
-  asset?: AssetProps;
-  text: {
-    raw: RichTextContent;
-  };
   link?: LinkProps;
-}
+};
+
+export type DefaultCardProps = {
+  __typename: "DefaultCard";
+  text: RichTextType;
+};
+
+export type UnitCardProps = {
+  __typename: "UnitCard";
+  subtitle: string;
+  title: string;
+  information: {
+    title: string;
+    text: string;
+    id: string;
+  }[];
+};
+
+export type TeamCardProps = {
+  __typename: "TeamCard";
+  text: RichTextType;
+  email?: string;
+};
+
+export type Props =
+  | (BaseProps & DefaultCardProps)
+  | (BaseProps & UnitCardProps)
+  | (BaseProps & TeamCardProps);

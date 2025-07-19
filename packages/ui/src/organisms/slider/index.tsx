@@ -2,24 +2,19 @@
 
 import { Button } from "../../atoms/button";
 import { Media } from "../media";
+
 import { cn } from "../../lib/utils/cn";
 
 import type { Props, TextBlockProps } from "./index.types.ts";
 
-function Block({ title, heading, body, links }: TextBlockProps) {
+function Block({ title, text, links }: TextBlockProps) {
   return (
-    <div className="textBlock h-full justify-center flex text-pretty bg-white dark:bg-dark -mt-10 md:mt-0 mx-6 md:mx-0 z-10 flex-col gap-6 md:gap-10 p-8 md:p-20">
-      {title && (
-        <p className="text-accent dark:text-muted text-detail uppercase">
-          {title}
-        </p>
-      )}
-
-      <p className="text-heading sm:text-heading-large lg:text-display">
-        {heading}
-      </p>
-
-      <p className="text-body lg:text-body-large">{body}</p>
+    <div className="h-full leading-relaxed justify-center flex text-pretty bg-white -mt-10 md:mt-0 mx-6 md:mx-0 z-10 flex-col gap-6 md:gap-10 p-8 md:p-20 mb-10 md:mb-0 prose">
+      <div
+        dangerouslySetInnerHTML={{ __html: title.html }}
+        className="text-heading-small md:text-heading-large"
+      />
+      <div dangerouslySetInnerHTML={{ __html: text.html }} />
 
       {links && (
         <div className="flex flex-wrap gap-4 md:pt-4">
@@ -40,10 +35,7 @@ function Block({ title, heading, body, links }: TextBlockProps) {
 
 function Slider({ id, blocks = [] }: Props) {
   return (
-    <div
-      className="flex flex-col bg-white dark:bg-dark text-dark dark:text-light w-full"
-      id={id}
-    >
+    <div className="flex flex-col w-full" id={id}>
       {blocks.map((block, index) => (
         <div
           key={`row-${index}`}

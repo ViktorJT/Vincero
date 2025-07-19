@@ -2,47 +2,49 @@ import Link from "next/link";
 
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 
+import { Media } from "../media";
+
 import type { Props } from "./index.types";
 
 export function Footer(props: Props) {
   return (
-    <footer className="flex flex-wrap md:mx-6 px-6 gap-y-10 pt-20 pb-10 bg-dark text-light text-body lg:text-body-large">
-      <div className="basis-[calc(50%-1rem)] text-light min-w-[320px]">
-        <p className="font-bold text-muted pb-2">{props.name}</p>
-        <p>{props.address}</p>
-        <p>
-          {props.postalCode} {props.city}
-        </p>
-        <a href={`mailto:${props.email}`}>{props.email}</a>
+    <footer className="flex flex-col md:flex-row gap-y-6 px-6 py-8 md:p-10 bg-dark text-white text-body">
+      <div className="flex flex-1">
+        <Media
+          asset={props.vinceroLogo}
+          className="inset-0 h-auto max-w-[160px] object-contain"
+        />
       </div>
 
-      <div className="basis-[calc(50%-1rem)] min-w-[320px] max-w-[640px]">
-        <p className="font-bold text-muted pb-2">Sidor</p>
-        <div className="grid grid-cols-2 gap-6">
-          {[props.leftColumn, props.rightColumn].map(
-            (column, colIndex: number) => (
-              <ul key={`footer-col-${colIndex}`}>
-                {column.map((navItem) => {
-                  const { href } = prioritiseHref(navItem.menuLink);
-                  return (
-                    <Link
-                      key={`footer-${navItem.id}`}
-                      className="block"
-                      href={href}
-                    >
-                      {navItem.menuLink.displayText}
-                    </Link>
-                  );
-                })}
-              </ul>
-            ),
-          )}
+      <div className="hidden md:block border-r mx-10" />
+
+      <div className="flex flex-col flex-1 gap-6 md:gap-10">
+        <div className="flex flex-col gap-3">
+          <p className="text-detail uppercase text-muted">{props.title}</p>
+          <div className="flex flex-col gap-2">
+            {props.links.map(({ id, menuLink }) => {
+              const { displayText, href } = prioritiseHref(menuLink);
+              return (
+                <Link key={id} href={href}>
+                  {displayText}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        <div className="flex flex-wrap border-t md:pb-10 pt-6 md:pt-10">
+          {[props.phone, props.email].map((contact) => {
+            return (
+              <div key={contact.id} className="basis-1/2 space-y-3">
+                <p className="text-detail uppercase text-muted">
+                  {contact.title}
+                </p>
+                <p>{contact.text}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-
-      <p className="grow text-detail text-muted text-balance">
-        {props.copyrightInformation}
-      </p>
     </footer>
   );
 }

@@ -4,6 +4,14 @@ import type { ImageProps } from "next/image";
 
 import type { ButtonVariants } from "./atoms/button/index.types";
 
+export type RichTextType = {
+  raw: RichTextContent;
+  html: string;
+  markdown: string;
+  text: string;
+  json: RichTextContent;
+};
+
 export interface PageProps {
   id: string;
   title: string;
@@ -16,7 +24,6 @@ export interface PageProps {
 export interface LinkProps {
   id?: string;
   displayText: string;
-  description?: string;
   variant: ButtonVariants["variant"];
   external: boolean;
   page?: PageProps;
@@ -30,14 +37,6 @@ export interface LinkProps {
   onClick?: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children?: any;
-}
-
-export interface ParagraphProps {
-  id: string;
-  title?: string;
-  paragraphs?: {
-    raw: RichTextContent;
-  }[];
 }
 
 export interface AssetProps extends ImageProps {

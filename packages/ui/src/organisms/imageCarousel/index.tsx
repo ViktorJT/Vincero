@@ -49,10 +49,7 @@ export function ImageCarousel({
   }, [emblaApi, onSelect]);
 
   return (
-    <section
-      className="relative bg-white py-14 dark:bg-dark text-dark dark:text-light w-full"
-      id={id}
-    >
+    <section className="relative text-dark w-full" id={id}>
       {(title || subtitle) && (
         <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 mb-10 md:mb-20">
           {title && (
@@ -68,13 +65,13 @@ export function ImageCarousel({
 
       <div
         ref={emblaRef}
-        className="relative w-full h-[80vh] min-h-[560px] overflow-hidden px-6 md:px-20"
+        className="relative w-full h-[60vh] min-h-[560px] overflow-hidden px-6 md:px-20"
       >
         <div className="-mx-4 flex h-full">
           {images.map((image, index) => (
             <div
               key={`${index}-${image.id}`}
-              className="pl-4 flex-[0_0_80%] md:flex-[0_0_70%] h-full flex items-center justify-center"
+              className="pl-4 flex-[0_0_80%] md:flex-[0_0_70%] lg:flex-[0_0_60%] xl:flex-[0_0_33%] h-full flex items-center justify-center"
             >
               <Media
                 asset={image}

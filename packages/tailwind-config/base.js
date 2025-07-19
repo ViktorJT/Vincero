@@ -17,7 +17,6 @@ export default {
         {
           lineHeight: "var(--line-height-relaxed)",
           letterSpacing: "var(--letter-spacing-none)",
-          fontWeight: "var(--font-weight-medium)",
         },
       ],
       display: [
@@ -25,7 +24,6 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
         },
       ],
       "display-large": [
@@ -33,7 +31,6 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-bold)",
         },
       ],
       "display-huge": [
@@ -41,7 +38,6 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-bold)",
         },
       ],
       body: [
@@ -49,7 +45,6 @@ export default {
         {
           lineHeight: "var(--line-height-relaxed)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-regular)",
         },
       ],
       "body-large": [
@@ -57,7 +52,6 @@ export default {
         {
           lineHeight: "var(--line-height-relaxed)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-regular)",
         },
       ],
       link: [
@@ -65,7 +59,6 @@ export default {
         {
           lineHeight: "var(--line-height-compact)",
           letterSpacing: "var(--letter-spacing-none)",
-          fontWeight: "var(--font-weight-medium)",
         },
       ],
       "link-large": [
@@ -73,7 +66,6 @@ export default {
         {
           lineHeight: "var(--line-height-compact)",
           letterSpacing: "var(--letter-spacing-none)",
-          fontWeight: "var(--font-weight-light)",
         },
       ],
       "heading-small": [
@@ -81,7 +73,6 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
         },
       ],
       heading: [
@@ -89,7 +80,6 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
         },
       ],
       "heading-large": [
@@ -97,7 +87,6 @@ export default {
         {
           lineHeight: "var(--line-height-default)",
           letterSpacing: "var(--letter-spacing-tight)",
-          fontWeight: "var(--font-weight-medium)",
         },
       ],
     },
@@ -105,7 +94,6 @@ export default {
     extend: {
       maxWidth: {
         container: "960px",
-        "container-text-offset": "1120px",
       },
 
       colors: {
@@ -114,7 +102,6 @@ export default {
         muted: "var(--muted)",
         dark: "var(--dark)",
         black: "var(--black)",
-        accent: "var(--accent)",
 
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

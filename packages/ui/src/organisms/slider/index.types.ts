@@ -1,21 +1,13 @@
-import type { LinkProps, AssetProps } from "../../types.ts";
+import type { LinkProps, AssetProps, RichTextType } from "../../types.ts";
 
 export interface TextBlockProps {
-  title?: string;
-  heading: string;
-  body: string;
+  title: RichTextType;
+  text: RichTextType;
   links?: LinkProps[];
-  order?: number;
 }
 
-interface MediaBlockProps {
+interface SlideBlock extends TextBlockProps {
   asset: AssetProps;
-  order?: number;
-}
-
-export type Column = Array<MediaBlockProps | TextBlockProps>;
-
-interface SlideBlock extends TextBlockProps, MediaBlockProps {
   id?: string;
 }
 

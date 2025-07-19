@@ -29,6 +29,7 @@
     "@next/bundle-analyzer": "15.0.2",
     "@vincero/tailwind-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
+    "@vincero/data": "workspace:*",
     "eslint": "^9",
     "eslint-config-next": "^15.0.2",
     "postcss": "^8",

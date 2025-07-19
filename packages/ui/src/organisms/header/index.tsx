@@ -27,7 +27,7 @@ function Header({ id, title, subtitle, asset }: Props) {
 
       <div
         className={cn(
-          "absolute max-h-[100svh] inset-0 flex flex-col p-6 md:p-10 text-white",
+          "absolute max-h-[100svh] inset-0 flex flex-col p-6 md:py-10 md:px-20 text-white",
           subtitle
             ? "mb-14 md:mb-[6rem] justify-end"
             : "justify-center items-center",
@@ -41,7 +41,7 @@ function Header({ id, title, subtitle, asset }: Props) {
         >
           <h1
             className={cn(
-              "text-heading-large",
+              "text-display font-semibold",
               subtitle ? "mb-6 md:text-display-large" : "md:text-display-huge",
             )}
           >

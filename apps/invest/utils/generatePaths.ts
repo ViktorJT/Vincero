@@ -1,7 +1,7 @@
 import { defaultLocale } from "@vincero/languages-config";
 
 import type { Locale } from "@vincero/languages-config";
-import type { Page } from "@/data/types";
+import type { Page } from "@/types";
 
 export const generatePaths = ({ parentPage, slug }: Page, locale?: Locale) =>
   slug === "homepage"

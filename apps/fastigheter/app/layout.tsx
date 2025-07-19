@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -8,8 +8,7 @@ import type { Metadata } from "next";
 export const dynamic = "auto";
 export const revalidate = 3600;
 
-// @todo update this to use variable for performance?
-const inter = Inter({
+const inter = Manrope({
   weight: ["200", "300", "500"],
   style: ["normal"],
   subsets: ["latin"],
@@ -17,9 +16,9 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-import { seoQuery } from "@/data/queries/meta/seo";
+import { seoQuery } from "@vincero/data/queries/meta/seo";
 
-import { throttledFetchData } from "@/utils/fetchData";
+import { throttledFetchData } from "@/data/fetchData";
 
 import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";
