@@ -228,7 +228,7 @@ function LanguageToggle() {
     >
       <span
         className={cn(
-          "transition-opacity duration-200",
+          "transition-colors hover:text-muted hover:opacity-100",
           currentLocale === "sv" ? "opacity-100" : "opacity-50",
         )}
       >
@@ -237,7 +237,7 @@ function LanguageToggle() {
       /
       <span
         className={cn(
-          "transition-opacity duration-200",
+          "transition-colors hover:text-muted hover:opacity-100",
           currentLocale === "en" ? "opacity-100" : "opacity-50",
         )}
       >
