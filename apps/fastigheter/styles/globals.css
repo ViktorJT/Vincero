@@ -26,9 +26,9 @@
     --font-size-heading-small: 1.25rem; /* 18px */
     --font-size-heading: 1.5rem; /* 18px */
     --font-size-heading-large: 2.125rem; /* 32px */
-    --font-size-display: 3rem; /* 48px */
-    --font-size-display-large: 3.5rem; /* 56px */
-    --font-size-display-huge: 5rem; /* 80px */
+    --font-size-display: 2.5rem; /* 48px */
+    --font-size-display-large: 3rem; /* 56px */
+    --font-size-display-huge: 3.5rem; /* 80px */
 
     /* Line heights */
     --line-height-compact: 100%;

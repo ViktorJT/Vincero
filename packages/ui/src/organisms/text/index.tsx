@@ -9,7 +9,7 @@ function Text({ id, title, text }: TextProps) {
       <div className="flex flex-col md:flex-row gap-y-8 prose">
         <div
           dangerouslySetInnerHTML={{ __html: title.html }}
-          className="flex-1 md:pr-6 -mt-1 text-heading"
+          className="flex-1 md:pr-6 -mt-1 text-heading-large md:text-display"
         />
 
         <div
