@@ -52,6 +52,10 @@
     font-weight: 300;
   }
 
+  b {
+    font-weight: 600;
+  }
+
   [id] {
     scroll-margin-top: 120px;
   }
