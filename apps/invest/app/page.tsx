@@ -5,16 +5,16 @@ import { Footer } from "@vincero/ui/footer";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
-import { getComponentsBySlug } from "@/data/queries/pages/getComponentsBySlug";
-import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
-import { getLayout } from "@/data/queries/getLayout";
+import { fetchComponentsBySlug } from "@/data/fetchComponentsBySlug";
+import { fetchSeoBySlug } from "@/data/fetchSeoBySlug";
+import { fetchLayout } from "@/data/fetchLayout";
 
 import type { Metadata } from "next";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { page } = await getSeoBySlug("homepage");
+  const { page } = await fetchSeoBySlug("homepage");
 
   if (!page) {
     return {
@@ -42,15 +42,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const components = await getComponentsBySlug("homepage", defaultLocale);
-  const { navigation, footer } = await getLayout(defaultLocale);
+  const components = await fetchComponentsBySlug("homepage", defaultLocale);
+  const { navigation, footer } = await fetchLayout(defaultLocale);
 
   return (
     <main>
       <Navigation {...navigation} />
-      <div>
-        <ComponentMapper components={components} />
-      </div>
+      <ComponentMapper components={components} />
       <Footer {...footer} />
     </main>
   );

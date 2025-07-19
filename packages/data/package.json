@@ -3,7 +3,5 @@
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
-  "exports": {
-    "./*": "./*"
-  }
+  "types": "./index.d.ts"
 }

@@ -3,8 +3,7 @@ import { defaultLocale, locales } from "@vincero/languages-config";
 import { throttledFetchData } from "@/data/fetchData";
 
 import { generatePaths } from "@/utils/generatePaths";
-
-import type { StaticParams } from "@vincero/data/types";
+import type { StaticParams } from "@/types";
 
 const query = `
   query PagesQuery {

@@ -2,13 +2,14 @@ import { notFound } from "next/navigation";
 
 import { ComponentMapper } from "@/components/ComponentMapper";
 
-import { getSeoBySlug } from "@/data/queries/pages/getSeoBySlug";
-import { getPaths } from "@/data/queries/pages/getPaths";
-import { getPage } from "@/data/queries/pages/getPage";
+import { fetchComponentsBySlug } from "@/data/fetchComponentsBySlug";
+import { fetchSeoBySlug } from "@/data/fetchSeoBySlug";
+import { fetchPaths } from "@/data/fetchPaths";
 
 import { getLocaleAndSlugFromPath } from "@/utils/getLocaleAndSlugFromPath";
 
-import type { PageProps } from "@/data/types";
+import type { PageProps } from "@/types";
+
 import type { Metadata } from "next";
 
 export const revalidate = 300;
@@ -25,7 +26,7 @@ export async function generateMetadata({
     notFound();
   }
 
-  const { page } = await getSeoBySlug(slug);
+  const { page } = await fetchSeoBySlug(slug);
 
   if (!page) {
     notFound();
@@ -56,7 +57,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const paths = await getPaths();
+  const paths = await fetchPaths();
 
   if (!paths || !Array.isArray(paths)) {
     console.warn("No paths found or invalid paths format");
@@ -75,7 +76,7 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  const { components } = await getPage(slug!, locale);
+  const components = await fetchComponentsBySlug(slug, locale);
 
   return (
     <>

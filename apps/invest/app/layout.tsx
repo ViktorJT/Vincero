@@ -16,9 +16,9 @@ const font = Roboto_Slab({
   weight: ["200", "300", "500"],
 });
 
-import { seoQuery } from "@/data/queries/meta/seo";
+import { seoQuery } from "@vincero/data/queries/meta/seo";
 
-import { throttledFetchData } from "@/utils/fetchData";
+import { throttledFetchData } from "@/data/fetchData";
 
 import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";

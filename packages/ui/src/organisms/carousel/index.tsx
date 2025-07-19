@@ -166,7 +166,7 @@ const Item = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 );
 Item.displayName = "Item";
 
-function Carousel({ title, subtitle, items, mediaClass, id }: CarouselProps) {
+function Carousel({ title, subtitle, items, id }: CarouselProps) {
   return (
     <section className="relative w-full" id={id}>
       <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 mb-10 md:mb-20">
@@ -184,7 +184,7 @@ function Carousel({ title, subtitle, items, mediaClass, id }: CarouselProps) {
         <Content>
           {items.map((item: CardProps) => (
             <Item key={item.id} className="basis-1/2 md:basis-1/4">
-              <Card {...item} mediaClassName={mediaClass} />
+              <Card {...item} />
             </Item>
           ))}
         </Content>

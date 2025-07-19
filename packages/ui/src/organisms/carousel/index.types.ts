@@ -29,6 +29,5 @@ export type CarouselProps = {
   id: string;
   title: string;
   items: CardProps[];
-  mediaClass?: string;
   subtitle?: string;
 };

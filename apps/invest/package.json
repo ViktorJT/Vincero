@@ -4,7 +4,6 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack --port 3000",
-    "build": "next build",
     "clean": "rm -rf .turbo .next node_modules",
     "start": "next start",
     "lint": "next lint"
@@ -16,20 +15,19 @@
     "@hookform/resolvers": "^3.9.1",
     "@studio-freight/lenis": "^1.0.42",
     "@vincero/languages-config": "workspace:*",
+    "@vincero/data": "workspace:*",
     "@vincero/ui": "workspace:*",
     "next": "latest",
     "next-cloudinary": "^6.16.0",
     "p-throttle": "^6.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "resend": "^4.5.1",
-    "zod": "^3.23.8"
+    "resend": "^4.5.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.0.2",
     "@vincero/tailwind-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
-    "@vincero/data": "workspace:*",
     "eslint": "^9",
     "eslint-config-next": "^15.0.2",
     "postcss": "^8",

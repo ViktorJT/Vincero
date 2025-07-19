@@ -1,7 +1,7 @@
-import { getTheme } from "@/data/queries/getTheme";
+import { fetchTheme } from "@/data/fetchTheme";
 
 export async function ThemeProvider() {
-  const theme = await getTheme();
+  const theme = await fetchTheme();
 
   const cssVars = `
     :root[data-theme="invest"] {
