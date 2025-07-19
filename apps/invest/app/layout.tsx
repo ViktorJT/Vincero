@@ -75,7 +75,10 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html data-theme="invest" className={`${font.variable}`}>
+    <html
+      data-theme="invest"
+      className={`${font.variable} text-black leading-relaxed`}
+    >
       <head>
         <ThemeProvider />
       </head>

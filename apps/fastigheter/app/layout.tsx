@@ -75,7 +75,10 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html data-theme="fastigheter" className={`${inter.variable}`}>
+    <html
+      data-theme="fastigheter"
+      className={`${inter.variable} text-black leading-relaxed`}
+    >
       <head>
         <ThemeProvider />
       </head>
