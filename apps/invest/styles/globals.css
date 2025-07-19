@@ -52,7 +52,8 @@
     font-weight: 300;
   }
 
-  b {
+  b,
+  strong {
     font-weight: 600;
   }
 
