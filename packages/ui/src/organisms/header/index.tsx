@@ -4,7 +4,7 @@ import { cn } from "../../lib/utils/cn";
 import { Media } from "../../organisms/media";
 import type { Props } from "./index.types.ts";
 
-function Header({ id, title, subtitle, asset }: Props) {
+function Header({ id, heading, subHeading, asset }: Props) {
   return (
     <section
       className={cn(
@@ -28,7 +28,7 @@ function Header({ id, title, subtitle, asset }: Props) {
       <div
         className={cn(
           "absolute max-h-[100svh] inset-0 flex flex-col p-6 md:py-10 md:px-20 text-white",
-          subtitle
+          subHeading?.text
             ? "mb-14 md:mb-[6rem] justify-end"
             : "justify-center items-center",
         )}
@@ -36,21 +36,24 @@ function Header({ id, title, subtitle, asset }: Props) {
         <div
           className={cn(
             "drop-shadow-xl max-w-[720px]",
-            !subtitle && "max-w-[800px] text-center",
+            !subHeading?.text && "max-w-[800px] text-center",
           )}
         >
-          <h1
+          <div
+            dangerouslySetInnerHTML={{ __html: heading.html }}
             className={cn(
-              "text-display font-semibold",
-              subtitle ? "mb-6 md:text-display-large" : "md:text-display-huge",
+              "text-display-large",
+              subHeading?.text
+                ? "mb-6 md:text-display-large"
+                : "md:text-display-huge",
             )}
-          >
-            {title}
-          </h1>
-          {subtitle !== " " && (
-            <p className="text-body lg:text-body-large text-white max-w-[500px]">
-              {subtitle}
-            </p>
+          />
+
+          {subHeading?.text && (
+            <div
+              dangerouslySetInnerHTML={{ __html: subHeading?.html }}
+              className="text-body lg:text-body-large text-white max-w-[500px]"
+            />
           )}
         </div>
       </div>

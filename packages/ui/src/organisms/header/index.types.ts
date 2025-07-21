@@ -1,9 +1,9 @@
-import type { AssetProps, LinkProps } from "../../types.ts";
+import type { AssetProps, LinkProps, RichTextType } from "../../types.ts";
 
 interface Props {
   id: string;
-  title: string;
-  subtitle: string;
+  heading: RichTextType;
+  subHeading: RichTextType;
   links?: LinkProps[];
   asset?: AssetProps;
 }
