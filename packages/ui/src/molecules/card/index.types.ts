@@ -8,7 +8,7 @@ type BaseProps = {
 };
 
 export type DefaultCardProps = {
-  __typename: "DefaultCard";
+  __typename: "Card";
   text: RichTextType;
 };
 

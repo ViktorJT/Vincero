@@ -7,7 +7,6 @@ export default defineConfig((options) => ({
   entry: {
     "banner/index": "src/organisms/banner/index.tsx",
     "list/index": "src/organisms/list/index.tsx",
-    "carousel/index": "src/organisms/carousel/index.tsx",
     "imageCarousel/index": "src/organisms/imageCarousel/index.tsx",
     "form/index": "src/organisms/form/index.tsx",
     "footer/index": "src/organisms/footer/index.tsx",

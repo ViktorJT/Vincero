@@ -2,7 +2,6 @@
 
 import { BannerQuery } from "@vincero/data/queries/components/Banner";
 import { ListQuery } from "@vincero/data/queries/components/List";
-import { CarouselQuery } from "@vincero/data/queries/components/Carousel";
 import { ImageCarouselQuery } from "@vincero/data/queries/components/ImageCarousel";
 import { FormQuery } from "@vincero/data/queries/components/Form";
 import { HeaderQuery } from "@vincero/data/queries/components/Header";
@@ -21,7 +20,6 @@ interface EntityType {
 const Queries = {
   Banner: BannerQuery,
   List: ListQuery,
-  Carousel: CarouselQuery,
   ImageCarousel: ImageCarouselQuery,
   Form: FormQuery,
   Header: HeaderQuery,

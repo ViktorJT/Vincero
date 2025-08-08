@@ -52,8 +52,12 @@ export function ImageCarousel({
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="relative text-dark w-full" id={id}>
-      <Title subtitle={subtitle} title={title} />
+    <section className="relative text-dark w-full py-10 md:py-14" id={id}>
+      <Title
+        className="px-6 md:px-20 mx-auto"
+        subtitle={subtitle}
+        title={title}
+      />
 
       <div
         ref={emblaRef}

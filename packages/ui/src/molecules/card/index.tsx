@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { RichText } from "@graphcms/rich-text-react-renderer";
 import { Media } from "../../organisms/media";
 
 import { Container, CardContent, CardHeader } from "../../atoms/card";
@@ -19,22 +18,9 @@ import type {
 
 function DefaultCard({ text }: DefaultCardProps) {
   return (
-    <RichText
-      content={text.raw}
-      renderers={{
-        p: ({ children }) => <p className="leading-relaxed">{children}</p>,
-        a: ({ children, className, href }) => (
-          <a
-            className={cn("underline cursor-pointer break-words", className)}
-            href={href}
-          >
-            {children}
-          </a>
-        ),
-        h1: ({ children }) => (
-          <h1 className="text-heading-small md:text-heading">{children}</h1>
-        ),
-      }}
+    <div
+      dangerouslySetInnerHTML={{ __html: text.html }}
+      className="flex-1 text-body space-y-2 md:space-y-4"
     />
   );
 }
@@ -118,7 +104,7 @@ export function Card({
             </CardHeader>
           )}
           <CardContent className="p-4 md:p-6 space-y-2 md:space-y-4">
-            {__typename === "DefaultCard" && (
+            {__typename === "Card" && (
               <DefaultCard {...(props as DefaultCardProps)} />
             )}
             {__typename === "TeamCard" && (

@@ -1,6 +1,5 @@
 import { Banner } from "@vincero/ui/banner";
 import { List } from "@vincero/ui/list";
-import { Carousel } from "@vincero/ui/carousel";
 import { ImageCarousel } from "@vincero/ui/imageCarousel";
 import { Form } from "@vincero/ui/form";
 import { Header } from "@vincero/ui/header";
@@ -13,7 +12,6 @@ import type { ComponentType } from "react";
 
 import type { BannerProps } from "@vincero/ui/banner";
 import type { ListProps } from "@vincero/ui/list";
-import type { CarouselProps } from "@vincero/ui/carousel";
 import type { ImageCarouselProps } from "@vincero/ui/imageCarousel";
 import type { FormProps } from "@vincero/ui/form";
 import type { HeaderProps } from "@vincero/ui/header";
@@ -25,7 +23,6 @@ import type { TextProps } from "@vincero/ui/text";
 type ComponentTypes = {
   Banner: ComponentType<BannerProps>;
   List: ComponentType<ListProps>;
-  Carousel: ComponentType<CarouselProps>;
   ImageCarousel: ComponentType<ImageCarouselProps>;
   Form: ComponentType<FormProps>;
   Header: ComponentType<HeaderProps>;
@@ -50,7 +47,6 @@ interface ComponentMapperProps {
 const Components = {
   Banner,
   List,
-  Carousel,
   ImageCarousel,
   Form,
   Header,
