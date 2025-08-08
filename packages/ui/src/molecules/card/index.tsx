@@ -64,7 +64,7 @@ function UnitCard({ title, subtitle, information }: UnitCardProps) {
     <div className="space-y-4">
       <div className="space-y-2">
         <p className="text-heading-small md:text-heading">{title}</p>
-        <p className="text-detail text-light">{subtitle}</p>
+        <p className="text-body text-light">{subtitle}</p>
       </div>
       <div className="space-y-1">
         {information.map(({ title, text, id }) => (

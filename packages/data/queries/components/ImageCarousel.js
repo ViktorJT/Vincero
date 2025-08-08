@@ -1,6 +1,8 @@
+import { RichTextFragment } from "../fragments/RichText";
 import { AssetFragment } from "../fragments/Asset";
 
 export const ImageCarouselQuery = `
+  ${RichTextFragment}  
   ${AssetFragment}  
 
   query GetCarouselByID($id: ID!, $locale: Locale!) {
@@ -8,8 +10,12 @@ export const ImageCarouselQuery = `
       __typename
       id
 
-      title
-      subtitle
+      title {
+        ...RichText
+      }
+      subtitle {
+        ...RichText
+      }
 
       images(first: 20) {
         ...Asset

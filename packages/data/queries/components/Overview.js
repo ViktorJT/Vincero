@@ -18,8 +18,12 @@ export const OverviewQuery = `
       __typename
       id
 
-      title
-      subtitle
+      title {
+        ...RichText
+      }
+      subtitle {
+        ...RichText
+      }
 
       items(first: 100) {
         ...TeamCard

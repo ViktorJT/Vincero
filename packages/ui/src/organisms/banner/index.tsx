@@ -12,9 +12,10 @@ function Banner({ id, title, textBlocks = [] }: Props) {
     >
       <div className="w-full mx-auto flex flex-col md:gap-0 gap-8 md:flex-row justify-items-center justify-around md:items-center">
         <div className="w-full w-4/5 md:w-1/2">
-          <h1 className="text-heading-large md:text-display md:pr-10">
-            {title}
-          </h1>
+          <div
+            dangerouslySetInnerHTML={{ __html: title.html }}
+            className="flex-1 md:pr-10 -mt-1 text-heading-large md:text-display"
+          />
         </div>
 
         {textBlocks && (

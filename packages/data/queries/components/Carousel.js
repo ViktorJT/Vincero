@@ -14,8 +14,12 @@ export const CarouselQuery = `
       __typename
       id
 
-      title
-      subtitle
+      title {
+        ...RichText
+      }
+      subtitle {
+        ...RichText
+      }
 
       items(first: 20) {
         ...Card

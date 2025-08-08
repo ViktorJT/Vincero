@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+
+import { Title } from "../../molecules/title";
 import { Button } from "../../atoms/button";
 import { Media } from "../media";
-import type { AssetProps } from "../../types";
+
+import type { AssetProps, RichTextType } from "../../types";
 
 export type ImageCarouselProps = {
-  title?: string;
-  subtitle?: string;
+  title?: RichTextType;
+  subtitle?: RichTextType;
   id?: string;
   images: AssetProps[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,18 +53,7 @@ export function ImageCarousel({
 
   return (
     <section className="relative text-dark w-full" id={id}>
-      {(title || subtitle) && (
-        <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 mb-10 md:mb-20">
-          {title && (
-            <h2 className="text-heading-large md:text-display">{title}</h2>
-          )}
-          {subtitle && (
-            <p className="text-body lg:text-body-large max-w-[75%]">
-              {subtitle}
-            </p>
-          )}
-        </div>
-      )}
+      <Title subtitle={subtitle} title={title} />
 
       <div
         ref={emblaRef}

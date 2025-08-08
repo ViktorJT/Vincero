@@ -7,8 +7,10 @@ export const BannerQuery = `
     banner(where: { id: $id }, locales: [$locale, en]) {
       __typename
       id
-
-      title
+ 
+      title {
+        ...RichText
+      }
 
       textBlocks {
         ...RichText

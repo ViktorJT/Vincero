@@ -2,6 +2,7 @@ import type { UseEmblaCarouselType } from "embla-carousel-react";
 import type useEmblaCarousel from "embla-carousel-react";
 
 import type { Props as CardProps } from "../../molecules/card/index.types";
+import type { RichTextType } from "../../types";
 
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
@@ -27,7 +28,7 @@ export type CarouselContextProps = {
 
 export type CarouselProps = {
   id: string;
-  title: string;
+  title?: RichTextType;
   items: CardProps[];
-  subtitle?: string;
+  subtitle?: RichTextType;
 };

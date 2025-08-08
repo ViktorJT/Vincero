@@ -17,6 +17,7 @@ import { cn } from "../../lib/utils/cn";
 import { Card } from "../../molecules/card";
 
 import type { Props as CardProps } from "../../molecules/card/index.types";
+import { Title } from "../../molecules/title";
 
 const Container = forwardRef<
   HTMLDivElement,
@@ -169,13 +170,7 @@ Item.displayName = "Item";
 function Carousel({ title, subtitle, items, id }: CarouselProps) {
   return (
     <section className="relative w-full" id={id}>
-      <div className="max-w-[540px] mx-auto md:max-w-none text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 px-6 md:px-10 pt-20 mb-10 md:mb-20">
-        <h2 className="text-heading-large md:text-display mr-10">{title}</h2>
-
-        {subtitle && (
-          <p className="text-body lg:text-body-large max-w-[75%]">{subtitle}</p>
-        )}
-      </div>
+      <Title subtitle={subtitle} title={title} />
 
       <Container
         className="z-10 w-full flex flex-col"
