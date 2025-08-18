@@ -97,11 +97,11 @@ export default {
       },
 
       colors: {
-        white: "var(--white)",
-        light: "var(--light)",
-        muted: "var(--muted)",
-        dark: "var(--dark)",
-        black: "var(--black)",
+        white: "rgb(var(--white) / <alpha-value>)",
+        light: "rgb(var(--light) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        dark: "rgb(var(--dark) / <alpha-value>)",
+        black: "rgb(var(--black) / <alpha-value>)",
 
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

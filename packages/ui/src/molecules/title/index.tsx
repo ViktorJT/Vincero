@@ -10,7 +10,7 @@ export function Title({ title, subtitle, className }: Props) {
   return (
     <div
       className={cn(
-        "max-w-[540px] md:max-w-none text-dark text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 mb-10 md:mb-12",
+        "max-w-[540px] md:max-w-none text-dark dark:text-white text-pretty grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 mb-10 md:mb-12",
         className,
       )}
     >

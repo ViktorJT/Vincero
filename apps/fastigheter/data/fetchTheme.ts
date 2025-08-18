@@ -1,31 +1,55 @@
 import { throttledFetchData } from "@/data/fetchData";
 
+type Rgba = {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+};
+
+type RgbaTheme = {
+  rgba: Rgba;
+};
+
 interface ThemeData {
   themes: Array<{
-    black: { css: string };
-    dark: { css: string };
-    muted: { css: string };
-    light: { css: string };
-    white: { css: string };
+    black: RgbaTheme;
+    dark: RgbaTheme;
+    muted: RgbaTheme;
+    light: RgbaTheme;
+    white: RgbaTheme;
   }>;
 }
 
-export async function fetchTheme() {
+type Theme = ThemeData["themes"][number];
+
+export async function fetchTheme(): Promise<Theme> {
   const query = `
+    fragment ColorFields on Color {
+      rgba {
+        ... on RGBA {
+          r
+          g
+          b
+          a
+        }
+      }
+    }
+
     query FetchTheme {
       themes(first: 1) {
-        black { css }
-        dark { css }
-        muted { css }
-        light { css }
-        white { css }
+        black { ...ColorFields }
+        dark  { ...ColorFields }
+        muted { ...ColorFields }
+        light { ...ColorFields }
+        white { ...ColorFields }
       }
     }
   `;
 
   const data = await throttledFetchData<ThemeData>({ query });
 
-  if (!data) {
+  if (!data || !data.themes?.length) {
     throw new Error("Unable to fetch theme");
   }
 

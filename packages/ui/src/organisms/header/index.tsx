@@ -4,12 +4,28 @@ import { cn } from "../../lib/utils/cn";
 import { Media } from "../../organisms/media";
 import type { Props } from "./index.types.ts";
 
-function Header({ id, heading, subHeading, asset }: Props) {
+function Header({
+  id,
+  heading,
+  subHeading,
+  asset,
+  fullscreen,
+  assetPosition = "center",
+}: Props) {
+  const objectPos =
+    {
+      top: "object-top",
+      center: "object-center",
+      bottom: "object-bottom",
+      left: "object-left",
+      right: "object-right",
+    }[assetPosition] ?? "object-center";
+
   return (
     <section
       className={cn(
         "relative w-full overflow-hidden",
-        asset ? "h-[100vh]" : "min-h-[64vh]",
+        fullscreen && asset ? "h-[100vh]" : "h-[80vh]",
       )}
       id={id}
     >
@@ -21,7 +37,7 @@ function Header({ id, heading, subHeading, asset }: Props) {
             ...asset,
             className: "absolute inset-0 w-full h-full object-cover",
           }}
-          className="media w-full h-full"
+          className={cn("transition-none media w-full h-full", objectPos)}
         />
       )}
 

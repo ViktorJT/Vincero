@@ -276,7 +276,7 @@ export function Navigation({ className, id, logo, links }: Props) {
       <div
         className={cn(
           "flex items-center px-6 md:px-20 relative transition-colors duration-200",
-          hasScrolled ? "bg-dark" : "bg-transparent",
+          hasScrolled ? "bg-dark" : "bg-dark/20",
         )}
       >
         <div className="mx-auto flex-1 flex items-center">

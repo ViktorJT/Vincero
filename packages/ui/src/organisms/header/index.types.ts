@@ -6,6 +6,8 @@ interface Props {
   subHeading: RichTextType;
   links?: LinkProps[];
   asset?: AssetProps;
+  fullscreen: boolean;
+  assetPosition?: "top" | "center" | "bottom" | "left" | "right";
 }
 
 export type { Props };

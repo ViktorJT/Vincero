@@ -15,6 +15,8 @@ export const TextQuery = `
       text {
         ...RichText
       }
+
+      dark
     }
   }
 `;

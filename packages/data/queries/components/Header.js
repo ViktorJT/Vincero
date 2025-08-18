@@ -20,6 +20,9 @@ export const HeaderQuery = `
       asset { 
         ...Asset
       }
+
+      fullscreen
+      assetPosition
     }
   }
 `;
