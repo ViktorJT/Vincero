@@ -6,6 +6,7 @@ import { useState, type FC } from "react";
 import type { ListItem, ListProps } from "./index.types";
 import { Button } from "../../atoms/button";
 import { Title } from "../../molecules/title";
+import Link from "next/link";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -19,16 +20,14 @@ const ListItemCard: FC<ListItem> = ({ title, date, body, link }) => {
   }).format(new Date(date));
 
   return (
-    <div className="text-body flex flex-col gap-3 text-dark">
-      <h2 className="h-[32px] text-heading-small md:text-heading line-clamp-1">
-        {title}
-      </h2>
-      {date && <h3 className="text-light line-clamp-1">{formattedDate}</h3>}
-      <p className="line-clamp-3 h-auto md:h-[72px]">{body}</p>
-      <Button href={href} size="sm" variant="outline">
-        {link.displayText}
-      </Button>
-    </div>
+    <Link
+      className="transition-all text-body flex flex-col gap-3 bg-light/10 text-dark p-4 shadow-md md:hover:bg-white md:hover:shadow-lg md:hover:-translate-y-1"
+      href={href}
+    >
+      {date && <h3 className="text-detail text-light">{formattedDate}</h3>}
+      <h2 className="text-heading-small">{title}</h2>
+      <p className="line-clamp-3">{body}</p>
+    </Link>
   );
 };
 
@@ -55,7 +54,7 @@ const List: FC<ListProps> = ({
         <Title subtitle={subtitle} title={title} />
 
         <div className="flex flex-col gap-20 items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleItems.map(
               (item) => item && <ListItemCard key={item.id} {...item} />,
             )}
