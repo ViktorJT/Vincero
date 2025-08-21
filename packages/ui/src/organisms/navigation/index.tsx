@@ -253,6 +253,8 @@ export function Navigation({ className, id, logo, links }: Props) {
 
   useScrollLock(isMenuOpen);
 
+  const isHome = usePathname() === "/";
+
   useEffect(() => {
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 0);
@@ -276,7 +278,7 @@ export function Navigation({ className, id, logo, links }: Props) {
       <div
         className={cn(
           "flex items-center px-6 md:px-20 relative transition-colors duration-200",
-          hasScrolled ? "bg-dark" : "bg-dark/20",
+          hasScrolled ? "bg-dark" : isHome ? "bg-dark/0" : "bg-dark/40",
         )}
       >
         <div className="mx-auto flex-1 flex items-center">
@@ -290,7 +292,7 @@ export function Navigation({ className, id, logo, links }: Props) {
           <div className="flex-1 basis-full flex justify-center">
             <Link
               aria-label="Till hemsida"
-              className="relative h-[72px] w-[240px] md:max-h-[80px]"
+              className="relative h-[72px] w-[172px]"
               href="/"
             >
               <Media

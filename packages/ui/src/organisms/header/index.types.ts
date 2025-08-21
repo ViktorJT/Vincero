@@ -3,7 +3,7 @@ import type { AssetProps, LinkProps, RichTextType } from "../../types.ts";
 interface Props {
   id: string;
   heading: RichTextType;
-  subHeading: RichTextType;
+  headingAlignment: "left" | "center" | "right";
   links?: LinkProps[];
   asset?: AssetProps;
   fullscreen: boolean;

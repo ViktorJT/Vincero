@@ -13,9 +13,7 @@ export const HeaderQuery = `
       heading {
         ...RichText
       }
-      subHeading {
-        ...RichText
-      }
+      headingAlignment
 
       asset { 
         ...Asset

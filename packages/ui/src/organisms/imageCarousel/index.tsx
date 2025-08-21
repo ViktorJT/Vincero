@@ -61,13 +61,13 @@ export function ImageCarousel({
 
       <div
         ref={emblaRef}
-        className="relative w-full h-[60vh] min-h-[560px] overflow-hidden px-6 md:px-20"
+        className="relative w-full h-[40vh] md:h-[80vh] min-h-[560px] overflow-hidden px-6 md:px-20"
       >
         <div className="-mx-4 flex h-full">
           {images.map((image, index) => (
             <div
               key={`${index}-${image.id}`}
-              className="pl-4 flex-[0_0_80%] md:flex-[0_0_70%] lg:flex-[0_0_60%] xl:flex-[0_0_33%] h-full flex items-center justify-center"
+              className="pl-4 flex-[0_0_92%] h-full flex items-center justify-center"
             >
               <Media
                 asset={image}

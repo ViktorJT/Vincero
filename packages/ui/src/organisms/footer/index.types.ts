@@ -13,6 +13,10 @@ export type Props = {
   vinceroLogo: AssetProps;
   phone: ValueType;
   email: ValueType;
+  address: ValueType;
+  postalCode: ValueType;
+  copyrightInformation: string;
+  city: ValueType;
   title: string;
   links: NavItemProps[];
 };

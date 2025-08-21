@@ -9,7 +9,7 @@ import type { Props, TextBlockProps } from "./index.types.ts";
 
 function Block({ title, text, links }: TextBlockProps) {
   return (
-    <div className="h-full leading-relaxed justify-center flex shadow-md md:shadow-none text-pretty bg-white -mt-10 md:mt-0 mx-6 md:mx-0 z-10 flex-col gap-6 md:gap-10 p-8 md:p-20 mb-10 md:mb-0 prose">
+    <div className="h-full leading-relaxed justify-center flex text-pretty bg-white z-10 flex-col gap-6 md:gap-10 p-6 md:p-20 mb-10 md:mb-0 prose">
       <div
         dangerouslySetInnerHTML={{ __html: title.html }}
         className="text-heading md:text-display"
