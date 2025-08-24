@@ -56,7 +56,7 @@ function Header({
         <div
           dangerouslySetInnerHTML={{ __html: heading.html }}
           className={cn(
-            "text-balance drop-shadow-xl max-w-[720px] text-display-large",
+            "text-balance drop-shadow-xl max-w-[720px] text-display md:text-display-large lg:text-display-huge",
             textAlign,
           )}
         />

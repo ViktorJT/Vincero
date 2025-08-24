@@ -11,7 +11,7 @@ function Text({ id, title, text, dark }: TextProps) {
       )}
       id={id}
     >
-      <div className="flex flex-col md:flex-row gap-y-8 prose">
+      <div className="flex flex-col md:flex-row gap-y-8 prose w-full">
         <Title className="contents" subtitle={text} title={title} />
       </div>
     </section>
