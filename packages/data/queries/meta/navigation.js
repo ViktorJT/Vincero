@@ -7,8 +7,8 @@ export const navigationQuery = `
   ${NavItemFragment}
   ${LinkFragment}
 
-  query GetNavigation {
-    navigations(first: 1) {
+  query GetNavigation($locale: Locale!) {
+    navigations(first: 1, locales: [$locale, en]) {
       __typename
       id
 

@@ -16,6 +16,7 @@ export async function fetchLayout(locale: Locale) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { contacts }: any = await throttledFetchData({
     query: contactQuery,
+    variables: { locale },
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

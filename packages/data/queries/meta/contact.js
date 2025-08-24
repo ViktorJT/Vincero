@@ -3,8 +3,8 @@ import { ValueFragment } from "../fragments/Value";
 export const contactQuery = `
   ${ValueFragment}
 
-  query GetContact {
-    contacts(first: 1) {
+  query GetContact($locale: Locale!) {
+    contacts(first: 1, locales: [$locale, en]) {
       __typename
       id
 
