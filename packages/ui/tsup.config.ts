@@ -9,6 +9,7 @@ export default defineConfig((options) => ({
     "list/index": "src/organisms/list/index.tsx",
     "imageCarousel/index": "src/organisms/imageCarousel/index.tsx",
     "form/index": "src/organisms/form/index.tsx",
+    "hashScroll/index": "src/organisms/hashScroll/index.tsx",
     "footer/index": "src/organisms/footer/index.tsx",
     "header/index": "src/organisms/header/index.tsx",
     "loading/index": "src/organisms/loading/index.tsx",

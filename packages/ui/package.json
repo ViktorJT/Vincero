@@ -19,6 +19,10 @@
       "types": "./dist/form/index.d.ts",
       "import": "./dist/form/index.js"
     },
+    "./hashScroll": {
+      "types": "./dist/hashScroll/index.d.ts",
+      "import": "./dist/hashScroll/index.js"
+    },
     "./footer": {
       "types": "./dist/footer/index.d.ts",
       "import": "./dist/footer/index.js"

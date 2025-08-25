@@ -1,4 +1,5 @@
 import { Navigation } from "@vincero/ui/navigation";
+import { HashScroll } from "@vincero/ui/hashScroll";
 import { Footer } from "@vincero/ui/footer";
 
 import { getLocaleAndSlugFromPath } from "@/utils/getLocaleAndSlugFromPath";
@@ -19,6 +20,7 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
   return (
     <main>
       <Navigation {...navigation} />
+      <HashScroll />
       {children}
       <Footer {...footer} />
     </main>
