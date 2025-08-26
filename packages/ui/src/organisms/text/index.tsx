@@ -7,7 +7,7 @@ function Text({ id, title, text, dark }: TextProps) {
     <section
       className={cn(
         { dark },
-        "leading-relaxed flex items-center px-6 md:px-20 py-20 dark:bg-dark",
+        "leading-relaxed flex items-center px-6 md:px-20 py-10 md:py-14 dark:bg-dark",
       )}
       id={id}
     >

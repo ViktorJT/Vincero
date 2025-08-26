@@ -18,7 +18,7 @@ export function Footer({
   phone,
 }: Props) {
   return (
-    <footer className="flex flex-col md:flex-row gap-y-6 px-6 py-8 md:py-10 md:px-20 bg-dark text-white text-body">
+    <footer className="flex flex-col md:flex-row gap-y-6 px-6 py-10 md:py-14 md:px-20 bg-dark text-white text-body">
       <div className="md:flex flex-1 flex-col gap-y-2 md:gap-y-8 contents">
         <Media
           asset={vinceroLogo}

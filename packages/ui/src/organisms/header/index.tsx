@@ -25,7 +25,7 @@ function Header({
     {
       left: "text-left",
       center: "text-center self-center",
-      right: "text-right self-end mb-40",
+      right: "text-right self-end mb-40 xl:mb-80",
     }[headingAlignment] ?? "text-center self-end";
 
   return (
@@ -50,7 +50,7 @@ function Header({
 
       <div
         className={cn(
-          "absolute max-h-[100svh] inset-0 flex flex-col justify-center p-6 md:py-10 md:px-20 text-white",
+          "absolute max-h-[100svh] inset-0 flex flex-col justify-center p-6 md:py-14 md:px-20 text-white",
         )}
       >
         <div
