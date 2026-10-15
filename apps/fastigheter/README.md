@@ -1,25 +1,11 @@
-# Next.js + Turbopack
+# Vincero Fastigheter
 
-This example allows you to get started with `next dev --turbo` quicky...
+Thin app: the font, theme overrides, contact addresses and icon live here. Everything else (routes, data fetching, styles) comes from [`@vincero/site`](../../packages/site).
 
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-turbopack&project-name=with-turbopack&repository-name=with-turbopack)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+- Content: the site's Hygraph project, via `HYGRAPH_ENDPOINT`
+- Colors: the `Theme` entry in Hygraph
+- Deploys: its own Vercel project (root directory `apps/fastigheter`)
 
 ```bash
-npx create-next-app --example with-turbopack with-turbopack-app
+pnpm dev:fastigheter
 ```
-
-```bash
-yarn create next-app --example with-turbopack with-turbopack-app
-```
-
-```bash
-pnpm create next-app --example with-turbopack with-turbopack-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).

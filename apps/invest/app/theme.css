@@ -1,0 +1,4 @@
+/* Vincero Invest overrides on top of the shared styles */
+:root {
+  --font-size-heading-large: 2rem;
+}

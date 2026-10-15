@@ -1,88 +1,20 @@
 import { Manrope } from "next/font/google";
 
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { RootLayout } from "@vincero/site/routes/root-layout";
 
 import type { ReactNode } from "react";
-import type { Metadata } from "next";
+
+export { generateMetadata } from "@vincero/site/routes/root-layout";
 
 export const revalidate = 3600;
 
-const inter = Manrope({
+const font = Manrope({
   weight: ["200", "300", "500"],
-  style: ["normal"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
 });
 
-import { seoQuery } from "@vincero/data/queries/meta/seo";
-
-import { fetchData } from "@/data/fetchData";
-
-import "next-cloudinary/dist/cld-video-player.css";
-import "@/styles/globals.css";
-
-interface SEOData {
-  seos: Array<{
-    siteTitle: string;
-    metaTitle: string;
-    metaDescription: string;
-    metaImage: {
-      url: string;
-      alt?: string;
-    };
-  }>;
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const result = await fetchData<SEOData>({
-    query: seoQuery,
-  });
-
-  if (!result?.seos?.length) return {};
-
-  const seo = result.seos[0];
-
-  return {
-    title: {
-      default: seo.metaTitle,
-      template: `%s | ${seo.siteTitle}`,
-    },
-    description: seo.metaDescription,
-    openGraph: {
-      title: seo.metaTitle,
-      description: seo.metaDescription,
-      images: [
-        {
-          ...seo.metaImage,
-        },
-      ],
-      siteName: seo.siteTitle,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: seo.metaTitle,
-      description: seo.metaDescription,
-      images: [seo.metaImage.url],
-    },
-  };
-}
-
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
-  return (
-    <html
-      data-theme="fastigheter"
-      className={`${inter.variable} text-black leading-relaxed`}
-    >
-      <head>
-        <ThemeProvider />
-      </head>
-
-      <body>{children}</body>
-    </html>
-  );
+export default function Layout({ children }: { children: ReactNode }) {
+  return <RootLayout fontClassName={font.variable}>{children}</RootLayout>;
 }

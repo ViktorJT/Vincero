@@ -1,6 +1,7 @@
 {
   "name": "@vincero/fastigheter",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack --port 3000",
@@ -9,22 +10,14 @@
     "start": "next start",
     "lint": "eslint ."
   },
-  "exports": {
-    "./theme.css": "./styles/theme.css"
-  },
   "dependencies": {
-    "@vincero/data": "workspace:*",
-    "@vincero/languages-config": "workspace:*",
-    "@vincero/ui": "workspace:*",
+    "@vincero/site": "workspace:*",
     "next": "^16.4.1",
     "next-cloudinary": "^6.19.3",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "resend": "^6.33.0"
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "16.4.1",
-    "@vincero/tailwind-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
     "eslint": "^9",
     "eslint-config-next": "^16.4.1",

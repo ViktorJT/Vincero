@@ -1,0 +1,6 @@
+{
+  "extends": "@vincero/typescript-config/next",
+  "display": "Site",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}
