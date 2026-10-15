@@ -1,37 +1,31 @@
 {
   "name": "@vincero/invest",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack --port 3000",
+    "dev": "next dev --turbopack --port 3001",
+    "build": "next build",
     "clean": "rm -rf .turbo .next node_modules",
     "start": "next start",
-    "lint": "next lint"
-  },
-  "exports": {
-    "./theme.css": "./styles/theme.css"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.9.1",
-    "@studio-freight/lenis": "^1.0.42",
-    "@vincero/languages-config": "workspace:*",
-    "@vincero/data": "workspace:*",
-    "@vincero/ui": "workspace:*",
-    "next": "latest",
-    "next-cloudinary": "^6.16.0",
-    "p-throttle": "^6.2.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "resend": "^4.5.1"
+    "@vincero/site": "workspace:*",
+    "next": "^16.4.1",
+    "next-cloudinary": "^6.19.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "15.0.2",
-    "@vincero/tailwind-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
     "eslint": "^9",
-    "eslint-config-next": "^15.0.2",
-    "postcss": "^8",
+    "eslint-config-next": "^16.4.1",
+    "postcss": "^8.5.30",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

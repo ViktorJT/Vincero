@@ -1,10 +1,1 @@
-import baseConfig from "@vincero/tailwind-config/postcss";
-
-/** @type {import('postcss').Config} */
-export default {
-  ...baseConfig,
-  plugins: {
-    ...baseConfig.plugins,
-    tailwindcss: {},
-  },
-};
+export { default } from "@vincero/site/postcss";

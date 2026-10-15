@@ -1,0 +1,39 @@
+{
+  "name": "@vincero/site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./next-config": "./next-config.mjs",
+    "./tailwind": "./tailwind.config.mjs",
+    "./postcss": "./postcss.config.mjs",
+    "./proxy": "./src/proxy.ts",
+    "./routes/root-layout": "./src/routes/root-layout.tsx",
+    "./routes/home": "./src/routes/home.tsx",
+    "./routes/page": "./src/routes/page.tsx",
+    "./routes/layout": "./src/routes/layout.tsx",
+    "./routes/contact": "./src/routes/contact.ts",
+    "./routes/revalidate": "./src/routes/revalidate.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vincero/data": "workspace:*",
+    "@vincero/languages-config": "workspace:*",
+    "@vincero/ui": "workspace:*",
+    "resend": "^6.33.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "16.4.1",
+    "@vincero/tailwind-config": "workspace:*",
+    "@vincero/typescript-config": "workspace:*",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "next": "^16.0.0",
+    "next-cloudinary": "^6.19.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
