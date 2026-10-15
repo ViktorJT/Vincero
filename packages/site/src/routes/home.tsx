@@ -1,4 +1,8 @@
+import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+
+import { routing } from "@vincero/languages-config/routing";
 
 import { ComponentMapper } from "../components/ComponentMapper";
 
@@ -37,6 +41,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage({ params }: LocaleParams) {
   const { locale } = await params;
+
+  // Pages render in parallel with the layout, so validate here too (e.g. a
+  // request for /favicon.ico would otherwise query Hygraph with that locale)
+  if (!hasLocale(routing.locales, locale)) notFound();
+
   setRequestLocale(locale);
 
   const components = await fetchComponentsBySlug("homepage", locale);

@@ -6,18 +6,9 @@ export type NavItemProps = {
   __typename: string;
   id: string;
   menuLink: LinkProps;
-  subMenuLinks?: LinkProps[];
-};
-
-export type BackdropProps = {
-  show: boolean;
-  onClose: () => void;
-};
-
-export type ToggleProps = {
-  className?: string;
-  isOpen: boolean;
-  onClick: () => void;
+  subMenuLinks?: (Pick<LinkProps, "id" | "displayText"> & {
+    anchor: string;
+  })[];
 };
 
 export type Props = {
@@ -25,10 +16,4 @@ export type Props = {
   className?: string;
   logo: AssetProps;
   links: NavItemProps[];
-};
-
-export type SlideMenuProps = {
-  isOpen: boolean;
-  navItems: NavItemProps[];
-  onClose: () => void;
 };

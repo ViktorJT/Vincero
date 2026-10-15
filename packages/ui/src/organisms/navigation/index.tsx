@@ -1,7 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
-import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
 import {
@@ -9,14 +9,6 @@ import {
   usePathname,
   useRouter,
 } from "@vincero/languages-config/navigation";
-
-import type {
-  ToggleProps,
-  LinkProps,
-  Props,
-  SlideMenuProps,
-} from "./index.types";
-import type { Locale } from "@vincero/languages-config";
 
 import {
   Accordion,
@@ -30,281 +22,225 @@ import { useScrollLock } from "../../lib/hooks/useScrollLock";
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 import { cn } from "../../lib/utils/cn";
 
-const ToggleButton = ({ isOpen, onClick, className }: ToggleProps) => (
-  <button
-    aria-label="Toggle menu"
-    className={cn(
-      isOpen && "hover:text-muted",
-      "text-white focus:outline-none z-20 w-8 h-8 relative",
-      className,
-    )}
-    onClick={onClick}
-  >
-    <Menu
-      className={cn(
-        "transition-all duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-        isOpen ? "opacity-0 scale-75" : "opacity-100 scale-100",
-      )}
-      size={32}
-    />
-    <X
-      className={cn(
-        "transition-all duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-        isOpen ? "opacity-100 scale-100" : "opacity-0 scale-75",
-      )}
-      size={32}
-    />
-  </button>
-);
+import type { ReactNode } from "react";
+import type { LinkProps, NavItemProps, Props } from "./index.types";
 
-const NavLink = ({
+function ToggleButton({
+  isOpen,
+  onClick,
+}: {
+  isOpen: boolean;
+  onClick: () => void;
+}) {
+  const icon =
+    "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200";
+
+  return (
+    <button
+      aria-expanded={isOpen}
+      aria-label="Toggle menu"
+      className="relative z-20 h-8 w-8 text-white hover:text-muted focus:outline-none"
+      onClick={onClick}
+    >
+      <Menu
+        className={cn(icon, isOpen ? "opacity-0 scale-75" : "opacity-100")}
+        size={32}
+      />
+      <X
+        className={cn(icon, isOpen ? "opacity-100" : "opacity-0 scale-75")}
+        size={32}
+      />
+    </button>
+  );
+}
+
+function NavLink({
+  link,
+  className,
   onClick,
   children,
-  ariaLabel,
-  relAttribute = "noopener noreferrer",
-  titleAttribute,
-  className,
-  ...props
-}: LinkProps & { className?: string }) => {
-  const { external, href } = prioritiseHref(props);
-  const baseClassName =
-    "text-heading-large w-full text-dark hover:text-muted transition-colors";
+}: {
+  link: LinkProps;
+  className?: string;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  const { href } = prioritiseHref(link);
+  const classes = cn(
+    "w-full text-dark hover:text-muted transition-colors",
+    className,
+  );
 
-  if (external) {
+  return link.external ? (
+    <a
+      className={classes}
+      href={href}
+      rel="noopener noreferrer"
+      onClick={onClick}
+    >
+      {children}
+    </a>
+  ) : (
+    <Link className={classes} href={href} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
+function NavItem({
+  item,
+  onClose,
+}: {
+  item: NavItemProps;
+  onClose: () => void;
+}) {
+  const { menuLink, subMenuLinks } = item;
+
+  if (!subMenuLinks?.length) {
     return (
-      <a
-        aria-label={ariaLabel}
-        className={cn(baseClassName, className)}
-        href={href}
-        rel={relAttribute}
-        title={titleAttribute}
-        onClick={onClick}
+      <NavLink
+        className="block py-3 text-heading"
+        link={menuLink}
+        onClick={onClose}
       >
-        {children}
-      </a>
+        {menuLink.displayText}
+      </NavLink>
     );
   }
 
   return (
-    <Link
-      aria-label={ariaLabel}
-      className={cn(baseClassName, className)}
-      href={href}
-      onClick={onClick}
-    >
-      {children}
-    </Link>
+    <AccordionItem className="border-b-0" value={item.id}>
+      <AccordionTrigger className="py-3 text-heading font-light hover:text-muted hover:no-underline">
+        {menuLink.displayText}
+      </AccordionTrigger>
+      <AccordionContent className="pl-6 md:pl-10 py-1 flex flex-col">
+        <NavLink className="text-body py-2" link={menuLink} onClick={onClose}>
+          {menuLink.displayText}
+        </NavLink>
+        {/* Sub-links are anchors on the parent page */}
+        {subMenuLinks.map((subLink) => (
+          <NavLink
+            key={subLink.id}
+            className="text-body py-2"
+            link={{ ...menuLink, anchor: subLink.anchor }}
+            onClick={onClose}
+          >
+            {subLink.displayText}
+          </NavLink>
+        ))}
+        <div className="h-4" />
+      </AccordionContent>
+    </AccordionItem>
   );
-};
-
-const SlideMenu = ({ isOpen = false, navItems, onClose }: SlideMenuProps) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const topLinkStyles = "py-3 text-heading";
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-
-      // Skip if click is inside the menu
-      if (ref.current?.contains(target)) return;
-
-      // Skip if click is on the toggle button
-      if (target.closest(".slide-toggle-button")) return;
-
-      onClose();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "fixed top-0 right-0 h-screen max-w-[800px] w-5/6 md:w-1/3 md:min-w-[400px] bg-dark text-white",
-        "transform transition-transform duration-200 ease-in-out translate-x-full",
-        isOpen ? "translate-x-0" : "translate-x-full",
-      )}
-    >
-      <div className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10">
-        <nav className="w-full">
-          <Accordion collapsible type="single">
-            {navItems.map((navItem) => {
-              if (navItem.subMenuLinks?.length) {
-                return (
-                  <AccordionItem
-                    key={navItem.id}
-                    className="border-b-0"
-                    value={navItem.id}
-                  >
-                    <AccordionTrigger
-                      className={cn(
-                        topLinkStyles,
-                        "font-light hover:text-muted hover:no-underline",
-                      )}
-                    >
-                      {navItem.menuLink.displayText}
-                    </AccordionTrigger>
-                    <AccordionContent className="pl-6 md:pl-10 py-1 flex flex-col">
-                      <>
-                        <NavLink
-                          key={navItem.id}
-                          className="text-body py-2"
-                          onClick={onClose}
-                          {...navItem.menuLink}
-                        >
-                          {navItem.menuLink.displayText}
-                        </NavLink>
-
-                        {navItem.subMenuLinks.map((subLink) => (
-                          <NavLink
-                            key={subLink.id}
-                            onClick={onClose}
-                            {...navItem.menuLink}
-                            {...subLink}
-                            className="text-body py-2"
-                          >
-                            {subLink.displayText}
-                          </NavLink>
-                        ))}
-                        <div className="h-4" />
-                      </>
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              }
-
-              return (
-                <NavLink
-                  key={navItem.id}
-                  className={cn(topLinkStyles, "block")}
-                  onClick={onClose}
-                  {...navItem.menuLink}
-                >
-                  {navItem.menuLink.displayText}
-                </NavLink>
-              );
-            })}
-            <LanguageToggle />
-          </Accordion>
-        </nav>
-      </div>
-    </div>
-  );
-};
+}
 
 function LanguageToggle() {
   const router = useRouter();
   const pathname = usePathname();
-  const currentLocale = useLocale() as Locale;
+  const locale = useLocale();
 
-  // Same page in the other language; next-intl handles the /en prefix
-  const handleLanguageChange = () => {
-    router.replace(pathname, { locale: currentLocale === "en" ? "sv" : "en" });
-  };
+  const option = (value: string) =>
+    cn(
+      "transition-colors hover:text-muted hover:opacity-100",
+      locale === value ? "opacity-100" : "opacity-50",
+    );
 
   return (
     <button
       className="mt-10 md:mt-20 text-heading-small flex gap-2"
-      onClick={handleLanguageChange}
+      // Same page in the other language; next-intl handles the /en prefix
+      onClick={() =>
+        router.replace(pathname, { locale: locale === "en" ? "sv" : "en" })
+      }
     >
-      <span
-        className={cn(
-          "transition-colors hover:text-muted hover:opacity-100",
-          currentLocale === "sv" ? "opacity-100" : "opacity-50",
-        )}
-      >
-        SV
-      </span>
-      /
-      <span
-        className={cn(
-          "transition-colors hover:text-muted hover:opacity-100",
-          currentLocale === "en" ? "opacity-100" : "opacity-50",
-        )}
-      >
-        EN
-      </span>
+      <span className={option("sv")}>SV</span>/
+      <span className={option("en")}>EN</span>
     </button>
   );
 }
 
 export function Navigation({ className, id, logo, links }: Props) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-
-  useScrollLock(isMenuOpen);
-
   const isHome = usePathname() === "/";
+  const close = () => setIsOpen(false);
+
+  useScrollLock(isOpen);
 
   useEffect(() => {
     // Small threshold so overscroll bounce at the top (iOS) doesn't toggle
-    // the background back and forth.
-    const handleScroll = () => {
-      setHasScrolled(window.scrollY > 16);
-    };
+    // the background back and forth
+    const handleScroll = () => setHasScrolled(window.scrollY > 16);
 
-    // Initial check
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isOpen]);
+
   return (
     <nav
-      className={cn(
-        "overflow-hidden fixed z-50 top-0 w-full text-light",
-        className,
-      )}
+      className={cn("fixed z-50 top-0 w-full text-light", className)}
       id={id}
     >
       <div
         className={cn(
-          "flex items-center px-6 md:px-20 relative transition-colors duration-200",
+          "grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-20 transition-colors duration-200",
           hasScrolled ? "bg-dark" : isHome ? "bg-dark/0" : "bg-dark/40",
         )}
       >
-        <div className="mx-auto flex-1 flex items-center">
-          <div className="flex-1 basis-24 gap-4 flex">
-            <ToggleButton
-              className="slide-toggle-button invisible pointer-events-none"
-              isOpen={false}
-              onClick={() => {}}
-            />
-          </div>
-          <div className="flex-1 basis-full flex justify-center">
-            <Link
-              aria-label="Till hemsida"
-              className="relative h-[72px] w-[172px]"
-              href="/"
-            >
-              <Media
-                asset={logo}
-                className="inset-0 h-full w-full object-contain"
-              />
-            </Link>
-          </div>
-          <div className="flex-1 items-center gap-4 basis-24 flex justify-end">
-            <ToggleButton
-              className="slide-toggle-button"
-              isOpen={isMenuOpen}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            />
-          </div>
+        <Link
+          aria-label="Till hemsida"
+          className="relative col-start-2 h-[72px] w-[172px]"
+          href="/"
+        >
+          <Media
+            asset={logo}
+            className="inset-0 h-full w-full object-contain"
+          />
+        </Link>
+        <div className="flex justify-end">
+          <ToggleButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
         </div>
       </div>
 
-      <SlideMenu
-        isOpen={isMenuOpen}
-        navItems={links}
-        onClose={() => setIsMenuOpen(false)}
-      />
+      {/* Clicking outside the menu closes it */}
+      {isOpen && (
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 -z-10"
+          onClick={close}
+        />
+      )}
+
+      <div
+        className={cn(
+          "fixed top-0 right-0 h-screen max-w-[800px] w-5/6 md:w-1/3 md:min-w-[400px] bg-dark text-white",
+          "transition-transform duration-200 ease-in-out",
+          isOpen ? "translate-x-0" : "translate-x-full",
+        )}
+      >
+        <div className="h-full flex mt-[5.5rem] px-6 md:pr-20 md:pl-10">
+          <div className="w-full">
+            <Accordion collapsible type="single">
+              {links.map((item) => (
+                <NavItem key={item.id} item={item} onClose={close} />
+              ))}
+            </Accordion>
+            <LanguageToggle />
+          </div>
+        </div>
+      </div>
     </nav>
   );
 }

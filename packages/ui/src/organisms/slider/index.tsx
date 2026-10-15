@@ -52,11 +52,7 @@ function Slider({ id, blocks = [] }: Props) {
           >
             <Media
               fluid
-              asset={{
-                ...block.asset,
-                className:
-                  "absolute inset-0 w-full h-full object-cover object-center",
-              }}
+              asset={block.asset}
               className="relative min-h-[30vh] md:h-full"
             />
           </div>

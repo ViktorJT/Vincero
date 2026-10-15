@@ -25,16 +25,9 @@ export default defineConfig((options) => ({
     "react",
     "react-dom",
     "next",
+    "next-intl",
     "tailwindcss",
-
-    // Radix UI components
-    "@radix-ui/react-label",
-    "@radix-ui/react-navigation-menu",
-    "@radix-ui/react-slot",
-    "@radix-ui/react-*", // Catch any other Radix components
-
-    // Form libraries
-    "react-hook-form",
+    "@radix-ui/react-*",
   ],
 
   format: ["esm"],

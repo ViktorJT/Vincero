@@ -2,8 +2,6 @@ import { Link } from "@vincero/languages-config/navigation";
 
 import { Media } from "../../organisms/media";
 
-import { Container, CardContent, CardHeader } from "../../atoms/card";
-
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 import { cn } from "../../lib/utils/cn";
 
@@ -86,9 +84,9 @@ export function Card({
   ...props
 }: Props) {
   return (
-    <Container
+    <div
       className={cn(
-        "group border-0 h-full text-pretty transition-shadow hover:shadow-lg",
+        "group overflow-hidden shadow h-full text-pretty transition-shadow hover:shadow-lg",
         className,
       )}
       id={id}
@@ -96,7 +94,7 @@ export function Card({
       <Wrapper link={link}>
         <>
           {asset && (
-            <CardHeader className="p-0 relative overflow-hidden">
+            <div className="relative overflow-hidden">
               <Media
                 asset={asset}
                 className={cn(
@@ -104,9 +102,9 @@ export function Card({
                   "object-cover w-full h-full group-hover:scale-105",
                 )}
               />
-            </CardHeader>
+            </div>
           )}
-          <CardContent className="p-4 md:p-6 space-y-2 md:space-y-4">
+          <div className="p-4 md:p-6 space-y-2 md:space-y-4">
             {__typename === "Card" && (
               <DefaultCard {...(props as DefaultCardProps)} />
             )}
@@ -116,9 +114,9 @@ export function Card({
             {__typename === "UnitCard" && (
               <UnitCard {...(props as UnitCardProps)} />
             )}
-          </CardContent>
+          </div>
         </>
       </Wrapper>
-    </Container>
+    </div>
   );
 }

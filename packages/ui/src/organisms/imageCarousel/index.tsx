@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -15,8 +14,6 @@ export type ImageCarouselProps = {
   subtitle?: RichTextType;
   id?: string;
   images: AssetProps[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  options?: any;
 };
 
 export function ImageCarousel({
@@ -24,32 +21,13 @@ export function ImageCarousel({
   subtitle,
   id,
   images,
-  options,
 }: ImageCarouselProps) {
+  // Looping, so both arrows always work when there's more than one image
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     loop: true,
-    ...options,
   });
-
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
-
-  const onSelect = useCallback((embla: typeof emblaApi) => {
-    if (!embla) return;
-    setCanScrollPrev(embla.canScrollPrev());
-    setCanScrollNext(embla.canScrollNext());
-  }, []);
-
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect(emblaApi);
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-  }, [emblaApi, onSelect]);
+  const hasArrows = images.length > 1;
 
   return (
     <section className="relative text-dark w-full py-10 md:py-14" id={id}>
@@ -77,24 +55,24 @@ export function ImageCarousel({
           ))}
         </div>
 
-        {canScrollPrev && (
+        {hasArrows && (
           <Button
             arrow={false}
             className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 z-10 bg-white backdrop-blur-sm rounded-full p-2"
             size="icon"
             variant="ghost"
-            onClick={scrollPrev}
+            onClick={() => emblaApi?.scrollPrev()}
           >
             <ChevronLeft className="h-6 w-6" />
           </Button>
         )}
-        {canScrollNext && (
+        {hasArrows && (
           <Button
             arrow={false}
             className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-10 bg-white backdrop-blur-sm rounded-full p-2"
             size="icon"
             variant="ghost"
-            onClick={scrollNext}
+            onClick={() => emblaApi?.scrollNext()}
           >
             <ChevronRight className="h-6 w-6" />
           </Button>

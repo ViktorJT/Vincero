@@ -1,7 +1,3 @@
-"use client";
-
-import { RichText } from "@graphcms/rich-text-react-renderer";
-
 import type { Props } from "./index.types.ts";
 
 function Banner({ id, title, textBlocks = [] }: Props) {
@@ -21,21 +17,11 @@ function Banner({ id, title, textBlocks = [] }: Props) {
         {textBlocks && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:w-1/2">
             {textBlocks.map((block, i) => (
-              <div key={i} className="w-full">
-                <RichText
-                  content={block.raw}
-                  renderers={{
-                    h1: ({ children }) => (
-                      <p className="text-heading-large font-semibold mb-2">
-                        {children}
-                      </p>
-                    ),
-                    p: ({ children }) => (
-                      <p className="text-body lg:text-body-large">{children}</p>
-                    ),
-                  }}
-                />
-              </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: block.html }}
+                key={i}
+                className="w-full [&_h1]:mb-2 [&_h1]:text-heading-large [&_h1]:font-semibold [&_p]:text-body lg:[&_p]:text-body-large"
+              />
             ))}
           </div>
         )}

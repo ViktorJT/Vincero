@@ -40,10 +40,7 @@ function Header({
         <Media
           autoplay
           fluid
-          asset={{
-            ...asset,
-            className: "absolute inset-0 w-full h-full object-cover",
-          }}
+          asset={asset}
           className={cn("transition-none media w-full h-full", objectPos)}
         />
       )}
