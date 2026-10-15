@@ -256,8 +256,10 @@ export function Navigation({ className, id, logo, links }: Props) {
   const isHome = usePathname() === "/";
 
   useEffect(() => {
+    // Small threshold so overscroll bounce at the top (iOS) doesn't toggle
+    // the background back and forth.
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 0);
+      setHasScrolled(window.scrollY > 16);
     };
 
     // Initial check
