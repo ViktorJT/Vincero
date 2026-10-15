@@ -1,4 +1,4 @@
-import { throttledFetchData } from "@/data/fetchData";
+import { fetchData } from "@/data/fetchData";
 
 import { AssetFragment } from "@vincero/data/queries/fragments/Asset";
 
@@ -20,7 +20,7 @@ const query = `
 export async function fetchSeoBySlug(slug: string) {
   // @todos naughty any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { page }: any = await throttledFetchData({
+  const { page }: any = await fetchData({
     query,
     variables: { slug },
   });

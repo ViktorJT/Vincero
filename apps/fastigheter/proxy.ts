@@ -8,10 +8,10 @@ import type { NextRequest } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for public files and API routes
+  // Skip proxy for public files and API routes
   if (PUBLIC_FILE.test(pathname) || pathname.startsWith("/api")) {
     return;
   }
@@ -19,8 +19,7 @@ export function middleware(request: NextRequest) {
   const pathSegments = pathname.split("/").filter(Boolean);
   const { locale: pathLocale } = getLocaleAndSlugFromPath(pathSegments);
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value as
-    | Locale
-    | undefined;
+    Locale | undefined;
 
   // Determine target locale (cookie takes precedence if valid)
   const targetLocale =

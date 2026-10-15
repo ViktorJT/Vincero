@@ -3,7 +3,7 @@
   "display": "Next.js",
   "extends": "./base.json",
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "declaration": false,
     "declarationMap": false,
     "target": "ES2017",

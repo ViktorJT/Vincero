@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const { message } = body;
 
     const emailResponse = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "Vincero Fastigheter <noreply@vincerofastigheter.se>",
       to: ["info@vincero.se"],
       subject: "New Contact Form Submission",
       text: message,

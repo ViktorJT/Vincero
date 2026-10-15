@@ -78,6 +78,10 @@ export default async function Page({ params }: PageProps) {
 
   const components = await fetchComponentsBySlug(slug, locale);
 
+  if (!components?.length) {
+    notFound();
+  }
+
   return (
     <>
       <ComponentMapper components={components} />

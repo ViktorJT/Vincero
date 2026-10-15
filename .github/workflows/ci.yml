@@ -16,7 +16,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
   PNPM_VERSION: 9
-  NODE_VERSION: 20
+  NODE_VERSION: 24
 
 permissions:
   contents: read

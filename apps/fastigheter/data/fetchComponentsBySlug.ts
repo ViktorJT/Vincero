@@ -10,7 +10,7 @@ import { OverviewQuery } from "@vincero/data/queries/components/Overview";
 import { SliderQuery } from "@vincero/data/queries/components/Slider";
 import { TextQuery } from "@vincero/data/queries/components/Text";
 
-import { throttledFetchData } from "@/data/fetchData";
+import { fetchData } from "@/data/fetchData";
 
 interface EntityType {
   __typename: keyof typeof Queries;
@@ -43,7 +43,7 @@ export async function fetchComponentsBySlug(slug: string, locale: string) {
     }
   `;
 
-  const { page }: any = await throttledFetchData({
+  const { page }: any = await fetchData({
     query,
     variables: { slug },
   });
@@ -51,7 +51,7 @@ export async function fetchComponentsBySlug(slug: string, locale: string) {
   if (!page) return null;
 
   const promises = page.components.map((component: EntityType) =>
-    throttledFetchData({
+    fetchData({
       query: Queries[component.__typename],
       variables: { id: component.id, locale },
     }),

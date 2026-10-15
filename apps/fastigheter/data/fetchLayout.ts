@@ -1,4 +1,4 @@
-import { throttledFetchData } from "@/data/fetchData";
+import { fetchData } from "@/data/fetchData";
 
 import { navigationQuery } from "@vincero/data/queries/meta/navigation";
 import { contactQuery } from "@vincero/data/queries/meta/contact";
@@ -8,19 +8,19 @@ import type { Locale } from "@vincero/languages-config";
 
 export async function fetchLayout(locale: Locale) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { navigations }: any = await throttledFetchData({
+  const { navigations }: any = await fetchData({
     query: navigationQuery,
     variables: { locale },
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { contacts }: any = await throttledFetchData({
+  const { contacts }: any = await fetchData({
     query: contactQuery,
     variables: { locale },
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { sites }: any = await throttledFetchData({
+  const { sites }: any = await fetchData({
     query: siteQuery,
   });
 

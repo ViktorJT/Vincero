@@ -8,7 +8,6 @@ import { fetchLayout } from "@/data/fetchLayout";
 
 import type { LayoutProps } from "@/types";
 
-export const dynamic = "auto";
 export const revalidate = 3600;
 
 export default async function LocaleLayout({ params, children }: LayoutProps) {

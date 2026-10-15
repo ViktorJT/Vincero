@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
-export const dynamic = "auto";
 export const revalidate = 3600;
 
 const inter = Manrope({
@@ -18,7 +17,7 @@ const inter = Manrope({
 
 import { seoQuery } from "@vincero/data/queries/meta/seo";
 
-import { throttledFetchData } from "@/data/fetchData";
+import { fetchData } from "@/data/fetchData";
 
 import "next-cloudinary/dist/cld-video-player.css";
 import "@/styles/globals.css";
@@ -36,7 +35,7 @@ interface SEOData {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const result = await throttledFetchData<SEOData>({
+  const result = await fetchData<SEOData>({
     query: seoQuery,
   });
 

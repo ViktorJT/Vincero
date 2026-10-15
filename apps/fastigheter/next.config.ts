@@ -24,16 +24,15 @@ const config: NextConfig = {
     },
   },
 
-  // Turbopack configuration
   experimental: {
     workerThreads: false,
     cpus: 1,
+  },
 
-    turbo: {
-      resolveAlias: {
-        // Ensure proper module resolution
-        "@vincero/ui": "@vincero/ui/dist",
-      },
+  turbopack: {
+    resolveAlias: {
+      // Ensure proper module resolution
+      "@vincero/ui": "@vincero/ui/dist",
     },
   },
 };
