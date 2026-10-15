@@ -7,7 +7,8 @@ import { Container, CardContent, CardHeader } from "../../atoms/card";
 import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 import { cn } from "../../lib/utils/cn";
 
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
+import type { LinkProps } from "../../types";
 
 import type {
   DefaultCardProps,
@@ -64,6 +65,18 @@ function UnitCard({ title, subtitle, information }: UnitCardProps) {
   );
 }
 
+function Wrapper({
+  link,
+  children,
+}: {
+  link?: LinkProps;
+  children: ReactNode;
+}) {
+  if (!link) return children;
+
+  return <Link href={prioritiseHref(link).href}>{children}</Link>;
+}
+
 export function Card({
   id,
   link,
@@ -72,16 +85,6 @@ export function Card({
   __typename,
   ...props
 }: Props) {
-  const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
-    if (!link) {
-      return <>{children}</>;
-    }
-
-    const { href } = prioritiseHref(link);
-
-    return <Link href={href}>{children}</Link>;
-  };
-
   return (
     <Container
       className={cn(
@@ -90,7 +93,7 @@ export function Card({
       )}
       id={id}
     >
-      <Wrapper>
+      <Wrapper link={link}>
         <>
           {asset && (
             <CardHeader className="p-0 relative overflow-hidden">

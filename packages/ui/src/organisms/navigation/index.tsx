@@ -214,9 +214,6 @@ function LanguageToggle() {
         ? pathWithoutLocale
         : `/${targetLocale}${pathWithoutLocale}`;
 
-    // Update cookie via the API before navigation
-    document.cookie = `NEXT_LOCALE=${targetLocale}; path=/`;
-
     // Navigate to new path
     router.push(newPath);
   };
