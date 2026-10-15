@@ -1,18 +1,13 @@
 import { useEffect } from "react";
 
+// The scrollbar gutter is kept stable in global CSS (`scrollbar-gutter`), so
+// hiding overflow does not shift the layout and needs no padding compensation.
 export const useScrollLock = (lock: boolean) => {
   useEffect(() => {
-    if (lock) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
+    document.body.style.overflow = lock ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
     };
   }, [lock]);
 };
