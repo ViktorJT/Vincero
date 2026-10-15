@@ -9,8 +9,9 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 const config: NextConfig = {
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "**.graphassets.com" }],
-    unoptimized: true,
+    // Hygraph resizes the images itself, so Vercel's image quota isn't used
+    loader: "custom",
+    loaderFile: "./utils/imageLoader.ts",
   },
 
   reactStrictMode: true,
