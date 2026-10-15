@@ -4,6 +4,7 @@ import { Button } from "../../atoms/button";
 import { Media } from "../media";
 
 import { cn } from "../../lib/utils/cn";
+import { prioritiseHref } from "../../lib/utils/prioritiseHref";
 
 import type { Props, TextBlockProps } from "./index.types.ts";
 
@@ -21,7 +22,7 @@ function Block({ title, text, links }: TextBlockProps) {
           {links.map((link, i: number) => (
             <Button
               key={link.id}
-              {...link}
+              {...prioritiseHref(link)}
               variant={i === 0 ? "outline" : "ghost"}
             >
               {link.displayText}
