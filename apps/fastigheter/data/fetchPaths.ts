@@ -1,6 +1,6 @@
 import { defaultLocale, locales } from "@vincero/languages-config";
 
-import { throttledFetchData } from "@/data/fetchData";
+import { fetchData } from "@/data/fetchData";
 
 import { generatePaths } from "@/utils/generatePaths";
 import type { StaticParams } from "@/types";
@@ -19,7 +19,7 @@ const query = `
 `;
 
 export async function fetchPaths() {
-  const { pages } = (await throttledFetchData({ query })) as StaticParams;
+  const { pages } = (await fetchData({ query })) as StaticParams;
 
   if (!pages || !Array.isArray(pages)) {
     console.warn("No pages found or invalid response");

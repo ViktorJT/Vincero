@@ -1,4 +1,4 @@
-import { throttledFetchData } from "@/data/fetchData";
+import { fetchData } from "@/data/fetchData";
 
 type Rgba = {
   r: number;
@@ -47,7 +47,7 @@ export async function fetchTheme(): Promise<Theme> {
     }
   `;
 
-  const data = await throttledFetchData<ThemeData>({ query });
+  const data = await fetchData<ThemeData>({ query });
 
   if (!data || !data.themes?.length) {
     throw new Error("Unable to fetch theme");
