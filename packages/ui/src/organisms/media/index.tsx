@@ -15,7 +15,7 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
 
   const isDev = process.env.NODE_ENV !== "production";
 
-  const FallbackVideo = () => (
+  const fallbackVideo = (
     <video
       loop
       muted
@@ -29,7 +29,7 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
   // Hygraph can only resize raster formats; SVGs and GIFs are served as-is
   const resizable = /^image\/(jpe?g|png|webp)$/.test(asset.mimeType ?? "");
 
-  const FallbackImage = () => (
+  const fallbackImage = (
     <Image
       alt={asset.alt || ""}
       className={styles}
@@ -44,11 +44,9 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
   let Component;
 
   if (!asset.optimised) {
-    Component = asset.mimeType?.startsWith("video") ? (
-      <FallbackVideo />
-    ) : (
-      <FallbackImage />
-    );
+    Component = asset.mimeType?.startsWith("video")
+      ? fallbackVideo
+      : fallbackImage;
   } else if (asset.optimised.resource_type === "video") {
     Component = (
       <CldVideoPlayer
