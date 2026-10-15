@@ -26,12 +26,17 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
     />
   );
 
+  // Hygraph can only resize raster formats; SVGs and GIFs are served as-is
+  const resizable = /^image\/(jpe?g|png|webp)$/.test(asset.mimeType ?? "");
+
   const FallbackImage = () => (
     <Image
       alt={asset.alt || ""}
       className={styles}
       height={asset.height}
-      src={asset.url}
+      sizes="100vw"
+      src={resizable ? `${asset.url}?maxw=${asset.width}` : asset.url}
+      unoptimized={!resizable}
       width={asset.width}
     />
   );
