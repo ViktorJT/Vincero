@@ -1,6 +1,6 @@
 {
   "extends": "@vincero/typescript-config/base",
-  "include": ["index.ts"],
+  "include": ["index.ts", "routing.ts", "navigation.ts"],
   "exclude": ["dist", "node_modules", ".turbo"],
   "compilerOptions": {
     "composite": true,

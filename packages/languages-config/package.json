@@ -2,8 +2,6 @@
   "name": "@vincero/languages-config",
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "clean": "rm -rf dist"
@@ -12,10 +10,32 @@
     "@vincero/eslint-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
     "@eslint/js": "^9.13.0",
-    "typescript-eslint": "^8.12.2"
+    "typescript-eslint": "^8.12.2",
+    "next": "^16.4.1",
+    "react": "^19.3.1",
+    "@types/react": "^19"
   },
   "peerDependencies": {
     "eslint": "^9.13.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "next": "^16.0.0",
+    "react": "^19.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./routing": {
+      "types": "./dist/routing.d.ts",
+      "import": "./dist/routing.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation.d.ts",
+      "import": "./dist/navigation.js"
+    }
+  },
+  "dependencies": {
+    "next-intl": "^4.14.9"
   }
 }

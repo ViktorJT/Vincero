@@ -1,7 +1,17 @@
-import { ThemeProvider } from "../components/ThemeProvider";
+import { notFound } from "next/navigation";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 
-import type { ReactNode } from "react";
+import { routing } from "@vincero/languages-config/routing";
+import { Navigation } from "@vincero/ui/navigation";
+import { HashScroll } from "@vincero/ui/hashScroll";
+import { Footer } from "@vincero/ui/footer";
+
+import { ThemeProvider } from "../components/ThemeProvider";
+import { fetchLayout } from "../data/fetchLayout";
+
 import type { Metadata } from "next";
+import type { LayoutProps } from "../types";
 
 import { seoQuery } from "@vincero/data/queries/meta/seo";
 
@@ -56,21 +66,46 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Each app passes its font's className (next/font with variable "--font-sans")
-export function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+// Root layout for every locale. Each app passes its font's className
+// (next/font with variable "--font-sans").
+export async function RootLayout({
   fontClassName,
+  params,
   children,
-}: Readonly<{
-  fontClassName: string;
-  children: ReactNode;
-}>) {
+}: LayoutProps & { fontClassName: string }) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+
+  const { navigation, footer } = await fetchLayout(locale);
+
   return (
-    <html className={`${fontClassName} text-black leading-relaxed`}>
+    <html
+      className={`${fontClassName} text-black leading-relaxed`}
+      lang={locale}
+    >
       <head>
         <ThemeProvider />
       </head>
 
-      <body>{children}</body>
+      <body>
+        <NextIntlClientProvider>
+          <main>
+            <Navigation {...navigation} />
+            <HashScroll />
+            {children}
+            <Footer {...footer} />
+          </main>
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }

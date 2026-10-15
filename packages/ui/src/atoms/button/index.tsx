@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@vincero/languages-config/navigation";
 
 import type { ButtonProps } from "./index.types";
 

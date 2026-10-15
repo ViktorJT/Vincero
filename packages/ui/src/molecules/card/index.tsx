@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@vincero/languages-config/navigation";
 
 import { Media } from "../../organisms/media";
 

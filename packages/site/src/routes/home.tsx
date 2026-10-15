@@ -1,15 +1,11 @@
-import { defaultLocale } from "@vincero/languages-config";
-
-import { Navigation } from "@vincero/ui/navigation";
-import { Footer } from "@vincero/ui/footer";
+import { setRequestLocale } from "next-intl/server";
 
 import { ComponentMapper } from "../components/ComponentMapper";
 
 import { fetchComponentsBySlug } from "../data/fetchComponentsBySlug";
 import { fetchSeoBySlug } from "../data/fetchSeoBySlug";
-import { fetchLayout } from "../data/fetchLayout";
-
 import type { Metadata } from "next";
+import type { LocaleParams } from "../types";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await fetchSeoBySlug("homepage");
@@ -39,15 +35,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function HomePage() {
-  const components = await fetchComponentsBySlug("homepage", defaultLocale);
-  const { navigation, footer } = await fetchLayout(defaultLocale);
+export default async function HomePage({ params }: LocaleParams) {
+  const { locale } = await params;
+  setRequestLocale(locale);
 
-  return (
-    <main>
-      <Navigation {...navigation} />
-      <ComponentMapper components={components} />
-      <Footer {...footer} />
-    </main>
-  );
+  const components = await fetchComponentsBySlug("homepage", locale);
+
+  return <ComponentMapper components={components} />;
 }

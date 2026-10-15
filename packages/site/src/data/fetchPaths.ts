@@ -1,15 +1,10 @@
-import { defaultLocale, locales } from "@vincero/languages-config";
-
 import { fetchData } from "./fetchData";
 
-import { generatePaths } from "../utils/generatePaths";
-import type { StaticParams } from "../types";
+import type { Page } from "../types";
 
 const query = `
   query PagesQuery {
     pages(first: 100) {
-      __typename
-      id
       slug
       parentPage {
         slug
@@ -18,48 +13,14 @@ const query = `
   }
 `;
 
+// Path segments for every page except the homepage, e.g. ["projekt", "bruket"].
+// The same pages exist in every locale.
 export async function fetchPaths() {
-  const { pages } = (await fetchData({ query })) as StaticParams;
+  const data = await fetchData<{ pages: Page[] }>({ query });
 
-  if (!pages || !Array.isArray(pages)) {
-    console.warn("No pages found or invalid response");
-    return [];
-  }
-
-  // Start with the root paths (homepage in different locales)
-  const homepagePaths = locales
-    .filter((locale) => locale !== defaultLocale)
-    .map((locale) => ({
-      path: [locale],
+  return (data?.pages ?? [])
+    .filter(({ slug }) => slug && slug !== "homepage")
+    .map(({ slug, parentPage }) => ({
+      path: parentPage?.slug ? [parentPage.slug, slug] : [slug],
     }));
-
-  // Generate paths for all other pages
-  const contentPaths = locales
-    .flatMap((locale) =>
-      pages
-        .filter((page) => page.slug !== "homepage") // Exclude homepage from regular path generation
-        .map((page) => {
-          const pathSegments = generatePaths(
-            page,
-            locale === defaultLocale ? undefined : locale,
-          );
-
-          // Filter out any paths that contain undefined or empty segments
-          if (!pathSegments || pathSegments.some((segment) => !segment)) {
-            return null;
-          }
-
-          return {
-            path: pathSegments,
-          };
-        }),
-    )
-    .filter(
-      (item): item is { path: string[] } =>
-        Boolean(item) && Array.isArray(item?.path),
-    );
-
-  const allPaths = [...homepagePaths, ...contentPaths];
-
-  return allPaths;
 }

@@ -4,7 +4,10 @@ import { RootLayout } from "@vincero/site/routes/root-layout";
 
 import type { ReactNode } from "react";
 
-export { generateMetadata } from "@vincero/site/routes/root-layout";
+export {
+  generateMetadata,
+  generateStaticParams,
+} from "@vincero/site/routes/root-layout";
 
 export const revalidate = 3600;
 
@@ -15,6 +18,9 @@ const font = Manrope({
   variable: "--font-sans",
 });
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return <RootLayout fontClassName={font.variable}>{children}</RootLayout>;
+export default function Layout(props: {
+  params: Promise<{ locale: string }>;
+  children: ReactNode;
+}) {
+  return <RootLayout {...props} fontClassName={font.variable} />;
 }

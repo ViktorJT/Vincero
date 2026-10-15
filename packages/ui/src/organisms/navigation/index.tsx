@@ -1,11 +1,14 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
 
-import { defaultLocale } from "@vincero/languages-config";
+import {
+  Link,
+  usePathname,
+  useRouter,
+} from "@vincero/languages-config/navigation";
 
 import type {
   ToggleProps,
@@ -198,24 +201,11 @@ const SlideMenu = ({ isOpen = false, navItems, onClose }: SlideMenuProps) => {
 function LanguageToggle() {
   const router = useRouter();
   const pathname = usePathname();
+  const currentLocale = useLocale() as Locale;
 
-  // Determine current locale from pathname
-  const currentLocale: Locale = pathname.startsWith("/en") ? "en" : "sv";
-
+  // Same page in the other language; next-intl handles the /en prefix
   const handleLanguageChange = () => {
-    const targetLocale: Locale = currentLocale === "en" ? "sv" : "en";
-
-    // Get the path without the locale prefix
-    const pathWithoutLocale = pathname.replace(/^\/en\/?/, "/");
-
-    // Construct the new path based on target locale
-    const newPath =
-      targetLocale === defaultLocale
-        ? pathWithoutLocale
-        : `/${targetLocale}${pathWithoutLocale}`;
-
-    // Navigate to new path
-    router.push(newPath);
+    router.replace(pathname, { locale: currentLocale === "en" ? "sv" : "en" });
   };
 
   return (
