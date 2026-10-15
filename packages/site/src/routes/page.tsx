@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+
+import { routing } from "@vincero/languages-config/routing";
 
 import { ComponentMapper } from "../components/ComponentMapper";
 
@@ -59,6 +62,9 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: PageProps) {
   const { locale, path } = await params;
+
+  if (!hasLocale(routing.locales, locale)) notFound();
+
   setRequestLocale(locale);
 
   const slug = path.at(-1);

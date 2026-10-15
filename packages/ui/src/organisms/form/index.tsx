@@ -1,22 +1,31 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 
-import {
-  Form as ShadCNForm,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../../molecules/form";
-import { Input } from "../../atoms/input";
 import { Button } from "../../atoms/button";
 import { Media } from "../../organisms/media";
+import { cn } from "../../lib/utils/cn";
 
+import type { FormEvent } from "react";
 import type { Props } from "./index.types";
 
+const inputClasses =
+  "flex w-full rounded-md border border-black bg-transparent px-3 text-body shadow-sm placeholder:text-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
+
+const messages = {
+  sv: {
+    sent: "Tack! Ditt meddelande har skickats.",
+    error: "Något gick fel. Försök igen.",
+  },
+  en: {
+    sent: "Thank you! Your message has been sent.",
+    error: "Something went wrong. Please try again.",
+  },
+};
+
+// Plain form with browser validation (required fields); sends the fields
+// as a readable message to the contact route.
 function Form({
   id,
   name,
@@ -26,46 +35,36 @@ function Form({
   action = "/api/contact",
   contact,
 }: Props) {
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const locale = useLocale();
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
 
-  const form = useForm({
-    defaultValues: fields.reduce(
-      (acc, field) => ({
-        ...acc,
-        [field.id]: "",
-      }),
-      {} as Record<string, string>,
-    ),
-  });
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formElement = event.currentTarget;
+    const data = new FormData(formElement);
 
-  const onSubmit = async (data: Record<string, string>) => {
+    const message = fields
+      .map((field) => `${field.label}: ${data.get(field.id) ?? ""}`)
+      .join("\n");
+
+    setStatus("sending");
+
     try {
-      setSuccessMessage("");
-      setErrorMessage("");
-
-      const formattedMessage = fields
-        .map((field) => `${field.label}: ${data[field.id]}`)
-        .join("\n");
-
       const response = await fetch(action, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          message: formattedMessage,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
       });
 
       if (!response.ok) throw new Error("Submission failed");
 
-      setSuccessMessage("Form submitted successfully.");
-      form.reset();
+      setStatus("sent");
+      formElement.reset();
     } catch (error) {
       console.error(error);
-      setErrorMessage("Failed to submit form. Please try again.");
+      setStatus("error");
     }
   };
 
@@ -90,66 +89,69 @@ function Form({
         )}
 
         {/* Form Section */}
-        <ShadCNForm {...form}>
-          <form
-            className="basis-1/2 flex flex-col gap-6 w-full"
-            id={name}
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
-            {fields.map((field) => (
-              <FormField
-                key={field.id}
-                control={form.control}
-                name={field.id}
-                render={({ field: formField }) => (
-                  <FormItem className="col-span-full md:col-start-2 md:col-span-1">
-                    <FormLabel>
-                      <p className="inline text-dark">{field.label}</p>
-                      {field.required && (
-                        <span className="text-destructive ml-1">*</span>
-                      )}
-                    </FormLabel>
-                    <FormControl>
-                      {field.type === "textArea" ? (
-                        <textarea
-                          className="flex w-full rounded-md border border-black bg-transparent px-3 py-2 text-body shadow-sm placeholder:text-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
-                          placeholder={field.placeholder}
-                          {...formField}
-                        />
-                      ) : (
-                        <Input
-                          placeholder={field.placeholder}
-                          type={field.type}
-                          {...formField}
-                        />
-                      )}
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+        <form
+          className="basis-1/2 flex flex-col gap-6 w-full"
+          id={name}
+          onSubmit={handleSubmit}
+        >
+          {fields.map((field) => {
+            const inputId = `${name}-${field.id}`;
+            const inputProps = {
+              id: inputId,
+              name: field.id,
+              placeholder: field.placeholder,
+              required: field.required,
+              className: inputClasses,
+            };
+
+            return (
+              <div key={field.id} className="space-y-2">
+                <label
+                  className="text-sm font-medium leading-none text-dark"
+                  htmlFor={inputId}
+                >
+                  {field.label}
+                  {field.required && (
+                    <span className="text-destructive ml-1">*</span>
+                  )}
+                </label>
+                {field.type === "textArea" ? (
+                  <textarea
+                    {...inputProps}
+                    className={cn(inputClasses, "min-h-[100px] py-2")}
+                  />
+                ) : (
+                  <input
+                    {...inputProps}
+                    className={cn(inputClasses, "h-9 py-1")}
+                    type={field.type}
+                  />
                 )}
-              />
-            ))}
+              </div>
+            );
+          })}
 
-            <Button
-              arrow={false}
-              className="col-span-full md:col-start-2"
-              type="submit"
-              variant="default"
+          <Button
+            arrow={false}
+            disabled={status === "sending"}
+            type="submit"
+            variant="default"
+          >
+            {submitButtonLabel}
+          </Button>
+
+          {(status === "sent" || status === "error") && (
+            <p
+              className={cn(
+                "mt-4 text-sm",
+                status === "sent" ? "text-green-600" : "text-destructive",
+              )}
+              role="status"
             >
-              {submitButtonLabel}
-            </Button>
-
-            {(successMessage || errorMessage) && (
-              <p
-                className={`col-span-full md:col-start-2 mt-4 text-sm ${
-                  successMessage ? "text-green-600" : "text-destructive"
-                }`}
-              >
-                {successMessage || errorMessage}
-              </p>
-            )}
-          </form>
-        </ShadCNForm>
+              {messages[locale === "en" ? "en" : "sv"][status]}
+            </p>
+          )}
+        </form>
       </div>
     </section>
   );

@@ -16,11 +16,14 @@ export const prioritiseHref = (link: LinkProps) => {
   }
 
   // For internal links, ensure absolute paths
-  const pathParts = [page?.parentPage?.slug, page?.slug, anchor].filter(
-    Boolean,
-  );
+  const path = `/${[page?.parentPage?.slug, page?.slug].filter(Boolean).join("/")}`;
 
-  const href = pathParts.length > 0 ? `/${pathParts.join("/")}` : "/";
+  // Anchors from Hygraph look like "#id": append without a slash
+  const href = !anchor
+    ? path
+    : anchor.startsWith("#")
+      ? `${path}${anchor}`
+      : `${path === "/" ? "" : path}/${anchor}`;
 
   return {
     ...link,

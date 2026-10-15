@@ -64,19 +64,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@graphcms/rich-text-react-renderer": "^0.6.2",
     "@radix-ui/react-accordion": "^1.3.1",
-    "@radix-ui/react-label": "^2.1.17",
-    "@radix-ui/react-navigation-menu": "^1.4.1",
-    "@radix-ui/react-slot": "1.5.0",
     "@vincero/languages-config": "workspace:*",
     "@vincero/tailwind-config": "workspace:^",
     "class-variance-authority": "0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
-    "embla-carousel-wheel-gestures": "^8.1.0",
     "lucide-react": "1.57.0",
-    "react-hook-form": "^7.90.0",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
@@ -92,7 +86,6 @@
     "next-cloudinary": "^6.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.53.1",
     "tailwindcss": "^3.4.0",
     "next-intl": "^4.14.9"
   },
