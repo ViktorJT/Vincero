@@ -7,16 +7,14 @@ export interface Page {
   };
 }
 
-export interface StaticParams {
-  pages: Page[];
+export interface LocaleParams {
+  params: Promise<{ locale: string }>;
 }
 
 export interface PageProps {
-  params: Promise<{
-    path: string[];
-  }>;
+  params: Promise<{ locale: string; path: string[] }>;
 }
 
-export interface LayoutProps extends PageProps {
+export interface LayoutProps extends LocaleParams {
   children: ReactNode;
 }

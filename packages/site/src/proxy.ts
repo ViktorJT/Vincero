@@ -1,12 +1,7 @@
-import { NextResponse } from "next/server";
+import createMiddleware from "next-intl/middleware";
 
-import type { NextRequest } from "next/server";
+import { routing } from "@vincero/languages-config/routing";
 
-// The URL decides the language: Swedish (default) has no prefix, English
-// lives under /en. Redirect explicit /sv/... URLs to their unprefixed form.
-export function proxy(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  url.pathname = url.pathname.replace(/^\/sv(?=\/|$)/, "") || "/";
-
-  return NextResponse.redirect(url, 308);
-}
+// Maps unprefixed URLs to Swedish, redirects /sv/... to unprefixed and adds
+// hreflang alternate links for search engines
+export const proxy = createMiddleware(routing);

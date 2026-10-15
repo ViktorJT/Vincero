@@ -11,7 +11,6 @@
     "./routes/root-layout": "./src/routes/root-layout.tsx",
     "./routes/home": "./src/routes/home.tsx",
     "./routes/page": "./src/routes/page.tsx",
-    "./routes/layout": "./src/routes/layout.tsx",
     "./routes/contact": "./src/routes/contact.ts",
     "./routes/revalidate": "./src/routes/revalidate.ts"
   },
@@ -22,7 +21,8 @@
     "@vincero/data": "workspace:*",
     "@vincero/languages-config": "workspace:*",
     "@vincero/ui": "workspace:*",
-    "resend": "^6.33.0"
+    "resend": "^6.33.0",
+    "next-intl": "^4.14.9"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "16.4.1",

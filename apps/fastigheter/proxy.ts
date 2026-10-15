@@ -1,5 +1,6 @@
 export { proxy } from "@vincero/site/proxy";
 
 export const config = {
-  matcher: ["/sv", "/sv/:path*"],
+  // Everything except API routes, Next internals and files with an extension
+  matcher: "/((?!api|_next|_vercel|.*\\..*).*)",
 };

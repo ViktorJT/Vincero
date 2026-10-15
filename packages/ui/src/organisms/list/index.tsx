@@ -6,14 +6,14 @@ import { useState, type FC } from "react";
 import type { ListItem, ListProps } from "./index.types";
 import { Button } from "../../atoms/button";
 import { Title } from "../../molecules/title";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@vincero/languages-config/navigation";
+import { useLocale } from "next-intl";
 
 const ITEMS_PER_PAGE = 6;
 
 const ListItemCard: FC<ListItem> = ({ title, date, body, link }) => {
   const { href } = prioritiseHref(link);
-  const locale = usePathname().startsWith("/en") ? "en-GB" : "sv-SE";
+  const locale = useLocale() === "en" ? "en-GB" : "sv-SE";
 
   const formattedDate =
     date &&

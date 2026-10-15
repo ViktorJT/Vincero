@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 
 import { ComponentMapper } from "../components/ComponentMapper";
 
 import { fetchComponentsBySlug } from "../data/fetchComponentsBySlug";
 import { fetchSeoBySlug } from "../data/fetchSeoBySlug";
 import { fetchPaths } from "../data/fetchPaths";
-
-import { getLocaleAndSlugFromPath } from "../utils/getLocaleAndSlugFromPath";
 
 import type { PageProps } from "../types";
 
@@ -16,8 +15,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { path } = await params;
-
-  const { slug } = getLocaleAndSlugFromPath(path);
+  const slug = path.at(-1);
 
   if (!slug) {
     notFound();
@@ -53,21 +51,17 @@ export async function generateMetadata({
   };
 }
 
+// Called once per locale (from the layout's params); every page exists in
+// every locale
 export async function generateStaticParams() {
-  const paths = await fetchPaths();
-
-  if (!paths || !Array.isArray(paths)) {
-    console.warn("No paths found or invalid paths format");
-    return [];
-  }
-
-  return paths;
+  return fetchPaths();
 }
 
 export default async function Page({ params }: PageProps) {
-  const { path } = await params;
+  const { locale, path } = await params;
+  setRequestLocale(locale);
 
-  const { locale, slug } = getLocaleAndSlugFromPath(path);
+  const slug = path.at(-1);
 
   if (!slug) {
     notFound();
@@ -79,9 +73,5 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return (
-    <>
-      <ComponentMapper components={components} />
-    </>
-  );
+  return <ComponentMapper components={components} />;
 }
