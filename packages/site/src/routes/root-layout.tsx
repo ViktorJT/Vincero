@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { preconnect } from "react-dom";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
@@ -17,7 +18,6 @@ import { seoQuery } from "@vincero/data/queries/meta/seo";
 
 import { fetchData } from "../data/fetchData";
 
-import "next-cloudinary/dist/cld-video-player.css";
 import "../styles/globals.css";
 
 interface SEOData {
@@ -84,6 +84,15 @@ export async function RootLayout({
   }
 
   setRequestLocale(locale);
+
+  // Images come from Hygraph's asset CDN in the same region as the API
+  // (e.g. eu-west-2.cdn.hygraph.com -> eu-west-2.graphassets.com)
+  const region = new URL(
+    process.env.HYGRAPH_ENDPOINT ?? "https://eu-west-2",
+  ).hostname
+    .split(".")[0]
+    .replace(/^api-/, "");
+  preconnect(`https://${region}.graphassets.com`);
 
   const { navigation, footer } = await fetchLayout(locale);
 

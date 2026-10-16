@@ -1,11 +1,22 @@
 "use client";
 
-import { CldVideoPlayer, CldImage } from "next-cloudinary";
+import { CldImage } from "next-cloudinary";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { Props } from "./index.types";
 import { cn } from "../../lib/utils/cn";
 
-function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
+const Video = dynamic(() => import("./video"), { ssr: false });
+
+// `priority` marks above-the-fold media (e.g. the hero) so it loads first
+function Media({
+  id,
+  autoplay = "on-scroll",
+  fluid,
+  asset,
+  className,
+  priority = false,
+}: Props) {
   if (!asset) return null;
 
   const styles = cn(
@@ -34,6 +45,7 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
       alt={asset.alt || ""}
       className={styles}
       height={asset.height}
+      preload={priority}
       sizes="100vw"
       src={resizable ? `${asset.url}?maxw=${asset.width}` : asset.url}
       unoptimized={!resizable}
@@ -49,7 +61,7 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
       : fallbackImage;
   } else if (asset.optimised.resource_type === "video") {
     Component = (
-      <CldVideoPlayer
+      <Video
         {...asset.optimised}
         loop
         muted
@@ -67,6 +79,7 @@ function Media({ id, autoplay = "on-scroll", fluid, asset, className }: Props) {
         {...asset.optimised}
         alt={asset.alt ?? asset.optimised.metadata?.alt ?? ""}
         className={cn("image", styles)}
+        preload={priority}
         src={asset.optimised.public_id}
         unoptimized={isDev}
       />
