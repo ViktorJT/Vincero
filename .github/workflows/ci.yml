@@ -100,8 +100,8 @@ jobs:
             ${{ github.workspace }}/**/.turbo
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Build UI Package # Only this package needs building for typechecking
-        run: pnpm turbo run build --filter=@vincero/ui...
+      - name: Build workspace packages # languages-config compiles to dist
+        run: pnpm turbo run build --filter=@vincero/languages-config
 
       - name: Type Check
         run: pnpm typecheck

@@ -23,24 +23,12 @@ export function createNextConfig() {
       reactStrictMode: true,
       poweredByHeader: false,
 
+      // Workspace packages are consumed as TypeScript source
       transpilePackages: ["@vincero/ui", "@vincero/site"],
-      modularizeImports: {
-        "@vincero/ui": {
-          transform: "@vincero/ui/dist/{{member}}",
-          skipDefaultConversion: true,
-        },
-      },
 
       experimental: {
         workerThreads: false,
         cpus: 1,
-      },
-
-      turbopack: {
-        resolveAlias: {
-          // Ensure proper module resolution
-          "@vincero/ui": "@vincero/ui/dist",
-        },
       },
     }),
   );

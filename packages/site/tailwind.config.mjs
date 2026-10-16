@@ -8,6 +8,5 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx}",
     "../../packages/site/src/**/*.{js,ts,jsx,tsx}",
     "../../packages/ui/src/**/*.{js,jsx,ts,tsx}",
-    "../../packages/ui/dist/**/*.{js,jsx,ts,tsx}",
   ],
 };

@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "../../atoms/button";
 import { Media } from "../media";
 
