@@ -1,5 +1,3 @@
-"use client";
-
 import { Card } from "../../molecules//card";
 import { Title } from "../../molecules/title";
 

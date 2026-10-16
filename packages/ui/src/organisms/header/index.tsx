@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "../../lib/utils/cn";
 import { Media } from "../../organisms/media";
 import type { Props } from "./index.types.ts";

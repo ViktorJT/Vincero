@@ -3,64 +3,22 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./banner": {
-      "types": "./dist/banner/index.d.ts",
-      "import": "./dist/banner/index.js"
-    },
-    "./list": {
-      "types": "./dist/list/index.d.ts",
-      "import": "./dist/list/index.js"
-    },
-    "./imageCarousel": {
-      "types": "./dist/imageCarousel/index.d.ts",
-      "import": "./dist/imageCarousel/index.js"
-    },
-    "./form": {
-      "types": "./dist/form/index.d.ts",
-      "import": "./dist/form/index.js"
-    },
-    "./hashScroll": {
-      "types": "./dist/hashScroll/index.d.ts",
-      "import": "./dist/hashScroll/index.js"
-    },
-    "./footer": {
-      "types": "./dist/footer/index.d.ts",
-      "import": "./dist/footer/index.js"
-    },
-    "./header": {
-      "types": "./dist/header/index.d.ts",
-      "import": "./dist/header/index.js"
-    },
-    "./loading": {
-      "types": "./dist/loading/index.d.ts",
-      "import": "./dist/loading/index.js"
-    },
-    "./media": {
-      "types": "./dist/media/index.d.ts",
-      "import": "./dist/media/index.js"
-    },
-    "./navigation": {
-      "types": "./dist/navigation/index.d.ts",
-      "import": "./dist/navigation/index.js"
-    },
-    "./overview": {
-      "types": "./dist/overview/index.d.ts",
-      "import": "./dist/overview/index.js"
-    },
-    "./slider": {
-      "types": "./dist/slider/index.d.ts",
-      "import": "./dist/slider/index.js"
-    },
-    "./text": {
-      "types": "./dist/text/index.d.ts",
-      "import": "./dist/text/index.js"
-    }
+    "./banner": "./src/organisms/banner/index.tsx",
+    "./list": "./src/organisms/list/index.tsx",
+    "./imageCarousel": "./src/organisms/imageCarousel/index.tsx",
+    "./form": "./src/organisms/form/index.tsx",
+    "./hashScroll": "./src/organisms/hashScroll/index.tsx",
+    "./footer": "./src/organisms/footer/index.tsx",
+    "./header": "./src/organisms/header/index.tsx",
+    "./navigation": "./src/organisms/navigation/index.tsx",
+    "./overview": "./src/organisms/overview/index.tsx",
+    "./slider": "./src/organisms/slider/index.tsx",
+    "./media": "./src/organisms/media/index.tsx",
+    "./text": "./src/organisms/text/index.tsx"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch src/",
     "lint": "eslint . --max-warnings 0",
-    "clean": "rm -rf dist .turbo .cache node_modules",
+    "clean": "rm -rf .turbo node_modules",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -77,8 +35,6 @@
     "@graphcms/rich-text-types": "^0.5.1",
     "@vincero/eslint-config": "workspace:*",
     "@vincero/typescript-config": "workspace:*",
-    "esbuild-plugin-react18": "^0.2.5",
-    "tsup": "8.3.0",
     "next-intl": "^4.14.9"
   },
   "peerDependencies": {
@@ -93,8 +49,5 @@
     "tailwindcss": {
       "optional": false
     }
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
