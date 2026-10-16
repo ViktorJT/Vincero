@@ -38,6 +38,7 @@ function Header({
         <Media
           autoplay
           fluid
+          priority
           asset={asset}
           className={cn("transition-none media w-full h-full", objectPos)}
         />

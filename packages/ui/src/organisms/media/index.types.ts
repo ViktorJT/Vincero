@@ -6,4 +6,5 @@ export type Props = {
   asset: AssetProps;
   autoplay?: string | boolean;
   className?: string;
+  priority?: boolean;
 };
